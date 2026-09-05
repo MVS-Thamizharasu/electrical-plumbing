@@ -1,12 +1,20 @@
 [
   {
     "name": "1 Way Switch",
-    "sizes": ["6A", "16A", "20A", "25A"],
+    "sizes": [
+      "6A",
+      "16A",
+      "20A",
+      "25A"
+    ],
     "customSize": true
   },
   {
     "name": "2 Way Switch",
-    "sizes": ["6A", "16A"],
+    "sizes": [
+      "6A",
+      "16A"
+    ],
     "customSize": true
   },
   {
@@ -26,132 +34,265 @@
   },
   {
     "name": "Modular Plate",
-    "sizes": ["1M", "2M", "3M", "4M", "6M", "8M H", "8M SQ", "12M", "16M", "18M"],
+    "sizes": [
+      "1M",
+      "2M",
+      "3M",
+      "4M",
+      "6M",
+      "8M H",
+      "8M SQ",
+      "12M",
+      "16M",
+      "18M"
+    ],
     "customSize": true
   },
   {
     "name": "Modular Switch",
-    "sizes": ["6A", "16A", "20A"],
+    "sizes": [
+      "6A",
+      "16A",
+      "20A"
+    ],
     "customSize": true
   },
   {
     "name": "Modular Socket",
-    "sizes": ["6A", "16A"],
+    "sizes": [
+      "6A",
+      "16A"
+    ],
     "customSize": true
   },
   {
     "name": "PVC Conduit Pipe",
-    "sizes": ["20mm", "25mm"],
+    "sizes": [
+      "20mm",
+      "25mm"
+    ],
     "customSize": true
   },
   {
     "name": "Elbow",
-    "sizes": ["3/4\"", "1\""],
+    "sizes": [
+      "3/4\"",
+      "1\""
+    ],
     "customSize": true
   },
   {
     "name": "Bend",
-    "sizes": ["3/4\"", "1\""],
+    "sizes": [
+      "3/4\"",
+      "1\""
+    ],
     "customSize": true
   },
   {
     "name": "Tee",
-    "sizes": ["3/4\"", "1\""],
+    "sizes": [
+      "3/4\"",
+      "1\""
+    ],
     "customSize": true
   },
   {
     "name": "Coupling",
-    "sizes": ["3/4\"", "1\""],
+    "sizes": [
+      "3/4\"",
+      "1\""
+    ],
     "customSize": true
   },
   {
     "name": "Junction Box",
-    "sizes": ["1 Way", "2 Way", "3 Way", "4 Way", "Deep"],
+    "sizes": [
+      "1 Way",
+      "2 Way",
+      "3 Way",
+      "4 Way",
+      "Deep"
+    ],
     "customSize": true
   },
   {
     "name": "PVC Cement Solvent",
-    "sizes": ["50ml", "100ml", "250ml", "500ml"],
+    "sizes": [
+      "50ml",
+      "100ml",
+      "250ml",
+      "500ml"
+    ],
     "customSize": true
   },
   {
     "name": "Metal Concealed Box",
-    "sizes": ["1/2M", "3M", "4M", "6M", "8M H", "8M SQ", "12M", "16M", "18M"],
+    "sizes": [
+      "1/2M",
+      "3M",
+      "4M",
+      "6M",
+      "8M H",
+      "8M SQ",
+      "12M",
+      "16M",
+      "18M"
+    ],
     "customSize": true
   },
   {
     "name": "Casing Capping Channel",
-    "sizes": ["1/2\"", "3/4\"", "1\"", "1.5\""],
+    "sizes": [
+      "1/2\"",
+      "3/4\"",
+      "1\"",
+      "1.5\""
+    ],
     "customSize": true
   },
   {
     "name": "Building Wire FR",
-    "sizes": ["0.75 sqmm", "1.0 sqmm", "1.5 sqmm", "2.0 sqmm", "2.5 sqmm", "4.0 sqmm", "6.0 sqmm", "10 sqmm"],
+    "sizes": [
+      "0.75 sqmm",
+      "1.0 sqmm",
+      "1.5 sqmm",
+      "2.0 sqmm",
+      "2.5 sqmm",
+      "4.0 sqmm",
+      "6.0 sqmm",
+      "10 sqmm"
+    ],
     "customSize": true
   },
   {
     "name": "PVC Insulation Tape",
-    "sizes": ["Red", "Blue", "Green", "Yellow", "Black", "White"],
+    "sizes": [
+      "Red",
+      "Blue",
+      "Green",
+      "Yellow",
+      "Black",
+      "White"
+    ],
     "customSize": true
   },
   {
     "name": "Single Pole MCB",
-    "sizes": ["6A", "10A", "16A", "20A", "25A", "32A", "40A"],
+    "sizes": [
+      "6A",
+      "10A",
+      "16A",
+      "20A",
+      "25A",
+      "32A",
+      "40A"
+    ],
     "customSize": true
   },
   {
     "name": "Double Pole DP MCB",
-    "sizes": ["16A", "20A", "25A", "32A", "40A", "63A"],
+    "sizes": [
+      "16A",
+      "20A",
+      "25A",
+      "32A",
+      "40A",
+      "63A"
+    ],
     "customSize": true
   },
   {
     "name": "Triple Pole TP MCB",
-    "sizes": ["16A", "20A", "25A", "32A", "40A", "63A"],
+    "sizes": [
+      "16A",
+      "20A",
+      "25A",
+      "32A",
+      "40A",
+      "63A"
+    ],
     "customSize": true
   },
   {
     "name": "Four Pole FP MCB",
-    "sizes": ["16A", "20A", "25A", "32A", "40A", "63A"],
+    "sizes": [
+      "16A",
+      "20A",
+      "25A",
+      "32A",
+      "40A",
+      "63A"
+    ],
     "customSize": true
   },
   {
     "name": "RCCB 2 Pole",
-    "sizes": ["25A 30mA", "40A 30mA", "63A 30mA"],
+    "sizes": [
+      "25A 30mA",
+      "40A 30mA",
+      "63A 30mA"
+    ],
     "customSize": true
   },
   {
     "name": "RCCB 4 Pole",
-    "sizes": ["40A 30mA", "63A 30mA", "63A 100mA"],
+    "sizes": [
+      "40A 30mA",
+      "63A 30mA",
+      "63A 100mA"
+    ],
     "customSize": true
   },
   {
     "name": "DP Main Switch",
-    "sizes": ["32A", "40A", "63A"],
+    "sizes": [
+      "32A",
+      "40A",
+      "63A"
+    ],
     "customSize": true
   },
   {
     "name": "Isolator DP",
-    "sizes": ["40A", "63A"],
+    "sizes": [
+      "40A",
+      "63A"
+    ],
     "customSize": true
   },
   {
     "name": "Isolator FP",
-    "sizes": ["40A", "63A"],
+    "sizes": [
+      "40A",
+      "63A"
+    ],
     "customSize": true
   },
   {
     "name": "Indicator Lamp Module",
-    "sizes": ["Red", "Green", "Yellow", "Blue"],
+    "sizes": [
+      "Red",
+      "Green",
+      "Yellow",
+      "Blue"
+    ],
     "customSize": true
   },
   {
     "name": "Bell Push",
-    "sizes": ["Standard", "With Indicator"],
+    "sizes": [
+      "Standard",
+      "With Indicator"
+    ],
     "customSize": true
   },
   {
     "name": "Fan Regulator Rotary",
-    "sizes": ["1M", "2M"],
+    "sizes": [
+      "1M",
+      "2M"
+    ],
     "customSize": true
   },
   {
@@ -176,52 +317,104 @@
   },
   {
     "name": "LED Bulb",
-    "sizes": ["5W", "7W", "9W", "12W", "15W", "20W"],
+    "sizes": [
+      "5W",
+      "7W",
+      "9W",
+      "12W",
+      "15W",
+      "20W"
+    ],
     "customSize": true
   },
   {
     "name": "LED Tube Light",
-    "sizes": ["20W", "22W", "24W"],
+    "sizes": [
+      "20W",
+      "22W",
+      "24W"
+    ],
     "customSize": true
   },
   {
     "name": "LED Panel Light",
-    "sizes": ["3W", "6W", "12W", "15W", "18W", "24W"],
+    "sizes": [
+      "3W",
+      "6W",
+      "12W",
+      "15W",
+      "18W",
+      "24W"
+    ],
     "customSize": true
   },
   {
     "name": "LED Down Light",
-    "sizes": ["3W", "6W", "12W", "15W", "18W", "24W"],
+    "sizes": [
+      "3W",
+      "6W",
+      "12W",
+      "15W",
+      "18W",
+      "24W"
+    ],
     "customSize": true
   },
   {
     "name": "Spot Light",
-    "sizes": ["3W", "5W", "7W", "12W", "15W"],
+    "sizes": [
+      "3W",
+      "5W",
+      "7W",
+      "12W",
+      "15W"
+    ],
     "customSize": true
   },
   {
     "name": "COB Spotlight",
-    "sizes": ["3W", "5W", "7W", "12W", "15W"],
+    "sizes": [
+      "3W",
+      "5W",
+      "7W",
+      "12W",
+      "15W"
+    ],
     "customSize": true
   },
   {
     "name": "Ceiling Fan",
-    "sizes": ["600mm", "900mm", "1200mm"],
+    "sizes": [
+      "600mm",
+      "900mm",
+      "1200mm"
+    ],
     "customSize": true
   },
   {
     "name": "Fan Capacitor",
-    "sizes": ["2.25 MFD", "2.50 MFD", "3.15 MFD"],
+    "sizes": [
+      "2.25 MFD",
+      "2.50 MFD",
+      "3.15 MFD"
+    ],
     "customSize": true
   },
   {
     "name": "Plug Top",
-    "sizes": ["6A", "16A", "20A"],
+    "sizes": [
+      "6A",
+      "16A",
+      "20A"
+    ],
     "customSize": true
   },
   {
     "name": "Extension Box Multi Board",
-    "sizes": ["2m", "5m"],
+    "sizes": [
+      "2m",
+      "5m"
+    ],
     "customSize": true
   },
   {
@@ -231,37 +424,70 @@
   },
   {
     "name": "Cable Lugs Ring Type",
-    "sizes": ["2.5 sqmm", "4 sqmm", "6 sqmm", "10 sqmm", "16 sqmm"],
+    "sizes": [
+      "2.5 sqmm",
+      "4 sqmm",
+      "6 sqmm",
+      "10 sqmm",
+      "16 sqmm"
+    ],
     "customSize": true
   },
   {
     "name": "Cable Lugs Pin Type",
-    "sizes": ["1.5 sqmm", "2.5 sqmm", "4 sqmm"],
+    "sizes": [
+      "1.5 sqmm",
+      "2.5 sqmm",
+      "4 sqmm"
+    ],
     "customSize": true
   },
   {
     "name": "WAGO Quick Wire Connector",
-    "sizes": ["2 Way", "3 Way", "5 Way"],
+    "sizes": [
+      "2 Way",
+      "3 Way",
+      "5 Way"
+    ],
     "customSize": true
   },
   {
     "name": "Screws",
-    "sizes": ["3/4\"", "1\"", "1¼\"", "1½\"", "2\"", "2½\""],
+    "sizes": [
+      "3/4\"",
+      "1\"",
+      "1¼\"",
+      "1½\"",
+      "2\"",
+      "2½\""
+    ],
     "customSize": true
   },
   {
     "name": "Nylon Cable Tie",
-    "sizes": ["100mm", "150mm", "200mm", "300mm"],
+    "sizes": [
+      "100mm",
+      "150mm",
+      "200mm",
+      "300mm"
+    ],
     "customSize": true
   },
   {
     "name": "Wall Gitti Plugs",
-    "sizes": ["6mm", "8mm", "10mm"],
+    "sizes": [
+      "6mm",
+      "8mm",
+      "10mm"
+    ],
     "customSize": true
   },
   {
     "name": "Hacksaw Blade",
-    "sizes": ["Single", "Double"],
+    "sizes": [
+      "Single",
+      "Double"
+    ],
     "customSize": true
   },
   {
@@ -286,27 +512,37 @@
   },
   {
     "name": "7/16 Aluminium Wire",
-    "sizes": ["7/16"],
+    "sizes": [
+      "7/16"
+    ],
     "customSize": true
   },
   {
     "name": "1¼\" GI Pipe",
-    "sizes": ["1¼\""],
+    "sizes": [
+      "1¼\""
+    ],
     "customSize": true
   },
   {
     "name": "GI Pipe Coupler",
-    "sizes": ["1¼\""],
+    "sizes": [
+      "1¼\""
+    ],
     "customSize": true
   },
   {
     "name": "GI Pipe Union",
-    "sizes": ["1¼\""],
+    "sizes": [
+      "1¼\""
+    ],
     "customSize": true
   },
   {
     "name": "FTA PVC Coupler",
-    "sizes": ["1¼\""],
+    "sizes": [
+      "1¼\""
+    ],
     "customSize": true
   },
   {
@@ -316,22 +552,31 @@
   },
   {
     "name": "PVC Coated GI Wire",
-    "sizes": ["1/2 kg", "1 kg"],
+    "sizes": [
+      "1/2 kg",
+      "1 kg"
+    ],
     "customSize": true
   },
   {
     "name": "GI Pipe Clamp",
-    "sizes": ["1¼\""],
+    "sizes": [
+      "1¼\""
+    ],
     "customSize": true
   },
   {
     "name": "32A Kit-Kat Fuse",
-    "sizes": ["32A"],
+    "sizes": [
+      "32A"
+    ],
     "customSize": true
   },
   {
     "name": "63A Kit-Kat Porcelain Fuse",
-    "sizes": ["63A"],
+    "sizes": [
+      "63A"
+    ],
     "customSize": true
   },
   {
@@ -346,7 +591,10 @@
   },
   {
     "name": "4-Pole RCCB",
-    "sizes": ["40A", "63A"],
+    "sizes": [
+      "40A",
+      "63A"
+    ],
     "customSize": true
   },
   {
@@ -356,17 +604,26 @@
   },
   {
     "name": "4-Pole Isolator",
-    "sizes": ["2 Pole", "4 Pole"],
+    "sizes": [
+      "2 Pole",
+      "4 Pole"
+    ],
     "customSize": true
   },
   {
     "name": "4-Pole Isolator Box",
-    "sizes": ["2 Pole", "4 Pole"],
+    "sizes": [
+      "2 Pole",
+      "4 Pole"
+    ],
     "customSize": true
   },
   {
     "name": "EB Service Bend / Swan Neck GI",
-    "sizes": ["1½\"", "2\""],
+    "sizes": [
+      "1½\"",
+      "2\""
+    ],
     "customSize": true
   },
   {
@@ -376,12 +633,18 @@
   },
   {
     "name": "Aluminium Lugs",
-    "sizes": ["16 sqmm", "25 sqmm"],
+    "sizes": [
+      "16 sqmm",
+      "25 sqmm"
+    ],
     "customSize": true
   },
   {
     "name": "Service Cable",
-    "sizes": ["2 Core", "4 Core"],
+    "sizes": [
+      "2 Core",
+      "4 Core"
+    ],
     "customSize": true
   },
   {
@@ -391,27 +654,44 @@
   },
   {
     "name": "LED Strip Light",
-    "sizes": ["12V", "24V"],
+    "sizes": [
+      "12V",
+      "24V"
+    ],
     "customSize": true
   },
   {
     "name": "SMPS LED Driver",
-    "sizes": ["12V 5A", "12V 10A", "12V 20A", "12V 30A"],
+    "sizes": [
+      "12V 5A",
+      "12V 10A",
+      "12V 20A",
+      "12V 30A"
+    ],
     "customSize": true
   },
   {
     "name": "Aluminium Profile Channel",
-    "sizes": ["2 Meter", "3 Meter"],
+    "sizes": [
+      "2 Meter",
+      "3 Meter"
+    ],
     "customSize": true
   },
   {
     "name": "Milky White Diffuser Cover",
-    "sizes": ["2 Meter", "3 Meter"],
+    "sizes": [
+      "2 Meter",
+      "3 Meter"
+    ],
     "customSize": true
   },
   {
     "name": "CCT / RGB LED Controller with Remote",
-    "sizes": ["12V", "24V"],
+    "sizes": [
+      "12V",
+      "24V"
+    ],
     "customSize": true
   },
   {
@@ -441,52 +721,91 @@
   },
   {
     "name": "Profile Light End Caps & Mounting Metal Clips",
-    "sizes": ["Surface", "Concealed", "Corner"],
+    "sizes": [
+      "Surface",
+      "Concealed",
+      "Corner"
+    ],
     "customSize": true
   },
   {
     "name": "Flood Light",
-    "sizes": ["30W", "50W", "100W", "150W"],
+    "sizes": [
+      "30W",
+      "50W",
+      "100W",
+      "150W"
+    ],
     "customSize": true
   },
   {
     "name": "Exhaust Fan Heavy Duty",
-    "sizes": ["6 inch", "8 inch", "10 inch", "12 inch"],
+    "sizes": [
+      "6 inch",
+      "8 inch",
+      "10 inch",
+      "12 inch"
+    ],
     "customSize": true
   },
   {
     "name": "Motor Starter DOL",
-    "sizes": ["20A", "25A", "32A"],
+    "sizes": [
+      "20A",
+      "25A",
+      "32A"
+    ],
     "customSize": true
   },
   {
     "name": "Motor Run Capacitor",
-    "sizes": ["36 MFD", "50 MFD", "72 MFD"],
+    "sizes": [
+      "36 MFD",
+      "50 MFD",
+      "72 MFD"
+    ],
     "customSize": true
   },
   {
     "name": "Motor Start Capacitor",
-    "sizes": ["100/120 MFD", "120/150 MFD", "200/250 MFD"],
+    "sizes": [
+      "100/120 MFD",
+      "120/150 MFD",
+      "200/250 MFD"
+    ],
     "customSize": true
   },
   {
     "name": "Solar DC Cable",
-    "sizes": ["4 sqmm", "6 sqmm"],
+    "sizes": [
+      "4 sqmm",
+      "6 sqmm"
+    ],
     "customSize": true
   },
   {
     "name": "MC4 Solar Connectors",
-    "sizes": ["Pair"],
+    "sizes": [
+      "Pair"
+    ],
     "customSize": true
   },
   {
     "name": "DC MCB",
-    "sizes": ["16A", "32A"],
+    "sizes": [
+      "16A",
+      "32A"
+    ],
     "customSize": true
   },
   {
     "name": "DC Isolator",
-    "sizes": ["16A", "32A", "40A", "63A"],
+    "sizes": [
+      "16A",
+      "32A",
+      "40A",
+      "63A"
+    ],
     "customSize": true
   },
   {
@@ -506,32 +825,54 @@
   },
   {
     "name": "Smart Wi-Fi Modular Touch Switch",
-    "sizes": ["1M", "2M", "3M", "4M"],
+    "sizes": [
+      "1M",
+      "2M",
+      "3M",
+      "4M"
+    ],
     "customSize": true
   },
   {
     "name": "Chemical Earth Electrode Rod",
-    "sizes": ["8ft", "10ft"],
+    "sizes": [
+      "8ft",
+      "10ft"
+    ],
     "customSize": true
   },
   {
     "name": "Copper Bonded Earth Rod",
-    "sizes": ["14mm × 10ft", "17mm × 10ft"],
+    "sizes": [
+      "14mm × 10ft",
+      "17mm × 10ft"
+    ],
     "customSize": true
   },
   {
     "name": "Earth Wire",
-    "sizes": ["8 SWG", "10 SWG"],
+    "sizes": [
+      "8 SWG",
+      "10 SWG"
+    ],
     "customSize": true
   },
   {
     "name": "Copper Earth Plate",
-    "sizes": ["1 × 1ft", "2 × 2ft"],
+    "sizes": [
+      "1 × 1ft",
+      "2 × 2ft"
+    ],
     "customSize": true
   },
   {
     "name": "Lightning Arrester Rod",
-    "sizes": ["Copper 3-Spike", "Copper 5-Spike", "Brass 3-Spike", "Brass 5-Spike"],
+    "sizes": [
+      "Copper 3-Spike",
+      "Copper 5-Spike",
+      "Brass 3-Spike",
+      "Brass 5-Spike"
+    ],
     "customSize": true
   },
   {
@@ -541,7 +882,9 @@
   },
   {
     "name": "Copper Earth Flat Tape",
-    "sizes": ["25mm × 3mm"],
+    "sizes": [
+      "25mm × 3mm"
+    ],
     "customSize": true
   },
   {
@@ -556,7 +899,9 @@
   },
   {
     "name": "Single Phase Digital Sub-Meter",
-    "sizes": ["5-30A"],
+    "sizes": [
+      "5-30A"
+    ],
     "customSize": true
   },
   {
@@ -566,7 +911,10 @@
   },
   {
     "name": "Current Transformer CT Coil",
-    "sizes": ["100/5A", "200/5A"],
+    "sizes": [
+      "100/5A",
+      "200/5A"
+    ],
     "customSize": true
   },
   {
@@ -576,12 +924,19 @@
   },
   {
     "name": "EB Danger Notice Board / Caution Plate",
-    "sizes": ["240V", "415V"],
+    "sizes": [
+      "240V",
+      "415V"
+    ],
     "customSize": true
   },
   {
     "name": "Electrical Insulated Rubber Hand Gloves",
-    "sizes": ["1.1kV", "11kV", "33kV"],
+    "sizes": [
+      "1.1kV",
+      "11kV",
+      "33kV"
+    ],
     "customSize": true
   },
   {
@@ -606,22 +961,47 @@
   },
   {
     "name": "Copper Submersible Winding Wire",
-    "sizes": ["18 SWG", "20 SWG", "22 SWG", "24 SWG", "26 SWG", "28 SWG", "30 SWG", "32 SWG"],
+    "sizes": [
+      "18 SWG",
+      "20 SWG",
+      "22 SWG",
+      "24 SWG",
+      "26 SWG",
+      "28 SWG",
+      "30 SWG",
+      "32 SWG"
+    ],
     "customSize": true
   },
   {
     "name": "Insulating Varnish",
-    "sizes": ["Clear", "Golden Red"],
+    "sizes": [
+      "Clear",
+      "Golden Red"
+    ],
     "customSize": true
   },
   {
     "name": "Nomex / Polyester Insulation Paper",
-    "sizes": ["5 mil", "7 mil", "10 mil"],
+    "sizes": [
+      "5 mil",
+      "7 mil",
+      "10 mil"
+    ],
     "customSize": true
   },
   {
     "name": "Fiberglass Varnish Sleeves",
-    "sizes": ["1mm", "2mm", "3mm", "4mm", "5mm", "6mm", "8mm", "10mm"],
+    "sizes": [
+      "1mm",
+      "2mm",
+      "3mm",
+      "4mm",
+      "5mm",
+      "6mm",
+      "8mm",
+      "10mm"
+    ],
     "customSize": true
   },
   {
@@ -631,7 +1011,11 @@
   },
   {
     "name": "Soldering Iron",
-    "sizes": ["25W", "60W", "100W"],
+    "sizes": [
+      "25W",
+      "60W",
+      "100W"
+    ],
     "customSize": true
   },
   {
@@ -676,17 +1060,26 @@
   },
   {
     "name": "Ceiling Speaker Volume Controller",
-    "sizes": ["3W", "6W", "10W"],
+    "sizes": [
+      "3W",
+      "6W",
+      "10W"
+    ],
     "customSize": true
   },
   {
     "name": "RCA Audio-Video Socket",
-    "sizes": ["Red / White / Yellow"],
+    "sizes": [
+      "Red / White / Yellow"
+    ],
     "customSize": false
   },
   {
     "name": "HDMI / VGA Modular Socket Port",
-    "sizes": ["HDMI", "VGA"],
+    "sizes": [
+      "HDMI",
+      "VGA"
+    ],
     "customSize": false
   },
   {
@@ -706,67 +1099,129 @@
   },
   {
     "name": "Voltage Protector / Under-Over Voltage Relay",
-    "sizes": ["Single Phase", "Three Phase"],
+    "sizes": [
+      "Single Phase",
+      "Three Phase"
+    ],
     "customSize": true
   },
   {
     "name": "Contactor",
-    "sizes": ["9A", "12A", "18A", "25A", "32A", "40A", "50A", "65A"],
+    "sizes": [
+      "9A",
+      "12A",
+      "18A",
+      "25A",
+      "32A",
+      "40A",
+      "50A",
+      "65A"
+    ],
     "customSize": true
   },
   {
     "name": "Thermal Overload Relay",
-    "sizes": ["1-1.6A", "1.6-2.5A", "2.5-4A", "4-6A", "5.5-8A", "7-10A", "9-13A"],
+    "sizes": [
+      "1-1.6A",
+      "1.6-2.5A",
+      "2.5-4A",
+      "4-6A",
+      "5.5-8A",
+      "7-10A",
+      "9-13A"
+    ],
     "customSize": true
   },
   {
     "name": "Distribution Board SPN",
-    "sizes": ["4 Way", "6 Way", "8 Way", "12 Way", "16 Way"],
+    "sizes": [
+      "4 Way",
+      "6 Way",
+      "8 Way",
+      "12 Way",
+      "16 Way"
+    ],
     "customSize": true
   },
   {
     "name": "Distribution Board TPN",
-    "sizes": ["4 Way", "6 Way", "8 Way"],
+    "sizes": [
+      "4 Way",
+      "6 Way",
+      "8 Way"
+    ],
     "customSize": true
   },
   {
     "name": "MCB Enclosure",
-    "sizes": ["2 Pole", "4 Pole"],
+    "sizes": [
+      "2 Pole",
+      "4 Pole"
+    ],
     "customSize": true
   },
   {
     "name": "Porcelain Cutout Fuse",
-    "sizes": ["16A", "32A", "63A", "100A", "200A"],
+    "sizes": [
+      "16A",
+      "32A",
+      "63A",
+      "100A",
+      "200A"
+    ],
     "customSize": true
   },
   {
     "name": "Hacksaw Blade",
-    "sizes": ["Single", "Double"],
+    "sizes": [
+      "Single",
+      "Double"
+    ],
     "customSize": true
   },
   {
     "name": "Wall Chasing Diamond Blade",
-    "sizes": ["4 inch"],
+    "sizes": [
+      "4 inch"
+    ],
     "customSize": true
   },
   {
     "name": "Heat Shrink Sleeve Tubes",
-    "sizes": ["2mm", "4mm", "6mm", "8mm", "10mm"],
+    "sizes": [
+      "2mm",
+      "4mm",
+      "6mm",
+      "8mm",
+      "10mm"
+    ],
     "customSize": true
   },
   {
     "name": "Silicone Sealant",
-    "sizes": ["White", "Clear", "Black"],
+    "sizes": [
+      "White",
+      "Clear",
+      "Black"
+    ],
     "customSize": true
   },
   {
     "name": "M-Seal / Epoxy Putty",
-    "sizes": ["Small", "Large"],
+    "sizes": [
+      "Small",
+      "Large"
+    ],
     "customSize": true
   },
   {
     "name": "Self-Drilling Metal Screws",
-    "sizes": ["3/4\"", "1\"", "1½\"", "2\""],
+    "sizes": [
+      "3/4\"",
+      "1\"",
+      "1½\"",
+      "2\""
+    ],
     "customSize": true
   },
   {
@@ -776,52 +1231,1763 @@
   },
   {
     "name": "Combination Plier",
-    "sizes": ["6 inch", "8 inch"],
+    "sizes": [
+      "6 inch",
+      "8 inch"
+    ],
     "customSize": true
   },
   {
     "name": "Nose Plier",
-    "sizes": ["6 inch", "8 inch"],
+    "sizes": [
+      "6 inch",
+      "8 inch"
+    ],
     "customSize": true
   },
   {
     "name": "Side Cutter",
-    "sizes": ["6 inch", "8 inch"],
+    "sizes": [
+      "6 inch",
+      "8 inch"
+    ],
     "customSize": true
   },
   {
     "name": "Cable Cutter",
-    "sizes": ["Small", "Medium", "Large"],
+    "sizes": [
+      "Small",
+      "Medium",
+      "Large"
+    ],
     "customSize": true
   },
   {
     "name": "Screwdriver Flat",
-    "sizes": ["4 inch", "6 inch", "8 inch"],
+    "sizes": [
+      "4 inch",
+      "6 inch",
+      "8 inch"
+    ],
     "customSize": true
   },
   {
     "name": "Screwdriver Phillips",
-    "sizes": ["4 inch", "6 inch", "8 inch"],
+    "sizes": [
+      "4 inch",
+      "6 inch",
+      "8 inch"
+    ],
     "customSize": true
   },
   {
     "name": "Insulated Screwdriver",
-    "sizes": ["4 inch", "6 inch", "8 inch"],
+    "sizes": [
+      "4 inch",
+      "6 inch",
+      "8 inch"
+    ],
     "customSize": true
   },
   {
     "name": "Measuring Tape",
-    "sizes": ["3m", "5m", "7.5m"],
+    "sizes": [
+      "3m",
+      "5m",
+      "7.5m"
+    ],
     "customSize": true
   },
   {
     "name": "Electric Drill",
-    "sizes": ["10mm", "13mm"],
+    "sizes": [
+      "10mm",
+      "13mm"
+    ],
     "customSize": true
   },
   {
     "name": "Drill Bit Set",
-    "sizes": ["Masonry", "Metal", "Wood"],
+    "sizes": [
+      "Masonry",
+      "Metal",
+      "Wood"
+    ],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit 32mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit 40mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Heavy Duty",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Inspection Box",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Saddle Clamp",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Spacer Bar",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Adaptor",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit End Cap",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Bush",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Lock Nut",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Female Adaptor",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Male Adaptor",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Flexible Connector",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Junction Box 2 Way",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Junction Box 3 Way",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Junction Box 4 Way",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Deep Box",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Inspection Tee",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Inspection Elbow",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Conduit Inspection Coupler",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit 20mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit 25mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit 32mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit Inspection Box",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit Lock Nut",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit Male Bush",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit Female Bush",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit Saddle Clamp",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit Inspection Tee",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit Inspection Elbow",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit Flexible Connector",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "GI Conduit End Cap",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible PVC Conduit 16mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible PVC Conduit 20mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible PVC Conduit 25mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible PVC Conduit 32mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible Conduit Connector",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible Conduit Gland",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Conduit Draw Wire",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Conduit Pulling Cord",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Capping 1 inch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Capping 1.5 inch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Capping 2 inch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Capping 2.5 inch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Capping 3 inch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing End Cap",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Corner",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Stop End",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Tee Joint",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Coupler Joint",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Internal Corner",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing External Corner",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Divider",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Casing Clip",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Trunking 25x16mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Trunking 40x25mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Trunking 50x50mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Trunking 75x50mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Trunking 100x50mm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Trunking Corner",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Trunking Tee",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Trunking Coupler",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Trunking End Cap",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Metal Concealed Box 2M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Metal Concealed Box 4M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Metal Concealed Box 6M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Metal Concealed Box 8M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Metal Concealed Box 12M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Metal Concealed Box 16M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Metal Concealed Box 18M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Modular Box 2M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Modular Box 3M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Modular Box 4M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Modular Box 6M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Modular Box 8M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Modular Box 12M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Modular Box 16M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Modular Box 18M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surface Box 1M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surface Box 2M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surface Box 3M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surface Box 4M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surface Box 6M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surface Box 8M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surface Box 12M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surface Box 16M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surface Box 18M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Metal Surface Box",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Junction Box PVC",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Junction Box Metal",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Ceiling Fan Box PVC",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Ceiling Fan Box Metal",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fan Hook Heavy Duty",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fan Hook Regular",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Universal Ceiling Box",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Round Ceiling Box",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Deep Ceiling Box",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "6A One Way Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "6A Two Way Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A One Way Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A Two Way Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "20A One Way Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "20A Two Way Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "25A One Way Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "32A One Way Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "6A Bell Push",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A Bell Push",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "6A Indicator Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A Indicator Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A DP Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "20A DP Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "25A DP Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "32A DP Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "40A DP Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "63A DP Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "20A Geyser Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "25A Geyser Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "32A Geyser Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "20A AC Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "25A AC Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "32A AC Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "45A AC Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "20A Cooker Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "32A Cooker Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "45A Cooker Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "6A Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "20A Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "6A 2 Pin Plug",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "6A 3 Pin Plug",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A 3 Pin Plug",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "20A 3 Pin Plug",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A Universal Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "20A Universal Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "USB A Charger Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "USB C Charger Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "USB A+C Charger Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RJ11 Telephone Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RJ45 Cat6 Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "TV Coaxial Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Satellite TV Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Audio Speaker Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Buzzer Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Key Tag Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Hotel Master Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Hotel Bell Push",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Hotel DND Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Hotel Make Up Room Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Curtain Switch",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fan Regulator Electronic",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fan Regulator Step Type",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fan Regulator 5 Step",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fan Regulator 2 Step",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Intermediate Switch Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Selector Switch 2 Position",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Selector Switch 3 Position",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Push Button Green Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Push Button Red Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Emergency Stop Mushroom",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "1M Modular Plate",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "2M Modular Plate",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "3M Modular Plate",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "4M Modular Plate",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "6M Modular Plate",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "8M Modular Plate",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "12M Modular Plate",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16M Modular Plate",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "18M Modular Plate",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "1M Blank Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "2M Blank Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A Modular Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "20A Modular Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "6A Modular Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A USB Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A Bell Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A TV Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "16A LAN Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular Fan Regulator",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular Dimmer 1M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular Dimmer 2M",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular Indicator Red",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular Indicator Green",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular Indicator Blue",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular Indicator Yellow",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular Buzzer",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular Shaver Socket",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular HDMI Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular VGA Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Modular USB C Module",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 6A SP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 10A SP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 16A SP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 20A SP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 25A SP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 32A SP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 40A SP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 63A SP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 6A DP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 10A DP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 16A DP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 20A DP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 25A DP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 32A DP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 40A DP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 63A DP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 16A TP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 20A TP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 25A TP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 32A TP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 40A TP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 63A TP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 16A FP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 20A FP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 25A FP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 32A FP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 40A FP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "MCB 63A FP",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RCCB 25A 30mA",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RCCB 40A 30mA",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RCCB 63A 30mA",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RCCB 40A 100mA",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RCCB 63A 100mA",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RCBO 16A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RCBO 20A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RCBO 32A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RCBO 40A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RCBO 63A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surge Protection Device Type 2",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Surge Protection Device Type 3",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "SPD Backup Fuse",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fuse Holder DIN Rail",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fuse Carrier Kit-Kat",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fuse Base Porcelain",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fuse Wire",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "HRC Fuse Link 16A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "HRC Fuse Link 32A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "HRC Fuse Link 63A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Overload Relay 1-1.6A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Overload Relay 1.6-2.5A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Overload Relay 2.5-4A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Overload Relay 4-6A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Overload Relay 5.5-8A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Overload Relay 7-10A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Overload Relay 9-13A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Overload Relay 12-18A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Contactor 9A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Contactor 12A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Contactor 18A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Contactor 25A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Contactor 32A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Contactor 40A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Contactor 50A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Contactor 65A",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Auxiliary Contact Block",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Phase Failure Relay",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Phase Sequence Relay",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Voltage Monitoring Relay",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Current Monitoring Relay",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Digital Timer Relay",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Star Delta Timer",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Thermal Relay",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Control Relay 8 Pin",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Control Relay 11 Pin",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Relay Base 8 Pin",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Relay Base 11 Pin",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Phase Preventer",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Three Phase Preventer",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Automatic Voltage Protector",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Digital Voltage Protector",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Core Wire 0.75 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Core Wire 1.0 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Core Wire 1.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Core Wire 2.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Core Wire 4 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Core Wire 6 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Core Wire 10 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Core Wire 16 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Core Wire 25 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible Wire 0.75 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible Wire 1.0 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible Wire 1.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible Wire 2.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible Wire 4 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible Wire 6 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Flexible Wire 10 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "FR Wire 1.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "FR Wire 2.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "FR Wire 4 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "FR Wire 6 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "FR Wire 10 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "3 Core Cable 1.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "3 Core Cable 2.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "3 Core Cable 4 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "3 Core Cable 6 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "4 Core Cable 1.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "4 Core Cable 2.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "4 Core Cable 4 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "4 Core Cable 6 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "4 Core Cable 10 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "4 Core Cable 16 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "2 Core Flat Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "3 Core Flat Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "4 Core Flat Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Submersible Cable 1.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Submersible Cable 2.5 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Submersible Cable 4 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Submersible Cable 6 sqmm",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Aluminium Service Cable 2 Core",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Aluminium Service Cable 4 Core",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Copper Flexible Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Speaker Wire Red Black",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Telephone Wire 2 Pair",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Telephone Wire 4 Pair",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "CCTV Coaxial Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "CAT6 Patch Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "CAT6 UTP Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "CAT6 FTP Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "RG6 Coaxial Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Dish LNB Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "FTTH Drop Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Fiber Patch Cord",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Earth Cable Green",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Earth Cable Yellow Green",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Stay Wire",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Batten 10W",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Batten 20W",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Batten 22W",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Batten 24W",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Bulb 5W",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Bulb 7W",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Bulb 9W",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Bulb 12W",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Bulb 15W",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Bulb 20W",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Bulb 30W",
+    "sizes": [],
     "customSize": true
   }
 ]
