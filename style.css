@@ -1,11 +1,16 @@
 @media print {
 
-    .pdf-hidden {
+    .pdf-hide {
         display: none !important;
     }
 
-    .pdf-selected {
-        display: table-row !important;
+    .home-buttons,
+    .buttons {
+        display: none !important;
     }
 
+    @page {
+        size: A4 portrait;
+        margin: 10mm;
+    }
 }
