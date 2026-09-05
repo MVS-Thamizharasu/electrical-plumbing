@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Electrical & Plumbing Order Form</title>
+<title>MVS Electrical</title>
 
 <style>
 * {
@@ -14,267 +14,151 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #eeeeee;
-    color: #111;
+    background: #f2f2f2;
 }
 
-.app {
+.container {
     max-width: 900px;
     margin: auto;
-    padding: 15px;
+    padding: 12px;
 }
 
-.top-title {
+h1 {
     text-align: center;
-    margin-bottom: 15px;
+    margin: 10px 0 18px;
 }
-
-.top-title h1 {
-    margin: 5px 0;
-    font-size: 24px;
-}
-
-.top-title p {
-    margin: 0;
-    color: #666;
-}
-
-/* HOME BUTTONS */
 
 .home-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 25px;
+    gap: 12px;
 }
 
 .home-buttons button {
-    border: none;
+    padding: 30px 10px;
+    border: 0;
     border-radius: 15px;
-    padding: 35px 10px;
+    background: white;
     font-size: 20px;
     font-weight: bold;
-    cursor: pointer;
-    background: white;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 3px 10px #bbb;
 }
 
-.electrical-btn {
-    border-top: 6px solid #e91e63 !important;
-}
-
-.plumbing-btn {
-    border-top: 6px solid #159447 !important;
-}
-
-/* FORM */
-
-.form-page {
+.form {
     display: none;
 }
 
-.form-header {
+.header {
     background: white;
-    border: 2px solid #e91e63;
+    border: 2px solid #111;
     padding: 10px;
-    margin-bottom: 10px;
-}
-
-.plumbing-page .form-header {
-    border-color: #159447;
-}
-
-.order-title {
-    text-align: center;
-    font-weight: bold;
-    font-size: 20px;
     margin-bottom: 8px;
+}
+
+.title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px 15px;
+    gap: 8px;
 }
 
-.detail-row {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.detail-row label {
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.detail-row input {
+.details input {
     width: 100%;
-    border: none;
+    border: 0;
     border-bottom: 1px solid #555;
-    outline: none;
-    padding: 5px;
-    font-size: 15px;
+    padding: 7px;
+    font-size: 16px;
 }
 
-/* TABLE */
-
-.table-container {
+.table-box {
     background: white;
     overflow-x: auto;
 }
 
-.order-table {
+table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
 }
 
-.order-table th,
-.order-table td {
-    border: 1px solid #e91e63;
-    padding: 5px;
+th, td {
+    border: 1px solid #222;
+    padding: 6px;
 }
 
-.plumbing-page .order-table th,
-.plumbing-page .order-table td {
-    border-color: #159447;
-}
-
-.order-table th {
+th {
     text-align: center;
-    font-size: 13px;
-    height: 32px;
-}
-
-.order-table td {
-    font-size: 13px;
-    height: 32px;
 }
 
 .sno {
-    width: 45px;
+    width: 50px;
     text-align: center;
-}
-
-.particulars {
-    width: auto;
 }
 
 .qty {
-    width: 75px;
+    width: 80px;
     text-align: center;
 }
 
-.qty-input {
-    width: 100%;
-    height: 28px;
-    border: none;
-    outline: none;
+.qty input {
+    width: 65px;
+    padding: 6px;
     text-align: center;
-    font-size: 16px;
-    background: transparent;
+    font-size: 17px;
+    border: 1px solid #aaa;
 }
 
-.qty-input:focus {
-    background: #fff3cd;
-}
-
-/* TOTAL */
-
-.total-row td {
-    font-weight: bold;
-    height: 45px;
-}
-
-.total-label {
+.total {
     text-align: right;
+    font-weight: bold;
 }
 
-.total-value {
-    text-align: center;
-    font-size: 18px;
-}
-
-/* BUTTONS */
-
-.action-buttons {
+.buttons {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 8px;
+    margin-top: 12px;
 }
 
-.action-buttons button {
-    border: none;
-    border-radius: 9px;
+.buttons button {
     padding: 13px;
+    border: 0;
+    border-radius: 8px;
+    color: white;
     font-size: 15px;
     font-weight: bold;
-    cursor: pointer;
 }
 
-.back-btn {
+.back {
     background: #555;
-    color: white;
 }
 
-.save-btn {
+.save {
     background: #1976d2;
-    color: white;
 }
 
-.pdf-btn {
+.pdf {
     background: #d32f2f;
-    color: white;
 }
-
-/* MOBILE */
 
 @media(max-width:600px) {
 
-    .app {
-        padding: 7px;
-    }
-
-    .top-title h1 {
-        font-size: 20px;
-    }
-
-    .home-buttons {
-        gap: 10px;
-    }
-
-    .home-buttons button {
-        padding: 25px 5px;
-        font-size: 17px;
-    }
-
     .details {
         grid-template-columns: 1fr;
-        gap: 5px;
     }
 
-    .order-table th,
-    .order-table td {
-        font-size: 12px;
-        padding: 4px;
-    }
-
-    .sno {
-        width: 38px;
-    }
-
-    .qty {
-        width: 65px;
-    }
-
-    .action-buttons {
+    .buttons {
         grid-template-columns: 1fr;
     }
+
 }
 
-/* PRINT / PDF */
+/* PDF */
 
 @media print {
 
@@ -282,36 +166,17 @@ body {
         background: white;
     }
 
-    .app {
-        max-width: none;
-        padding: 0;
-    }
-
-    .top-title,
     .home-buttons,
-    .action-buttons {
+    .buttons {
         display: none !important;
     }
 
-    .form-page {
+    .form {
         display: block !important;
     }
 
-    .form-page:not(.active) {
+    .pdf-hide {
         display: none !important;
-    }
-
-    .form-header {
-        border: 2px solid #111;
-    }
-
-    .order-table th,
-    .order-table td {
-        border: 1px solid #111 !important;
-    }
-
-    .qty-input {
-        color: #111;
     }
 
     @page {
@@ -324,634 +189,196 @@ body {
 
 <body>
 
-<div class="app">
+<div class="container">
 
-    <!-- HOME -->
+<h1>⚡ MVS Electrical</h1>
 
-    <div id="homePage">
+<div id="home">
 
-        <div class="top-title">
-            <h1>Electrical & Plumbing</h1>
-            <p>Order Form</p>
-        </div>
+    <div class="home-buttons">
 
-        <div class="home-buttons">
+        <button onclick="openForm('electrical')">
+            ⚡<br><br>
+            Electrical
+        </button>
 
-            <button class="electrical-btn"
-                    onclick="openForm('electrical')">
-                ⚡<br><br>
-                Electrical
-            </button>
-
-            <button class="plumbing-btn"
-                    onclick="openForm('plumbing')">
-                🚰<br><br>
-                Plumbing
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- ELECTRICAL -->
-
-    <div id="electricalPage" class="form-page">
-
-        <div class="form-header">
-
-            <div class="order-title">
-                ORDER FORM
-            </div>
-
-            <div class="details">
-
-                <div class="detail-row">
-                    <label>Sri:</label>
-                    <input id="electricalSri" type="text">
-                </div>
-
-                <div class="detail-row">
-                    <label>Ph:</label>
-                    <input id="electricalPh" type="text">
-                </div>
-
-                <div class="detail-row">
-                    <label>Cell:</label>
-                    <input id="electricalCell" type="text">
-                </div>
-
-                <div class="detail-row">
-                    <label>Date:</label>
-                    <input id="electricalDate" type="date">
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="table-container">
-
-            <table class="order-table">
-
-                <thead>
-                    <tr>
-                        <th class="sno">S.No.</th>
-                        <th class="particulars">PARTICULARS</th>
-                        <th class="qty">Qty.</th>
-                    </tr>
-                </thead>
-
-                <tbody id="electricalItems"></tbody>
-
-                <tr class="total-row">
-                    <td colspan="2" class="total-label">
-                        TOTAL
-                    </td>
-                    <td class="total-value"
-                        id="electricalTotal">
-                        0
-                    </td>
-                </tr>
-
-            </table>
-
-        </div>
-
-
-        <div class="action-buttons">
-
-            <button class="back-btn"
-                    onclick="goHome()">
-                ← Back
-            </button>
-
-            <button class="save-btn"
-                    onclick="saveForm('electrical')">
-                💾 Save
-            </button>
-
-            <button class="pdf-btn"
-                    onclick="generatePDF('electrical')">
-                📄 Generate PDF
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- PLUMBING -->
-
-    <div id="plumbingPage" class="form-page plumbing-page">
-
-        <div class="form-header">
-
-            <div class="order-title">
-                ORDER FORM
-            </div>
-
-            <div class="details">
-
-                <div class="detail-row">
-                    <label>Sri:</label>
-                    <input id="plumbingSri" type="text">
-                </div>
-
-                <div class="detail-row">
-                    <label>Ph:</label>
-                    <input id="plumbingPh" type="text">
-                </div>
-
-                <div class="detail-row">
-                    <label>Cell:</label>
-                    <input id="plumbingCell" type="text">
-                </div>
-
-                <div class="detail-row">
-                    <label>Date:</label>
-                    <input id="plumbingDate" type="date">
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="table-container">
-
-            <table class="order-table">
-
-                <thead>
-                    <tr>
-                        <th class="sno">S.No.</th>
-                        <th class="particulars">PARTICULARS</th>
-                        <th class="qty">Qty.</th>
-                    </tr>
-                </thead>
-
-                <tbody id="plumbingItems"></tbody>
-
-                <tr class="total-row">
-                    <td colspan="2" class="total-label">
-                        TOTAL
-                    </td>
-                    <td class="total-value"
-                        id="plumbingTotal">
-                        0
-                    </td>
-                </tr>
-
-            </table>
-
-        </div>
-
-
-        <div class="action-buttons">
-
-            <button class="back-btn"
-                    onclick="goHome()">
-                ← Back
-            </button>
-
-            <button class="save-btn"
-                    onclick="saveForm('plumbing')">
-                💾 Save
-            </button>
-
-            <button class="pdf-btn"
-                    onclick="generatePDF('plumbing')">
-                📄 Generate PDF
-            </button>
-
-        </div>
+        <button onclick="openForm('plumbing')">
+            🚰<br><br>
+            Plumbing
+        </button>
 
     </div>
 
 </div>
 
 
-<script>
-
-/* =========================================
-   ELECTRICAL ITEMS
-========================================= */
-
-const electricalItems = [
-
-"1 Way Switch",
-"2 Way Switch",
-"2 Pin Socket",
-"5 AMPS 2 in 1 Socket",
-"Indicator",
-"15 AMPS 2 in 1 Socket",
-"20 AMPS one way Switch",
-"Dimmer. Medium / Switch Type",
-"TV Socket",
-"Bell Push",
-"Blank Plates 1m / 2m",
-"DP Main",
-"Foot Light 4 Model",
-"Night Lamp / Step Marker",
-"1M. Plate",
-"2M. Plate",
-"3M. Plate",
-"4M. Plate",
-"6M. Plate",
-"8M. Plate (H), (Sq)",
-"12M. Plate",
-"16M. Plate",
-"18M. Plate",
-"Isolator",
-"MCB's - 6A / 10A / 16A / 20A / 32A",
-"1/18(1.0) MultiStand Wire - Red Blue Green Yellow Black",
-"3/20(2.0) MultiStand Wire - Red Blue Green Yellow Black",
-"3/20(2.5) Multi Stand Wire - Red Blue Green Yellow Black",
-"7/20(4.0) Multi Stand Wire - Red Blue Green Yellow Black",
-"Angle Holder",
-"Batton Holder",
-"Jumbo Ceiling Rose",
-"Spl. Round Sheets",
-"Plain Round Sheets",
-"Tape Rolls",
-"Tubelight Sets",
-"Ceiling Fans",
-"Wiring Spring Box",
-"Bell",
-"Service Wire",
-"Stay Wire",
-"Ties Packet",
-"PVC Grip Pakets",
-"Dish Wire",
-"Telephone Wire",
-"Screws - 3/4\" / 1\" / 1¼\" / 1½\" / 2\" / 2½\"",
-"Motor Starter - 20A / 25A / 32A"
-
-];
-
-
-/* =========================================
-   PLUMBING ITEMS
-========================================= */
-
-const plumbingItems = [
-
-'3/4" .MM PVC Pipes',
-'1" .MM PVC Pipes',
-'3/4" Deep / Junction Box - 1 / 2 / 3 / 4',
-'1" Deep / Junction Box - 1 / 2 / 3 / 4',
-'3/4" Bends',
-'1" Bends',
-'Fan Hooks',
-'Tape Rolls',
-'Solvent',
-'2" Nails (H)',
-'HackSaw Blade Single / Double',
-'Wall Cutting Blades',
-'MCB Box',
-'1 / 2M. Metal Box',
-'3M. Metal Box',
-'4M. Metal Box',
-'6M. Metal Box',
-'8M. Metal Box (H), (SQ)',
-'12M. Metal Box',
-'16M. Metal Box',
-'18M. Metal Box',
-'3/4" PVC Saddles / J.Box Dummy',
-'1" PVC Saddles / J.Box Dummy'
-
-];
-
-
-/* =========================================
-   CREATE TABLE
-========================================= */
-
-function createItems(list, containerId, category) {
-
-    const container =
-        document.getElementById(containerId);
-
-    container.innerHTML = "";
+<!-- ELECTRICAL -->
 
-    list.forEach((item, index) => {
+<div id="electricalForm" class="form">
 
-        const row =
-            document.createElement("tr");
+    <div class="header">
 
-        row.innerHTML = `
-            <td class="sno">${index + 1}.</td>
+        <div class="title">
+            MVS ELECTRICAL<br>
+            ORDER FORM
+        </div>
 
-            <td class="particulars">
-                ${item}
-            </td>
+        <div class="details">
 
-            <td class="qty">
-                <input
-                    type="number"
-                    min="0"
-                    class="qty-input"
-                    data-category="${category}"
-                    data-index="${index}"
-                    inputmode="numeric"
-                    oninput="calculateTotal('${category}')"
-                >
-            </td>
-        `;
+            <input id="electricalName"
+                   placeholder="Sri / Customer Name">
 
-        container.appendChild(row);
+            <input id="electricalPh"
+                   placeholder="Ph">
 
-    });
+            <input id="electricalCell"
+                   placeholder="Cell">
 
-}
+            <input id="electricalDate"
+                   type="date">
 
+        </div>
 
-/* =========================================
-   OPEN FORM
-========================================= */
+    </div>
 
-function openForm(type) {
+    <div class="table-box">
 
-    document.getElementById("homePage")
-        .style.display = "none";
+        <table>
 
-    document.getElementById("electricalPage")
-        .classList.remove("active");
+            <thead>
 
-    document.getElementById("plumbingPage")
-        .classList.remove("active");
+                <tr>
+                    <th class="sno">S.No</th>
+                    <th>PARTICULARS</th>
+                    <th class="qty">Qty</th>
+                </tr>
 
-    if (type === "electrical") {
+            </thead>
 
-        document.getElementById("electricalPage")
-            .style.display = "block";
+            <tbody id="electricalItems"></tbody>
 
-        document.getElementById("electricalPage")
-            .classList.add("active");
+            <tr>
+                <td colspan="2"
+                    class="total">
+                    TOTAL
+                </td>
 
-        setToday("electricalDate");
+                <td id="electricalTotal">
+                    0
+                </td>
+            </tr>
 
-    }
+        </table>
 
-    if (type === "plumbing") {
+    </div>
 
-        document.getElementById("plumbingPage")
-            .style.display = "block";
+    <div class="buttons">
 
-        document.getElementById("plumbingPage")
-            .classList.add("active");
+        <button class="back"
+                onclick="goHome()">
+            ← Back
+        </button>
 
-        setToday("plumbingDate");
+        <button class="save"
+                onclick="saveOrder('electrical')">
+            💾 Save
+        </button>
 
-    }
+        <button class="pdf"
+                onclick="downloadPDF('electrical')">
+            📄 Download PDF
+        </button>
 
-}
+    </div>
 
+</div>
 
-/* =========================================
-   BACK
-========================================= */
 
-function goHome() {
+<!-- PLUMBING -->
 
-    document.getElementById("electricalPage")
-        .style.display = "none";
+<div id="plumbingForm" class="form">
 
-    document.getElementById("plumbingPage")
-        .style.display = "none";
+    <div class="header">
 
-    document.getElementById("homePage")
-        .style.display = "block";
+        <div class="title">
+            MVS ELECTRICAL<br>
+            PLUMBING ORDER FORM
+        </div>
 
-}
+        <div class="details">
 
+            <input id="plumbingName"
+                   placeholder="Sri / Customer Name">
 
-/* =========================================
-   TODAY DATE
-========================================= */
+            <input id="plumbingPh"
+                   placeholder="Ph">
 
-function setToday(id) {
+            <input id="plumbingCell"
+                   placeholder="Cell">
 
-    const input =
-        document.getElementById(id);
+            <input id="plumbingDate"
+                   type="date">
 
-    if (!input.value) {
+        </div>
 
-        const today =
-            new Date()
-            .toISOString()
-            .split("T")[0];
+    </div>
 
-        input.value = today;
+    <div class="table-box">
 
-    }
+        <table>
 
-}
+            <thead>
 
+                <tr>
+                    <th class="sno">S.No</th>
+                    <th>PARTICULARS</th>
+                    <th class="qty">Qty</th>
+                </tr>
 
-/* =========================================
-   TOTAL QTY
-========================================= */
+            </thead>
 
-function calculateTotal(category) {
+            <tbody id="plumbingItems"></tbody>
 
-    const inputs =
-        document.querySelectorAll(
-            `.qty-input[data-category="${category}"]`
-        );
+            <tr>
+                <td colspan="2"
+                    class="total">
+                    TOTAL
+                </td>
 
-    let total = 0;
+                <td id="plumbingTotal">
+                    0
+                </td>
+            </tr>
 
-    inputs.forEach(input => {
+        </table>
 
-        total += Number(input.value) || 0;
+    </div>
 
-    });
+    <div class="buttons">
 
+        <button class="back"
+                onclick="goHome()">
+            ← Back
+        </button>
 
-    document.getElementById(
-        category + "Total"
-    ).innerText = total;
+        <button class="save"
+                onclick="saveOrder('plumbing')">
+            💾 Save
+        </button>
 
-}
+        <button class="pdf"
+                onclick="downloadPDF('plumbing')">
+            📄 Download PDF
+        </button>
 
+    </div>
 
-/* =========================================
-   SAVE
-========================================= */
+</div>
 
-function saveForm(category) {
+</div>
 
-    const inputs =
-        document.querySelectorAll(
-            `.qty-input[data-category="${category}"]`
-        );
 
-    const data = [];
-
-    inputs.forEach((input, index) => {
-
-        if (input.value !== "") {
-
-            data.push({
-
-                sno: index + 1,
-
-                item:
-                    category === "electrical"
-                    ? electricalItems[index]
-                    : plumbingItems[index],
-
-                qty: input.value
-
-            });
-
-        }
-
-    });
-
-
-    const formData = {
-
-        category: category,
-
-        sri:
-            document.getElementById(
-                category + "Sri"
-            ).value,
-
-        ph:
-            document.getElementById(
-                category + "Ph"
-            ).value,
-
-        cell:
-            document.getElementById(
-                category + "Cell"
-            ).value,
-
-        date:
-            document.getElementById(
-                category + "Date"
-            ).value,
-
-        items: data,
-
-        total:
-            document.getElementById(
-                category + "Total"
-            ).innerText
-
-    };
-
-
-    localStorage.setItem(
-        "last_" + category,
-        JSON.stringify(formData)
-    );
-
-
-    alert(
-        category.toUpperCase() +
-        " form saved successfully ✅"
-    );
-
-}
-
-
-/* =========================================
-   LOAD SAVED FORM
-========================================= */
-
-function loadForm(category) {
-
-    const saved =
-        localStorage.getItem(
-            "last_" + category
-        );
-
-    if (!saved) return;
-
-    const data =
-        JSON.parse(saved);
-
-
-    document.getElementById(
-        category + "Sri"
-    ).value = data.sri || "";
-
-    document.getElementById(
-        category + "Ph"
-    ).value = data.ph || "";
-
-    document.getElementById(
-        category + "Cell"
-    ).value = data.cell || "";
-
-    document.getElementById(
-        category + "Date"
-    ).value = data.date || "";
-
-
-    data.items.forEach(item => {
-
-        const input =
-            document.querySelector(
-                `.qty-input[data-category="${category}"][data-index="${item.sno - 1}"]`
-            );
-
-        if (input) {
-
-            input.value = item.qty;
-
-        }
-
-    });
-
-
-    calculateTotal(category);
-
-}
-
-
-/* =========================================
-   PDF
-========================================= */
-
-function generatePDF(category) {
-
-    saveForm(category);
-
-    setTimeout(() => {
-
-        window.print();
-
-    }, 200);
-
-}
-
-
-/* =========================================
-   START
-========================================= */
-
-createItems(
-    electricalItems,
-    "electricalItems",
-    "electrical"
-);
-
-createItems(
-    plumbingItems,
-    "plumbingItems",
-    "plumbing"
-);
-
-loadForm("electrical");
-loadForm("plumbing");
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
