@@ -888,11 +888,6 @@ function getCustomerDetails(type) {
                 type + "Ph"
             ),
 
-        cell:
-            getValue(
-                type + "Cell"
-            ),
-
         date:
             getValue(
                 type + "Date"
@@ -1678,15 +1673,6 @@ function shareWhatsApp(type) {
 
 
     message +=
-        "Cell: " +
-        (
-            customer.cell ||
-            "-"
-        ) +
-        "\n";
-
-
-    message +=
         "Date: " +
         (
             customer.date ||
@@ -1734,11 +1720,25 @@ function shareWhatsApp(type) {
     );
 
 
-    const url =
-        "https://wa.me/?text=" +
-        encodeURIComponent(
-            message
-        );
+    const cleanPhone =
+    (customer.ph || "").replace(/\D/g, "");
+
+if (!cleanPhone) {
+    alert("Phone number enter செய்யவும்.");
+    return;
+}
+
+let targetPhone = cleanPhone;
+
+if (cleanPhone.length === 10) {
+    targetPhone = "91" + cleanPhone;
+}
+
+const url =
+    "https://wa.me/" +
+    targetPhone +
+    "?text=" +
+    encodeURIComponent(message);
 
 
     window.open(
@@ -1817,4 +1817,106 @@ function escapeHTML(value) {
             "&#039;"
         );
 
+}
+
+function filterItems(type) {
+
+    const searchInput =
+        document.getElementById(type + "Search");
+
+    const selectedCheckbox =
+        document.getElementById(type + "SelectedOnly");
+
+    const tbody =
+        document.getElementById(type + "Items");
+
+    if (!tbody) return;
+
+    const search =
+        (searchInput?.value || "")
+            .toLowerCase()
+            .trim();
+
+    const selectedOnly =
+        selectedCheckbox?.checked || false;
+
+    const rows =
+        tbody.querySelectorAll(".item-row");
+
+    rows.forEach(function(row) {
+
+        const text =
+            row.textContent.toLowerCase();
+
+        const inputs =
+            row.querySelectorAll(".qty-input");
+
+        let hasQty = false;
+
+        inputs.forEach(function(input) {
+
+            if (Number(input.value) > 0) {
+                hasQty = true;
+            }
+
+        });
+
+        const matchesSearch =
+            !search ||
+            text.includes(search);
+
+        const matchesSelected =
+            !selectedOnly ||
+            hasQty;
+
+        row.style.display =
+            matchesSearch && matchesSelected
+                ? ""
+                : "none";
+
+    });
+
+}
+
+function resetSection(type) {
+
+    const tbody =
+        document.getElementById(type + "Items");
+
+    if (!tbody) return;
+
+    const inputs =
+        tbody.querySelectorAll(".qty-input");
+
+    inputs.forEach(function(input) {
+        input.value = "";
+    });
+
+    const search =
+        document.getElementById(type + "Search");
+
+    if (search) {
+        search.value = "";
+    }
+
+    const selected =
+        document.getElementById(type + "SelectedOnly");
+
+    if (selected) {
+        selected.checked = false;
+    }
+
+    tbody
+        .querySelectorAll(".item-row")
+        .forEach(function(row) {
+
+            row.style.display = "";
+
+            row.classList.remove(
+                "selected-row"
+            );
+
+        });
+
+    calculateTotal(type);
 }
