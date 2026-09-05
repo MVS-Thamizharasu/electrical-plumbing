@@ -1,444 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MVS Electrical</title>
+    <title>MVS Electrical</title>
 
-<style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background: #eeeeee;
-    font-family: Arial, sans-serif;
-    color: #111;
-}
-
-.app {
-    width: 100%;
-    max-width: 900px;
-    margin: auto;
-    padding: 15px;
-}
-
-/* =========================
-   TOP TITLE
-========================= */
-
-.top-title {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.top-title h1 {
-    margin: 0;
-    font-size: 28px;
-}
-
-.top-title p {
-    margin: 5px 0;
-    color: #555;
-}
-
-/* =========================
-   HOME BUTTONS
-========================= */
-
-.home-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 30px;
-}
-
-.home-buttons button {
-    min-height: 180px;
-    border: none;
-    border-radius: 15px;
-    font-size: 25px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.electrical-btn {
-    background: #fff3cd;
-    border: 3px solid #f0ad00 !important;
-}
-
-.plumbing-btn {
-    background: #dff3ff;
-    border: 3px solid #2196f3 !important;
-}
-
-/* =========================
-   FORM
-========================= */
-
-.form-page {
-    display: none;
-    background: white;
-    padding: 15px;
-}
-
-.form-page.active {
-    display: block;
-}
-
-/* =========================
-   FORM HEADER
-========================= */
-
-.form-header {
-    border: 2px solid #111;
-    margin-bottom: 8px;
-}
-
-.order-title {
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px;
-}
-
-.details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-}
-
-.detail-row {
-    display: flex;
-    align-items: center;
-    padding: 7px 10px;
-}
-
-.detail-row label {
-    min-width: 55px;
-    font-size: 14px;
-}
-
-.detail-row input {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #555;
-    outline: none;
-    font-size: 14px;
-    padding: 4px;
-}
-
-/* =========================
-   TABLE
-========================= */
-
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.order-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.order-table th,
-.order-table td {
-    border: 1px solid #222;
-    padding: 5px;
-}
-
-.order-table th {
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.order-table td {
-    font-size: 13px;
-}
-
-.sno {
-    width: 55px;
-    text-align: center;
-}
-
-.particulars {
-    width: auto;
-    text-align: left;
-}
-
-.qty {
-    width: 80px;
-    text-align: center;
-}
-
-.qty-input {
-    width: 100%;
-    height: 30px;
-    border: 1px solid #aaa;
-    outline: none;
-    text-align: center;
-    font-size: 16px;
-}
-
-.qty-input:focus {
-    background: #fff8dc;
-}
-
-/* =========================
-   TOTAL
-========================= */
-
-.total-row td {
-    height: 42px;
-    font-weight: bold;
-}
-
-.total-label {
-    text-align: right;
-}
-
-.total-value {
-    text-align: center;
-    font-size: 17px;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-.action-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.action-buttons button {
-    border: none;
-    border-radius: 8px;
-    padding: 13px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.back-btn {
-    background: #555;
-    color: white;
-}
-
-.save-btn {
-    background: #1976d2;
-    color: white;
-}
-
-.pdf-btn {
-    background: #d32f2f;
-    color: white;
-}
-
-/* =========================
-   PDF HIDE
-========================= */
-
-.pdf-hide {
-    display: none !important;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px) {
-
-    .app {
-        padding: 7px;
-    }
-
-    .top-title h1 {
-        font-size: 22px;
-    }
-
-    .home-buttons {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .home-buttons button {
-        min-height: 130px;
-        font-size: 20px;
-    }
-
-    .form-page {
-        padding: 5px;
-    }
-
-    .order-title {
-        font-size: 17px;
-    }
-
-    .details {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .detail-row {
-        padding: 5px;
-    }
-
-    .detail-row label {
-        min-width: 40px;
-        font-size: 12px;
-    }
-
-    .detail-row input {
-        font-size: 12px;
-    }
-
-    .order-table th,
-    .order-table td {
-        font-size: 12px;
-        padding: 4px;
-    }
-
-    .sno {
-        width: 40px;
-    }
-
-    .qty {
-        width: 65px;
-    }
-
-    .qty-input {
-        height: 28px;
-        font-size: 15px;
-    }
-
-    .action-buttons {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* =========================
-   PRINT / PDF
-========================= */
-
-@media print {
-
-    body {
-        background: white !important;
-    }
-
-    .app {
-        width: 100%;
-        max-width: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .top-title,
-    .home-buttons,
-    .action-buttons {
-        display: none !important;
-    }
-
-    .form-page {
-        display: none !important;
-        padding: 0;
-        margin: 0;
-    }
-
-    /*
-       JavaScript only shows the section
-       that contains Qty.
-    */
-
-    .form-page.active {
-        display: block !important;
-    }
-
-    .pdf-hide {
-        display: none !important;
-    }
-
-    .form-header {
-        border: 2px solid #111 !important;
-    }
-
-    .order-table {
-        width: 100%;
-    }
-
-    .order-table th,
-    .order-table td {
-        border: 1px solid #111 !important;
-    }
-
-    .qty-input {
-        border: none !important;
-        background: transparent !important;
-        color: #111 !important;
-        text-align: center;
-    }
-
-    @page {
-        size: A4 portrait;
-        margin: 10mm;
-    }
-}
-
-</style>
-
+    <link rel="stylesheet" href="./style.css">
 </head>
-
 
 <body>
 
 <div class="app">
 
-    <!-- =========================
-         HOME PAGE
-    ========================== -->
-
+    <!-- HOME -->
     <div id="homePage">
 
         <div class="top-title">
-
             <h1>⚡ MVS Electrical</h1>
-
             <p>Electrical & Plumbing Order Form</p>
-
         </div>
-
 
         <div class="home-buttons">
 
             <button
                 class="electrical-btn"
                 onclick="openForm('electrical')">
-
                 ⚡
                 <br><br>
                 Electrical
-
             </button>
-
 
             <button
                 class="plumbing-btn"
                 onclick="openForm('plumbing')">
-
                 🚰
                 <br><br>
                 Plumbing
-
             </button>
 
         </div>
@@ -447,12 +45,10 @@ body {
 
 
     <!-- =========================
-         ELECTRICAL FORM
+         ELECTRICAL
     ========================== -->
 
-    <div
-        id="electricalForm"
-        class="form-page">
+    <div id="electricalForm" class="form-page">
 
         <div class="form-header">
 
@@ -461,55 +57,39 @@ body {
                 ORDER FORM
             </div>
 
-
             <div class="details">
 
                 <div class="detail-row">
-
                     <label>Sri:</label>
-
                     <input
                         id="electricalSri"
                         type="text"
                         autocomplete="off">
-
                 </div>
 
-
                 <div class="detail-row">
-
                     <label>Ph:</label>
-
                     <input
                         id="electricalPh"
                         type="text"
                         inputmode="tel"
                         autocomplete="off">
-
                 </div>
 
-
                 <div class="detail-row">
-
                     <label>Cell:</label>
-
                     <input
                         id="electricalCell"
                         type="text"
                         inputmode="tel"
                         autocomplete="off">
-
                 </div>
 
-
                 <div class="detail-row">
-
                     <label>Date:</label>
-
                     <input
                         id="electricalDate"
                         type="date">
-
                 </div>
 
             </div>
@@ -522,55 +102,33 @@ body {
             <table class="order-table">
 
                 <thead>
-
                     <tr>
-
-                        <th class="sno">
-                            S.No.
-                        </th>
-
-                        <th class="particulars">
-                            PARTICULARS
-                        </th>
-
-                        <th class="qty">
-                            Qty.
-                        </th>
-
+                        <th class="sno">S.No.</th>
+                        <th class="particulars">PARTICULARS</th>
+                        <th class="qty">Qty.</th>
                     </tr>
-
                 </thead>
 
-
                 <tbody id="electricalItems">
-
-                    <!-- JSON items will load here -->
-
+                    <!-- electrical.json items -->
                 </tbody>
 
-
                 <tfoot>
-
                     <tr class="total-row">
 
                         <td
                             colspan="2"
                             class="total-label">
-
                             TOTAL
-
                         </td>
 
                         <td
                             class="total-value"
                             id="electricalTotal">
-
                             0
-
                         </td>
 
                     </tr>
-
                 </tfoot>
 
             </table>
@@ -583,27 +141,19 @@ body {
             <button
                 class="back-btn"
                 onclick="goHome()">
-
                 ← Back
-
             </button>
-
 
             <button
                 class="save-btn"
                 onclick="saveOrder()">
-
                 💾 Save
-
             </button>
-
 
             <button
                 class="pdf-btn"
                 onclick="downloadPDF()">
-
                 📄 Generate PDF
-
             </button>
 
         </div>
@@ -612,71 +162,51 @@ body {
 
 
     <!-- =========================
-         PLUMBING FORM
+         PLUMBING
     ========================== -->
 
-    <div
-        id="plumbingForm"
-        class="form-page">
+    <div id="plumbingForm" class="form-page">
 
         <div class="form-header">
 
             <div class="order-title">
-
                 MVS ELECTRICAL<br>
                 PLUMBING ORDER FORM
-
             </div>
-
 
             <div class="details">
 
                 <div class="detail-row">
-
                     <label>Sri:</label>
-
                     <input
                         id="plumbingSri"
                         type="text"
                         autocomplete="off">
-
                 </div>
 
-
                 <div class="detail-row">
-
                     <label>Ph:</label>
-
                     <input
                         id="plumbingPh"
                         type="text"
                         inputmode="tel"
                         autocomplete="off">
-
                 </div>
 
-
                 <div class="detail-row">
-
                     <label>Cell:</label>
-
                     <input
                         id="plumbingCell"
                         type="text"
                         inputmode="tel"
                         autocomplete="off">
-
                 </div>
 
-
                 <div class="detail-row">
-
                     <label>Date:</label>
-
                     <input
                         id="plumbingDate"
                         type="date">
-
                 </div>
 
             </div>
@@ -689,55 +219,33 @@ body {
             <table class="order-table">
 
                 <thead>
-
                     <tr>
-
-                        <th class="sno">
-                            S.No.
-                        </th>
-
-                        <th class="particulars">
-                            PARTICULARS
-                        </th>
-
-                        <th class="qty">
-                            Qty.
-                        </th>
-
+                        <th class="sno">S.No.</th>
+                        <th class="particulars">PARTICULARS</th>
+                        <th class="qty">Qty.</th>
                     </tr>
-
                 </thead>
 
-
                 <tbody id="plumbingItems">
-
-                    <!-- JSON items will load here -->
-
+                    <!-- plumbing.json items -->
                 </tbody>
 
-
                 <tfoot>
-
                     <tr class="total-row">
 
                         <td
                             colspan="2"
                             class="total-label">
-
                             TOTAL
-
                         </td>
 
                         <td
                             class="total-value"
                             id="plumbingTotal">
-
                             0
-
                         </td>
 
                     </tr>
-
                 </tfoot>
 
             </table>
@@ -750,27 +258,19 @@ body {
             <button
                 class="back-btn"
                 onclick="goHome()">
-
                 ← Back
-
             </button>
-
 
             <button
                 class="save-btn"
                 onclick="saveOrder()">
-
                 💾 Save
-
             </button>
-
 
             <button
                 class="pdf-btn"
                 onclick="downloadPDF()">
-
                 📄 Generate PDF
-
             </button>
 
         </div>
@@ -780,13 +280,7 @@ body {
 </div>
 
 
-<!-- =========================
-     JAVASCRIPT
-========================= -->
-
 <script src="./script.js"></script>
 
-
 </body>
-
 </html>
