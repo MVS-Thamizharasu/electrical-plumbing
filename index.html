@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,97 +8,170 @@
 <title>MVS Electrical</title>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
+    padding: 0;
+    background: #eeeeee;
     font-family: Arial, sans-serif;
-    background: #f2f2f2;
+    color: #111;
 }
 
-.container {
+.app {
+    width: 100%;
     max-width: 900px;
     margin: auto;
-    padding: 12px;
+    padding: 15px;
 }
 
-h1 {
+/* =========================
+   TOP TITLE
+========================= */
+
+.top-title {
     text-align: center;
-    margin: 10px 0 18px;
+    margin-bottom: 20px;
 }
+
+.top-title h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.top-title p {
+    margin: 5px 0;
+    color: #555;
+}
+
+/* =========================
+   HOME BUTTONS
+========================= */
 
 .home-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 20px;
+    margin-top: 30px;
 }
 
 .home-buttons button {
-    padding: 30px 10px;
-    border: 0;
+    min-height: 180px;
+    border: none;
     border-radius: 15px;
-    background: white;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
-    box-shadow: 0 3px 10px #bbb;
+    cursor: pointer;
 }
 
-.form {
+.electrical-btn {
+    background: #fff3cd;
+    border: 3px solid #f0ad00 !important;
+}
+
+.plumbing-btn {
+    background: #dff3ff;
+    border: 3px solid #2196f3 !important;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-page {
     display: none;
+    background: white;
+    padding: 15px;
 }
 
-.header {
-    background: white;
+.form-page.active {
+    display: block;
+}
+
+/* =========================
+   FORM HEADER
+========================= */
+
+.form-header {
     border: 2px solid #111;
-    padding: 10px;
     margin-bottom: 8px;
 }
 
-.title {
+.order-title {
     text-align: center;
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 10px;
+    padding: 10px;
 }
 
 .details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 0;
 }
 
-.details input {
+.detail-row {
+    display: flex;
+    align-items: center;
+    padding: 7px 10px;
+}
+
+.detail-row label {
+    min-width: 55px;
+    font-size: 14px;
+}
+
+.detail-row input {
     width: 100%;
-    border: 0;
+    border: none;
     border-bottom: 1px solid #555;
-    padding: 7px;
-    font-size: 16px;
+    outline: none;
+    font-size: 14px;
+    padding: 4px;
 }
 
-.table-box {
-    background: white;
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+    width: 100%;
     overflow-x: auto;
 }
 
-table {
+.order-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
-th, td {
+.order-table th,
+.order-table td {
     border: 1px solid #222;
-    padding: 6px;
+    padding: 5px;
 }
 
-th {
+.order-table th {
     text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.order-table td {
+    font-size: 13px;
 }
 
 .sno {
-    width: 50px;
+    width: 55px;
     text-align: center;
+}
+
+.particulars {
+    width: auto;
+    text-align: left;
 }
 
 .qty {
@@ -105,73 +179,188 @@ th {
     text-align: center;
 }
 
-.qty input {
-    width: 65px;
-    padding: 6px;
+.qty-input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #aaa;
+    outline: none;
+    text-align: center;
+    font-size: 16px;
+}
+
+.qty-input:focus {
+    background: #fff8dc;
+}
+
+/* =========================
+   TOTAL
+========================= */
+
+.total-row td {
+    height: 42px;
+    font-weight: bold;
+}
+
+.total-label {
+    text-align: right;
+}
+
+.total-value {
     text-align: center;
     font-size: 17px;
-    border: 1px solid #aaa;
 }
 
-.total {
-    text-align: right;
-    font-weight: bold;
-}
+/* =========================
+   BUTTONS
+========================= */
 
-.buttons {
+.action-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
-    margin-top: 12px;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-.buttons button {
-    padding: 13px;
-    border: 0;
+.action-buttons button {
+    border: none;
     border-radius: 8px;
-    color: white;
+    padding: 13px;
     font-size: 15px;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.back {
+.back-btn {
     background: #555;
+    color: white;
 }
 
-.save {
+.save-btn {
     background: #1976d2;
+    color: white;
 }
 
-.pdf {
+.pdf-btn {
     background: #d32f2f;
+    color: white;
 }
+
+/* =========================
+   PDF HIDE
+========================= */
+
+.pdf-hide {
+    display: none !important;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px) {
 
+    .app {
+        padding: 7px;
+    }
+
+    .top-title h1 {
+        font-size: 22px;
+    }
+
+    .home-buttons {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .home-buttons button {
+        min-height: 130px;
+        font-size: 20px;
+    }
+
+    .form-page {
+        padding: 5px;
+    }
+
+    .order-title {
+        font-size: 17px;
+    }
+
     .details {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 
-    .buttons {
-        grid-template-columns: 1fr;
+    .detail-row {
+        padding: 5px;
     }
 
+    .detail-row label {
+        min-width: 40px;
+        font-size: 12px;
+    }
+
+    .detail-row input {
+        font-size: 12px;
+    }
+
+    .order-table th,
+    .order-table td {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    .sno {
+        width: 40px;
+    }
+
+    .qty {
+        width: 65px;
+    }
+
+    .qty-input {
+        height: 28px;
+        font-size: 15px;
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
 }
 
-/* PDF */
+/* =========================
+   PRINT / PDF
+========================= */
 
 @media print {
 
     body {
-        background: white;
+        background: white !important;
     }
 
+    .app {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .top-title,
     .home-buttons,
-    .buttons {
+    .action-buttons {
         display: none !important;
     }
 
-    .form {
+    .form-page {
+        display: none !important;
+        padding: 0;
+        margin: 0;
+    }
+
+    /*
+       JavaScript only shows the section
+       that contains Qty.
+    */
+
+    .form-page.active {
         display: block !important;
     }
 
@@ -179,206 +368,425 @@ th {
         display: none !important;
     }
 
+    .form-header {
+        border: 2px solid #111 !important;
+    }
+
+    .order-table {
+        width: 100%;
+    }
+
+    .order-table th,
+    .order-table td {
+        border: 1px solid #111 !important;
+    }
+
+    .qty-input {
+        border: none !important;
+        background: transparent !important;
+        color: #111 !important;
+        text-align: center;
+    }
+
     @page {
         size: A4 portrait;
         margin: 10mm;
     }
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
+<div class="app">
 
-<h1>⚡ MVS Electrical</h1>
+    <!-- =========================
+         HOME PAGE
+    ========================== -->
 
-<div id="home">
+    <div id="homePage">
 
-    <div class="home-buttons">
+        <div class="top-title">
 
-        <button onclick="openForm('electrical')">
-            ⚡<br><br>
-            Electrical
-        </button>
+            <h1>⚡ MVS Electrical</h1>
 
-        <button onclick="openForm('plumbing')">
-            🚰<br><br>
-            Plumbing
-        </button>
+            <p>Electrical & Plumbing Order Form</p>
 
-    </div>
-
-</div>
-
-
-<!-- ELECTRICAL -->
-
-<div id="electricalForm" class="form">
-
-    <div class="header">
-
-        <div class="title">
-            MVS ELECTRICAL<br>
-            ORDER FORM
         </div>
 
-        <div class="details">
 
-            <input id="electricalName"
-                   placeholder="Sri / Customer Name">
+        <div class="home-buttons">
 
-            <input id="electricalPh"
-                   placeholder="Ph">
+            <button
+                class="electrical-btn"
+                onclick="openForm('electrical')">
 
-            <input id="electricalCell"
-                   placeholder="Cell">
+                ⚡
+                <br><br>
+                Electrical
 
-            <input id="electricalDate"
-                   type="date">
+            </button>
+
+
+            <button
+                class="plumbing-btn"
+                onclick="openForm('plumbing')">
+
+                🚰
+                <br><br>
+                Plumbing
+
+            </button>
 
         </div>
 
     </div>
 
-    <div class="table-box">
 
-        <table>
+    <!-- =========================
+         ELECTRICAL FORM
+    ========================== -->
 
-            <thead>
+    <div
+        id="electricalForm"
+        class="form-page">
 
-                <tr>
-                    <th class="sno">S.No</th>
-                    <th>PARTICULARS</th>
-                    <th class="qty">Qty</th>
-                </tr>
+        <div class="form-header">
 
-            </thead>
+            <div class="order-title">
+                MVS ELECTRICAL<br>
+                ORDER FORM
+            </div>
 
-            <tbody id="electricalItems"></tbody>
 
-            <tr>
-                <td colspan="2"
-                    class="total">
-                    TOTAL
-                </td>
+            <div class="details">
 
-                <td id="electricalTotal">
-                    0
-                </td>
-            </tr>
+                <div class="detail-row">
 
-        </table>
+                    <label>Sri:</label>
 
-    </div>
+                    <input
+                        id="electricalSri"
+                        type="text"
+                        autocomplete="off">
 
-    <div class="buttons">
+                </div>
 
-        <button class="back"
+
+                <div class="detail-row">
+
+                    <label>Ph:</label>
+
+                    <input
+                        id="electricalPh"
+                        type="text"
+                        inputmode="tel"
+                        autocomplete="off">
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <label>Cell:</label>
+
+                    <input
+                        id="electricalCell"
+                        type="text"
+                        inputmode="tel"
+                        autocomplete="off">
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <label>Date:</label>
+
+                    <input
+                        id="electricalDate"
+                        type="date">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table class="order-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th class="sno">
+                            S.No.
+                        </th>
+
+                        <th class="particulars">
+                            PARTICULARS
+                        </th>
+
+                        <th class="qty">
+                            Qty.
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="electricalItems">
+
+                    <!-- JSON items will load here -->
+
+                </tbody>
+
+
+                <tfoot>
+
+                    <tr class="total-row">
+
+                        <td
+                            colspan="2"
+                            class="total-label">
+
+                            TOTAL
+
+                        </td>
+
+                        <td
+                            class="total-value"
+                            id="electricalTotal">
+
+                            0
+
+                        </td>
+
+                    </tr>
+
+                </tfoot>
+
+            </table>
+
+        </div>
+
+
+        <div class="action-buttons">
+
+            <button
+                class="back-btn"
                 onclick="goHome()">
-            ← Back
-        </button>
 
-        <button class="save"
-                onclick="saveOrder('electrical')">
-            💾 Save
-        </button>
+                ← Back
 
-        <button class="pdf"
-                onclick="downloadPDF('electrical')">
-            📄 Download PDF
-        </button>
-
-    </div>
-
-</div>
+            </button>
 
 
-<!-- PLUMBING -->
+            <button
+                class="save-btn"
+                onclick="saveOrder()">
 
-<div id="plumbingForm" class="form">
+                💾 Save
 
-    <div class="header">
+            </button>
 
-        <div class="title">
-            MVS ELECTRICAL<br>
-            PLUMBING ORDER FORM
-        </div>
 
-        <div class="details">
+            <button
+                class="pdf-btn"
+                onclick="downloadPDF()">
 
-            <input id="plumbingName"
-                   placeholder="Sri / Customer Name">
+                📄 Generate PDF
 
-            <input id="plumbingPh"
-                   placeholder="Ph">
-
-            <input id="plumbingCell"
-                   placeholder="Cell">
-
-            <input id="plumbingDate"
-                   type="date">
+            </button>
 
         </div>
 
     </div>
 
-    <div class="table-box">
 
-        <table>
+    <!-- =========================
+         PLUMBING FORM
+    ========================== -->
 
-            <thead>
+    <div
+        id="plumbingForm"
+        class="form-page">
 
-                <tr>
-                    <th class="sno">S.No</th>
-                    <th>PARTICULARS</th>
-                    <th class="qty">Qty</th>
-                </tr>
+        <div class="form-header">
 
-            </thead>
+            <div class="order-title">
 
-            <tbody id="plumbingItems"></tbody>
+                MVS ELECTRICAL<br>
+                PLUMBING ORDER FORM
 
-            <tr>
-                <td colspan="2"
-                    class="total">
-                    TOTAL
-                </td>
+            </div>
 
-                <td id="plumbingTotal">
-                    0
-                </td>
-            </tr>
 
-        </table>
+            <div class="details">
 
-    </div>
+                <div class="detail-row">
 
-    <div class="buttons">
+                    <label>Sri:</label>
 
-        <button class="back"
+                    <input
+                        id="plumbingSri"
+                        type="text"
+                        autocomplete="off">
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <label>Ph:</label>
+
+                    <input
+                        id="plumbingPh"
+                        type="text"
+                        inputmode="tel"
+                        autocomplete="off">
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <label>Cell:</label>
+
+                    <input
+                        id="plumbingCell"
+                        type="text"
+                        inputmode="tel"
+                        autocomplete="off">
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <label>Date:</label>
+
+                    <input
+                        id="plumbingDate"
+                        type="date">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table class="order-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th class="sno">
+                            S.No.
+                        </th>
+
+                        <th class="particulars">
+                            PARTICULARS
+                        </th>
+
+                        <th class="qty">
+                            Qty.
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="plumbingItems">
+
+                    <!-- JSON items will load here -->
+
+                </tbody>
+
+
+                <tfoot>
+
+                    <tr class="total-row">
+
+                        <td
+                            colspan="2"
+                            class="total-label">
+
+                            TOTAL
+
+                        </td>
+
+                        <td
+                            class="total-value"
+                            id="plumbingTotal">
+
+                            0
+
+                        </td>
+
+                    </tr>
+
+                </tfoot>
+
+            </table>
+
+        </div>
+
+
+        <div class="action-buttons">
+
+            <button
+                class="back-btn"
                 onclick="goHome()">
-            ← Back
-        </button>
 
-        <button class="save"
-                onclick="saveOrder('plumbing')">
-            💾 Save
-        </button>
+                ← Back
 
-        <button class="pdf"
-                onclick="downloadPDF('plumbing')">
-            📄 Download PDF
-        </button>
+            </button>
+
+
+            <button
+                class="save-btn"
+                onclick="saveOrder()">
+
+                💾 Save
+
+            </button>
+
+
+            <button
+                class="pdf-btn"
+                onclick="downloadPDF()">
+
+                📄 Generate PDF
+
+            </button>
+
+        </div>
 
     </div>
 
 </div>
 
-</div>
 
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
-<script src="script.js"></script>
+<script src="./script.js"></script>
+
 
 </body>
+
 </html>
