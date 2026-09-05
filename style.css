@@ -1,7 +1,3 @@
-/* =========================================
-   MVS ELECTRICAL - MODERN UI
-========================================= */
-
 * {
     box-sizing: border-box;
 }
@@ -18,9 +14,8 @@ body {
     color: #111827;
 }
 
-/* =========================================
-   APP
-========================================= */
+
+/* MAIN */
 
 .app {
     width: 100%;
@@ -29,9 +24,8 @@ body {
     padding: 25px 20px;
 }
 
-/* =========================================
-   HOME HEADER
-========================================= */
+
+/* HOME TITLE */
 
 .top-title {
     text-align: center;
@@ -43,11 +37,6 @@ body {
     margin: 0;
     font-size: 34px;
     font-weight: 800;
-    letter-spacing: -0.5px;
-}
-
-.top-title h1::first-letter {
-    font-size: 36px;
 }
 
 .top-title p {
@@ -56,9 +45,8 @@ body {
     color: #6b7280;
 }
 
-/* =========================================
-   HOME BUTTONS
-========================================= */
+
+/* HOME BUTTONS */
 
 .home-buttons {
     display: grid;
@@ -70,41 +58,32 @@ body {
 
 .home-buttons button {
     position: relative;
+
     min-height: 260px;
+
     border-radius: 24px;
+
     cursor: pointer;
+
     font-size: 26px;
     font-weight: 800;
+
     color: #111827;
+
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+        transform .25s ease,
+        box-shadow .25s ease;
+
     overflow: hidden;
 }
 
-/* Shine effect */
-
-.home-buttons button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background: rgba(255,255,255,0.25);
-    transform: skewX(-20deg);
-    transition: left 0.5s ease;
+.button-icon {
+    font-size: 55px;
+    margin-bottom: 20px;
 }
 
-.home-buttons button:hover::before {
-    left: 130%;
-}
 
-.home-buttons button:hover {
-    transform: translateY(-6px);
-}
-
-/* Electrical */
+/* ELECTRICAL */
 
 .electrical-btn {
     background: linear-gradient(
@@ -116,15 +95,28 @@ body {
     border: 2px solid #f2b600;
 
     box-shadow:
-        0 12px 30px rgba(242,182,0,0.18);
+        0 12px 30px rgba(
+            242,
+            182,
+            0,
+            .18
+        );
 }
 
 .electrical-btn:hover {
+    transform: translateY(-6px);
+
     box-shadow:
-        0 18px 40px rgba(242,182,0,0.30);
+        0 18px 40px rgba(
+            242,
+            182,
+            0,
+            .30
+        );
 }
 
-/* Plumbing */
+
+/* PLUMBING */
 
 .plumbing-btn {
     background: linear-gradient(
@@ -136,126 +128,185 @@ body {
     border: 2px solid #1683d8;
 
     box-shadow:
-        0 12px 30px rgba(22,131,216,0.18);
+        0 12px 30px rgba(
+            22,
+            131,
+            216,
+            .18
+        );
 }
 
 .plumbing-btn:hover {
+    transform: translateY(-6px);
+
     box-shadow:
-        0 18px 40px rgba(22,131,216,0.30);
+        0 18px 40px rgba(
+            22,
+            131,
+            216,
+            .30
+        );
 }
 
-/* =========================================
-   FORM PAGE
-========================================= */
+
+/* FORM */
 
 .form-page {
     display: none;
+
     width: 100%;
+
     background: #ffffff;
+
     border-radius: 16px;
+
     padding: 18px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+
+    box-shadow:
+        0 8px 30px rgba(
+            0,
+            0,
+            0,
+            .08
+        );
 }
 
 .form-page.active {
     display: block;
 }
 
-/* =========================================
-   FORM HEADER
-========================================= */
+
+/* FORM HEADER */
 
 .form-header {
     width: 100%;
+
     border: 2px solid #222;
+
     border-radius: 8px;
+
     overflow: hidden;
+
     margin-bottom: 10px;
+
     background: #fff;
 }
 
+
 .order-title {
     text-align: center;
+
     font-size: 21px;
+
     font-weight: 800;
+
     line-height: 1.25;
+
     padding: 12px 5px;
 }
 
-/* =========================================
-   CUSTOMER DETAILS
-========================================= */
+
+/* CUSTOMER DETAILS */
 
 .details {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
 }
 
 .detail-row {
     display: flex;
+
     align-items: center;
+
     min-height: 45px;
+
     padding: 5px 10px;
 }
 
 .detail-row label {
     min-width: 55px;
+
     font-size: 14px;
+
     font-weight: 600;
 }
 
 .detail-row input {
     width: 100%;
+
     height: 31px;
+
     border: none;
-    border-bottom: 1px solid #777;
+
+    border-bottom:
+        1px solid #777;
+
     outline: none;
+
     background: transparent;
+
     font-size: 14px;
+
     padding: 3px 5px;
 }
 
 .detail-row input:focus {
-    border-bottom: 2px solid #1976d2;
+    border-bottom:
+        2px solid #1976d2;
 }
 
-/* =========================================
-   TABLE
-========================================= */
+
+/* TABLE */
 
 .table-container {
     width: 100%;
+
     overflow-x: auto;
 }
 
 .order-table {
     width: 100%;
+
     border-collapse: collapse;
+
     table-layout: fixed;
+
     background: white;
 }
 
 .order-table th,
 .order-table td {
     border: 1px solid #222;
+
     padding: 5px;
 }
 
 .order-table th {
     height: 34px;
+
     text-align: center;
+
     font-size: 14px;
+
     font-weight: 800;
+
     background: #f3f4f6;
 }
 
 .order-table td {
     height: 35px;
+
     font-size: 13px;
 }
 
+
+/* COLUMNS */
+
 .sno {
     width: 60px;
+
     text-align: center !important;
 }
 
@@ -265,8 +316,12 @@ body {
 
 .qty {
     width: 80px;
+
     text-align: center !important;
 }
+
+
+/* ITEMS */
 
 .item-sno {
     text-align: center !important;
@@ -280,107 +335,134 @@ body {
     text-align: center;
 }
 
+
+/* QTY */
+
 .qty-input {
     width: 58px;
+
     height: 29px;
-    border: 1px solid #aaa;
+
+    border:
+        1px solid #aaa;
+
     border-radius: 5px;
+
     outline: none;
+
     background: white;
+
     text-align: center;
+
     font-size: 15px;
+
     font-weight: 600;
 }
 
 .qty-input:focus {
-    border: 2px solid #1976d2;
+    border:
+        2px solid #1976d2;
+
     background: #fffde7;
 }
-
-/* Remove number arrows */
 
 .qty-input::-webkit-inner-spin-button,
 .qty-input::-webkit-outer-spin-button {
     -webkit-appearance: none;
+
     margin: 0;
 }
 
-.qty-input[type="number"] {
+.qty-input[type=number] {
     -moz-appearance: textfield;
 }
 
-/* =========================================
-   TOTAL
-========================================= */
+
+/* TOTAL */
 
 .total-row td {
     height: 42px;
+
     font-weight: 800;
+
     background: #f9fafb;
 }
 
 .total-label {
     text-align: right !important;
+
     padding-right: 12px !important;
 }
 
 .total-value {
     text-align: center !important;
+
     font-size: 17px !important;
 }
 
-/* =========================================
-   ACTION BUTTONS
-========================================= */
+
+/* BUTTONS */
 
 .action-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
     gap: 12px;
+
     margin-top: 18px;
 }
 
 .action-buttons button {
     min-height: 46px;
+
     border: none;
+
     border-radius: 9px;
+
     font-size: 15px;
+
     font-weight: 700;
+
     cursor: pointer;
-    transition: 0.2s;
+
+    transition: .2s;
 }
 
 .action-buttons button:hover {
     transform: translateY(-2px);
-    opacity: 0.92;
+
+    opacity: .92;
 }
 
 .back-btn {
     background: #374151;
+
     color: white;
 }
 
 .save-btn {
     background: #15803d;
+
     color: white;
 }
 
 .pdf-btn {
     background: #dc2626;
+
     color: white;
 }
 
-/* =========================================
-   HIDE PDF ROW
-========================================= */
+
+/* PDF HIDE */
 
 .pdf-hide {
     display: none !important;
 }
 
-/* =========================================
-   MOBILE
-========================================= */
+
+/* MOBILE */
 
 @media (max-width: 600px) {
 
@@ -390,6 +472,7 @@ body {
 
     .top-title {
         margin-top: 15px;
+
         margin-bottom: 22px;
     }
 
@@ -403,41 +486,54 @@ body {
 
     .home-buttons {
         grid-template-columns: 1fr;
+
         gap: 16px;
     }
 
     .home-buttons button {
         min-height: 165px;
+
         border-radius: 20px;
+
         font-size: 22px;
+    }
+
+    .button-icon {
+        font-size: 45px;
     }
 
     .form-page {
         padding: 5px;
+
         border-radius: 10px;
     }
 
     .order-title {
         font-size: 17px;
+
         padding: 9px;
     }
 
     .details {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .detail-row {
         min-height: 38px;
+
         padding: 4px;
     }
 
     .detail-row label {
         min-width: 38px;
+
         font-size: 11px;
     }
 
     .detail-row input {
         height: 27px;
+
         font-size: 12px;
     }
 
@@ -447,7 +543,9 @@ body {
 
     .order-table td {
         font-size: 11px;
+
         height: 32px;
+
         padding: 3px;
     }
 
@@ -461,12 +559,15 @@ body {
 
     .qty-input {
         width: 50px;
+
         height: 27px;
+
         font-size: 14px;
     }
 
     .action-buttons {
         grid-template-columns: 1fr;
+
         gap: 8px;
     }
 
@@ -475,24 +576,29 @@ body {
     }
 }
 
-/* =========================================
-   PRINT / PDF
-========================================= */
+
+/* PRINT / PDF */
 
 @media print {
 
     html,
     body {
         margin: 0;
+
         padding: 0;
+
         width: 100%;
+
         background: white !important;
     }
 
     .app {
         width: 100%;
+
         max-width: none;
+
         margin: 0;
+
         padding: 0;
     }
 
@@ -504,9 +610,13 @@ body {
 
     .form-page {
         display: none !important;
+
         padding: 0;
+
         margin: 0;
+
         box-shadow: none;
+
         border-radius: 0;
     }
 
@@ -520,6 +630,7 @@ body {
 
     .form-header {
         border-radius: 0;
+
         margin-bottom: 5px;
     }
 
@@ -532,7 +643,8 @@ body {
     }
 
     .detail-row input {
-        border-bottom: 1px solid #333;
+        border-bottom:
+            1px solid #333;
     }
 
     .order-table {
@@ -541,15 +653,24 @@ body {
 
     .order-table th,
     .order-table td {
-        border: 1px solid #111 !important;
-        background: white !important;
-        color: #111 !important;
+        border:
+            1px solid #111 !important;
+
+        background:
+            white !important;
+
+        color:
+            #111 !important;
     }
 
     .qty-input {
         border: none !important;
-        background: transparent !important;
-        color: #111 !important;
+
+        background:
+            transparent !important;
+
+        color:
+            #111 !important;
     }
 
     tr {
@@ -558,6 +679,7 @@ body {
 
     @page {
         size: A4 portrait;
+
         margin: 10mm;
     }
 }
