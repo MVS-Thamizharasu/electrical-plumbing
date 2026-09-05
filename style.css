@@ -975,3 +975,58 @@ body {
         margin: 10mm;
     }
 }
+/* =========================================
+   FINAL SIZE DROPDOWN LAYOUT
+========================================= */
+
+.particulars-cell {
+    vertical-align: middle !important;
+}
+
+.item-main-name {
+    display: inline-block;
+    margin-right: 8px;
+    margin-bottom: 0 !important;
+}
+
+.size-options-container {
+    display: inline-flex !important;
+    flex-direction: column;
+    vertical-align: middle;
+    gap: 3px;
+    margin: 0 !important;
+}
+
+.size-entry {
+    display: flex !important;
+    align-items: center;
+    gap: 5px;
+    min-height: 29px;
+}
+
+.size-dropdown {
+    width: 85px !important;
+    height: 27px !important;
+    font-size: 12px !important;
+    padding: 2px 5px !important;
+}
+
+.custom-size-input {
+    width: 130px !important;
+    height: 27px !important;
+    font-size: 12px !important;
+}
+
+.remove-size-btn {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 14px !important;
+}
+
+.add-size-btn {
+    display: block;
+    margin-top: 3px;
+    margin-left: 0;
+    padding: 3px 7px;
+    font-size: 11px;
+}
