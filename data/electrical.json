@@ -1,190 +1,827 @@
 [
   {
-    "sno": 1,
-    "name": "1 Way Switch"
+    "name": "1 Way Switch",
+    "sizes": ["6A", "16A", "20A", "25A"],
+    "customSize": true
   },
   {
-    "sno": 2,
-    "name": "2 Way Switch"
+    "name": "2 Way Switch",
+    "sizes": ["6A", "16A"],
+    "customSize": true
   },
   {
-    "sno": 3,
-    "name": "2 Pin Socket"
+    "name": "2 Pin Socket",
+    "sizes": [],
+    "customSize": false
   },
   {
-    "sno": 4,
-    "name": "5 AMPS 2 in 1 Socket"
+    "name": "5A 2 in 1 Socket",
+    "sizes": [],
+    "customSize": false
   },
   {
-    "sno": 5,
-    "name": "Indicator"
+    "name": "15A 2 in 1 Socket",
+    "sizes": [],
+    "customSize": false
   },
   {
-    "sno": 6,
-    "name": "15 AMPS 2 in 1 Socket"
+    "name": "Modular Plate",
+    "sizes": ["1M", "2M", "3M", "4M", "6M", "8M H", "8M SQ", "12M", "16M", "18M"],
+    "customSize": true
   },
   {
-    "sno": 7,
-    "name": "20 AMPS One Way Switch"
+    "name": "Modular Switch",
+    "sizes": ["6A", "16A", "20A"],
+    "customSize": true
   },
   {
-    "sno": 8,
-    "name": "Dimmer - Medium / Switch Type"
+    "name": "Modular Socket",
+    "sizes": ["6A", "16A"],
+    "customSize": true
   },
   {
-    "sno": 9,
-    "name": "TV Socket"
+    "name": "PVC Conduit Pipe",
+    "sizes": ["20mm", "25mm"],
+    "customSize": true
   },
   {
-    "sno": 10,
-    "name": "Bell Push"
+    "name": "Elbow",
+    "sizes": ["3/4\"", "1\""],
+    "customSize": true
   },
   {
-    "sno": 11,
-    "name": "Blank Plates 1M / 2M"
+    "name": "Bend",
+    "sizes": ["3/4\"", "1\""],
+    "customSize": true
   },
   {
-    "sno": 12,
-    "name": "DP Main"
+    "name": "Tee",
+    "sizes": ["3/4\"", "1\""],
+    "customSize": true
   },
   {
-    "sno": 13,
-    "name": "Foot Light 4 Model"
+    "name": "Coupling",
+    "sizes": ["3/4\"", "1\""],
+    "customSize": true
   },
   {
-    "sno": 14,
-    "name": "Night Lamp / Step Marker"
+    "name": "Junction Box",
+    "sizes": ["1 Way", "2 Way", "3 Way", "4 Way", "Deep"],
+    "customSize": true
   },
   {
-    "sno": 15,
-    "name": "1M. Plate"
+    "name": "PVC Cement Solvent",
+    "sizes": ["50ml", "100ml", "250ml", "500ml"],
+    "customSize": true
   },
   {
-    "sno": 16,
-    "name": "2M. Plate"
+    "name": "Metal Concealed Box",
+    "sizes": ["1/2M", "3M", "4M", "6M", "8M H", "8M SQ", "12M", "16M", "18M"],
+    "customSize": true
   },
   {
-    "sno": 17,
-    "name": "3M. Plate"
+    "name": "Casing Capping Channel",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1.5\""],
+    "customSize": true
   },
   {
-    "sno": 18,
-    "name": "4M. Plate"
+    "name": "Building Wire FR",
+    "sizes": ["0.75 sqmm", "1.0 sqmm", "1.5 sqmm", "2.0 sqmm", "2.5 sqmm", "4.0 sqmm", "6.0 sqmm", "10 sqmm"],
+    "customSize": true
   },
   {
-    "sno": 19,
-    "name": "6M. Plate"
+    "name": "PVC Insulation Tape",
+    "sizes": ["Red", "Blue", "Green", "Yellow", "Black", "White"],
+    "customSize": true
   },
   {
-    "sno": 20,
-    "name": "8M. Plate (H), (Sq)"
+    "name": "Single Pole MCB",
+    "sizes": ["6A", "10A", "16A", "20A", "25A", "32A", "40A"],
+    "customSize": true
   },
   {
-    "sno": 21,
-    "name": "12M. Plate"
+    "name": "Double Pole DP MCB",
+    "sizes": ["16A", "20A", "25A", "32A", "40A", "63A"],
+    "customSize": true
   },
   {
-    "sno": 22,
-    "name": "16M. Plate"
+    "name": "Triple Pole TP MCB",
+    "sizes": ["16A", "20A", "25A", "32A", "40A", "63A"],
+    "customSize": true
   },
   {
-    "sno": 23,
-    "name": "18M. Plate"
+    "name": "Four Pole FP MCB",
+    "sizes": ["16A", "20A", "25A", "32A", "40A", "63A"],
+    "customSize": true
   },
   {
-    "sno": 24,
-    "name": "Isolator"
+    "name": "RCCB 2 Pole",
+    "sizes": ["25A 30mA", "40A 30mA", "63A 30mA"],
+    "customSize": true
   },
   {
-    "sno": 25,
-    "name": "MCB's - 6A / 10A / 16A / 20A / 32A"
+    "name": "RCCB 4 Pole",
+    "sizes": ["40A 30mA", "63A 30mA", "63A 100mA"],
+    "customSize": true
   },
   {
-    "sno": 26,
-    "name": "1/18 (1.0) MultiStand Wire - Red Blue Green Yellow Black"
+    "name": "DP Main Switch",
+    "sizes": ["32A", "40A", "63A"],
+    "customSize": true
   },
   {
-    "sno": 27,
-    "name": "3/20 (2.0) MultiStand Wire - Red Blue Green Yellow Black"
+    "name": "Isolator DP",
+    "sizes": ["40A", "63A"],
+    "customSize": true
   },
   {
-    "sno": 28,
-    "name": "3/20 (2.5) Multi Stand Wire - Red Blue Green Yellow Black"
+    "name": "Isolator FP",
+    "sizes": ["40A", "63A"],
+    "customSize": true
   },
   {
-    "sno": 29,
-    "name": "7/20 (4.0) Multi Stand Wire - Red Blue Green Yellow Black"
+    "name": "Indicator Lamp Module",
+    "sizes": ["Red", "Green", "Yellow", "Blue"],
+    "customSize": true
   },
   {
-    "sno": 30,
-    "name": "Angle Holder"
+    "name": "Bell Push",
+    "sizes": ["Standard", "With Indicator"],
+    "customSize": true
   },
   {
-    "sno": 31,
-    "name": "Batton Holder"
+    "name": "Fan Regulator Rotary",
+    "sizes": ["1M", "2M"],
+    "customSize": true
   },
   {
-    "sno": 32,
-    "name": "Jumbo Ceiling Rose"
+    "name": "Angle Holder",
+    "sizes": [],
+    "customSize": false
   },
   {
-    "sno": 33,
-    "name": "Spl. Round Sheets"
+    "name": "Batton Holder Straight",
+    "sizes": [],
+    "customSize": false
   },
   {
-    "sno": 34,
-    "name": "Plain Round Sheets"
+    "name": "Ceiling Rose 2 Plate",
+    "sizes": [],
+    "customSize": false
   },
   {
-    "sno": 35,
-    "name": "Tape Rolls"
+    "name": "Jumbo Ceiling Rose",
+    "sizes": [],
+    "customSize": false
   },
   {
-    "sno": 36,
-    "name": "Tubelight Sets"
+    "name": "LED Bulb",
+    "sizes": ["5W", "7W", "9W", "12W", "15W", "20W"],
+    "customSize": true
   },
   {
-    "sno": 37,
-    "name": "Ceiling Fans"
+    "name": "LED Tube Light",
+    "sizes": ["20W", "22W", "24W"],
+    "customSize": true
   },
   {
-    "sno": 38,
-    "name": "Wiring Spring Box"
+    "name": "LED Panel Light",
+    "sizes": ["3W", "6W", "12W", "15W", "18W", "24W"],
+    "customSize": true
   },
   {
-    "sno": 39,
-    "name": "Bell"
+    "name": "LED Down Light",
+    "sizes": ["3W", "6W", "12W", "15W", "18W", "24W"],
+    "customSize": true
   },
   {
-    "sno": 40,
-    "name": "Service Wire"
+    "name": "Spot Light",
+    "sizes": ["3W", "5W", "7W", "12W", "15W"],
+    "customSize": true
   },
   {
-    "sno": 41,
-    "name": "Stay Wire"
+    "name": "COB Spotlight",
+    "sizes": ["3W", "5W", "7W", "12W", "15W"],
+    "customSize": true
   },
   {
-    "sno": 42,
-    "name": "Ties Packet"
+    "name": "Ceiling Fan",
+    "sizes": ["600mm", "900mm", "1200mm"],
+    "customSize": true
   },
   {
-    "sno": 43,
-    "name": "PVC Grip Pakets"
+    "name": "Fan Capacitor",
+    "sizes": ["2.25 MFD", "2.50 MFD", "3.15 MFD"],
+    "customSize": true
   },
   {
-    "sno": 44,
-    "name": "Dish Wire"
+    "name": "Plug Top",
+    "sizes": ["6A", "16A", "20A"],
+    "customSize": true
   },
   {
-    "sno": 45,
-    "name": "Telephone Wire"
+    "name": "Extension Box Multi Board",
+    "sizes": ["2m", "5m"],
+    "customSize": true
   },
   {
-    "sno": 46,
-    "name": "Screws - 3/4 / 1 / 1¼ / 1½ / 2 / 2½"
+    "name": "Multiplug Adapter Top",
+    "sizes": [],
+    "customSize": false
   },
   {
-    "sno": 47,
-    "name": "Motor Starter - 20A / 25A / 32A"
+    "name": "Cable Lugs Ring Type",
+    "sizes": ["2.5 sqmm", "4 sqmm", "6 sqmm", "10 sqmm", "16 sqmm"],
+    "customSize": true
+  },
+  {
+    "name": "Cable Lugs Pin Type",
+    "sizes": ["1.5 sqmm", "2.5 sqmm", "4 sqmm"],
+    "customSize": true
+  },
+  {
+    "name": "WAGO Quick Wire Connector",
+    "sizes": ["2 Way", "3 Way", "5 Way"],
+    "customSize": true
+  },
+  {
+    "name": "Screws",
+    "sizes": ["3/4\"", "1\"", "1¼\"", "1½\"", "2\"", "2½\""],
+    "customSize": true
+  },
+  {
+    "name": "Nylon Cable Tie",
+    "sizes": ["100mm", "150mm", "200mm", "300mm"],
+    "customSize": true
+  },
+  {
+    "name": "Wall Gitti Plugs",
+    "sizes": ["6mm", "8mm", "10mm"],
+    "customSize": true
+  },
+  {
+    "name": "Hacksaw Blade",
+    "sizes": ["Single", "Double"],
+    "customSize": true
+  },
+  {
+    "name": "Wire Stripper & Cutter",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Crimping Tool",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Digital Multimeter",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Line Tester",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "7/16 Aluminium Wire",
+    "sizes": ["7/16"],
+    "customSize": true
+  },
+  {
+    "name": "1¼\" GI Pipe",
+    "sizes": ["1¼\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Pipe Coupler",
+    "sizes": ["1¼\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Pipe Union",
+    "sizes": ["1¼\""],
+    "customSize": true
+  },
+  {
+    "name": "FTA PVC Coupler",
+    "sizes": ["1¼\""],
+    "customSize": true
+  },
+  {
+    "name": "Porcelain Insulator",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "PVC Coated GI Wire",
+    "sizes": ["1/2 kg", "1 kg"],
+    "customSize": true
+  },
+  {
+    "name": "GI Pipe Clamp",
+    "sizes": ["1¼\""],
+    "customSize": true
+  },
+  {
+    "name": "32A Kit-Kat Fuse",
+    "sizes": ["32A"],
+    "customSize": true
+  },
+  {
+    "name": "63A Kit-Kat Porcelain Fuse",
+    "sizes": ["63A"],
+    "customSize": true
+  },
+  {
+    "name": "Neutral Link",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Earth Link",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "4-Pole RCCB",
+    "sizes": ["40A", "63A"],
+    "customSize": true
+  },
+  {
+    "name": "4-Pole RCCB Box",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "4-Pole Isolator",
+    "sizes": ["2 Pole", "4 Pole"],
+    "customSize": true
+  },
+  {
+    "name": "4-Pole Isolator Box",
+    "sizes": ["2 Pole", "4 Pole"],
+    "customSize": true
+  },
+  {
+    "name": "EB Service Bend / Swan Neck GI",
+    "sizes": ["1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Brass Neutral Link with Base",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Aluminium Lugs",
+    "sizes": ["16 sqmm", "25 sqmm"],
+    "customSize": true
+  },
+  {
+    "name": "Service Cable",
+    "sizes": ["2 Core", "4 Core"],
+    "customSize": true
+  },
+  {
+    "name": "Stay Wire GI",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "LED Strip Light",
+    "sizes": ["12V", "24V"],
+    "customSize": true
+  },
+  {
+    "name": "SMPS LED Driver",
+    "sizes": ["12V 5A", "12V 10A", "12V 20A", "12V 30A"],
+    "customSize": true
+  },
+  {
+    "name": "Aluminium Profile Channel",
+    "sizes": ["2 Meter", "3 Meter"],
+    "customSize": true
+  },
+  {
+    "name": "Milky White Diffuser Cover",
+    "sizes": ["2 Meter", "3 Meter"],
+    "customSize": true
+  },
+  {
+    "name": "CCT / RGB LED Controller with Remote",
+    "sizes": ["12V", "24V"],
+    "customSize": true
+  },
+  {
+    "name": "GU10 Spotlight Holder",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "E27 Screw Type Holder",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "B22 Batten Holder",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "B15 Small Bayonet Bulb Holder",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "LED Driver / Choke for Tubelight",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Profile Light End Caps & Mounting Metal Clips",
+    "sizes": ["Surface", "Concealed", "Corner"],
+    "customSize": true
+  },
+  {
+    "name": "Flood Light",
+    "sizes": ["30W", "50W", "100W", "150W"],
+    "customSize": true
+  },
+  {
+    "name": "Exhaust Fan Heavy Duty",
+    "sizes": ["6 inch", "8 inch", "10 inch", "12 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Motor Starter DOL",
+    "sizes": ["20A", "25A", "32A"],
+    "customSize": true
+  },
+  {
+    "name": "Motor Run Capacitor",
+    "sizes": ["36 MFD", "50 MFD", "72 MFD"],
+    "customSize": true
+  },
+  {
+    "name": "Motor Start Capacitor",
+    "sizes": ["100/120 MFD", "120/150 MFD", "200/250 MFD"],
+    "customSize": true
+  },
+  {
+    "name": "Solar DC Cable",
+    "sizes": ["4 sqmm", "6 sqmm"],
+    "customSize": true
+  },
+  {
+    "name": "MC4 Solar Connectors",
+    "sizes": ["Pair"],
+    "customSize": true
+  },
+  {
+    "name": "DC MCB",
+    "sizes": ["16A", "32A"],
+    "customSize": true
+  },
+  {
+    "name": "DC Isolator",
+    "sizes": ["16A", "32A", "40A", "63A"],
+    "customSize": true
+  },
+  {
+    "name": "PIR Motion Sensor",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Day / Night Photocell Sensor",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Water Level Controller",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Smart Wi-Fi Modular Touch Switch",
+    "sizes": ["1M", "2M", "3M", "4M"],
+    "customSize": true
+  },
+  {
+    "name": "Chemical Earth Electrode Rod",
+    "sizes": ["8ft", "10ft"],
+    "customSize": true
+  },
+  {
+    "name": "Copper Bonded Earth Rod",
+    "sizes": ["14mm × 10ft", "17mm × 10ft"],
+    "customSize": true
+  },
+  {
+    "name": "Earth Wire",
+    "sizes": ["8 SWG", "10 SWG"],
+    "customSize": true
+  },
+  {
+    "name": "Copper Earth Plate",
+    "sizes": ["1 × 1ft", "2 × 2ft"],
+    "customSize": true
+  },
+  {
+    "name": "Lightning Arrester Rod",
+    "sizes": ["Copper 3-Spike", "Copper 5-Spike", "Brass 3-Spike", "Brass 5-Spike"],
+    "customSize": true
+  },
+  {
+    "name": "ESE Early Streamer Lightning Arrester",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Copper Earth Flat Tape",
+    "sizes": ["25mm × 3mm"],
+    "customSize": true
+  },
+  {
+    "name": "Brass Tape Saddle Clamp",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Bi-Metallic Connector Clamp",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Single Phase Digital Sub-Meter",
+    "sizes": ["5-30A"],
+    "customSize": true
+  },
+  {
+    "name": "Three Phase Digital Sub-Meter",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Current Transformer CT Coil",
+    "sizes": ["100/5A", "200/5A"],
+    "customSize": true
+  },
+  {
+    "name": "Meter Lead Seal & Sealing Wire",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "EB Danger Notice Board / Caution Plate",
+    "sizes": ["240V", "415V"],
+    "customSize": true
+  },
+  {
+    "name": "Electrical Insulated Rubber Hand Gloves",
+    "sizes": ["1.1kV", "11kV", "33kV"],
+    "customSize": true
+  },
+  {
+    "name": "Safety Helmet",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Insulated Safety Shoes",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Safety Glasses / Protective Goggles",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Full Body Safety Harness Belt",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Copper Submersible Winding Wire",
+    "sizes": ["18 SWG", "20 SWG", "22 SWG", "24 SWG", "26 SWG", "28 SWG", "30 SWG", "32 SWG"],
+    "customSize": true
+  },
+  {
+    "name": "Insulating Varnish",
+    "sizes": ["Clear", "Golden Red"],
+    "customSize": true
+  },
+  {
+    "name": "Nomex / Polyester Insulation Paper",
+    "sizes": ["5 mil", "7 mil", "10 mil"],
+    "customSize": true
+  },
+  {
+    "name": "Fiberglass Varnish Sleeves",
+    "sizes": ["1mm", "2mm", "3mm", "4mm", "5mm", "6mm", "8mm", "10mm"],
+    "customSize": true
+  },
+  {
+    "name": "Cotton Tape / Winding Binding Thread",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Soldering Iron",
+    "sizes": ["25W", "60W", "100W"],
+    "customSize": true
+  },
+  {
+    "name": "Soldering Wire & Flux Paste",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "D-Iron Clamp with Pin Insulator",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Shackle Insulator Hardware Fittings",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Aluminium PG Clamp",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Piercing Connector IPC Clamp",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Suspension Clamp for ABC Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Dead End Clamp for ABC Cable",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "DND & Clean My Room Switch Set",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Ceiling Speaker Volume Controller",
+    "sizes": ["3W", "6W", "10W"],
+    "customSize": true
+  },
+  {
+    "name": "RCA Audio-Video Socket",
+    "sizes": ["Red / White / Yellow"],
+    "customSize": false
+  },
+  {
+    "name": "HDMI / VGA Modular Socket Port",
+    "sizes": ["HDMI", "VGA"],
+    "customSize": false
+  },
+  {
+    "name": "Key Card Switch",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Shaver Socket",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Footlamp with Sensor",
+    "sizes": [],
+    "customSize": true
+  },
+  {
+    "name": "Voltage Protector / Under-Over Voltage Relay",
+    "sizes": ["Single Phase", "Three Phase"],
+    "customSize": true
+  },
+  {
+    "name": "Contactor",
+    "sizes": ["9A", "12A", "18A", "25A", "32A", "40A", "50A", "65A"],
+    "customSize": true
+  },
+  {
+    "name": "Thermal Overload Relay",
+    "sizes": ["1-1.6A", "1.6-2.5A", "2.5-4A", "4-6A", "5.5-8A", "7-10A", "9-13A"],
+    "customSize": true
+  },
+  {
+    "name": "Distribution Board SPN",
+    "sizes": ["4 Way", "6 Way", "8 Way", "12 Way", "16 Way"],
+    "customSize": true
+  },
+  {
+    "name": "Distribution Board TPN",
+    "sizes": ["4 Way", "6 Way", "8 Way"],
+    "customSize": true
+  },
+  {
+    "name": "MCB Enclosure",
+    "sizes": ["2 Pole", "4 Pole"],
+    "customSize": true
+  },
+  {
+    "name": "Porcelain Cutout Fuse",
+    "sizes": ["16A", "32A", "63A", "100A", "200A"],
+    "customSize": true
+  },
+  {
+    "name": "Hacksaw Blade",
+    "sizes": ["Single", "Double"],
+    "customSize": true
+  },
+  {
+    "name": "Wall Chasing Diamond Blade",
+    "sizes": ["4 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Heat Shrink Sleeve Tubes",
+    "sizes": ["2mm", "4mm", "6mm", "8mm", "10mm"],
+    "customSize": true
+  },
+  {
+    "name": "Silicone Sealant",
+    "sizes": ["White", "Clear", "Black"],
+    "customSize": true
+  },
+  {
+    "name": "M-Seal / Epoxy Putty",
+    "sizes": ["Small", "Large"],
+    "customSize": true
+  },
+  {
+    "name": "Self-Drilling Metal Screws",
+    "sizes": ["3/4\"", "1\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Cotton Waste / Cleaning Cloth",
+    "sizes": [],
+    "customSize": false
+  },
+  {
+    "name": "Combination Plier",
+    "sizes": ["6 inch", "8 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Nose Plier",
+    "sizes": ["6 inch", "8 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Side Cutter",
+    "sizes": ["6 inch", "8 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Cable Cutter",
+    "sizes": ["Small", "Medium", "Large"],
+    "customSize": true
+  },
+  {
+    "name": "Screwdriver Flat",
+    "sizes": ["4 inch", "6 inch", "8 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Screwdriver Phillips",
+    "sizes": ["4 inch", "6 inch", "8 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Insulated Screwdriver",
+    "sizes": ["4 inch", "6 inch", "8 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Measuring Tape",
+    "sizes": ["3m", "5m", "7.5m"],
+    "customSize": true
+  },
+  {
+    "name": "Electric Drill",
+    "sizes": ["10mm", "13mm"],
+    "customSize": true
+  },
+  {
+    "name": "Drill Bit Set",
+    "sizes": ["Masonry", "Metal", "Wood"],
+    "customSize": true
   }
 ]
