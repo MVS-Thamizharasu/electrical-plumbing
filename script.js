@@ -1,187 +1,166 @@
 /* =========================================================
-   MVS ELECTRICAL
-   ELECTRICAL + PLUMBING ORDER FORM
-========================================================= */
+   MVS ELECTRICAL & PLUMBING
+   script.js
+   Supports:
+   - JSON: { name, sizes, customSize }
+   - Separate Qty for every size
+   - Custom size/rating
+   - PDF only selected Qty items
+   - Automatic PDF S.No.
+   - Save to localStorage
+   ========================================================= */
 
-let electricalItems = [];
-let plumbingItems = [];
-let currentSection = null;
+let electricalData = [];
+let plumbingData = [];
+
+let currentForm = null;
 
 
 /* =========================================================
    PAGE LOAD
-========================================================= */
+   ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("MVS Electrical Started");
+    setToday();
 
     loadItems();
-
-    setupAutoSave();
 
 });
 
 
 /* =========================================================
-   LOAD JSON ITEMS
-========================================================= */
+   TODAY DATE
+   ========================================================= */
+
+function setToday() {
+
+    const today = new Date().toISOString().split("T")[0];
+
+    const electricalDate =
+        document.getElementById("electricalDate");
+
+    const plumbingDate =
+        document.getElementById("plumbingDate");
+
+    if (electricalDate && !electricalDate.value) {
+        electricalDate.value = today;
+    }
+
+    if (plumbingDate && !plumbingDate.value) {
+        plumbingDate.value = today;
+    }
+}
+
+
+/* =========================================================
+   LOAD JSON FILES
+   ========================================================= */
 
 async function loadItems() {
 
     try {
 
-        console.log("Loading Electrical JSON...");
-
         const electricalResponse =
-            await fetch("./data/electrical.json");
+            await fetch("./data/electrical.json", {
+                cache: "no-store"
+            });
 
         if (!electricalResponse.ok) {
-            throw new Error("electrical.json not found");
+            throw new Error(
+                "Electrical JSON load failed: " +
+                electricalResponse.status
+            );
         }
 
-        electricalItems =
+        electricalData =
             await electricalResponse.json();
 
 
-        console.log(
-            "Electrical items:",
-            electricalItems.length
-        );
-
-
-        console.log("Loading Plumbing JSON...");
-
         const plumbingResponse =
-            await fetch("./data/plumbing.json");
+            await fetch("./data/plumbing.json", {
+                cache: "no-store"
+            });
 
         if (!plumbingResponse.ok) {
-            throw new Error("plumbing.json not found");
+            throw new Error(
+                "Plumbing JSON load failed: " +
+                plumbingResponse.status
+            );
         }
 
-        plumbingItems =
+        plumbingData =
             await plumbingResponse.json();
 
 
         console.log(
+            "Electrical items:",
+            electricalData.length
+        );
+
+        console.log(
             "Plumbing items:",
-            plumbingItems.length
+            plumbingData.length
         );
 
 
-        /* CREATE TABLES */
-
         createTable(
             "electrical",
-            electricalItems
+            electricalData
         );
 
         createTable(
             "plumbing",
-            plumbingItems
+            plumbingData
         );
 
 
-        /* CREATE SUGGESTIONS */
+    } catch (error) {
 
-        populateDatalist(
-            "electricalSuggestions",
-            electricalItems
+        console.error(error);
+
+        showLoadError(
+            "electricalItems",
+            "Electrical items load ஆகவில்லை. data/electrical.json check பண்ணவும்."
         );
 
-        populateDatalist(
-            "plumbingSuggestions",
-            plumbingItems
+        showLoadError(
+            "plumbingItems",
+            "Plumbing items load ஆகவில்லை. data/plumbing.json check பண்ணவும்."
         );
-
-
-        /* RESTORE SAVED DATA */
-
-        restoreAutoSave();
-
-
-        console.log(
-            "All items loaded successfully"
-        );
-
     }
-
-    catch (error) {
-
-        console.error(
-            "ITEM LOAD ERROR:",
-            error
-        );
-
-        showLoadError();
-
-    }
-
 }
 
 
 /* =========================================================
    ERROR MESSAGE
-========================================================= */
+   ========================================================= */
 
-function showLoadError() {
+function showLoadError(id, message) {
 
-    const errorHTML = `
+    const tbody = document.getElementById(id);
+
+    if (!tbody) return;
+
+    tbody.innerHTML = `
         <tr>
             <td colspan="3"
                 style="
+                    color:red;
                     text-align:center;
-                    padding:25px;
-                    color:#dc2626;
+                    padding:20px;
                     font-weight:bold;
                 ">
-
-                ❌ Items load ஆகவில்லை.
-
-                <br><br>
-
-                Check:
-
-                <br>
-
-                data/electrical.json
-
-                <br>
-
-                data/plumbing.json
-
+                ${escapeHTML(message)}
             </td>
         </tr>
     `;
-
-
-    const electrical =
-        document.getElementById(
-            "electricalItems"
-        );
-
-    const plumbing =
-        document.getElementById(
-            "plumbingItems"
-        );
-
-
-    if (electrical) {
-        electrical.innerHTML =
-            errorHTML;
-    }
-
-    if (plumbing) {
-        plumbing.innerHTML =
-            errorHTML;
-    }
-
 }
 
 
 /* =========================================================
    CREATE TABLE
-========================================================= */
+   ========================================================= */
 
 function createTable(type, items) {
 
@@ -190,372 +169,396 @@ function createTable(type, items) {
             type + "Items"
         );
 
-
-    if (!tbody) {
-
-        console.error(
-            type +
-            "Items element not found"
-        );
-
-        return;
-    }
-
+    if (!tbody) return;
 
     tbody.innerHTML = "";
 
 
     if (!Array.isArray(items)) {
 
-        console.error(
-            type +
-            " JSON is not an array"
+        showLoadError(
+            type + "Items",
+            "JSON format சரியாக இல்லை."
         );
 
         return;
     }
 
 
-    items.forEach(
-        function (item, index) {
+    items.forEach(function (item, index) {
 
-            const sno =
-                item.sno ||
-                (index + 1);
+        /*
+         JSON examples:
 
+         {
+            "name": "MCB",
+            "sizes": ["6A","10A","16A","20A","32A"],
+            "customSize": true
+         }
 
-            const name =
-                typeof item === "string"
-                    ? item
-                    : (item.name || "");
+         OR
 
-
-            const tr =
-                document.createElement("tr");
-
-
-            tr.dataset.originalSno =
-                sno;
+         {
+            "name": "1 Way Switch"
+         }
+        */
 
 
-            tr.innerHTML = `
-
-                <td class="sno item-sno">
-                    ${sno}
-                </td>
-
-                <td class="particulars">
-                    <input
-                        type="text"
-                        class="particulars-input item-name"
-                        list="${type}Suggestions"
-                        value="${escapeHTML(name)}"
-                        placeholder="Enter item name..."
-                        autocomplete="off"
-                    >
-                </td>
-
-                <td class="qty qty-cell">
-
-                    <input
-                        type="number"
-                        class="qty-input"
-                        min="0"
-                        step="1"
-                        inputmode="numeric"
-                        data-sno="${sno}"
-                    >
-
-                </td>
-
-            `;
-
-
-            tbody.appendChild(tr);
-
-        }
-    );
-
-
-    /* INPUT EVENTS */
-
-    const inputs =
-        tbody.querySelectorAll(
-            "input"
-        );
-
-
-    inputs.forEach(
-        function (input) {
-
-            input.addEventListener(
-                "input",
-                function () {
-
-                    const form =
-                        input.closest(
-                            ".form-page"
-                        );
-
-                    if (!form) return;
-
-
-                    const id =
-                        form.id;
-
-
-                    const type =
-                        id.replace(
-                            "Form",
-                            ""
-                        );
-
-
-                    calculateTotal(
-                        type
-                    );
-
-
-                    updateSelectedRows(
-                        type
-                    );
-
-
-                    saveCurrentForm();
-
-                }
+        const row =
+            createItemRow(
+                type,
+                item,
+                index
             );
 
-        }
-    );
+        tbody.appendChild(row);
+
+    });
 
 
     calculateTotal(type);
-
 }
 
 
 /* =========================================================
-   DATALIST
-========================================================= */
+   CREATE ONE ITEM ROW
+   ========================================================= */
 
-function populateDatalist(
-    datalistId,
-    items
-) {
+function createItemRow(type, item, index) {
 
-    const datalist =
-        document.getElementById(
-            datalistId
-        );
+    const tr =
+        document.createElement("tr");
 
+    tr.className = "item-row";
+
+    tr.dataset.itemIndex = index;
+
+
+    const sno =
+        document.createElement("td");
+
+    sno.className = "sno";
+
+    /*
+       Website S.No. is generated from JSON order.
+       PDF will renumber selected items.
+    */
+
+    sno.textContent = index + 1;
+
+
+    const particulars =
+        document.createElement("td");
+
+    particulars.className =
+        "particulars-cell";
+
+
+    const qty =
+        document.createElement("td");
+
+    qty.className = "qty-cell";
+
+
+    /* =====================================================
+       ITEM NAME
+       ===================================================== */
+
+    const nameDiv =
+        document.createElement("div");
+
+    nameDiv.className =
+        "item-main-name";
+
+    nameDiv.textContent =
+        item.name || "Item";
+
+
+    particulars.appendChild(nameDiv);
+
+
+    /* =====================================================
+       NO SIZES
+       ===================================================== */
 
     if (
-        !datalist ||
-        !Array.isArray(items)
+        !Array.isArray(item.sizes) ||
+        item.sizes.length === 0
     ) {
-        return;
+
+        const qtyInput =
+            createQtyInput(
+                type,
+                index,
+                null
+            );
+
+        qty.appendChild(qtyInput);
+
     }
 
 
-    datalist.innerHTML = "";
+    /* =====================================================
+       SIZE OPTIONS
+       ===================================================== */
+
+    else {
+
+        item.sizes.forEach(
+            function (size, sizeIndex) {
+
+                const sizeRow =
+                    document.createElement("div");
+
+                sizeRow.className =
+                    "size-qty-row";
 
 
-    items.forEach(
-        function (item) {
+                const sizeLabel =
+                    document.createElement("span");
 
-            const value =
-                typeof item === "string"
-                    ? item
-                    : (
-                        item.name ||
-                        item.item ||
-                        item.particulars ||
-                        ""
+                sizeLabel.className =
+                    "size-label";
+
+                sizeLabel.textContent =
+                    size;
+
+
+                const sizeQty =
+                    createQtyInput(
+                        type,
+                        index,
+                        sizeIndex
                     );
 
 
-            if (!value) return;
+                sizeRow.appendChild(
+                    sizeLabel
+                );
+
+                sizeRow.appendChild(
+                    sizeQty
+                );
+
+                particulars.appendChild(
+                    sizeRow
+                );
+
+            }
+        );
 
 
-            const option =
-                document.createElement(
-                    "option"
+        /* =================================================
+           CUSTOM SIZE
+           ================================================= */
+
+        if (item.customSize === true) {
+
+            const customRow =
+                document.createElement("div");
+
+            customRow.className =
+                "size-qty-row custom-size-row";
+
+
+            const customLabel =
+                document.createElement("span");
+
+            customLabel.className =
+                "size-label";
+
+
+            const customInput =
+                document.createElement("input");
+
+            customInput.type = "text";
+
+            customInput.className =
+                "custom-size-input";
+
+            customInput.placeholder =
+                "Custom Size / Rating";
+
+
+            customInput.autocomplete =
+                "off";
+
+
+            customLabel.appendChild(
+                customInput
+            );
+
+
+            const customQty =
+                createQtyInput(
+                    type,
+                    index,
+                    "custom"
                 );
 
 
-            option.value =
-                value;
-
-
-            datalist.appendChild(
-                option
+            customRow.appendChild(
+                customLabel
             );
+
+            customRow.appendChild(
+                customQty
+            );
+
+
+            particulars.appendChild(
+                customRow
+            );
+
+        }
+
+    }
+
+
+    tr.appendChild(sno);
+
+    tr.appendChild(particulars);
+
+    tr.appendChild(qty);
+
+
+    return tr;
+}
+
+
+/* =========================================================
+   CREATE QTY INPUT
+   ========================================================= */
+
+function createQtyInput(
+    type,
+    itemIndex,
+    sizeIndex
+) {
+
+    const input =
+        document.createElement("input");
+
+    input.type = "number";
+
+    input.min = "0";
+
+    input.step = "1";
+
+    input.value = "";
+
+    input.placeholder = "0";
+
+    input.inputMode = "numeric";
+
+    input.className =
+        "qty-input";
+
+
+    input.dataset.type = type;
+
+    input.dataset.itemIndex =
+        itemIndex;
+
+    input.dataset.sizeIndex =
+        sizeIndex === null
+            ? ""
+            : String(sizeIndex);
+
+
+    input.addEventListener(
+        "input",
+        function () {
+
+            if (
+                Number(this.value) < 0
+            ) {
+                this.value = "";
+            }
+
+            calculateTotal(type);
+
+            updateSelectedRow(this);
 
         }
     );
 
+
+    return input;
 }
 
 
 /* =========================================================
-   OPEN FORM
-========================================================= */
+   SELECTED ROW HIGHLIGHT
+   ========================================================= */
 
-function openForm(type) {
+function updateSelectedRow(input) {
 
-    currentSection = type;
+    const row =
+        input.closest("tr");
+
+    if (!row) return;
 
 
-    const home =
-        document.getElementById(
-            "homePage"
-        );
-
-    const electrical =
-        document.getElementById(
-            "electricalForm"
-        );
-
-    const plumbing =
-        document.getElementById(
-            "plumbingForm"
+    const inputs =
+        row.querySelectorAll(
+            ".qty-input"
         );
 
 
-    if (home) {
-        home.style.display =
-            "none";
-    }
+    let selected = false;
 
 
-    if (electrical) {
+    inputs.forEach(function (qty) {
 
-        electrical.classList.remove(
-            "active"
-        );
+        if (
+            qty.value !== "" &&
+            Number(qty.value) > 0
+        ) {
+            selected = true;
+        }
 
-        electrical.style.display =
-            "none";
-    }
-
-
-    if (plumbing) {
-
-        plumbing.classList.remove(
-            "active"
-        );
-
-        plumbing.style.display =
-            "none";
-    }
-
-
-    const selected =
-        document.getElementById(
-            type + "Form"
-        );
+    });
 
 
     if (selected) {
 
-        selected.classList.add(
-            "active"
+        row.classList.add(
+            "selected-row"
         );
 
-        selected.style.display =
-            "block";
+    } else {
 
-
-        selected.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+        row.classList.remove(
+            "selected-row"
+        );
 
     }
-
-}
-
-
-/* =========================================================
-   GO HOME
-========================================================= */
-
-function goHome() {
-
-    currentSection = null;
-
-
-    const electrical =
-        document.getElementById(
-            "electricalForm"
-        );
-
-    const plumbing =
-        document.getElementById(
-            "plumbingForm"
-        );
-
-    const home =
-        document.getElementById(
-            "homePage"
-        );
-
-
-    if (electrical) {
-
-        electrical.classList.remove(
-            "active"
-        );
-
-        electrical.style.display =
-            "none";
-    }
-
-
-    if (plumbing) {
-
-        plumbing.classList.remove(
-            "active"
-        );
-
-        plumbing.style.display =
-            "none";
-    }
-
-
-    if (home) {
-
-        home.style.display =
-            "block";
-    }
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
 }
 
 
 /* =========================================================
    CALCULATE TOTAL
-========================================================= */
+   ========================================================= */
 
 function calculateTotal(type) {
 
-    const form =
+    const container =
         document.getElementById(
-            type + "Form"
+            type + "Items"
         );
 
+    const totalElement =
+        document.getElementById(
+            type + "Total"
+        );
 
-    if (!form) return;
+    if (!container || !totalElement)
+        return;
 
 
     const inputs =
-        form.querySelectorAll(
+        container.querySelectorAll(
             ".qty-input"
         );
 
@@ -563,63 +566,164 @@ function calculateTotal(type) {
     let total = 0;
 
 
-    inputs.forEach(
-        function (input) {
+    inputs.forEach(function (input) {
 
-            const qty =
-                parseInt(
-                    input.value,
-                    10
-                );
+        const value =
+            Number(input.value);
 
-
-            if (
-                !isNaN(qty) &&
-                qty > 0
-            ) {
-
-                total += qty;
-
-            }
-
+        if (
+            !isNaN(value) &&
+            value > 0
+        ) {
+            total += value;
         }
+
+    });
+
+
+    totalElement.textContent =
+        total;
+}
+
+
+/* =========================================================
+   OPEN FORM
+   ========================================================= */
+
+function openForm(type) {
+
+    document.getElementById(
+        "homePage"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "electricalForm"
+    ).style.display =
+        type === "electrical"
+            ? "block"
+            : "none";
+
+
+    document.getElementById(
+        "plumbingForm"
+    ).style.display =
+        type === "plumbing"
+            ? "block"
+            : "none";
+
+
+    currentForm = type;
+
+    window.scrollTo(
+        0,
+        0
     );
+}
 
 
-    const totalElement =
-        document.getElementById(
-            type + "Total"
-        );
+/* =========================================================
+   GO HOME
+   ========================================================= */
+
+function goHome() {
+
+    document.getElementById(
+        "homePage"
+    ).style.display = "block";
 
 
-    if (totalElement) {
+    document.getElementById(
+        "electricalForm"
+    ).style.display = "none";
 
-        totalElement.textContent =
-            total;
 
-    }
+    document.getElementById(
+        "plumbingForm"
+    ).style.display = "none";
 
+
+    currentForm = null;
+
+    window.scrollTo(
+        0,
+        0
+    );
+}
+
+
+/* =========================================================
+   GET CUSTOMER DETAILS
+   ========================================================= */
+
+function getCustomerDetails(type) {
+
+    return {
+
+        name:
+            getValue(
+                type + "Sri"
+            ),
+
+        ph:
+            getValue(
+                type + "Ph"
+            ),
+
+        cell:
+            getValue(
+                type + "Cell"
+            ),
+
+        date:
+            getValue(
+                type + "Date"
+            )
+
+    };
+}
+
+
+/* =========================================================
+   GET INPUT VALUE
+   ========================================================= */
+
+function getValue(id) {
+
+    const element =
+        document.getElementById(id);
+
+    return element
+        ? element.value.trim()
+        : "";
 }
 
 
 /* =========================================================
    GET SELECTED ITEMS
-========================================================= */
+   ========================================================= */
 
 function getSelectedItems(type) {
 
-    const form =
+    const data =
+        type === "electrical"
+            ? electricalData
+            : plumbingData;
+
+
+    const tbody =
         document.getElementById(
-            type + "Form"
+            type + "Items"
         );
 
 
-    if (!form) return [];
+    if (!tbody)
+        return [];
 
 
     const rows =
-        form.querySelectorAll(
-            "tbody tr"
+        tbody.querySelectorAll(
+            "tr.item-row"
         );
 
 
@@ -629,185 +733,247 @@ function getSelectedItems(type) {
     rows.forEach(
         function (row) {
 
-            const qtyInput =
-                row.querySelector(
+            const itemIndex =
+                Number(
+                    row.dataset.itemIndex
+                );
+
+
+            const item =
+                data[itemIndex];
+
+
+            if (!item)
+                return;
+
+
+            const qtyInputs =
+                row.querySelectorAll(
                     ".qty-input"
                 );
 
 
-            if (!qtyInput) return;
-
-
-            const qty =
-                parseInt(
-                    qtyInput.value,
-                    10
-                );
-
+            /* =============================================
+               ITEM WITHOUT SIZES
+               ============================================= */
 
             if (
-                isNaN(qty) ||
-                qty <= 0
+                !Array.isArray(item.sizes) ||
+                item.sizes.length === 0
             ) {
+
+                const qty =
+                    Number(
+                        qtyInputs[0]?.value
+                    );
+
+
+                if (
+                    !isNaN(qty) &&
+                    qty > 0
+                ) {
+
+                    selected.push({
+
+                        name:
+                            item.name,
+
+                        size:
+                            "",
+
+                        qty:
+                            qty
+
+                    });
+
+                }
+
                 return;
             }
 
 
-            const nameInput =
-                row.querySelector(
-                    ".particulars-input"
-                );
+            /* =============================================
+               SIZE ITEMS
+               ============================================= */
+
+            item.sizes.forEach(
+                function (size, sizeIndex) {
+
+                    const input =
+                        Array.from(
+                            qtyInputs
+                        ).find(
+                            function (el) {
+
+                                return (
+                                    el.dataset.sizeIndex ===
+                                    String(sizeIndex)
+                                );
+
+                            }
+                        );
 
 
-            const name =
-                nameInput
-                    ? nameInput.value.trim()
-                    : "";
+                    const qty =
+                        Number(
+                            input?.value
+                        );
 
 
-            if (!name) return;
+                    if (
+                        !isNaN(qty) &&
+                        qty > 0
+                    ) {
+
+                        selected.push({
+
+                            name:
+                                item.name,
+
+                            size:
+                                size,
+
+                            qty:
+                                qty
+
+                        });
+
+                    }
+
+                }
+            );
 
 
-            selected.push({
+            /* =============================================
+               CUSTOM SIZE
+               ============================================= */
 
-                name:
-                    name,
+            if (
+                item.customSize === true
+            ) {
 
-                qty:
-                    qty
+                const customInput =
+                    row.querySelector(
+                        ".custom-size-input"
+                    );
 
-            });
+
+                const customQtyInput =
+                    Array.from(
+                        qtyInputs
+                    ).find(
+                        function (el) {
+
+                            return (
+                                el.dataset.sizeIndex ===
+                                "custom"
+                            );
+
+                        }
+                    );
+
+
+                const customSize =
+                    customInput
+                        ? customInput.value.trim()
+                        : "";
+
+
+                const customQty =
+                    Number(
+                        customQtyInput?.value
+                    );
+
+
+                if (
+                    customSize !== "" &&
+                    !isNaN(customQty) &&
+                    customQty > 0
+                ) {
+
+                    selected.push({
+
+                        name:
+                            item.name,
+
+                        size:
+                            customSize,
+
+                        qty:
+                            customQty
+
+                    });
+
+                }
+
+            }
 
         }
     );
 
 
     return selected;
-
-}
-
-
-/* =========================================================
-   HIGHLIGHT SELECTED ROWS
-========================================================= */
-
-function updateSelectedRows(type) {
-
-    const form =
-        document.getElementById(
-            type + "Form"
-        );
-
-
-    if (!form) return;
-
-
-    const rows =
-        form.querySelectorAll(
-            "tbody tr"
-        );
-
-
-    rows.forEach(
-        function (row) {
-
-            const input =
-                row.querySelector(
-                    ".qty-input"
-                );
-
-
-            if (!input) return;
-
-
-            const qty =
-                parseInt(
-                    input.value,
-                    10
-                );
-
-
-            if (
-                !isNaN(qty) &&
-                qty > 0
-            ) {
-
-                row.classList.add(
-                    "selected-row"
-                );
-
-            }
-
-            else {
-
-                row.classList.remove(
-                    "selected-row"
-                );
-
-            }
-
-        }
-    );
-
 }
 
 
 /* =========================================================
    HIDE EMPTY ROWS FOR PDF
-========================================================= */
+   ========================================================= */
 
 function hideEmptyRows(type) {
 
-    const form =
+    const tbody =
         document.getElementById(
-            type + "Form"
+            type + "Items"
         );
 
 
-    if (!form) return;
+    if (!tbody)
+        return;
 
 
     const rows =
-        form.querySelectorAll(
-            "tbody tr"
+        tbody.querySelectorAll(
+            "tr.item-row"
         );
 
 
     rows.forEach(
         function (row) {
 
-            const input =
-                row.querySelector(
+            const inputs =
+                row.querySelectorAll(
                     ".qty-input"
                 );
 
 
-            if (!input) return;
+            let hasQty = false;
 
 
-            const qty =
-                parseInt(
-                    input.value,
-                    10
-                );
+            inputs.forEach(
+                function (input) {
+
+                    if (
+                        Number(input.value) > 0
+                    ) {
+                        hasQty = true;
+                    }
+
+                }
+            );
 
 
-            if (
-                isNaN(qty) ||
-                qty <= 0
-            ) {
+            row.dataset.originalDisplay =
+                row.style.display || "";
 
-                row.classList.add(
-                    "pdf-hide"
-                );
 
-            }
+            if (hasQty) {
 
-            else {
+                row.style.display = "";
 
-                row.classList.remove(
-                    "pdf-hide"
-                );
+            } else {
+
+                row.style.display = "none";
 
             }
 
@@ -818,23 +984,59 @@ function hideEmptyRows(type) {
 
 
 /* =========================================================
-   RENUMBER PDF
-========================================================= */
+   RESTORE EMPTY ROWS
+   ========================================================= */
 
-function renumberPDF(type) {
+function restoreEmptyRows(type) {
 
-    const form =
+    const tbody =
         document.getElementById(
-            type + "Form"
+            type + "Items"
         );
 
 
-    if (!form) return;
+    if (!tbody)
+        return;
 
 
     const rows =
-        form.querySelectorAll(
-            "tbody tr:not(.pdf-hide)"
+        tbody.querySelectorAll(
+            "tr.item-row"
+        );
+
+
+    rows.forEach(
+        function (row) {
+
+            row.style.display =
+                row.dataset.originalDisplay ||
+                "";
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PDF RENUMBER
+   ========================================================= */
+
+function renumberPDF(type) {
+
+    const tbody =
+        document.getElementById(
+            type + "Items"
+        );
+
+
+    if (!tbody)
+        return;
+
+
+    const rows =
+        tbody.querySelectorAll(
+            "tr.item-row"
         );
 
 
@@ -844,21 +1046,25 @@ function renumberPDF(type) {
     rows.forEach(
         function (row) {
 
+            if (
+                row.style.display === "none"
+            ) {
+                return;
+            }
+
+
             const sno =
                 row.querySelector(
-                    ".item-sno"
+                    ".sno"
                 );
 
 
             if (sno) {
 
                 sno.textContent =
-                    number;
+                    number++;
 
             }
-
-
-            number++;
 
         }
     );
@@ -868,9 +1074,92 @@ function renumberPDF(type) {
 
 /* =========================================================
    RESTORE ORIGINAL S.NO
-========================================================= */
+   ========================================================= */
 
 function restoreOriginalSno(type) {
+
+    const data =
+        type === "electrical"
+            ? electricalData
+            : plumbingData;
+
+
+    const tbody =
+        document.getElementById(
+            type + "Items"
+        );
+
+
+    if (!tbody)
+        return;
+
+
+    const rows =
+        tbody.querySelectorAll(
+            "tr.item-row"
+        );
+
+
+    rows.forEach(
+        function (row) {
+
+            const index =
+                Number(
+                    row.dataset.itemIndex
+                );
+
+
+            const sno =
+                row.querySelector(
+                    ".sno"
+                );
+
+
+            if (sno) {
+
+                sno.textContent =
+                    index + 1;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PREPARE PDF
+   ========================================================= */
+
+function preparePDF(type) {
+
+    hideEmptyRows(type);
+
+    renumberPDF(type);
+
+}
+
+
+/* =========================================================
+   DOWNLOAD PDF
+   ========================================================= */
+
+async function downloadPDF(type) {
+
+    const selected =
+        getSelectedItems(type);
+
+
+    if (selected.length === 0) {
+
+        alert(
+            "முதலில் Qty enter செய்யவும்."
+        );
+
+        return;
+    }
+
 
     const form =
         document.getElementById(
@@ -878,378 +1167,307 @@ function restoreOriginalSno(type) {
         );
 
 
-    if (!form) return;
+    if (!form)
+        return;
 
 
-    const rows =
-        form.querySelectorAll(
-            "tbody tr"
-        );
+    preparePDF(type);
 
 
-    rows.forEach(
-        function (row) {
-
-            const sno =
-                row.querySelector(
-                    ".item-sno"
-                );
+    const customer =
+        getCustomerDetails(type);
 
 
-            if (sno) {
-
-                sno.textContent =
-                    row.dataset.originalSno;
-
-            }
+    const customerName =
+        customer.name ||
+        "Customer";
 
 
-            row.classList.remove(
-                "pdf-hide"
-            );
+    const date =
+        customer.date ||
+        new Date()
+            .toISOString()
+            .split("T")[0];
+
+
+    const fileName =
+        "MVS-" +
+        type +
+        "-" +
+        safeFileName(customerName) +
+        "-" +
+        date +
+        ".pdf";
+
+
+    const options = {
+
+        margin: 8,
+
+        filename:
+            fileName,
+
+        image: {
+            type: "jpeg",
+            quality: 0.98
+        },
+
+        html2canvas: {
+
+            scale: 2,
+
+            useCORS: true,
+
+            backgroundColor:
+                "#ffffff"
+
+        },
+
+        jsPDF: {
+
+            unit: "mm",
+
+            format: "a4",
+
+            orientation:
+                "portrait"
+
+        },
+
+        pagebreak: {
+
+            mode: [
+                "css",
+                "legacy"
+            ]
 
         }
-    );
+
+    };
+
+
+    try {
+
+        if (
+            typeof html2pdf !==
+            "undefined"
+        ) {
+
+            await html2pdf()
+                .set(options)
+                .from(form)
+                .save();
+
+        } else {
+
+            window.print();
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "PDF உருவாக்க முடியவில்லை."
+        );
+
+    } finally {
+
+        restoreEmptyRows(type);
+
+        restoreOriginalSno(type);
+
+    }
 
 }
 
 
 /* =========================================================
-   PDF DOWNLOAD
-========================================================= */
+   SAVE ORDER - LOCAL STORAGE
+   ========================================================= */
 
-function downloadPDF(type) {
+function saveOrder(type) {
 
-    const targetType =
-        type ||
-        currentSection ||
-        "electrical";
+    const customer =
+        getCustomerDetails(type);
 
 
     const selected =
-        getSelectedItems(
-            targetType
-        );
+        getSelectedItems(type);
 
 
     if (selected.length === 0) {
 
         alert(
-            "முதலில் ஏதேனும் ஒரு பொருளுக்கு Qty உள்ளிடவும்."
+            "முதலில் Qty enter செய்யவும்."
         );
 
         return;
-
     }
 
 
-    const formElement =
-        document.getElementById(
-            targetType + "Form"
+    const order = {
+
+        type:
+            type,
+
+        customer:
+            customer,
+
+        items:
+            selected,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    const oldOrders =
+        JSON.parse(
+            localStorage.getItem(
+                "mvsOrders"
+            ) || "[]"
         );
 
 
-    if (!formElement) return;
+    oldOrders.push(order);
 
 
-    const customerName =
-        document.getElementById(
-            targetType + "Sri"
-        )?.value.trim() || "Order";
-
-
-    /* HIDE EMPTY ITEMS */
-
-    hideEmptyRows(
-        targetType
+    localStorage.setItem(
+        "mvsOrders",
+        JSON.stringify(
+            oldOrders
+        )
     );
 
 
-    /* RENUMBER */
-
-    renumberPDF(
-        targetType
+    alert(
+        "Order Save ஆகிவிட்டது ✅"
     );
-
-
-    /* PDF */
-
-    if (
-        typeof html2pdf !==
-        "undefined"
-    ) {
-
-        const filename =
-            "MVS_" +
-            targetType.toUpperCase() +
-            "_" +
-            safeFileName(
-                customerName
-            ) +
-            ".pdf";
-
-
-        const options = {
-
-            margin:
-                [6, 6, 6, 6],
-
-            filename:
-                filename,
-
-            image: {
-                type: "jpeg",
-                quality: 0.98
-            },
-
-            html2canvas: {
-
-                scale: 2,
-
-                useCORS: true
-
-            },
-
-            jsPDF: {
-
-                unit: "mm",
-
-                format: "a4",
-
-                orientation:
-                    "portrait"
-
-            }
-
-        };
-
-
-        html2pdf()
-            .set(options)
-            .from(formElement)
-            .save()
-            .then(
-                function () {
-
-                    restoreOriginalSno(
-                        targetType
-                    );
-
-                }
-            )
-            .catch(
-                function (error) {
-
-                    console.error(
-                        "PDF Error:",
-                        error
-                    );
-
-
-                    restoreOriginalSno(
-                        targetType
-                    );
-
-
-                    window.print();
-
-                }
-            );
-
-    }
-
-    else {
-
-        window.print();
-
-
-        setTimeout(
-            function () {
-
-                restoreOriginalSno(
-                    targetType
-                );
-
-            },
-            1000
-        );
-
-    }
 
 }
 
 
 /* =========================================================
    WHATSAPP
-========================================================= */
+   ========================================================= */
 
 function shareWhatsApp(type) {
 
-    const targetType =
-        type ||
-        currentSection ||
-        "electrical";
+    const customer =
+        getCustomerDetails(type);
 
 
     const selected =
-        getSelectedItems(
-            targetType
-        );
+        getSelectedItems(type);
 
 
     if (selected.length === 0) {
 
         alert(
-            "வாட்ஸ்அப்பில் அனுப்ப குறைந்தது ஒரு Qty உள்ளிடவும்."
+            "முதலில் Qty enter செய்யவும்."
         );
 
         return;
-
     }
-
-
-    const prefix =
-        targetType === "electrical"
-            ? "electrical"
-            : "plumbing";
-
-
-    const title =
-        targetType === "electrical"
-            ? "⚡ *MVS ELECTRICAL ORDER*"
-            : "🚰 *MVS PLUMBING ORDER*";
-
-
-    const name =
-        getValue(
-            prefix + "Sri"
-        );
-
-
-    const phone =
-        getValue(
-            prefix + "Ph"
-        );
-
-
-    const cell =
-        getValue(
-            prefix + "Cell"
-        );
-
-
-    const date =
-        getValue(
-            prefix + "Date"
-        ) ||
-        getToday();
 
 
     let message = "";
 
 
     message +=
-        title +
+        "*MVS ELECTRICAL*\n";
+
+    message +=
+        "*ORDER FORM*\n\n";
+
+
+    message +=
+        "Customer: " +
+        (
+            customer.name ||
+            "-"
+        ) +
+        "\n";
+
+
+    message +=
+        "Ph: " +
+        (
+            customer.ph ||
+            "-"
+        ) +
+        "\n";
+
+
+    message +=
+        "Cell: " +
+        (
+            customer.cell ||
+            "-"
+        ) +
+        "\n";
+
+
+    message +=
+        "Date: " +
+        (
+            customer.date ||
+            "-"
+        ) +
         "\n\n";
 
 
-    if (name) {
-
-        message +=
-            "👤 Customer: " +
-            name +
-            "\n";
-
-    }
-
-
-    if (phone) {
-
-        message +=
-            "☎️ Ph: " +
-            phone +
-            "\n";
-
-    }
-
-
-    if (cell) {
-
-        message +=
-            "📱 Cell: " +
-            cell +
-            "\n";
-
-    }
-
-
     message +=
-        "📅 Date: " +
-        formatDate(date) +
-        "\n\n";
+        "*" +
+        capitalize(type) +
+        "*\n";
 
 
-    message +=
-        "*Items List:*\n";
-
-
-    message +=
-        "--------------------------------\n";
-
-
-    let totalQty = 0;
+    let sno = 1;
 
 
     selected.forEach(
-        function (item, index) {
+        function (item) {
 
             message +=
-                (index + 1) +
+                sno +
                 ". " +
-                item.name +
-                " - " +
+                item.name;
+
+
+            if (item.size) {
+
+                message +=
+                    " - " +
+                    item.size;
+
+            }
+
+
+            message +=
+                " : Qty " +
                 item.qty +
-                " Qty\n";
+                "\n";
 
 
-            totalQty +=
-                item.qty;
+            sno++;
 
         }
     );
 
 
-    message +=
-        "--------------------------------\n";
-
-
-    message +=
-        "*Total Qty: " +
-        totalQty +
-        "*\n";
-
-
-    message +=
-        "--------------------------------\n";
-
-
-    message +=
-        "_MVS Electrical Portal_";
-
-
-    const encoded =
+    const url =
+        "https://wa.me/?text=" +
         encodeURIComponent(
             message
         );
 
 
-    const whatsappURL =
-        "https://api.whatsapp.com/send?text=" +
-        encoded;
-
-
     window.open(
-        whatsappURL,
+        url,
         "_blank"
     );
 
@@ -1257,613 +1475,40 @@ function shareWhatsApp(type) {
 
 
 /* =========================================================
-   AUTO SAVE SETUP
-========================================================= */
-
-function setupAutoSave() {
-
-    const ids = [
-
-        "electricalSri",
-        "electricalPh",
-        "electricalCell",
-        "electricalDate",
-
-        "plumbingSri",
-        "plumbingPh",
-        "plumbingCell",
-        "plumbingDate"
-
-    ];
-
-
-    ids.forEach(
-        function (id) {
-
-            const element =
-                document.getElementById(
-                    id
-                );
-
-
-            if (!element) return;
-
-
-            element.addEventListener(
-                "input",
-                saveCurrentForm
-            );
-
-
-            element.addEventListener(
-                "change",
-                saveCurrentForm
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   SAVE CURRENT FORM
-========================================================= */
-
-function saveCurrentForm() {
-
-    const data = {
-
-        electrical: {
-
-            customer:
-                getValue(
-                    "electricalSri"
-                ),
-
-            phone:
-                getValue(
-                    "electricalPh"
-                ),
-
-            cell:
-                getValue(
-                    "electricalCell"
-                ),
-
-            date:
-                getValue(
-                    "electricalDate"
-                ),
-
-            items:
-                getQtyData(
-                    "electrical"
-                )
-
-        },
-
-
-        plumbing: {
-
-            customer:
-                getValue(
-                    "plumbingSri"
-                ),
-
-            phone:
-                getValue(
-                    "plumbingPh"
-                ),
-
-            cell:
-                getValue(
-                    "plumbingCell"
-                ),
-
-            date:
-                getValue(
-                    "plumbingDate"
-                ),
-
-            items:
-                getQtyData(
-                    "plumbing"
-                )
-
-        },
-
-
-        savedAt:
-            new Date().toISOString()
-
-    };
-
-
-    localStorage.setItem(
-        "mvsElectricalOrder",
-        JSON.stringify(data)
-    );
-
-}
-
-
-/* =========================================================
-   GET QTY DATA
-========================================================= */
-
-function getQtyData(type) {
-
-    const form =
-        document.getElementById(
-            type + "Form"
-        );
-
-
-    if (!form) return [];
-
-
-    const rows =
-        form.querySelectorAll(
-            "tbody tr"
-        );
-
-
-    const data = [];
-
-
-    rows.forEach(
-        function (row) {
-
-            const qty =
-                row.querySelector(
-                    ".qty-input"
-                );
-
-
-            const name =
-                row.querySelector(
-                    ".particulars-input"
-                );
-
-
-            if (!qty) return;
-
-
-            if (
-                qty.value !== ""
-            ) {
-
-                data.push({
-
-                    sno:
-                        row.dataset.originalSno,
-
-                    name:
-                        name
-                            ? name.value
-                            : "",
-
-                    qty:
-                        qty.value
-
-                });
-
-            }
-
-        }
-    );
-
-
-    return data;
-
-}
-
-
-/* =========================================================
-   RESTORE AUTO SAVE
-========================================================= */
-
-function restoreAutoSave() {
-
-    const saved =
-        localStorage.getItem(
-            "mvsElectricalOrder"
-        );
-
-
-    if (!saved) {
-
-        setTodayDate();
-
-        return;
-
-    }
-
-
-    try {
-
-        const data =
-            JSON.parse(saved);
-
-
-        /* ELECTRICAL */
-
-        setValue(
-            "electricalSri",
-            data.electrical?.customer
-        );
-
-
-        setValue(
-            "electricalPh",
-            data.electrical?.phone
-        );
-
-
-        setValue(
-            "electricalCell",
-            data.electrical?.cell
-        );
-
-
-        setValue(
-            "electricalDate",
-            data.electrical?.date
-        );
-
-
-        /* PLUMBING */
-
-        setValue(
-            "plumbingSri",
-            data.plumbing?.customer
-        );
-
-
-        setValue(
-            "plumbingPh",
-            data.plumbing?.phone
-        );
-
-
-        setValue(
-            "plumbingCell",
-            data.plumbing?.cell
-        );
-
-
-        setValue(
-            "plumbingDate",
-            data.plumbing?.date
-        );
-
-
-        /* QTY */
-
-        restoreQty(
-            "electrical",
-            data.electrical?.items || []
-        );
-
-
-        restoreQty(
-            "plumbing",
-            data.plumbing?.items || []
-        );
-
-
-        calculateTotal(
-            "electrical"
-        );
-
-
-        calculateTotal(
-            "plumbing"
-        );
-
-
-        updateSelectedRows(
-            "electrical"
-        );
-
-
-        updateSelectedRows(
-            "plumbing"
-        );
-
-
-        console.log(
-            "Saved order restored"
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Restore error:",
-            error
-        );
-
-
-        setTodayDate();
-
-    }
-
-}
-
-
-/* =========================================================
-   RESTORE QTY
-========================================================= */
-
-function restoreQty(
-    type,
-    items
-) {
-
-    const form =
-        document.getElementById(
-            type + "Form"
-        );
-
-
-    if (!form) return;
-
-
-    items.forEach(
-        function (savedItem) {
-
-            const rows =
-                form.querySelectorAll(
-                    "tbody tr"
-                );
-
-
-            rows.forEach(
-                function (row) {
-
-                    if (
-                        row.dataset.originalSno !==
-                        String(
-                            savedItem.sno
-                        )
-                    ) {
-                        return;
-                    }
-
-
-                    const qty =
-                        row.querySelector(
-                            ".qty-input"
-                        );
-
-
-                    const name =
-                        row.querySelector(
-                            ".particulars-input"
-                        );
-
-
-                    if (qty) {
-
-                        qty.value =
-                            savedItem.qty;
-
-                    }
-
-
-                    if (
-                        name &&
-                        savedItem.name
-                    ) {
-
-                        name.value =
-                            savedItem.name;
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   SET VALUE
-========================================================= */
-
-function setValue(
-    id,
-    value
-) {
-
-    const element =
-        document.getElementById(id);
-
-
-    if (
-        element &&
-        value !== undefined &&
-        value !== null &&
-        value !== ""
-    ) {
-
-        element.value =
-            value;
-
-    }
-
-}
-
-
-/* =========================================================
-   GET VALUE
-========================================================= */
-
-function getValue(id) {
-
-    const element =
-        document.getElementById(id);
-
-
-    if (!element) return "";
-
-
-    return (
-        element.value ||
-        ""
-    ).trim();
-
-}
-
-
-/* =========================================================
-   TODAY DATE
-========================================================= */
-
-function getToday() {
-
-    const today =
-        new Date();
-
-
-    return (
-
-        today.getFullYear() +
-
-        "-" +
-
-        String(
-            today.getMonth() + 1
-        ).padStart(2, "0") +
-
-        "-" +
-
-        String(
-            today.getDate()
-        ).padStart(2, "0")
-
-    );
-
-}
-
-
-/* =========================================================
-   SET TODAY DATE
-========================================================= */
-
-function setTodayDate() {
-
-    const today =
-        getToday();
-
-
-    const electricalDate =
-        document.getElementById(
-            "electricalDate"
-        );
-
-
-    const plumbingDate =
-        document.getElementById(
-            "plumbingDate"
-        );
-
-
-    if (
-        electricalDate &&
-        !electricalDate.value
-    ) {
-
-        electricalDate.value =
-            today;
-
-    }
-
-
-    if (
-        plumbingDate &&
-        !plumbingDate.value
-    ) {
-
-        plumbingDate.value =
-            today;
-
-    }
-
-}
-
-
-/* =========================================================
-   FORMAT DATE
-========================================================= */
-
-function formatDate(
-    dateString
-) {
-
-    if (!dateString) {
-
-        return "-";
-
-    }
-
-
-    const parts =
-        dateString.split("-");
-
-
-    if (
-        parts.length !== 3
-    ) {
-
-        return dateString;
-
-    }
-
-
-    return (
-
-        parts[2] +
-        "-" +
-        parts[1] +
-        "-" +
-        parts[0]
-
-    );
-
-}
-
-
-/* =========================================================
    SAFE FILE NAME
-========================================================= */
+   ========================================================= */
 
 function safeFileName(name) {
 
+    return name
+        .replace(
+            /[<>:"/\\|?*]+/g,
+            ""
+        )
+        .replace(
+            /\s+/g,
+            "_"
+        )
+        .substring(
+            0,
+            80
+        ) || "Customer";
+}
+
+
+/* =========================================================
+   CAPITALIZE
+   ========================================================= */
+
+function capitalize(text) {
+
+    if (!text)
+        return "";
+
     return (
-
-        name
-            .replace(
-                /[\\/:*?"<>|]/g,
-                ""
-            )
-            .replace(
-                /\s+/g,
-                "_"
-            )
-            .substring(
-                0,
-                80
-            )
-
-        || "Order"
-
+        text.charAt(0)
+            .toUpperCase() +
+        text.slice(1)
     );
 
 }
@@ -1871,20 +1516,30 @@ function safeFileName(name) {
 
 /* =========================================================
    ESCAPE HTML
-========================================================= */
+   ========================================================= */
 
-function escapeHTML(text) {
+function escapeHTML(value) {
 
-    const div =
-        document.createElement(
-            "div"
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
         );
-
-
-    div.textContent =
-        text;
-
-
-    return div.innerHTML;
 
 }
