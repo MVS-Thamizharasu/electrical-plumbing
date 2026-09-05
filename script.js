@@ -1,40 +1,80 @@
+// ==========================================
+// MVS ELECTRICAL - SCRIPT
+// ==========================================
+
 let electricalItems = [];
 let plumbingItems = [];
 
-let currentSection = "electrical";
+let currentSection = null;
 
-// ===============================
-// LOAD ITEMS FROM JSON
-// ===============================
+
+// ==========================================
+// LOAD JSON ITEMS
+// ==========================================
 
 async function loadItems() {
+
     try {
-        const electricalResponse = await fetch("./data/electrical.json");
-        electricalItems = await electricalResponse.json();
 
-        const plumbingResponse = await fetch("./data/plumbing.json");
-        plumbingItems = await plumbingResponse.json();
+        const electricalResponse =
+            await fetch("./data/electrical.json");
 
-        createTable("electrical", electricalItems);
-        createTable("plumbing", plumbingItems);
+        if (!electricalResponse.ok) {
+            throw new Error("Electrical JSON not found");
+        }
+
+        electricalItems =
+            await electricalResponse.json();
+
+
+        const plumbingResponse =
+            await fetch("./data/plumbing.json");
+
+        if (!plumbingResponse.ok) {
+            throw new Error("Plumbing JSON not found");
+        }
+
+        plumbingItems =
+            await plumbingResponse.json();
+
+
+        createTable(
+            "electrical",
+            electricalItems
+        );
+
+        createTable(
+            "plumbing",
+            plumbingItems
+        );
 
     } catch (error) {
-        console.error("Item loading error:", error);
-        alert("Items load ஆகவில்லை. JSON files check பண்ணவும்.");
+
+        console.error(error);
+
+        alert(
+            "Items load ஆகவில்லை.\n\n" +
+            "data/electrical.json\n" +
+            "data/plumbing.json\n\n" +
+            "files check பண்ணவும்."
+        );
     }
 }
 
 
-// ===============================
+// ==========================================
 // CREATE TABLE
-// ===============================
+// ==========================================
 
 function createTable(type, items) {
 
-    const tbody = document.getElementById(type + "Items");
+    const tbody =
+        document.getElementById(type + "Items");
 
     if (!tbody) {
-        console.error(type + "Items not found");
+        console.error(
+            type + "Items element not found"
+        );
         return;
     }
 
@@ -42,390 +82,650 @@ function createTable(type, items) {
 
     items.forEach((item, index) => {
 
-        const tr = document.createElement("tr");
+        const sno =
+            item.sno || (index + 1);
 
-        tr.dataset.sno = item.sno || (index + 1);
+        const tr =
+            document.createElement("tr");
+
+        tr.dataset.originalSno = sno;
 
         tr.innerHTML = `
-            <td class="item-sno">${item.sno || (index + 1)}</td>
 
-            <td class="item-name">
-                ${escapeHTML(item.name)}
+            <td class="sno item-sno">
+                ${sno}
             </td>
 
-            <td class="qty-cell">
+            <td class="particulars item-name">
+                ${escapeHTML(item.name || "")}
+            </td>
+
+            <td class="qty qty-cell">
+
                 <input
                     type="number"
                     class="qty-input"
                     min="0"
                     step="1"
-                    value=""
-                    data-sno="${item.sno || (index + 1)}"
-                    oninput="calculateTotal('${type}')"
+                    inputmode="numeric"
+                    data-sno="${sno}"
                 >
+
             </td>
         `;
 
         tbody.appendChild(tr);
     });
 
+
+    const inputs =
+        tbody.querySelectorAll(".qty-input");
+
+    inputs.forEach(input => {
+
+        input.addEventListener(
+            "input",
+            function () {
+
+                calculateTotal(type);
+
+            }
+        );
+
+    });
+
+
     calculateTotal(type);
 }
 
 
-// ===============================
-// OPEN ELECTRICAL
-// ===============================
+// ==========================================
+// OPEN FORM
+// ==========================================
 
-function openElectrical() {
+function openForm(type) {
 
-    currentSection = "electrical";
-
-    document.getElementById("electricalForm").style.display = "block";
-    document.getElementById("plumbingForm").style.display = "none";
-
-    document.getElementById("electricalForm").scrollIntoView({
-        behavior: "smooth"
-    });
-}
+    currentSection = type;
 
 
-// ===============================
-// OPEN PLUMBING
-// ===============================
+    // Home hide
+    const home =
+        document.getElementById("homePage");
 
-function openPlumbing() {
-
-    currentSection = "plumbing";
-
-    document.getElementById("electricalForm").style.display = "none";
-    document.getElementById("plumbingForm").style.display = "block";
-
-    document.getElementById("plumbingForm").scrollIntoView({
-        behavior: "smooth"
-    });
-}
+    if (home) {
+        home.style.display = "none";
+    }
 
 
-// ===============================
-// SHOW BOTH FOR PDF
-// ===============================
+    // Electrical hide
+    const electrical =
+        document.getElementById("electricalForm");
 
-function showBothForms() {
+    if (electrical) {
+        electrical.classList.remove("active");
+        electrical.style.display = "none";
+    }
 
-    document.getElementById("electricalForm").style.display = "block";
-    document.getElementById("plumbingForm").style.display = "block";
-}
+
+    // Plumbing hide
+    const plumbing =
+        document.getElementById("plumbingForm");
+
+    if (plumbing) {
+        plumbing.classList.remove("active");
+        plumbing.style.display = "none";
+    }
 
 
-// ===============================
-// CALCULATE TOTAL
-// ===============================
+    // Selected form show
+    const selected =
+        document.getElementById(
+            type + "Form"
+        );
 
-function calculateTotal(type) {
+    if (selected) {
 
-    const form = document.getElementById(type + "Form");
+        selected.classList.add("active");
+        selected.style.display = "block";
 
-    if (!form) return;
+        selected.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
 
-    const inputs = form.querySelectorAll(".qty-input");
+    } else {
 
-    let total = 0;
-
-    inputs.forEach(input => {
-
-        let qty = parseInt(input.value);
-
-        if (!isNaN(qty) && qty > 0) {
-            total += qty;
-        }
-    });
-
-    const totalElement = form.querySelector(".total-qty");
-
-    if (totalElement) {
-        totalElement.textContent = total;
+        alert(
+            type + " form கிடைக்கவில்லை."
+        );
     }
 }
 
 
-// ===============================
-// GET SELECTED ITEMS
-// ===============================
+// ==========================================
+// GO HOME
+// ==========================================
 
-function getSelectedItems(type) {
+function goHome() {
 
-    const form = document.getElementById(type + "Form");
+    currentSection = null;
 
-    if (!form) return [];
 
-    const rows = form.querySelectorAll("tbody tr");
+    const electrical =
+        document.getElementById("electricalForm");
 
-    const selected = [];
+    const plumbing =
+        document.getElementById("plumbingForm");
 
-    rows.forEach(row => {
+    const home =
+        document.getElementById("homePage");
 
-        const input = row.querySelector(".qty-input");
 
-        if (!input) return;
+    if (electrical) {
+        electrical.classList.remove("active");
+        electrical.style.display = "none";
+    }
 
-        const qty = parseInt(input.value);
+
+    if (plumbing) {
+        plumbing.classList.remove("active");
+        plumbing.style.display = "none";
+    }
+
+
+    if (home) {
+        home.style.display = "block";
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+// ==========================================
+// CALCULATE TOTAL
+// ==========================================
+
+function calculateTotal(type) {
+
+    const form =
+        document.getElementById(type + "Form");
+
+    if (!form) return;
+
+
+    const inputs =
+        form.querySelectorAll(".qty-input");
+
+    let total = 0;
+
+
+    inputs.forEach(input => {
+
+        const qty =
+            parseInt(input.value);
 
         if (!isNaN(qty) && qty > 0) {
 
-            const nameElement = row.querySelector(".item-name");
+            total += qty;
 
-            selected.push({
-                name: nameElement
-                    ? nameElement.textContent.trim()
-                    : "",
-                qty: qty
-            });
         }
     });
+
+
+    const totalElement =
+        document.getElementById(
+            type + "Total"
+        );
+
+    if (totalElement) {
+
+        totalElement.textContent =
+            total;
+
+    }
+}
+
+
+// ==========================================
+// GET SELECTED ITEMS
+// ONLY TYPED QTY ITEMS
+// ==========================================
+
+function getSelectedItems(type) {
+
+    const form =
+        document.getElementById(type + "Form");
+
+    if (!form) return [];
+
+
+    const rows =
+        form.querySelectorAll(
+            "tbody tr"
+        );
+
+    const selected = [];
+
+
+    rows.forEach(row => {
+
+        const input =
+            row.querySelector(".qty-input");
+
+        if (!input) return;
+
+
+        const qty =
+            parseInt(input.value);
+
+
+        if (!isNaN(qty) && qty > 0) {
+
+            const name =
+                row.querySelector(
+                    ".item-name"
+                );
+
+
+            selected.push({
+
+                name: name
+                    ? name.textContent.trim()
+                    : "",
+
+                qty: qty
+
+            });
+
+        }
+
+    });
+
 
     return selected;
 }
 
 
-// ===============================
-// PREPARE PDF
-// ===============================
-
-function preparePDF() {
-
-    // Show both forms
-    showBothForms();
-
-    // Remove previous PDF hide
-    document.querySelectorAll(".pdf-hide").forEach(row => {
-        row.classList.remove("pdf-hide");
-    });
-
-    // Hide empty Electrical rows
-    hideEmptyRows("electrical");
-
-    // Hide empty Plumbing rows
-    hideEmptyRows("plumbing");
-
-    // Renumber Electrical
-    renumberPDF("electrical");
-
-    // Renumber Plumbing
-    renumberPDF("plumbing");
-
-    // Update totals
-    calculateTotal("electrical");
-    calculateTotal("plumbing");
-}
-
-
-// ===============================
-// HIDE EMPTY ROWS
-// ===============================
+// ==========================================
+// HIDE EMPTY ROWS FOR PDF
+// ==========================================
 
 function hideEmptyRows(type) {
 
-    const form = document.getElementById(type + "Form");
+    const form =
+        document.getElementById(type + "Form");
 
     if (!form) return;
 
-    const rows = form.querySelectorAll("tbody tr");
+
+    const rows =
+        form.querySelectorAll(
+            "tbody tr"
+        );
+
 
     rows.forEach(row => {
 
-        const input = row.querySelector(".qty-input");
+        const input =
+            row.querySelector(".qty-input");
+
 
         if (!input) return;
 
-        const qty = parseInt(input.value);
 
-        if (isNaN(qty) || qty <= 0) {
-            row.classList.add("pdf-hide");
+        const qty =
+            parseInt(input.value);
+
+
+        if (
+            isNaN(qty) ||
+            qty <= 0
+        ) {
+
+            row.classList.add(
+                "pdf-hide"
+            );
+
         } else {
-            row.classList.remove("pdf-hide");
+
+            row.classList.remove(
+                "pdf-hide"
+            );
+
         }
+
     });
 }
 
 
-// ===============================
-// PDF S.NO = 1,2,3,4...
-// ===============================
+// ==========================================
+// RENUMBER PDF
+// 1, 2, 3, 4...
+// ==========================================
 
 function renumberPDF(type) {
 
-    const form = document.getElementById(type + "Form");
+    const form =
+        document.getElementById(type + "Form");
 
     if (!form) return;
 
-    const rows = form.querySelectorAll("tbody tr:not(.pdf-hide)");
+
+    const rows =
+        form.querySelectorAll(
+            "tbody tr:not(.pdf-hide)"
+        );
+
 
     let number = 1;
 
+
     rows.forEach(row => {
 
-        const snoCell = row.querySelector(".item-sno");
+        const sno =
+            row.querySelector(
+                ".item-sno"
+            );
 
-        if (snoCell) {
-            snoCell.textContent = number;
+
+        if (sno) {
+
+            sno.textContent =
+                number;
+
         }
 
+
         number++;
+
     });
 }
 
 
-// ===============================
+// ==========================================
 // RESTORE ORIGINAL S.NO
-// ===============================
+// ==========================================
 
 function restoreOriginalSno(type) {
 
-    const form = document.getElementById(type + "Form");
+    const form =
+        document.getElementById(type + "Form");
 
     if (!form) return;
 
-    const rows = form.querySelectorAll("tbody tr");
 
-    rows.forEach((row, index) => {
+    const rows =
+        form.querySelectorAll(
+            "tbody tr"
+        );
 
-        const snoCell = row.querySelector(".item-sno");
 
-        if (snoCell) {
-            snoCell.textContent = index + 1;
+    rows.forEach(row => {
+
+        const sno =
+            row.querySelector(
+                ".item-sno"
+            );
+
+
+        if (sno) {
+
+            sno.textContent =
+                row.dataset.originalSno;
+
         }
 
-        row.classList.remove("pdf-hide");
+
+        row.classList.remove(
+            "pdf-hide"
+        );
+
     });
 }
 
 
-// ===============================
-// DOWNLOAD / PRINT PDF
-// ===============================
+// ==========================================
+// DOWNLOAD PDF
+// ==========================================
 
 function downloadPDF() {
 
-    preparePDF();
+    const electricalSelected =
+        getSelectedItems("electrical");
 
-    // Small delay so browser updates the page
+    const plumbingSelected =
+        getSelectedItems("plumbing");
+
+
+    // Nothing typed
+    if (
+        electricalSelected.length === 0 &&
+        plumbingSelected.length === 0
+    ) {
+
+        alert(
+            "முதலில் Qty type பண்ணவும்."
+        );
+
+        return;
+    }
+
+
+    const electrical =
+        document.getElementById(
+            "electricalForm"
+        );
+
+    const plumbing =
+        document.getElementById(
+            "plumbingForm"
+        );
+
+
+    // Hide both first
+    electrical.classList.remove("active");
+    electrical.style.display = "none";
+
+    plumbing.classList.remove("active");
+    plumbing.style.display = "none";
+
+
+    // Electrical has Qty
+    if (
+        electricalSelected.length > 0
+    ) {
+
+        electrical.classList.add(
+            "active"
+        );
+
+        electrical.style.display =
+            "block";
+
+        hideEmptyRows(
+            "electrical"
+        );
+
+        renumberPDF(
+            "electrical"
+        );
+    }
+
+
+    // Plumbing has Qty
+    if (
+        plumbingSelected.length > 0
+    ) {
+
+        plumbing.classList.add(
+            "active"
+        );
+
+        plumbing.style.display =
+            "block";
+
+        hideEmptyRows(
+            "plumbing"
+        );
+
+        renumberPDF(
+            "plumbing"
+        );
+    }
+
+
+    calculateTotal("electrical");
+    calculateTotal("plumbing");
+
+
     setTimeout(() => {
 
         window.print();
 
-        // Restore website after print
-        setTimeout(() => {
-
-            restoreOriginalSno("electrical");
-            restoreOriginalSno("plumbing");
-
-            // Hide plumbing/electrical according to normal website state
-            if (currentSection === "electrical") {
-                document.getElementById("plumbingForm").style.display = "none";
-            }
-
-            if (currentSection === "plumbing") {
-                document.getElementById("electricalForm").style.display = "none";
-            }
-
-        }, 1000);
-
     }, 300);
+
+
+    // Restore after print
+    setTimeout(() => {
+
+        restoreOriginalSno(
+            "electrical"
+        );
+
+        restoreOriginalSno(
+            "plumbing"
+        );
+
+
+        electrical.classList.remove(
+            "active"
+        );
+
+        plumbing.classList.remove(
+            "active"
+        );
+
+
+        electrical.style.display =
+            "none";
+
+        plumbing.style.display =
+            "none";
+
+
+        if (currentSection) {
+
+            const current =
+                document.getElementById(
+                    currentSection + "Form"
+                );
+
+            if (current) {
+
+                current.classList.add(
+                    "active"
+                );
+
+                current.style.display =
+                    "block";
+
+            }
+
+        }
+
+    }, 1500);
 }
 
 
-// ===============================
-// SAVE ORDER - LOCAL STORAGE
-// ===============================
+// ==========================================
+// SAVE ORDER
+// ==========================================
 
 function saveOrder() {
 
     const customerName =
-        document.getElementById("customerName")?.value.trim() || "";
+        document.getElementById(
+            currentSection + "Sri"
+        )?.value.trim() || "";
 
-    const phone =
-        document.getElementById("phone")?.value.trim() || "";
-
-    const cell =
-        document.getElementById("cell")?.value.trim() || "";
-
-    const date =
-        document.getElementById("date")?.value || "";
 
     if (!customerName) {
-        alert("Customer Name enter பண்ணவும்.");
+
+        alert(
+            "Customer Name enter பண்ணவும்."
+        );
+
         return;
     }
 
+
     const order = {
 
-        customerName: customerName,
+        customerName:
+            customerName,
 
-        phone: phone,
+        electrical:
+            getSelectedItems(
+                "electrical"
+            ),
 
-        cell: cell,
+        plumbing:
+            getSelectedItems(
+                "plumbing"
+            ),
 
-        date: date,
+        savedAt:
+            new Date().toISOString()
 
-        electrical: getSelectedItems("electrical"),
-
-        plumbing: getSelectedItems("plumbing"),
-
-        savedAt: new Date().toISOString()
     };
+
 
     let orders = [];
 
+
     try {
-        orders = JSON.parse(
-            localStorage.getItem("mvsOrders") || "[]"
-        );
+
+        orders =
+            JSON.parse(
+                localStorage.getItem(
+                    "mvsOrders"
+                ) || "[]"
+            );
+
     } catch (error) {
+
         orders = [];
+
     }
 
+
     orders.push(order);
+
 
     localStorage.setItem(
         "mvsOrders",
         JSON.stringify(orders)
     );
 
-    alert("Order Saved Successfully ✅");
+
+    alert(
+        "Order Saved Successfully ✅"
+    );
 }
 
 
-// ===============================
-// CLEAR FORM
-// ===============================
-
-function clearForm() {
-
-    document.querySelectorAll(".qty-input").forEach(input => {
-        input.value = "";
-    });
-
-    document.querySelectorAll(
-        "#customerName, #phone, #cell, #date"
-    ).forEach(input => {
-        input.value = "";
-    });
-
-    calculateTotal("electrical");
-    calculateTotal("plumbing");
-
-    alert("Form cleared ✅");
-}
-
-
-// ===============================
+// ==========================================
 // ESCAPE HTML
-// ===============================
+// ==========================================
 
 function escapeHTML(text) {
 
-    const div = document.createElement("div");
+    const div =
+        document.createElement("div");
 
     div.textContent = text;
 
@@ -433,12 +733,15 @@ function escapeHTML(text) {
 }
 
 
-// ===============================
+// ==========================================
 // PAGE LOAD
-// ===============================
+// ==========================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    loadItems();
+        loadItems();
 
-});
+    }
+);
