@@ -178,7 +178,7 @@
     "customSize": true
   },
   {
-    "name": "Single Pole MCB",
+    "name": "MCB",
     "sizes": [
       "6A",
       "10A",
@@ -186,7 +186,8 @@
       "20A",
       "25A",
       "32A",
-      "40A"
+      "40A",
+      "63A"
     ],
     "customSize": true
   },
@@ -2261,146 +2262,6 @@
     "customSize": true
   },
   {
-    "name": "MCB 6A SP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 10A SP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 16A SP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 20A SP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 25A SP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 32A SP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 40A SP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 63A SP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 6A DP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 10A DP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 16A DP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 20A DP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 25A DP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 32A DP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 40A DP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 63A DP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 16A TP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 20A TP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 25A TP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 32A TP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 40A TP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 63A TP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 16A FP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 20A FP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 25A FP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 32A FP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 40A FP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "MCB 63A FP",
-    "sizes": [],
-    "customSize": true
-  },
-  {
     "name": "RCCB 25A 30mA",
     "sizes": [],
     "customSize": true
@@ -2661,158 +2522,64 @@
     "customSize": true
   },
   {
-    "name": "Single Core Wire 0.75 sqmm",
-    "sizes": [],
+    "name": "Single Core Wire",
+    "sizes": [
+      "0.75 sqmm",
+      "1.0 sqmm",
+      "1.5 sqmm",
+      "2.5 sqmm",
+      "4 sqmm",
+      "6 sqmm",
+      "10 sqmm",
+      "16 sqmm",
+      "25 sqmm"
+    ],
     "customSize": true
   },
   {
-    "name": "Single Core Wire 1.0 sqmm",
-    "sizes": [],
+    "name": "Flexible Wire",
+    "sizes": [
+      "0.75 sqmm",
+      "1.0 sqmm",
+      "1.5 sqmm",
+      "2.5 sqmm",
+      "4 sqmm",
+      "6 sqmm",
+      "10 sqmm"
+    ],
     "customSize": true
   },
   {
-    "name": "Single Core Wire 1.5 sqmm",
-    "sizes": [],
+    "name": "FR Wire",
+    "sizes": [
+      "1.5 sqmm",
+      "2.5 sqmm",
+      "4 sqmm",
+      "6 sqmm",
+      "10 sqmm"
+    ],
     "customSize": true
   },
   {
-    "name": "Single Core Wire 2.5 sqmm",
-    "sizes": [],
+    "name": "3 Core Cable",
+    "sizes": [
+      "1.5 sqmm",
+      "2.5 sqmm",
+      "4 sqmm",
+      "6 sqmm"
+    ],
     "customSize": true
   },
   {
-    "name": "Single Core Wire 4 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Single Core Wire 6 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Single Core Wire 10 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Single Core Wire 16 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Single Core Wire 25 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Flexible Wire 0.75 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Flexible Wire 1.0 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Flexible Wire 1.5 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Flexible Wire 2.5 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Flexible Wire 4 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Flexible Wire 6 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Flexible Wire 10 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "FR Wire 1.5 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "FR Wire 2.5 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "FR Wire 4 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "FR Wire 6 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "FR Wire 10 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "3 Core Cable 1.5 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "3 Core Cable 2.5 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "3 Core Cable 4 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "3 Core Cable 6 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "4 Core Cable 1.5 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "4 Core Cable 2.5 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "4 Core Cable 4 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "4 Core Cable 6 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "4 Core Cable 10 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "4 Core Cable 16 sqmm",
-    "sizes": [],
+    "name": "4 Core Cable",
+    "sizes": [
+      "1.5 sqmm",
+      "2.5 sqmm",
+      "4 sqmm",
+      "6 sqmm",
+      "10 sqmm",
+      "16 sqmm"
+    ],
     "customSize": true
   },
   {
@@ -2831,23 +2598,13 @@
     "customSize": true
   },
   {
-    "name": "Submersible Cable 1.5 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Submersible Cable 2.5 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Submersible Cable 4 sqmm",
-    "sizes": [],
-    "customSize": true
-  },
-  {
-    "name": "Submersible Cable 6 sqmm",
-    "sizes": [],
+    "name": "Submersible Cable",
+    "sizes": [
+      "1.5 sqmm",
+      "2.5 sqmm",
+      "4 sqmm",
+      "6 sqmm"
+    ],
     "customSize": true
   },
   {
