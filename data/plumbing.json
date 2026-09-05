@@ -1,32 +1,94 @@
 [
-  {"sno":1,"name":"3/4” .MM PVC Pipes"},
-  {"sno":2,"name":"1” .MM PVC Pipes"},
-  {"sno":3,"name":"3/4” Deep / Junction Box - 1 / 2 / 3 / 4"},
-  {"sno":4,"name":"1” Deep / Junction Box - 1 / 2 / 3 / 4"},
-  {"sno":5,"name":"3/4” Bends"},
-  {"sno":6,"name":"1” Bends"},
-  {"sno":7,"name":"Fan Hooks"},
-  {"sno":8,"name":"Tape Rolls"},
-  {"sno":9,"name":"Solvent"},
-  {"sno":10,"name":"2” Nails (H)"},
-  {"sno":11,"name":"HackSaw Blade Single / Double"},
-  {"sno":12,"name":"Wall Cutting Blades"},
-  {"sno":13,"name":"MCB Box"},
-  {"sno":14,"name":"1 / 2M. Metal Box"},
-  {"sno":15,"name":"3M. Metal Box"},
-  {"sno":16,"name":"4M. Metal Box"},
-  {"sno":17,"name":"6M. Metal Box"},
-  {"sno":18,"name":"8M. Metal Box (H), (SQ)"},
-  {"sno":19,"name":"12M. Metal Box"},
-  {"sno":20,"name":"16M. Metal Box"},
-  {"sno":21,"name":"18M. Metal Box"},
-  {"sno":22,"name":"3/4” PVC Sadles / J.Box Dummy"},
-  {"sno":23,"name":"1” PVC Sadles / J.Box Dummy"},
-  {"sno":24,"name":""},
-  {"sno":25,"name":""},
-  {"sno":26,"name":""},
-  {"sno":27,"name":""},
-  {"sno":28,"name":""},
-  {"sno":29,"name":""},
-  {"sno":30,"name":""}
+  {
+    "sno": 1,
+    "name": "3/4\" MM PVC Pipes"
+  },
+  {
+    "sno": 2,
+    "name": "1\" MM PVC Pipes"
+  },
+  {
+    "sno": 3,
+    "name": "3/4\" Deep / Junction Box - 1 / 2 / 3 / 4"
+  },
+  {
+    "sno": 4,
+    "name": "1\" Deep / Junction Box - 1 / 2 / 3 / 4"
+  },
+  {
+    "sno": 5,
+    "name": "3/4\" Bends"
+  },
+  {
+    "sno": 6,
+    "name": "1\" Bends"
+  },
+  {
+    "sno": 7,
+    "name": "Fan Hooks"
+  },
+  {
+    "sno": 8,
+    "name": "Tape Rolls"
+  },
+  {
+    "sno": 9,
+    "name": "Solvent"
+  },
+  {
+    "sno": 10,
+    "name": "2\" Nails (H)"
+  },
+  {
+    "sno": 11,
+    "name": "HackSaw Blade Single / Double"
+  },
+  {
+    "sno": 12,
+    "name": "Wall Cutting Blades"
+  },
+  {
+    "sno": 13,
+    "name": "MCB Box"
+  },
+  {
+    "sno": 14,
+    "name": "1 / 2M. Metal Box"
+  },
+  {
+    "sno": 15,
+    "name": "3M. Metal Box"
+  },
+  {
+    "sno": 16,
+    "name": "4M. Metal Box"
+  },
+  {
+    "sno": 17,
+    "name": "6M. Metal Box"
+  },
+  {
+    "sno": 18,
+    "name": "8M. Metal Box (H), (SQ)"
+  },
+  {
+    "sno": 19,
+    "name": "12M. Metal Box"
+  },
+  {
+    "sno": 20,
+    "name": "16M. Metal Box"
+  },
+  {
+    "sno": 21,
+    "name": "18M. Metal Box"
+  },
+  {
+    "sno": 22,
+    "name": "3/4\" PVC Saddles / J.Box Dummy"
+  },
+  {
+    "sno": 23,
+    "name": "1\" PVC Saddles / J.Box Dummy"
+  }
 ]
