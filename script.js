@@ -426,12 +426,14 @@ if (
 
         /* QTY INPUT */
 
-        const sizeQty =
-            createQtyInput(
-                type,
-                index,
-                "size"
-            );
+const sizeQty =
+    createQtyInput(
+        type,
+        index,
+        sizeEntry.querySelector(".size-dropdown")
+            ? sizeEntry.querySelector(".size-dropdown").selectedIndex - 1
+            : null
+    );
 
         sizeQty.dataset.entryId =
             entryId;
