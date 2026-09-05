@@ -298,7 +298,7 @@ function createItemRow(type, item, index) {
     }
 
 
-    /* =====================================================
+/* =====================================================
    SIZE DROPDOWN BESIDE ITEM NAME
    ===================================================== */
 
@@ -323,6 +323,24 @@ if (
             "size-entry";
 
 
+        /* UNIQUE ENTRY ID */
+
+        const entryId =
+            "size-" +
+            type +
+            "-" +
+            index +
+            "-" +
+            Date.now() +
+            "-" +
+            Math.random()
+                .toString(36)
+                .substring(2, 8);
+
+        sizeEntry.dataset.entryId =
+            entryId;
+
+
         /* SIZE DROPDOWN */
 
         const sizeSelect =
@@ -331,8 +349,8 @@ if (
         sizeSelect.className =
             "size-dropdown";
 
-        sizeSelect.dataset.sizeIndex =
-            sizeContainer.children.length;
+        sizeSelect.dataset.entryId =
+            entryId;
 
 
         const defaultOption =
@@ -366,7 +384,7 @@ if (
         );
 
 
-        /* CUSTOM SIZE */
+        /* CUSTOM SIZE OPTION */
 
         if (item.customSize === true) {
 
@@ -386,7 +404,7 @@ if (
         }
 
 
-        /* CUSTOM INPUT */
+        /* CUSTOM SIZE INPUT */
 
         const customInput =
             document.createElement("input");
@@ -402,18 +420,24 @@ if (
         customInput.style.display =
             "none";
 
+        customInput.dataset.entryId =
+            entryId;
 
-        /* QTY */
+
+        /* QTY INPUT */
 
         const sizeQty =
             createQtyInput(
                 type,
                 index,
-                sizeContainer.children.length
+                "size"
             );
 
+        sizeQty.dataset.entryId =
+            entryId;
 
-        /* ADD SIZE BUTTON */
+
+        /* REMOVE BUTTON */
 
         const removeButton =
             document.createElement("button");
@@ -432,13 +456,15 @@ if (
 
                 sizeEntry.remove();
 
+                sizeQty.remove();
+
                 calculateTotal(type);
 
             }
         );
 
 
-        /* CUSTOM CHANGE */
+        /* SIZE CHANGE */
 
         sizeSelect.addEventListener(
             "change",
@@ -461,9 +487,25 @@ if (
 
                 }
 
+                updateSelectedRow(sizeQty);
+
             }
         );
 
+
+        /* CUSTOM INPUT CHANGE */
+
+        customInput.addEventListener(
+            "input",
+            function () {
+
+                updateSelectedRow(sizeQty);
+
+            }
+        );
+
+
+        /* PARTICULARS */
 
         sizeEntry.appendChild(
             sizeSelect
@@ -471,10 +513,6 @@ if (
 
         sizeEntry.appendChild(
             customInput
-        );
-
-        sizeEntry.appendChild(
-            sizeQty
         );
 
         sizeEntry.appendChild(
@@ -486,10 +524,17 @@ if (
             sizeEntry
         );
 
+
+        /* QTY COLUMN */
+
+        qty.appendChild(
+            sizeQty
+        );
+
     }
 
 
-    /* FIRST SIZE ROW */
+    /* FIRST SIZE */
 
     addSizeRow();
 
