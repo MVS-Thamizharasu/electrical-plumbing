@@ -1030,3 +1030,57 @@ body {
     padding: 3px 7px;
     font-size: 11px;
 }
+
+/* =========================================
+   FINAL ITEM + SIZE ALIGNMENT
+========================================= */
+
+.particulars-cell {
+    vertical-align: middle !important;
+    white-space: normal !important;
+}
+
+.item-main-name {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    margin-right: 8px !important;
+    margin-bottom: 0 !important;
+    font-weight: 700;
+}
+
+.size-options-container {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    vertical-align: middle !important;
+    gap: 3px !important;
+    margin: 0 !important;
+}
+
+.size-entry {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    min-height: 28px !important;
+}
+
+.size-dropdown {
+    width: 110px !important;
+    height: 28px !important;
+    padding: 2px 5px !important;
+    font-size: 12px !important;
+}
+
+.remove-size-btn {
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    font-size: 14px !important;
+}
+
+.add-size-btn {
+    display: block !important;
+    width: fit-content !important;
+    margin-top: 2px !important;
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+}
