@@ -389,38 +389,49 @@ body {
    vs. qty-input overlap you saw)
 ========================================= */
 
-.size-qty-row {
+/* =========================================
+   SIZE DROPDOWN
+========================================= */
+
+.size-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 4px;
+}
+
+.size-entry {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 3px 0;
+    gap: 6px;
 }
 
-.size-label {
-    display: inline-flex;
-    align-items: center;
-    min-width: 75px;
-    flex-shrink: 0;
-    white-space: nowrap;
+.size-dropdown {
+    width: 130px;
+    height: 30px;
+    padding: 2px 6px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background: #ffffff;
     font-size: 13px;
-    font-weight: 600;
+    font-family: inherit;
 }
 
-.custom-size-row .size-label {
-    min-width: 0;
+.size-dropdown:focus {
+    outline: none;
+    border: 2px solid #1976d2;
 }
 
 .custom-size-input {
-    flex: 1;
-    max-width: 170px;
-    height: 29px;
+    width: 160px;
+    height: 30px;
+    padding: 3px 7px;
     border: 1px solid #aaa;
     border-radius: 5px;
     outline: none;
     background: #ffffff;
     font-size: 13px;
     font-family: inherit;
-    padding: 0 8px;
 }
 
 .custom-size-input:focus {
@@ -428,8 +439,37 @@ body {
     background: #fffde7;
 }
 
-.custom-size-input::placeholder {
-    color: #9ca3af;
+.add-size-btn {
+    margin-top: 5px;
+    padding: 4px 10px;
+    border: 1px solid #1976d2;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #1976d2;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.add-size-btn:hover {
+    background: #eff6ff;
+}
+
+.remove-size-btn {
+    width: 27px;
+    height: 27px;
+    padding: 0;
+    border: 1px solid #dc2626;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #dc2626;
+    font-size: 17px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.remove-size-btn:hover {
+    background: #fee2e2;
 }
 
 
