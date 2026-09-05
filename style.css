@@ -320,7 +320,7 @@ body {
 
 
 /* =========================================
-   TABLE COLUMNS
+   TABLE COLUMNS (header cells)
 ========================================= */
 
 .sno {
@@ -343,19 +343,108 @@ body {
 
 
 /* =========================================
-   ITEM ROW
+   ITEM ROW (body cells — actual classes
+   used by script.js)
 ========================================= */
 
 .item-sno {
     text-align: center !important;
 }
 
+/*
+   FIX: script.js creates the particulars <td>
+   with class "particulars-cell", not "particulars"
+   or "item-name" — those two rules above/below
+   were never matching anything in the actual
+   markup. Wiring up the real class here.
+*/
+
+.particulars-cell {
+    text-align: left;
+    vertical-align: top;
+    padding: 6px 8px !important;
+}
+
 .item-name {
     padding-left: 9px !important;
 }
 
+.item-main-name {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
 .qty-cell {
     text-align: center;
+    vertical-align: middle;
+}
+
+
+/* =========================================
+   SIZE / CUSTOM SIZE ROWS
+   (classes created by createItemRow /
+   createQtyInput in script.js — previously
+   had no CSS at all, which caused the label
+   vs. qty-input overlap you saw)
+========================================= */
+
+.size-qty-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+}
+
+.size-label {
+    display: inline-flex;
+    align-items: center;
+    min-width: 75px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.custom-size-row .size-label {
+    min-width: 0;
+}
+
+.custom-size-input {
+    flex: 1;
+    max-width: 170px;
+    height: 29px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    outline: none;
+    background: #ffffff;
+    font-size: 13px;
+    font-family: inherit;
+    padding: 0 8px;
+}
+
+.custom-size-input:focus {
+    border: 2px solid #1976d2;
+    background: #fffde7;
+}
+
+.custom-size-input::placeholder {
+    color: #9ca3af;
+}
+
+
+/* =========================================
+   ROW SELECTED HIGHLIGHT
+   (script.js toggles this class on rows
+   with a qty > 0 — previously unstyled)
+========================================= */
+
+.selected-row {
+    background: #f0fdf4;
+}
+
+.selected-row .qty-input {
+    border-color: #16a34a;
 }
 
 
@@ -663,6 +752,20 @@ body {
     }
 
 
+    /* SIZE / CUSTOM SIZE ROWS */
+
+    .size-label {
+        min-width: 55px;
+        font-size: 11px;
+    }
+
+    .custom-size-input {
+        height: 27px;
+        font-size: 12px;
+        max-width: 130px;
+    }
+
+
     /* BUTTONS */
 
     .action-buttons {
@@ -735,6 +838,22 @@ body {
 
     .form-page.active {
         display: block !important;
+    }
+
+
+    /*
+       FIX: scope printing to only the form
+       currently being exported. downloadPDF()
+       in script.js toggles body.printing-electrical
+       / body.printing-plumbing when it falls back
+       to window.print() (html2pdf missing) — this
+       makes sure the *other* form stays hidden
+       instead of also being printed.
+    */
+
+    body.printing-electrical #plumbingForm,
+    body.printing-plumbing #electricalForm {
+        display: none !important;
     }
 
 
