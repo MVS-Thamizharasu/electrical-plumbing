@@ -1,6 +1,8 @@
-// ==========================================
-// MVS ELECTRICAL - SCRIPT
-// ==========================================
+/* =========================================
+   MVS ELECTRICAL
+   ELECTRICAL + PLUMBING ORDER FORM
+========================================= */
+
 
 let electricalItems = [];
 let plumbingItems = [];
@@ -8,35 +10,61 @@ let plumbingItems = [];
 let currentSection = null;
 
 
-// ==========================================
-// LOAD JSON ITEMS
-// ==========================================
+/* =========================================
+   LOAD JSON ITEMS
+========================================= */
 
 async function loadItems() {
 
     try {
 
+        console.log("Loading items...");
+
+
+        /* ELECTRICAL */
+
         const electricalResponse =
             await fetch("./data/electrical.json");
 
         if (!electricalResponse.ok) {
-            throw new Error("Electrical JSON not found");
+
+            throw new Error(
+                "electrical.json not found"
+            );
         }
 
         electricalItems =
             await electricalResponse.json();
 
 
+        /* PLUMBING */
+
         const plumbingResponse =
             await fetch("./data/plumbing.json");
 
         if (!plumbingResponse.ok) {
-            throw new Error("Plumbing JSON not found");
+
+            throw new Error(
+                "plumbing.json not found"
+            );
         }
 
         plumbingItems =
             await plumbingResponse.json();
 
+
+        console.log(
+            "Electrical items:",
+            electricalItems.length
+        );
+
+        console.log(
+            "Plumbing items:",
+            plumbingItems.length
+        );
+
+
+        /* CREATE TABLE */
 
         createTable(
             "electrical",
@@ -48,163 +76,299 @@ async function loadItems() {
             plumbingItems
         );
 
-    } catch (error) {
 
-        console.error(error);
-
-        alert(
-            "Items load ஆகவில்லை.\n\n" +
-            "data/electrical.json\n" +
-            "data/plumbing.json\n\n" +
-            "files check பண்ணவும்."
+        console.log(
+            "Items loaded successfully"
         );
+
     }
+
+    catch (error) {
+
+        console.error(
+            "ITEM LOAD ERROR:",
+            error
+        );
+
+
+        showLoadError(
+            "Items load ஆகவில்லை.<br><br>" +
+            "data folder check பண்ணவும்.<br><br>" +
+            "electrical.json<br>" +
+            "plumbing.json"
+        );
+
+    }
+
 }
 
 
-// ==========================================
-// CREATE TABLE
-// ==========================================
+/* =========================================
+   SHOW LOAD ERROR
+========================================= */
+
+function showLoadError(message) {
+
+    const electrical =
+        document.getElementById(
+            "electricalItems"
+        );
+
+    const plumbing =
+        document.getElementById(
+            "plumbingItems"
+        );
+
+
+    const errorHTML = `
+        <tr>
+            <td colspan="3"
+                style="
+                    text-align:center;
+                    padding:25px;
+                    color:red;
+                    font-weight:bold;
+                ">
+                ${message}
+            </td>
+        </tr>
+    `;
+
+
+    if (electrical) {
+
+        electrical.innerHTML =
+            errorHTML;
+    }
+
+
+    if (plumbing) {
+
+        plumbing.innerHTML =
+            errorHTML;
+    }
+
+}
+
+
+/* =========================================
+   CREATE TABLE
+========================================= */
 
 function createTable(type, items) {
 
     const tbody =
-        document.getElementById(type + "Items");
+        document.getElementById(
+            type + "Items"
+        );
+
 
     if (!tbody) {
+
         console.error(
-            type + "Items element not found"
+            type +
+            "Items element not found"
         );
+
         return;
     }
 
+
     tbody.innerHTML = "";
 
-    items.forEach((item, index) => {
 
-        const sno =
-            item.sno || (index + 1);
+    if (!Array.isArray(items)) {
 
-        const tr =
-            document.createElement("tr");
-
-        tr.dataset.originalSno = sno;
-
-        tr.innerHTML = `
-
-            <td class="sno item-sno">
-                ${sno}
-            </td>
-
-            <td class="particulars item-name">
-                ${escapeHTML(item.name || "")}
-            </td>
-
-            <td class="qty qty-cell">
-
-                <input
-                    type="number"
-                    class="qty-input"
-                    min="0"
-                    step="1"
-                    inputmode="numeric"
-                    data-sno="${sno}"
-                >
-
-            </td>
-        `;
-
-        tbody.appendChild(tr);
-    });
-
-
-    const inputs =
-        tbody.querySelectorAll(".qty-input");
-
-    inputs.forEach(input => {
-
-        input.addEventListener(
-            "input",
-            function () {
-
-                calculateTotal(type);
-
-            }
+        console.error(
+            type +
+            " JSON is not an array"
         );
 
-    });
+        return;
+    }
+
+
+    items.forEach(
+        (item, index) => {
+
+            const sno =
+                item.sno ||
+                (index + 1);
+
+
+            const name =
+                item.name ||
+                "";
+
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+
+            tr.dataset.originalSno =
+                sno;
+
+
+            tr.innerHTML = `
+
+                <td class="sno item-sno">
+                    ${sno}
+                </td>
+
+
+                <td class="particulars item-name">
+                    ${escapeHTML(name)}
+                </td>
+
+
+                <td class="qty qty-cell">
+
+                    <input
+                        type="number"
+                        class="qty-input"
+                        min="0"
+                        step="1"
+                        inputmode="numeric"
+                        data-sno="${sno}"
+                    >
+
+                </td>
+
+            `;
+
+
+            tbody.appendChild(tr);
+
+        }
+    );
+
+
+    /* QTY EVENTS */
+
+    const inputs =
+        tbody.querySelectorAll(
+            ".qty-input"
+        );
+
+
+    inputs.forEach(
+        input => {
+
+            input.addEventListener(
+                "input",
+                function () {
+
+                    calculateTotal(
+                        type
+                    );
+
+                }
+            );
+
+        }
+    );
 
 
     calculateTotal(type);
+
 }
 
 
-// ==========================================
-// OPEN FORM
-// ==========================================
+/* =========================================
+   OPEN FORM
+========================================= */
 
 function openForm(type) {
 
     currentSection = type;
 
 
-    // Home hide
     const home =
-        document.getElementById("homePage");
+        document.getElementById(
+            "homePage"
+        );
+
+
+    const electrical =
+        document.getElementById(
+            "electricalForm"
+        );
+
+
+    const plumbing =
+        document.getElementById(
+            "plumbingForm"
+        );
+
+
+    /* HOME HIDE */
 
     if (home) {
-        home.style.display = "none";
+
+        home.style.display =
+            "none";
     }
 
 
-    // Electrical hide
-    const electrical =
-        document.getElementById("electricalForm");
+    /* ELECTRICAL HIDE */
 
     if (electrical) {
-        electrical.classList.remove("active");
-        electrical.style.display = "none";
+
+        electrical.classList.remove(
+            "active"
+        );
+
+        electrical.style.display =
+            "none";
     }
 
 
-    // Plumbing hide
-    const plumbing =
-        document.getElementById("plumbingForm");
+    /* PLUMBING HIDE */
 
     if (plumbing) {
-        plumbing.classList.remove("active");
-        plumbing.style.display = "none";
+
+        plumbing.classList.remove(
+            "active"
+        );
+
+        plumbing.style.display =
+            "none";
     }
 
 
-    // Selected form show
+    /* SELECTED FORM */
+
     const selected =
         document.getElementById(
             type + "Form"
         );
 
+
     if (selected) {
 
-        selected.classList.add("active");
-        selected.style.display = "block";
+        selected.classList.add(
+            "active"
+        );
+
+        selected.style.display =
+            "block";
+
 
         selected.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
 
-    } else {
-
-        alert(
-            type + " form கிடைக்கவில்லை."
-        );
     }
+
 }
 
 
-// ==========================================
-// GO HOME
-// ==========================================
+/* =========================================
+   GO HOME
+========================================= */
 
 function goHome() {
 
@@ -212,29 +376,49 @@ function goHome() {
 
 
     const electrical =
-        document.getElementById("electricalForm");
+        document.getElementById(
+            "electricalForm"
+        );
+
 
     const plumbing =
-        document.getElementById("plumbingForm");
+        document.getElementById(
+            "plumbingForm"
+        );
+
 
     const home =
-        document.getElementById("homePage");
+        document.getElementById(
+            "homePage"
+        );
 
 
     if (electrical) {
-        electrical.classList.remove("active");
-        electrical.style.display = "none";
+
+        electrical.classList.remove(
+            "active"
+        );
+
+        electrical.style.display =
+            "none";
     }
 
 
     if (plumbing) {
-        plumbing.classList.remove("active");
-        plumbing.style.display = "none";
+
+        plumbing.classList.remove(
+            "active"
+        );
+
+        plumbing.style.display =
+            "none";
     }
 
 
     if (home) {
-        home.style.display = "block";
+
+        home.style.display =
+            "block";
     }
 
 
@@ -242,38 +426,55 @@ function goHome() {
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 
-// ==========================================
-// CALCULATE TOTAL
-// ==========================================
+/* =========================================
+   CALCULATE TOTAL
+========================================= */
 
 function calculateTotal(type) {
 
     const form =
-        document.getElementById(type + "Form");
+        document.getElementById(
+            type + "Form"
+        );
+
 
     if (!form) return;
 
 
     const inputs =
-        form.querySelectorAll(".qty-input");
+        form.querySelectorAll(
+            ".qty-input"
+        );
+
 
     let total = 0;
 
 
-    inputs.forEach(input => {
+    inputs.forEach(
+        input => {
 
-        const qty =
-            parseInt(input.value);
+            const qty =
+                parseInt(
+                    input.value,
+                    10
+                );
 
-        if (!isNaN(qty) && qty > 0) {
 
-            total += qty;
+            if (
+                !isNaN(qty) &&
+                qty > 0
+            ) {
+
+                total += qty;
+
+            }
 
         }
-    });
+    );
 
 
     const totalElement =
@@ -281,24 +482,28 @@ function calculateTotal(type) {
             type + "Total"
         );
 
+
     if (totalElement) {
 
         totalElement.textContent =
             total;
 
     }
+
 }
 
 
-// ==========================================
-// GET SELECTED ITEMS
-// ONLY TYPED QTY ITEMS
-// ==========================================
+/* =========================================
+   GET SELECTED ITEMS
+========================================= */
 
 function getSelectedItems(type) {
 
     const form =
-        document.getElementById(type + "Form");
+        document.getElementById(
+            type + "Form"
+        );
+
 
     if (!form) return [];
 
@@ -308,56 +513,73 @@ function getSelectedItems(type) {
             "tbody tr"
         );
 
+
     const selected = [];
 
 
-    rows.forEach(row => {
+    rows.forEach(
+        row => {
 
-        const input =
-            row.querySelector(".qty-input");
-
-        if (!input) return;
-
-
-        const qty =
-            parseInt(input.value);
-
-
-        if (!isNaN(qty) && qty > 0) {
-
-            const name =
+            const input =
                 row.querySelector(
-                    ".item-name"
+                    ".qty-input"
                 );
 
 
-            selected.push({
+            if (!input) return;
 
-                name: name
-                    ? name.textContent.trim()
-                    : "",
 
-                qty: qty
+            const qty =
+                parseInt(
+                    input.value,
+                    10
+                );
 
-            });
+
+            if (
+                !isNaN(qty) &&
+                qty > 0
+            ) {
+
+                const name =
+                    row.querySelector(
+                        ".item-name"
+                    );
+
+
+                selected.push({
+
+                    name:
+                        name
+                            ? name.textContent.trim()
+                            : "",
+
+                    qty: qty
+
+                });
+
+            }
 
         }
-
-    });
+    );
 
 
     return selected;
+
 }
 
 
-// ==========================================
-// HIDE EMPTY ROWS FOR PDF
-// ==========================================
+/* =========================================
+   HIDE EMPTY ROWS FOR PDF
+========================================= */
 
 function hideEmptyRows(type) {
 
     const form =
-        document.getElementById(type + "Form");
+        document.getElementById(
+            type + "Form"
+        );
+
 
     if (!form) return;
 
@@ -368,49 +590,61 @@ function hideEmptyRows(type) {
         );
 
 
-    rows.forEach(row => {
+    rows.forEach(
+        row => {
 
-        const input =
-            row.querySelector(".qty-input");
-
-
-        if (!input) return;
-
-
-        const qty =
-            parseInt(input.value);
+            const input =
+                row.querySelector(
+                    ".qty-input"
+                );
 
 
-        if (
-            isNaN(qty) ||
-            qty <= 0
-        ) {
+            if (!input) return;
 
-            row.classList.add(
-                "pdf-hide"
-            );
 
-        } else {
+            const qty =
+                parseInt(
+                    input.value,
+                    10
+                );
 
-            row.classList.remove(
-                "pdf-hide"
-            );
+
+            if (
+                isNaN(qty) ||
+                qty <= 0
+            ) {
+
+                row.classList.add(
+                    "pdf-hide"
+                );
+
+            }
+
+            else {
+
+                row.classList.remove(
+                    "pdf-hide"
+                );
+
+            }
 
         }
+    );
 
-    });
 }
 
 
-// ==========================================
-// RENUMBER PDF
-// 1, 2, 3, 4...
-// ==========================================
+/* =========================================
+   RENUMBER PDF
+========================================= */
 
 function renumberPDF(type) {
 
     const form =
-        document.getElementById(type + "Form");
+        document.getElementById(
+            type + "Form"
+        );
+
 
     if (!form) return;
 
@@ -424,36 +658,42 @@ function renumberPDF(type) {
     let number = 1;
 
 
-    rows.forEach(row => {
+    rows.forEach(
+        row => {
 
-        const sno =
-            row.querySelector(
-                ".item-sno"
-            );
+            const sno =
+                row.querySelector(
+                    ".item-sno"
+                );
 
 
-        if (sno) {
+            if (sno) {
 
-            sno.textContent =
-                number;
+                sno.textContent =
+                    number;
+
+            }
+
+
+            number++;
 
         }
+    );
 
-
-        number++;
-
-    });
 }
 
 
-// ==========================================
-// RESTORE ORIGINAL S.NO
-// ==========================================
+/* =========================================
+   RESTORE ORIGINAL S.NO
+========================================= */
 
 function restoreOriginalSno(type) {
 
     const form =
-        document.getElementById(type + "Form");
+        document.getElementById(
+            type + "Form"
+        );
+
 
     if (!form) return;
 
@@ -464,44 +704,53 @@ function restoreOriginalSno(type) {
         );
 
 
-    rows.forEach(row => {
+    rows.forEach(
+        row => {
 
-        const sno =
-            row.querySelector(
-                ".item-sno"
+            const sno =
+                row.querySelector(
+                    ".item-sno"
+                );
+
+
+            if (sno) {
+
+                sno.textContent =
+                    row.dataset.originalSno;
+
+            }
+
+
+            row.classList.remove(
+                "pdf-hide"
             );
 
-
-        if (sno) {
-
-            sno.textContent =
-                row.dataset.originalSno;
-
         }
+    );
 
-
-        row.classList.remove(
-            "pdf-hide"
-        );
-
-    });
 }
 
 
-// ==========================================
-// DOWNLOAD PDF
-// ==========================================
+/* =========================================
+   DOWNLOAD PDF
+========================================= */
 
 function downloadPDF() {
 
     const electricalSelected =
-        getSelectedItems("electrical");
+        getSelectedItems(
+            "electrical"
+        );
+
 
     const plumbingSelected =
-        getSelectedItems("plumbing");
+        getSelectedItems(
+            "plumbing"
+        );
 
 
-    // Nothing typed
+    /* NO QTY */
+
     if (
         electricalSelected.length === 0 &&
         plumbingSelected.length === 0
@@ -512,6 +761,7 @@ function downloadPDF() {
         );
 
         return;
+
     }
 
 
@@ -520,21 +770,33 @@ function downloadPDF() {
             "electricalForm"
         );
 
+
     const plumbing =
         document.getElementById(
             "plumbingForm"
         );
 
 
-    // Hide both first
-    electrical.classList.remove("active");
-    electrical.style.display = "none";
+    /* HIDE BOTH */
 
-    plumbing.classList.remove("active");
-    plumbing.style.display = "none";
+    electrical.classList.remove(
+        "active"
+    );
+
+    electrical.style.display =
+        "none";
 
 
-    // Electrical has Qty
+    plumbing.classList.remove(
+        "active"
+    );
+
+    plumbing.style.display =
+        "none";
+
+
+    /* ELECTRICAL */
+
     if (
         electricalSelected.length > 0
     ) {
@@ -546,17 +808,21 @@ function downloadPDF() {
         electrical.style.display =
             "block";
 
+
         hideEmptyRows(
             "electrical"
         );
 
+
         renumberPDF(
             "electrical"
         );
+
     }
 
 
-    // Plumbing has Qty
+    /* PLUMBING */
+
     if (
         plumbingSelected.length > 0
     ) {
@@ -568,89 +834,120 @@ function downloadPDF() {
         plumbing.style.display =
             "block";
 
+
         hideEmptyRows(
             "plumbing"
         );
 
+
         renumberPDF(
             "plumbing"
         );
+
     }
 
 
-    calculateTotal("electrical");
-    calculateTotal("plumbing");
+    calculateTotal(
+        "electrical"
+    );
+
+    calculateTotal(
+        "plumbing"
+    );
 
 
-    setTimeout(() => {
+    /* PRINT */
 
-        window.print();
+    setTimeout(
+        () => {
 
-    }, 300);
+            window.print();
 
-
-    // Restore after print
-    setTimeout(() => {
-
-        restoreOriginalSno(
-            "electrical"
-        );
-
-        restoreOriginalSno(
-            "plumbing"
-        );
+        },
+        300
+    );
 
 
-        electrical.classList.remove(
-            "active"
-        );
+    /* RESTORE */
 
-        plumbing.classList.remove(
-            "active"
-        );
+    setTimeout(
+        () => {
 
+            restoreOriginalSno(
+                "electrical"
+            );
 
-        electrical.style.display =
-            "none";
-
-        plumbing.style.display =
-            "none";
+            restoreOriginalSno(
+                "plumbing"
+            );
 
 
-        if (currentSection) {
+            electrical.classList.remove(
+                "active"
+            );
 
-            const current =
-                document.getElementById(
-                    currentSection + "Form"
-                );
+            plumbing.classList.remove(
+                "active"
+            );
 
-            if (current) {
 
-                current.classList.add(
-                    "active"
-                );
+            electrical.style.display =
+                "none";
 
-                current.style.display =
-                    "block";
+            plumbing.style.display =
+                "none";
+
+
+            if (currentSection) {
+
+                const current =
+                    document.getElementById(
+                        currentSection +
+                        "Form"
+                    );
+
+
+                if (current) {
+
+                    current.classList.add(
+                        "active"
+                    );
+
+                    current.style.display =
+                        "block";
+
+                }
 
             }
 
-        }
+        },
+        1500
+    );
 
-    }, 1500);
 }
 
 
-// ==========================================
-// SAVE ORDER
-// ==========================================
+/* =========================================
+   SAVE ORDER
+========================================= */
 
 function saveOrder() {
 
-    const customerName =
+    const electricalCustomer =
         document.getElementById(
-            currentSection + "Sri"
+            "electricalSri"
         )?.value.trim() || "";
+
+
+    const plumbingCustomer =
+        document.getElementById(
+            "plumbingSri"
+        )?.value.trim() || "";
+
+
+    const customerName =
+        electricalCustomer ||
+        plumbingCustomer;
 
 
     if (!customerName) {
@@ -660,23 +957,52 @@ function saveOrder() {
         );
 
         return;
+
     }
 
 
     const order = {
 
         customerName:
+
             customerName,
+
+
+        phone:
+
+            document.getElementById(
+                "electricalPh"
+            )?.value.trim() ||
+
+
+            document.getElementById(
+                "plumbingPh"
+            )?.value.trim() || "",
+
+
+        cell:
+
+            document.getElementById(
+                "electricalCell"
+            )?.value.trim() ||
+
+
+            document.getElementById(
+                "plumbingCell"
+            )?.value.trim() || "",
+
 
         electrical:
             getSelectedItems(
                 "electrical"
             ),
 
+
         plumbing:
             getSelectedItems(
                 "plumbing"
             ),
+
 
         savedAt:
             new Date().toISOString()
@@ -696,7 +1022,9 @@ function saveOrder() {
                 ) || "[]"
             );
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         orders = [];
 
@@ -708,38 +1036,52 @@ function saveOrder() {
 
     localStorage.setItem(
         "mvsOrders",
-        JSON.stringify(orders)
+        JSON.stringify(
+            orders
+        )
     );
 
 
     alert(
         "Order Saved Successfully ✅"
     );
+
 }
 
 
-// ==========================================
-// ESCAPE HTML
-// ==========================================
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
 function escapeHTML(text) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    div.textContent = text;
+
+    div.textContent =
+        text;
+
 
     return div.innerHTML;
+
 }
 
 
-// ==========================================
-// PAGE LOAD
-// ==========================================
+/* =========================================
+   PAGE LOAD
+========================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
+
+        console.log(
+            "MVS Electrical started"
+        );
+
 
         loadItems();
 
