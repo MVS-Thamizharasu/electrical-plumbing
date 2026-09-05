@@ -1,234 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>MVS Electrical</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>MVS Electrical</title>
-
-    <!-- Main CSS -->
-    <link
-        rel="stylesheet"
-        href="./style.css">
-
+<link rel="stylesheet" href="./style.css">
 </head>
-
 
 <body>
 
-
 <div class="app">
 
-
-    <!-- =====================================
-         HOME PAGE
-    ====================================== -->
-
+    <!-- HOME -->
     <div id="homePage">
 
         <div class="top-title">
-
-            <h1>
-                ⚡ MVS Electrical
-            </h1>
-
-            <p>
-                Electrical & Plumbing Order Form
-            </p>
-
+            <h1>⚡ MVS Electrical</h1>
+            <p>Electrical & Plumbing Order Form</p>
         </div>
 
-
         <div class="home-buttons">
-
-
-            <!-- ELECTRICAL -->
 
             <button
                 type="button"
                 class="electrical-btn"
                 onclick="openForm('electrical')">
 
-                <div style="font-size:45px;">
-                    ⚡
-                </div>
+                <div class="button-icon">⚡</div>
 
-                <br>
-
-                Electrical
+                <div>Electrical</div>
 
             </button>
 
-
-            <!-- PLUMBING -->
 
             <button
                 type="button"
                 class="plumbing-btn"
                 onclick="openForm('plumbing')">
 
-                <div style="font-size:45px;">
-                    🚰
-                </div>
+                <div class="button-icon">🚰</div>
 
-                <br>
-
-                Plumbing
+                <div>Plumbing</div>
 
             </button>
-
 
         </div>
 
     </div>
 
 
-
-    <!-- =====================================
-         ELECTRICAL FORM
-    ====================================== -->
-
-    <div
-        id="electricalForm"
-        class="form-page">
-
-
-        <!-- FORM HEADER -->
+    <!-- ELECTRICAL FORM -->
+    <div id="electricalForm" class="form-page">
 
         <div class="form-header">
 
-
             <div class="order-title">
-
-                MVS ELECTRICAL
-
-                <br>
-
+                MVS ELECTRICAL<br>
                 ORDER FORM
-
             </div>
 
 
-            <!-- CUSTOMER DETAILS -->
-
             <div class="details">
 
-
-                <!-- SRI -->
-
                 <div class="detail-row">
-
-                    <label>
-                        Sri:
-                    </label>
+                    <label>Sri:</label>
 
                     <input
                         id="electricalSri"
                         type="text"
                         autocomplete="off"
                         placeholder="Customer Name">
-
                 </div>
 
 
-                <!-- PHONE -->
-
                 <div class="detail-row">
-
-                    <label>
-                        Ph:
-                    </label>
+                    <label>Ph:</label>
 
                     <input
                         id="electricalPh"
                         type="text"
                         inputmode="tel"
                         autocomplete="off">
-
                 </div>
 
 
-                <!-- CELL -->
-
                 <div class="detail-row">
-
-                    <label>
-                        Cell:
-                    </label>
+                    <label>Cell:</label>
 
                     <input
                         id="electricalCell"
                         type="text"
                         inputmode="tel"
                         autocomplete="off">
-
                 </div>
 
 
-                <!-- DATE -->
-
                 <div class="detail-row">
-
-                    <label>
-                        Date:
-                    </label>
+                    <label>Date:</label>
 
                     <input
                         id="electricalDate"
                         type="date">
-
                 </div>
-
 
             </div>
 
         </div>
 
 
-
-        <!-- ELECTRICAL TABLE -->
-
         <div class="table-container">
 
-
             <table class="order-table">
-
 
                 <thead>
 
                     <tr>
-
-                        <th class="sno">
-                            S.No.
-                        </th>
-
-                        <th class="particulars">
-                            PARTICULARS
-                        </th>
-
-                        <th class="qty">
-                            Qty.
-                        </th>
-
+                        <th class="sno">S.No.</th>
+                        <th class="particulars">PARTICULARS</th>
+                        <th class="qty">Qty.</th>
                     </tr>
 
                 </thead>
 
 
-                <!-- JSON ITEMS WILL COME HERE -->
+                <tbody id="electricalItems"></tbody>
 
-                <tbody
-                    id="electricalItems">
-
-                </tbody>
-
-
-                <!-- TOTAL -->
 
                 <tfoot>
 
@@ -237,44 +135,31 @@
                         <td
                             colspan="2"
                             class="total-label">
-
                             TOTAL
-
                         </td>
-
 
                         <td
                             id="electricalTotal"
                             class="total-value">
-
                             0
-
                         </td>
 
                     </tr>
 
                 </tfoot>
 
-
             </table>
-
 
         </div>
 
 
-
-        <!-- ELECTRICAL BUTTONS -->
-
         <div class="action-buttons">
-
 
             <button
                 type="button"
                 class="back-btn"
                 onclick="goHome()">
-
                 ← Back
-
             </button>
 
 
@@ -282,9 +167,7 @@
                 type="button"
                 class="save-btn"
                 onclick="saveOrder()">
-
                 💾 Save
-
             </button>
 
 
@@ -292,159 +175,91 @@
                 type="button"
                 class="pdf-btn"
                 onclick="downloadPDF()">
-
                 📄 PDF
-
             </button>
 
-
         </div>
-
 
     </div>
 
 
 
-    <!-- =====================================
-         PLUMBING FORM
-    ====================================== -->
-
-    <div
-        id="plumbingForm"
-        class="form-page">
-
-
-        <!-- FORM HEADER -->
+    <!-- PLUMBING FORM -->
+    <div id="plumbingForm" class="form-page">
 
         <div class="form-header">
 
-
             <div class="order-title">
-
-                MVS ELECTRICAL
-
-                <br>
-
+                MVS ELECTRICAL<br>
                 PLUMBING ORDER FORM
-
             </div>
 
 
-            <!-- CUSTOMER DETAILS -->
-
             <div class="details">
 
-
-                <!-- SRI -->
-
                 <div class="detail-row">
-
-                    <label>
-                        Sri:
-                    </label>
+                    <label>Sri:</label>
 
                     <input
                         id="plumbingSri"
                         type="text"
                         autocomplete="off"
                         placeholder="Customer Name">
-
                 </div>
 
 
-                <!-- PHONE -->
-
                 <div class="detail-row">
-
-                    <label>
-                        Ph:
-                    </label>
+                    <label>Ph:</label>
 
                     <input
                         id="plumbingPh"
                         type="text"
                         inputmode="tel"
                         autocomplete="off">
-
                 </div>
 
 
-                <!-- CELL -->
-
                 <div class="detail-row">
-
-                    <label>
-                        Cell:
-                    </label>
+                    <label>Cell:</label>
 
                     <input
                         id="plumbingCell"
                         type="text"
                         inputmode="tel"
                         autocomplete="off">
-
                 </div>
 
 
-                <!-- DATE -->
-
                 <div class="detail-row">
-
-                    <label>
-                        Date:
-                    </label>
+                    <label>Date:</label>
 
                     <input
                         id="plumbingDate"
                         type="date">
-
                 </div>
-
 
             </div>
 
         </div>
 
 
-
-        <!-- PLUMBING TABLE -->
-
         <div class="table-container">
 
-
             <table class="order-table">
-
 
                 <thead>
 
                     <tr>
-
-                        <th class="sno">
-                            S.No.
-                        </th>
-
-                        <th class="particulars">
-                            PARTICULARS
-                        </th>
-
-                        <th class="qty">
-                            Qty.
-                        </th>
-
+                        <th class="sno">S.No.</th>
+                        <th class="particulars">PARTICULARS</th>
+                        <th class="qty">Qty.</th>
                     </tr>
 
                 </thead>
 
 
-                <!-- JSON ITEMS -->
+                <tbody id="plumbingItems"></tbody>
 
-                <tbody
-                    id="plumbingItems">
-
-                </tbody>
-
-
-                <!-- TOTAL -->
 
                 <tfoot>
 
@@ -453,44 +268,31 @@
                         <td
                             colspan="2"
                             class="total-label">
-
                             TOTAL
-
                         </td>
-
 
                         <td
                             id="plumbingTotal"
                             class="total-value">
-
                             0
-
                         </td>
 
                     </tr>
 
                 </tfoot>
 
-
             </table>
-
 
         </div>
 
 
-
-        <!-- PLUMBING BUTTONS -->
-
         <div class="action-buttons">
-
 
             <button
                 type="button"
                 class="back-btn"
                 onclick="goHome()">
-
                 ← Back
-
             </button>
 
 
@@ -498,9 +300,7 @@
                 type="button"
                 class="save-btn"
                 onclick="saveOrder()">
-
                 💾 Save
-
             </button>
 
 
@@ -508,31 +308,17 @@
                 type="button"
                 class="pdf-btn"
                 onclick="downloadPDF()">
-
                 📄 PDF
-
             </button>
-
 
         </div>
 
-
     </div>
-
 
 </div>
 
 
-
-<!-- =====================================
-     JAVASCRIPT
-====================================== -->
-
-<script
-    src="./script.js">
-</script>
-
+<script src="./script.js"></script>
 
 </body>
-
 </html>
