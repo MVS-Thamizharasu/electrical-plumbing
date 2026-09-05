@@ -1,542 +1,444 @@
-let currentCategory = "";
-
 let electricalItems = [];
 let plumbingItems = [];
 
+let currentSection = "electrical";
 
-// =====================================
-// LOAD ITEMS FROM GITHUB JSON
-// =====================================
+// ===============================
+// LOAD ITEMS FROM JSON
+// ===============================
 
 async function loadItems() {
-
     try {
+        const electricalResponse = await fetch("./data/electrical.json");
+        electricalItems = await electricalResponse.json();
 
-        const electricalResponse =
-            await fetch("./data/electrical.json");
+        const plumbingResponse = await fetch("./data/plumbing.json");
+        plumbingItems = await plumbingResponse.json();
 
-        const plumbingResponse =
-            await fetch("./data/plumbing.json");
-
-        if (!electricalResponse.ok ||
-            !plumbingResponse.ok) {
-
-            throw new Error("JSON files not found");
-
-        }
-
-        electricalItems =
-            await electricalResponse.json();
-
-        plumbingItems =
-            await plumbingResponse.json();
-
-
-        createTable(
-            electricalItems,
-            "electricalItems",
-            "electrical"
-        );
-
-        createTable(
-            plumbingItems,
-            "plumbingItems",
-            "plumbing"
-        );
-
+        createTable("electrical", electricalItems);
+        createTable("plumbing", plumbingItems);
 
     } catch (error) {
-
-        console.error(error);
-
-        alert(
-            "Items load ஆகவில்லை.\n\n" +
-            "data/electrical.json மற்றும் " +
-            "data/plumbing.json check செய்யவும்."
-        );
-
+        console.error("Item loading error:", error);
+        alert("Items load ஆகவில்லை. JSON files check பண்ணவும்.");
     }
-
 }
 
 
-// =====================================
-// CREATE ITEM TABLE
-// =====================================
+// ===============================
+// CREATE TABLE
+// ===============================
 
-function createTable(items, elementId, category) {
+function createTable(type, items) {
 
-    const tbody =
-        document.getElementById(elementId);
+    const tbody = document.getElementById(type + "Items");
+
+    if (!tbody) {
+        console.error(type + "Items not found");
+        return;
+    }
 
     tbody.innerHTML = "";
 
-
     items.forEach((item, index) => {
 
-        const row =
-            document.createElement("tr");
+        const tr = document.createElement("tr");
 
-        row.dataset.sno =
-            item.sno || index + 1;
+        tr.dataset.sno = item.sno || (index + 1);
 
+        tr.innerHTML = `
+            <td class="item-sno">${item.sno || (index + 1)}</td>
 
-        row.innerHTML = `
-
-            <td class="sno">
-                ${item.sno || index + 1}
-            </td>
-
-            <td>
+            <td class="item-name">
                 ${escapeHTML(item.name)}
             </td>
 
-            <td class="qty">
-
+            <td class="qty-cell">
                 <input
                     type="number"
-                    min="0"
-                    inputmode="numeric"
                     class="qty-input"
-                    data-category="${category}"
-                    data-sno="${item.sno || index + 1}"
-                    placeholder=""
-                    oninput="calculateTotal('${category}')"
+                    min="0"
+                    step="1"
+                    value=""
+                    data-sno="${item.sno || (index + 1)}"
+                    oninput="calculateTotal('${type}')"
                 >
-
             </td>
-
         `;
 
-
-        tbody.appendChild(row);
-
+        tbody.appendChild(tr);
     });
 
+    calculateTotal(type);
 }
 
 
-// =====================================
-// OPEN ELECTRICAL / PLUMBING
-// =====================================
+// ===============================
+// OPEN ELECTRICAL
+// ===============================
 
-function openForm(category) {
+function openElectrical() {
 
-    currentCategory = category;
+    currentSection = "electrical";
 
+    document.getElementById("electricalForm").style.display = "block";
+    document.getElementById("plumbingForm").style.display = "none";
 
-    document.getElementById("home")
-        .style.display = "none";
-
-
-    document.getElementById("electricalForm")
-        .style.display = "none";
-
-
-    document.getElementById("plumbingForm")
-        .style.display = "none";
-
-
-    if (category === "electrical") {
-
-        document.getElementById("electricalForm")
-            .style.display = "block";
-
-
-        setToday("electricalDate");
-
-    }
-
-
-    if (category === "plumbing") {
-
-        document.getElementById("plumbingForm")
-            .style.display = "block";
-
-
-        setToday("plumbingDate");
-
-    }
-
+    document.getElementById("electricalForm").scrollIntoView({
+        behavior: "smooth"
+    });
 }
 
 
-// =====================================
-// BACK HOME
-// =====================================
+// ===============================
+// OPEN PLUMBING
+// ===============================
 
-function goHome() {
+function openPlumbing() {
 
-    document.getElementById("electricalForm")
-        .style.display = "none";
+    currentSection = "plumbing";
 
+    document.getElementById("electricalForm").style.display = "none";
+    document.getElementById("plumbingForm").style.display = "block";
 
-    document.getElementById("plumbingForm")
-        .style.display = "none";
-
-
-    document.getElementById("home")
-        .style.display = "block";
-
+    document.getElementById("plumbingForm").scrollIntoView({
+        behavior: "smooth"
+    });
 }
 
 
-// =====================================
-// TODAY DATE
-// =====================================
+// ===============================
+// SHOW BOTH FOR PDF
+// ===============================
 
-function setToday(id) {
+function showBothForms() {
 
-    const input =
-        document.getElementById(id);
-
-
-    if (!input.value) {
-
-        const today =
-            new Date()
-                .toISOString()
-                .split("T")[0];
-
-
-        input.value = today;
-
-    }
-
+    document.getElementById("electricalForm").style.display = "block";
+    document.getElementById("plumbingForm").style.display = "block";
 }
 
 
-// =====================================
-// TOTAL QTY
-// =====================================
+// ===============================
+// CALCULATE TOTAL
+// ===============================
 
-function calculateTotal(category) {
+function calculateTotal(type) {
 
-    const inputs =
-        document.querySelectorAll(
-            `.qty-input[data-category="${category}"]`
-        );
+    const form = document.getElementById(type + "Form");
 
+    if (!form) return;
+
+    const inputs = form.querySelectorAll(".qty-input");
 
     let total = 0;
 
-
     inputs.forEach(input => {
 
-        total +=
-            Number(input.value) || 0;
+        let qty = parseInt(input.value);
 
+        if (!isNaN(qty) && qty > 0) {
+            total += qty;
+        }
     });
 
-
-    const totalElement =
-        document.getElementById(
-            category + "Total"
-        );
-
+    const totalElement = form.querySelector(".total-qty");
 
     if (totalElement) {
-
-        totalElement.innerText =
-            total;
-
+        totalElement.textContent = total;
     }
-
 }
 
 
-// =====================================
+// ===============================
 // GET SELECTED ITEMS
-// Qty > 0 மட்டும்
-// =====================================
+// ===============================
 
-function getSelectedItems(category) {
+function getSelectedItems(type) {
 
-    const inputs =
-        document.querySelectorAll(
-            `.qty-input[data-category="${category}"]`
-        );
+    const form = document.getElementById(type + "Form");
 
+    if (!form) return [];
 
-    const itemList =
-        category === "electrical"
-            ? electricalItems
-            : plumbingItems;
-
+    const rows = form.querySelectorAll("tbody tr");
 
     const selected = [];
 
+    rows.forEach(row => {
 
-    inputs.forEach(input => {
+        const input = row.querySelector(".qty-input");
 
-        const qty =
-            Number(input.value) || 0;
+        if (!input) return;
 
+        const qty = parseInt(input.value);
 
-        if (qty > 0) {
+        if (!isNaN(qty) && qty > 0) {
 
-            const sno =
-                Number(input.dataset.sno);
+            const nameElement = row.querySelector(".item-name");
 
-
-            const item =
-                itemList.find(
-                    x =>
-                        Number(x.sno) === sno
-                );
-
-
-            if (item) {
-
-                selected.push({
-
-                    sno: sno,
-
-                    name: item.name,
-
-                    qty: qty,
-
-                    image:
-                        item.image || ""
-
-                });
-
-            }
-
+            selected.push({
+                name: nameElement
+                    ? nameElement.textContent.trim()
+                    : "",
+                qty: qty
+            });
         }
-
     });
 
-
     return selected;
-
 }
 
 
-// =====================================
-// SAVE ORDER LOCALLY
-// =====================================
+// ===============================
+// PREPARE PDF
+// ===============================
 
-function saveOrder(category) {
+function preparePDF() {
 
-    const selectedItems =
-        getSelectedItems(category);
+    // Show both forms
+    showBothForms();
+
+    // Remove previous PDF hide
+    document.querySelectorAll(".pdf-hide").forEach(row => {
+        row.classList.remove("pdf-hide");
+    });
+
+    // Hide empty Electrical rows
+    hideEmptyRows("electrical");
+
+    // Hide empty Plumbing rows
+    hideEmptyRows("plumbing");
+
+    // Renumber Electrical
+    renumberPDF("electrical");
+
+    // Renumber Plumbing
+    renumberPDF("plumbing");
+
+    // Update totals
+    calculateTotal("electrical");
+    calculateTotal("plumbing");
+}
 
 
-    if (selectedItems.length === 0) {
+// ===============================
+// HIDE EMPTY ROWS
+// ===============================
 
-        alert(
-            "குறைந்தது ஒரு item-க்கு Qty கொடுக்கவும்."
-        );
+function hideEmptyRows(type) {
 
-        return;
+    const form = document.getElementById(type + "Form");
 
-    }
+    if (!form) return;
 
+    const rows = form.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+
+        const input = row.querySelector(".qty-input");
+
+        if (!input) return;
+
+        const qty = parseInt(input.value);
+
+        if (isNaN(qty) || qty <= 0) {
+            row.classList.add("pdf-hide");
+        } else {
+            row.classList.remove("pdf-hide");
+        }
+    });
+}
+
+
+// ===============================
+// PDF S.NO = 1,2,3,4...
+// ===============================
+
+function renumberPDF(type) {
+
+    const form = document.getElementById(type + "Form");
+
+    if (!form) return;
+
+    const rows = form.querySelectorAll("tbody tr:not(.pdf-hide)");
+
+    let number = 1;
+
+    rows.forEach(row => {
+
+        const snoCell = row.querySelector(".item-sno");
+
+        if (snoCell) {
+            snoCell.textContent = number;
+        }
+
+        number++;
+    });
+}
+
+
+// ===============================
+// RESTORE ORIGINAL S.NO
+// ===============================
+
+function restoreOriginalSno(type) {
+
+    const form = document.getElementById(type + "Form");
+
+    if (!form) return;
+
+    const rows = form.querySelectorAll("tbody tr");
+
+    rows.forEach((row, index) => {
+
+        const snoCell = row.querySelector(".item-sno");
+
+        if (snoCell) {
+            snoCell.textContent = index + 1;
+        }
+
+        row.classList.remove("pdf-hide");
+    });
+}
+
+
+// ===============================
+// DOWNLOAD / PRINT PDF
+// ===============================
+
+function downloadPDF() {
+
+    preparePDF();
+
+    // Small delay so browser updates the page
+    setTimeout(() => {
+
+        window.print();
+
+        // Restore website after print
+        setTimeout(() => {
+
+            restoreOriginalSno("electrical");
+            restoreOriginalSno("plumbing");
+
+            // Hide plumbing/electrical according to normal website state
+            if (currentSection === "electrical") {
+                document.getElementById("plumbingForm").style.display = "none";
+            }
+
+            if (currentSection === "plumbing") {
+                document.getElementById("electricalForm").style.display = "none";
+            }
+
+        }, 1000);
+
+    }, 300);
+}
+
+
+// ===============================
+// SAVE ORDER - LOCAL STORAGE
+// ===============================
+
+function saveOrder() {
 
     const customerName =
-        document.getElementById(
-            category + "Name"
-        ).value.trim();
+        document.getElementById("customerName")?.value.trim() || "";
 
+    const phone =
+        document.getElementById("phone")?.value.trim() || "";
+
+    const cell =
+        document.getElementById("cell")?.value.trim() || "";
+
+    const date =
+        document.getElementById("date")?.value || "";
 
     if (!customerName) {
-
-        alert(
-            "Customer Name / Sri name கொடுக்கவும்."
-        );
-
+        alert("Customer Name enter பண்ணவும்.");
         return;
-
     }
-
 
     const order = {
 
-        id:
-            Date.now(),
+        customerName: customerName,
 
-        customer:
-            customerName,
+        phone: phone,
 
-        phone:
-            document.getElementById(
-                category + "Ph"
-            ).value.trim(),
+        cell: cell,
 
-        cell:
-            document.getElementById(
-                category + "Cell"
-            ).value.trim(),
+        date: date,
 
-        date:
-            document.getElementById(
-                category + "Date"
-            ).value,
+        electrical: getSelectedItems("electrical"),
 
-        category:
-            category,
+        plumbing: getSelectedItems("plumbing"),
 
-        items:
-            selectedItems,
-
-        totalQty:
-            selectedItems.reduce(
-                (total, item) =>
-                    total + item.qty,
-                0
-            )
-
+        savedAt: new Date().toISOString()
     };
 
+    let orders = [];
 
-    let orders =
-        JSON.parse(
-            localStorage.getItem("mvsOrders")
-        ) || [];
-
+    try {
+        orders = JSON.parse(
+            localStorage.getItem("mvsOrders") || "[]"
+        );
+    } catch (error) {
+        orders = [];
+    }
 
     orders.push(order);
-
 
     localStorage.setItem(
         "mvsOrders",
         JSON.stringify(orders)
     );
 
-
-    alert(
-        "Order saved successfully ✅\n\n" +
-        "Customer: " +
-        customerName
-    );
-
+    alert("Order Saved Successfully ✅");
 }
 
 
-// =====================================
-// PDF
-// Qty உள்ள items மட்டும்
-// =====================================
+// ===============================
+// CLEAR FORM
+// ===============================
 
-function downloadPDF(category) {
+function clearForm() {
 
-    const selectedItems =
-        getSelectedItems(category);
-
-
-    if (selectedItems.length === 0) {
-
-        alert(
-            "PDF உருவாக்க குறைந்தது ஒரு item-க்கு Qty கொடுக்கவும்."
-        );
-
-        return;
-
-    }
-
-
-    const customerName =
-        document.getElementById(
-            category + "Name"
-        ).value.trim();
-
-
-    if (!customerName) {
-
-        alert(
-            "Customer Name / Sri name கொடுக்கவும்."
-        );
-
-        return;
-
-    }
-
-
-    const rows =
-        document.querySelectorAll(
-            `#${category}Items tr`
-        );
-
-
-    // Qty இல்லாத rows PDF-ல் மறைக்கப்படும்
-
-    rows.forEach(row => {
-
-        const input =
-            row.querySelector(".qty-input");
-
-
-        if (!input) return;
-
-
-        const qty =
-            Number(input.value) || 0;
-
-
-        if (qty > 0) {
-
-            row.classList.remove(
-                "pdf-hide"
-            );
-
-        } else {
-
-            row.classList.add(
-                "pdf-hide"
-            );
-
-        }
-
+    document.querySelectorAll(".qty-input").forEach(input => {
+        input.value = "";
     });
 
+    document.querySelectorAll(
+        "#customerName, #phone, #cell, #date"
+    ).forEach(input => {
+        input.value = "";
+    });
 
-    saveOrder(category);
+    calculateTotal("electrical");
+    calculateTotal("plumbing");
 
-
-    setTimeout(() => {
-
-        window.print();
-
-
-        setTimeout(() => {
-
-            rows.forEach(row => {
-
-                row.classList.remove(
-                    "pdf-hide"
-                );
-
-            });
-
-        }, 1000);
-
-    }, 300);
-
+    alert("Form cleared ✅");
 }
 
 
-// =====================================
+// ===============================
 // ESCAPE HTML
-// =====================================
+// ===============================
 
-function escapeHTML(value) {
+function escapeHTML(text) {
 
-    const div =
-        document.createElement("div");
+    const div = document.createElement("div");
 
-
-    div.textContent =
-        value || "";
-
+    div.textContent = text;
 
     return div.innerHTML;
-
 }
 
 
-// =====================================
-// START APP
-// =====================================
+// ===============================
+// PAGE LOAD
+// ===============================
 
-loadItems();
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadItems();
+
+});
