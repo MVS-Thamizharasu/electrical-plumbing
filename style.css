@@ -1,0 +1,11 @@
+@media print {
+
+    .pdf-hidden {
+        display: none !important;
+    }
+
+    .pdf-selected {
+        display: table-row !important;
+    }
+
+}
