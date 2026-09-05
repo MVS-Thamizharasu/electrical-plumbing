@@ -1,62 +1,190 @@
 [
-  {"sno":1,"name":"1 Way Switch"},
-  {"sno":2,"name":"2 Way Switch"},
-  {"sno":3,"name":"2 Pin Socket"},
-  {"sno":4,"name":"5 AMPS 2 in 1 Socket"},
-  {"sno":5,"name":"Indicator"},
-  {"sno":6,"name":"15 AMPS 2 in 1 Socket"},
-  {"sno":7,"name":"20 AMPS one way Switch"},
-  {"sno":8,"name":"Dimmer. Medium / Switch Type"},
-  {"sno":9,"name":"TV Socket"},
-  {"sno":10,"name":"Bell Push"},
-  {"sno":11,"name":"Blank Plates 1m / 2m"},
-  {"sno":12,"name":"DP Main"},
-  {"sno":13,"name":"Foot Light 4 Model"},
-  {"sno":14,"name":"Night Lamp / Step Marker"},
-  {"sno":15,"name":"1M. Plate"},
-  {"sno":16,"name":"2M. Plate"},
-  {"sno":17,"name":"3M. Plate"},
-  {"sno":18,"name":"4M. Plate"},
-  {"sno":19,"name":"6M. Plate"},
-  {"sno":20,"name":"8M. Plate (H), (Sq)"},
-  {"sno":21,"name":"12M. Plate"},
-  {"sno":22,"name":"16M. Plate"},
-  {"sno":23,"name":"18M. Plate"},
-  {"sno":24,"name":"Isolator"},
-  {"sno":25,"name":"MCB's - 10A / 16A / 20A / 32A / 6A"},
-  {"sno":26,"name":"1/18(1.0) MultiStand Wire - Red / Blue / Green / Yellow / Black"},
-  {"sno":27,"name":"3/20(2.0) MultiStand Wire - Red / Blue / Green / Yellow / Black"},
-  {"sno":28,"name":"3/20(2.5) Multi Stand Wire - Red / Blue / Green / Yellow / Black"},
-  {"sno":29,"name":"7/20(4.0) Multi Stand Wire - Red / Blue / Green / Yellow / Black"},
-  {"sno":30,"name":"Angle Holder"},
-  {"sno":31,"name":"Batton Holder"},
-  {"sno":32,"name":"Jumbo Ceiling Rose"},
-  {"sno":33,"name":"Spl. Round Sheets"},
-  {"sno":34,"name":"Plain Round Sheets"},
-  {"sno":35,"name":"Tape Rolls"},
-  {"sno":36,"name":"Tubelight Sets"},
-  {"sno":37,"name":"Ceiling Fans"},
-  {"sno":38,"name":"Wiring Spring Box"},
-  {"sno":39,"name":"Bell"},
-  {"sno":40,"name":"Service Wire"},
-  {"sno":41,"name":"Stay Wire"},
-  {"sno":42,"name":"Ties Packet"},
-  {"sno":43,"name":"PVC Grip Pakets"},
-  {"sno":44,"name":"Dish Wire"},
-  {"sno":45,"name":"Telephone Wire"},
-  {"sno":46,"name":"Screws - 3/4 / 1 / 1¼ / 1½ / 2 / 2½"},
-  {"sno":47,"name":"Motor Starter - 20A / 25A / 32A"},
-  {"sno":48,"name":""},
-  {"sno":49,"name":""},
-  {"sno":50,"name":""},
-  {"sno":51,"name":""},
-  {"sno":52,"name":""},
-  {"sno":53,"name":""},
-  {"sno":54,"name":""},
-  {"sno":55,"name":""},
-  {"sno":56,"name":""},
-  {"sno":57,"name":""},
-  {"sno":58,"name":""},
-  {"sno":59,"name":""},
-  {"sno":60,"name":""}
+  {
+    "sno": 1,
+    "name": "1 Way Switch"
+  },
+  {
+    "sno": 2,
+    "name": "2 Way Switch"
+  },
+  {
+    "sno": 3,
+    "name": "2 Pin Socket"
+  },
+  {
+    "sno": 4,
+    "name": "5 AMPS 2 in 1 Socket"
+  },
+  {
+    "sno": 5,
+    "name": "Indicator"
+  },
+  {
+    "sno": 6,
+    "name": "15 AMPS 2 in 1 Socket"
+  },
+  {
+    "sno": 7,
+    "name": "20 AMPS One Way Switch"
+  },
+  {
+    "sno": 8,
+    "name": "Dimmer - Medium / Switch Type"
+  },
+  {
+    "sno": 9,
+    "name": "TV Socket"
+  },
+  {
+    "sno": 10,
+    "name": "Bell Push"
+  },
+  {
+    "sno": 11,
+    "name": "Blank Plates 1M / 2M"
+  },
+  {
+    "sno": 12,
+    "name": "DP Main"
+  },
+  {
+    "sno": 13,
+    "name": "Foot Light 4 Model"
+  },
+  {
+    "sno": 14,
+    "name": "Night Lamp / Step Marker"
+  },
+  {
+    "sno": 15,
+    "name": "1M. Plate"
+  },
+  {
+    "sno": 16,
+    "name": "2M. Plate"
+  },
+  {
+    "sno": 17,
+    "name": "3M. Plate"
+  },
+  {
+    "sno": 18,
+    "name": "4M. Plate"
+  },
+  {
+    "sno": 19,
+    "name": "6M. Plate"
+  },
+  {
+    "sno": 20,
+    "name": "8M. Plate (H), (Sq)"
+  },
+  {
+    "sno": 21,
+    "name": "12M. Plate"
+  },
+  {
+    "sno": 22,
+    "name": "16M. Plate"
+  },
+  {
+    "sno": 23,
+    "name": "18M. Plate"
+  },
+  {
+    "sno": 24,
+    "name": "Isolator"
+  },
+  {
+    "sno": 25,
+    "name": "MCB's - 6A / 10A / 16A / 20A / 32A"
+  },
+  {
+    "sno": 26,
+    "name": "1/18 (1.0) MultiStand Wire - Red Blue Green Yellow Black"
+  },
+  {
+    "sno": 27,
+    "name": "3/20 (2.0) MultiStand Wire - Red Blue Green Yellow Black"
+  },
+  {
+    "sno": 28,
+    "name": "3/20 (2.5) Multi Stand Wire - Red Blue Green Yellow Black"
+  },
+  {
+    "sno": 29,
+    "name": "7/20 (4.0) Multi Stand Wire - Red Blue Green Yellow Black"
+  },
+  {
+    "sno": 30,
+    "name": "Angle Holder"
+  },
+  {
+    "sno": 31,
+    "name": "Batton Holder"
+  },
+  {
+    "sno": 32,
+    "name": "Jumbo Ceiling Rose"
+  },
+  {
+    "sno": 33,
+    "name": "Spl. Round Sheets"
+  },
+  {
+    "sno": 34,
+    "name": "Plain Round Sheets"
+  },
+  {
+    "sno": 35,
+    "name": "Tape Rolls"
+  },
+  {
+    "sno": 36,
+    "name": "Tubelight Sets"
+  },
+  {
+    "sno": 37,
+    "name": "Ceiling Fans"
+  },
+  {
+    "sno": 38,
+    "name": "Wiring Spring Box"
+  },
+  {
+    "sno": 39,
+    "name": "Bell"
+  },
+  {
+    "sno": 40,
+    "name": "Service Wire"
+  },
+  {
+    "sno": 41,
+    "name": "Stay Wire"
+  },
+  {
+    "sno": 42,
+    "name": "Ties Packet"
+  },
+  {
+    "sno": 43,
+    "name": "PVC Grip Pakets"
+  },
+  {
+    "sno": 44,
+    "name": "Dish Wire"
+  },
+  {
+    "sno": 45,
+    "name": "Telephone Wire"
+  },
+  {
+    "sno": 46,
+    "name": "Screws - 3/4 / 1 / 1¼ / 1½ / 2 / 2½"
+  },
+  {
+    "sno": 47,
+    "name": "Motor Starter - 20A / 25A / 32A"
+  }
 ]
