@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Electrical & Plumbing Work</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        header p {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .category {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .category button {
+            border: none;
+            border-radius: 16px;
+            padding: 30px 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .category button:active {
+            transform: scale(0.97);
+        }
+
+        .electrical {
+            border-top: 5px solid #f59e0b !important;
+        }
+
+        .plumbing {
+            border-top: 5px solid #2563eb !important;
+        }
+
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .save-btn {
+            width: 100%;
+            border: none;
+            background: #16a34a;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .clear-btn {
+            width: 100%;
+            border: none;
+            background: #dc2626;
+            color: white;
+            padding: 13px;
+            border-radius: 10px;
+            font-size: 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .work-item {
+            background: #f8fafc;
+            border-left: 4px solid #2563eb;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .work-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #6b7280;
+            padding: 15px;
+        }
+
+        .back-btn {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>⚡ Electrical & Plumbing</h1>
+    <p>Work Recording System</p>
+</header>
+
+<div class="container">
+
+    <!-- HOME -->
+    <div id="home">
+
+        <div class="section">
+            <h2>Select Work Type</h2>
+
+            <div class="category">
+
+                <button class="electrical" onclick="openWork('Electrical')">
+                    ⚡<br><br>
+                    Electrical
+                </button>
+
+                <button class="plumbing" onclick="openWork('Plumbing')">
+                    🚰<br><br>
+                    Plumbing
+                </button>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Saved Works</h2>
+
+            <div id="savedWorks">
+                <div class="empty">
+                    No work saved yet
+                </div>
+            </div>
+
+            <button class="clear-btn" onclick="clearWorks()">
+                Clear All Works
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- WORK ENTRY -->
+    <div id="workPage" class="hidden">
+
+        <button class="back-btn" onclick="goHome()">
+            ← Back
+        </button>
+
+        <div class="section">
+
+            <h2 id="workTitle">Work Entry</h2>
+
+            <label>Work Date</label>
+            <input type="date" id="workDate">
+
+            <label>Item Name</label>
+            <input
+                type="text"
+                id="itemName"
+                placeholder="Example: Switch"
+            >
+
+            <label>Quantity</label>
+            <input
+                type="number"
+                id="quantity"
+                placeholder="Enter quantity"
+                min="1"
+            >
+
+            <label>Notes</label>
+            <textarea
+                id="notes"
+                placeholder="Enter work details..."
+            ></textarea>
+
+            <button class="save-btn" onclick="saveWork()">
+                💾 Save Work
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    Electrical & Plumbing Work Recorder
+</footer>
+
+
+<script>
+
+    let currentCategory = "";
+
+    // Open Electrical / Plumbing
+    function openWork(category) {
+
+        currentCategory = category;
+
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("workPage").classList.remove("hidden");
+
+        document.getElementById("workTitle").innerText =
+            category + " Work Entry";
+
+        document.getElementById("workDate").value =
+            new Date().toISOString().split("T")[0];
+    }
+
+
+    // Go Home
+    function goHome() {
+
+        document.getElementById("workPage").classList.add("hidden");
+        document.getElementById("home").classList.remove("hidden");
+
+        document.getElementById("itemName").value = "";
+        document.getElementById("quantity").value = "";
+        document.getElementById("notes").value = "";
+    }
+
+
+    // Save Work
+    function saveWork() {
+
+        const date =
+            document.getElementById("workDate").value;
+
+        const item =
+            document.getElementById("itemName").value.trim();
+
+        const quantity =
+            document.getElementById("quantity").value;
+
+        const notes =
+            document.getElementById("notes").value.trim();
+
+
+        if (!item) {
+            alert("Please enter item name");
+            return;
+        }
+
+        if (!quantity) {
+            alert("Please enter quantity");
+            return;
+        }
+
+
+        const work = {
+
+            id: Date.now(),
+
+            category: currentCategory,
+
+            date: date,
+
+            item: item,
+
+            quantity: quantity,
+
+            notes: notes
+
+        };
+
+
+        let works =
+            JSON.parse(localStorage.getItem("works")) || [];
+
+        works.push(work);
+
+        localStorage.setItem(
+            "works",
+            JSON.stringify(works)
+        );
+
+
+        alert("Work saved successfully! ✅");
+
+        goHome();
+
+        displayWorks();
+    }
+
+
+    // Display saved works
+    function displayWorks() {
+
+        const container =
+            document.getElementById("savedWorks");
+
+        let works =
+            JSON.parse(localStorage.getItem("works")) || [];
+
+
+        if (works.length === 0) {
+
+            container.innerHTML =
+                '<div class="empty">No work saved yet</div>';
+
+            return;
+        }
+
+
+        container.innerHTML = "";
+
+
+        works.reverse().forEach(work => {
+
+            const div =
+                document.createElement("div");
+
+            div.className = "work-item";
+
+            div.innerHTML = `
+
+                <strong>
+                    ${work.category} - ${work.item}
+                </strong>
+
+                Date: ${work.date}<br>
+
+                Quantity: ${work.quantity}<br>
+
+                ${work.notes
+                    ? "Notes: " + work.notes
+                    : ""
+                }
+
+            `;
+
+            container.appendChild(div);
+
+        });
+
+    }
+
+
+    // Clear all works
+    function clearWorks() {
+
+        if (
+            confirm(
+                "Delete all saved works?"
+            )
+        ) {
+
+            localStorage.removeItem("works");
+
+            displayWorks();
+
+        }
+
+    }
+
+
+    // Load saved data
+    displayWorks();
+
+</script>
+
+</body>
+</html>
