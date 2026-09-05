@@ -299,141 +299,234 @@ function createItemRow(type, item, index) {
 
 
     /* =====================================================
-       SIZE OPTIONS
-       ===================================================== */
+   SIZE DROPDOWN BESIDE ITEM NAME
+   ===================================================== */
 
-    else {
+if (
+    Array.isArray(item.sizes) &&
+    item.sizes.length > 0
+) {
+
+    const sizeContainer =
+        document.createElement("div");
+
+    sizeContainer.className =
+        "size-options-container";
+
+
+    function addSizeRow() {
+
+        const sizeEntry =
+            document.createElement("div");
+
+        sizeEntry.className =
+            "size-entry";
+
+
+        /* SIZE DROPDOWN */
+
+        const sizeSelect =
+            document.createElement("select");
+
+        sizeSelect.className =
+            "size-dropdown";
+
+        sizeSelect.dataset.sizeIndex =
+            sizeContainer.children.length;
+
+
+        const defaultOption =
+            document.createElement("option");
+
+        defaultOption.value = "";
+
+        defaultOption.textContent =
+            "Select Size";
+
+        sizeSelect.appendChild(
+            defaultOption
+        );
+
 
         item.sizes.forEach(
-            function (size, sizeIndex) {
+            function (size) {
 
-                const sizeRow =
-                    document.createElement("div");
+                const option =
+                    document.createElement("option");
 
-                sizeRow.className =
-                    "size-qty-row";
+                option.value = size;
 
+                option.textContent = size;
 
-                const sizeLabel =
-                    document.createElement("span");
-
-                sizeLabel.className =
-                    "size-label";
-
-                sizeLabel.textContent =
-                    size;
-
-
-                const sizeQty =
-                    createQtyInput(
-                        type,
-                        index,
-                        sizeIndex
-                    );
-
-
-                sizeRow.appendChild(
-                    sizeLabel
-                );
-
-                sizeRow.appendChild(
-                    sizeQty
-                );
-
-                particulars.appendChild(
-                    sizeRow
+                sizeSelect.appendChild(
+                    option
                 );
 
             }
         );
 
 
-        /* =================================================
-           CUSTOM SIZE
-           ================================================= */
+        /* CUSTOM SIZE */
 
         if (item.customSize === true) {
 
-            const customRow =
-                document.createElement("div");
+            const customOption =
+                document.createElement("option");
 
-            customRow.className =
-                "size-qty-row custom-size-row";
+            customOption.value =
+                "__CUSTOM__";
 
-
-            const customLabel =
-                document.createElement("span");
-
-            customLabel.className =
-                "size-label";
-
-
-            const customInput =
-                document.createElement("input");
-
-            customInput.type = "text";
-
-            customInput.className =
-                "custom-size-input";
-
-            customInput.placeholder =
+            customOption.textContent =
                 "Custom Size / Rating";
 
-
-            customInput.autocomplete =
-                "off";
-
-
-            /*
-               FIX: typing in the custom-size text field
-               (with a qty already entered) should also
-               refresh the row highlight, since a qty
-               without a size text won't make it into
-               the PDF / WhatsApp / save output.
-            */
-
-            customInput.addEventListener(
-                "input",
-                function () {
-
-                    updateCustomRowState(
-                        customInput
-                    );
-
-                }
-            );
-
-
-            customLabel.appendChild(
-                customInput
-            );
-
-
-            const customQty =
-                createQtyInput(
-                    type,
-                    index,
-                    "custom"
-                );
-
-
-            customRow.appendChild(
-                customLabel
-            );
-
-            customRow.appendChild(
-                customQty
-            );
-
-
-            particulars.appendChild(
-                customRow
+            sizeSelect.appendChild(
+                customOption
             );
 
         }
 
+
+        /* CUSTOM INPUT */
+
+        const customInput =
+            document.createElement("input");
+
+        customInput.type = "text";
+
+        customInput.className =
+            "custom-size-input";
+
+        customInput.placeholder =
+            "Custom Size / Rating";
+
+        customInput.style.display =
+            "none";
+
+
+        /* QTY */
+
+        const sizeQty =
+            createQtyInput(
+                type,
+                index,
+                sizeContainer.children.length
+            );
+
+
+        /* ADD SIZE BUTTON */
+
+        const removeButton =
+            document.createElement("button");
+
+        removeButton.type = "button";
+
+        removeButton.textContent = "×";
+
+        removeButton.className =
+            "remove-size-btn";
+
+
+        removeButton.addEventListener(
+            "click",
+            function () {
+
+                sizeEntry.remove();
+
+                calculateTotal(type);
+
+            }
+        );
+
+
+        /* CUSTOM CHANGE */
+
+        sizeSelect.addEventListener(
+            "change",
+            function () {
+
+                if (
+                    this.value ===
+                    "__CUSTOM__"
+                ) {
+
+                    customInput.style.display =
+                        "inline-block";
+
+                } else {
+
+                    customInput.style.display =
+                        "none";
+
+                    customInput.value = "";
+
+                }
+
+            }
+        );
+
+
+        sizeEntry.appendChild(
+            sizeSelect
+        );
+
+        sizeEntry.appendChild(
+            customInput
+        );
+
+        sizeEntry.appendChild(
+            sizeQty
+        );
+
+        sizeEntry.appendChild(
+            removeButton
+        );
+
+
+        sizeContainer.appendChild(
+            sizeEntry
+        );
+
     }
 
+
+    /* FIRST SIZE ROW */
+
+    addSizeRow();
+
+
+    /* ADD SIZE BUTTON */
+
+    const addSizeButton =
+        document.createElement("button");
+
+    addSizeButton.type = "button";
+
+    addSizeButton.textContent =
+        "+ Add Size";
+
+    addSizeButton.className =
+        "add-size-btn";
+
+
+    addSizeButton.addEventListener(
+        "click",
+        function () {
+
+            addSizeRow();
+
+        }
+    );
+
+
+    particulars.appendChild(
+        sizeContainer
+    );
+
+    particulars.appendChild(
+        addSizeButton
+    );
+
+}
 
     tr.appendChild(sno);
 
