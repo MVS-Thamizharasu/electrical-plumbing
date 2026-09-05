@@ -384,6 +384,26 @@ function createItemRow(type, item, index) {
                 "off";
 
 
+            /*
+               FIX: typing in the custom-size text field
+               (with a qty already entered) should also
+               refresh the row highlight, since a qty
+               without a size text won't make it into
+               the PDF / WhatsApp / save output.
+            */
+
+            customInput.addEventListener(
+                "input",
+                function () {
+
+                    updateCustomRowState(
+                        customInput
+                    );
+
+                }
+            );
+
+
             customLabel.appendChild(
                 customInput
             );
@@ -511,11 +531,39 @@ function updateSelectedRow(input) {
 
     inputs.forEach(function (qty) {
 
+        /*
+           FIX: a custom-size qty only "counts" as
+           selected if the paired custom-size text
+           is also filled in — otherwise it never
+           makes it into getSelectedItems() and the
+           highlight would be misleading.
+        */
+
         if (
             qty.value !== "" &&
             Number(qty.value) > 0
         ) {
-            selected = true;
+
+            if (qty.dataset.sizeIndex === "custom") {
+
+                const customInput =
+                    row.querySelector(
+                        ".custom-size-input"
+                    );
+
+                if (
+                    customInput &&
+                    customInput.value.trim() !== ""
+                ) {
+                    selected = true;
+                }
+
+            } else {
+
+                selected = true;
+
+            }
+
         }
 
     });
@@ -532,6 +580,38 @@ function updateSelectedRow(input) {
         row.classList.remove(
             "selected-row"
         );
+
+    }
+}
+
+
+/* =========================================================
+   CUSTOM ROW STATE (text field changes)
+   ========================================================= */
+
+function updateCustomRowState(customInput) {
+
+    const row =
+        customInput.closest("tr");
+
+    if (!row) return;
+
+
+    const customQtyInput =
+        Array.from(
+            row.querySelectorAll(".qty-input")
+        ).find(function (el) {
+
+            return (
+                el.dataset.sizeIndex === "custom"
+            );
+
+        });
+
+
+    if (customQtyInput) {
+
+        updateSelectedRow(customQtyInput);
 
     }
 }
@@ -1260,7 +1340,27 @@ async function downloadPDF(type) {
 
         } else {
 
+            /*
+               FIX: html2pdf missing — instead of
+               window.print() on the WHOLE page (which
+               would also print the hidden sibling form
+               / home page unless CSS scopes @media print
+               to only the active form), scope the print
+               to just this form by toggling a body class
+               that print CSS can target. Falls back to
+               the old behavior if no such CSS exists,
+               but keeps the hook available.
+            */
+
+            document.body.classList.add(
+                "printing-" + type
+            );
+
             window.print();
+
+            document.body.classList.remove(
+                "printing-" + type
+            );
 
         }
 
@@ -1324,28 +1424,65 @@ function saveOrder(type) {
     };
 
 
-    const oldOrders =
-        JSON.parse(
-            localStorage.getItem(
-                "mvsOrders"
-            ) || "[]"
+    /*
+       FIX: JSON.parse can throw if localStorage
+       ever holds corrupted / manually-edited data.
+       Wrap it so one bad entry doesn't block every
+       future save.
+    */
+
+    let oldOrders = [];
+
+    try {
+
+        oldOrders =
+            JSON.parse(
+                localStorage.getItem(
+                    "mvsOrders"
+                ) || "[]"
+            );
+
+        if (!Array.isArray(oldOrders)) {
+            oldOrders = [];
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Corrupted mvsOrders in localStorage, resetting.",
+            error
         );
+
+        oldOrders = [];
+
+    }
 
 
     oldOrders.push(order);
 
 
-    localStorage.setItem(
-        "mvsOrders",
-        JSON.stringify(
-            oldOrders
-        )
-    );
+    try {
 
+        localStorage.setItem(
+            "mvsOrders",
+            JSON.stringify(
+                oldOrders
+            )
+        );
 
-    alert(
-        "Order Save ஆகிவிட்டது ✅"
-    );
+        alert(
+            "Order Save ஆகிவிட்டது ✅"
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Order save ஆகவில்லை. Storage full-ah இருக்கலாம்."
+        );
+
+    }
 
 }
 
