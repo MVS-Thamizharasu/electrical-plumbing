@@ -1,0 +1,27 @@
+[
+  {
+    "sno": 1,
+    "name": "3/4 MM PVC Pipes",
+    "image": "images/plumbing/3-4-pvc-pipes.jpg"
+  },
+  {
+    "sno": 2,
+    "name": "1 MM PVC Pipes",
+    "image": "images/plumbing/1-pvc-pipes.jpg"
+  },
+  {
+    "sno": 3,
+    "name": "3/4 Deep / Junction Box",
+    "image": "images/plumbing/3-4-junction-box.jpg"
+  },
+  {
+    "sno": 4,
+    "name": "1 Deep / Junction Box",
+    "image": "images/plumbing/1-junction-box.jpg"
+  },
+  {
+    "sno": 5,
+    "name": "3/4 Bends",
+    "image": "images/plumbing/3-4-bends.jpg"
+  }
+]
