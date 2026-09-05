@@ -1,0 +1,27 @@
+[
+  {
+    "sno": 1,
+    "name": "1 Way Switch",
+    "image": "images/electrical/1-way-switch.jpg"
+  },
+  {
+    "sno": 2,
+    "name": "2 Way Switch",
+    "image": "images/electrical/2-way-switch.jpg"
+  },
+  {
+    "sno": 3,
+    "name": "2 Pin Socket",
+    "image": "images/electrical/2-pin-socket.jpg"
+  },
+  {
+    "sno": 4,
+    "name": "5 AMPS 2 in 1 Socket",
+    "image": "images/electrical/5-amps-2-in-1-socket.jpg"
+  },
+  {
+    "sno": 5,
+    "name": "Indicator",
+    "image": "images/electrical/indicator.jpg"
+  }
+]
