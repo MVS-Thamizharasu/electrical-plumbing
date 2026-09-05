@@ -2,748 +2,118 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color"
-          content="#1f2937">
+    <meta
+        name="theme-color"
+        content="#111827">
 
-    <meta name="description"
-          content="MVS Electrical - Electrical and Plumbing Order Form">
+    <meta
+        name="description"
+        content="MVS Electrical - Electrical & Plumbing Order Form">
 
     <title>MVS Electrical</title>
 
-    <!-- ================= CSS ================= -->
-    <link rel="stylesheet" href="style.css">
 
-    <!-- ================= PDF LIBRARIES ================= -->
+    <!-- =====================================================
+         PDF LIBRARY
+         ===================================================== -->
 
-    <!-- jsPDF -->
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+        src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
     </script>
 
-    <!-- jsPDF AutoTable -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js">
-    </script>
+
+    <!-- =====================================================
+         CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="./style.css">
 
 </head>
 
 
 <body>
 
+
+<div class="app">
+
+
     <!-- =====================================================
-         APP CONTAINER
+         HOME PAGE
          ===================================================== -->
 
-    <div class="app-container">
+    <div id="homePage">
 
 
-        <!-- =================================================
-             HEADER
-             ================================================= -->
+        <!-- TITLE -->
 
-        <header class="app-header">
+        <div class="top-title">
 
-            <div class="header-content">
-
-                <h1>
-                    ⚡ MVS Electrical
-                </h1>
-
-                <p>
-                    Electrical &amp; Plumbing Order Form
-                </p>
-
-            </div>
-
-        </header>
-
-
-
-        <!-- =================================================
-             MAIN CONTENT
-             ================================================= -->
-
-        <main>
-
-
-            <!-- =================================================
-                 WORK TYPE BUTTONS
-                 ================================================= -->
-
-            <section class="work-type-section">
-
-                <div class="section-heading">
-
-                    <h2>
-                        Select Work
-                    </h2>
-
-                </div>
-
-
-                <div class="stage-buttons">
-
-
-                    <!-- Conduit Pipe Work -->
-
-                    <button
-                        type="button"
-                        class="stage-btn"
-                        onclick="showSection('conduit')">
-
-                        <span class="stage-icon">
-                            🔧
-                        </span>
-
-                        <span class="stage-text">
-                            Conduit Pipe Work
-                        </span>
-
-                    </button>
-
-
-
-                    <!-- Concealed Conduit Work -->
-
-                    <button
-                        type="button"
-                        class="stage-btn"
-                        onclick="showSection('concealed')">
-
-                        <span class="stage-icon">
-                            🧱
-                        </span>
-
-                        <span class="stage-text">
-                            Concealed Conduit Work
-                        </span>
-
-                    </button>
-
-
-
-                    <!-- EB Meter Board -->
-
-                    <button
-                        type="button"
-                        class="stage-btn"
-                        onclick="showSection('eb')">
-
-                        <span class="stage-icon">
-                            🔌
-                        </span>
-
-                        <span class="stage-text">
-                            EB Meter Board
-                        </span>
-
-                    </button>
-
-                </div>
-
-            </section>
-
-
-
-            <!-- =================================================
-                 ELECTRICAL SECTION
-                 ================================================= -->
-
-            <section
-                id="electricalSection"
-                class="order-section">
-
-
-                <!-- ==============================
-                     SECTION HEADER
-                     ============================== -->
-
-                <div class="section-title">
-
-                    <div>
-
-                        <h2>
-                            ⚡ Electrical
-                        </h2>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- ==============================
-                     CUSTOMER DETAILS
-                     ============================== -->
-
-                <div class="customer-details">
-
-
-                    <!-- Customer -->
-
-                    <div class="customer-row customer-name-row">
-
-                        <label
-                            for="electricalCustomer">
-
-                            Customer:
-
-                        </label>
-
-
-                        <input
-                            type="text"
-                            id="electricalCustomer"
-                            name="electricalCustomer"
-                            placeholder="Customer Name"
-                            autocomplete="off">
-
-                    </div>
-
-
-
-                    <!-- Phone + Date -->
-
-                    <div class="customer-row customer-phone-date-row">
-
-
-                        <div class="customer-field">
-
-                            <label
-                                for="electricalPhone">
-
-                                Phone:
-
-                            </label>
-
-
-                            <input
-                                type="tel"
-                                id="electricalPhone"
-                                name="electricalPhone"
-                                placeholder="Phone Number"
-                                inputmode="numeric"
-                                autocomplete="tel"
-                                maxlength="15">
-
-                        </div>
-
-
-
-                        <div class="customer-field date-field">
-
-                            <label
-                                for="electricalDate">
-
-                                Date:
-
-                            </label>
-
-
-                            <input
-                                type="date"
-                                id="electricalDate"
-                                name="electricalDate">
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- ==============================
-                     TABLE TOOLS
-                     ============================== -->
-
-                <div class="table-tools">
-
-
-                    <!-- Search -->
-
-                    <div class="search-container">
-
-                        <input
-                            type="search"
-                            id="electricalSearch"
-                            class="search-box"
-                            placeholder="🔍 Search electrical items..."
-                            autocomplete="off"
-                            oninput="filterItems('electrical')">
-
-                    </div>
-
-
-
-                    <!-- Show Selected -->
-
-                    <label
-                        class="selected-toggle">
-
-                        <input
-                            type="checkbox"
-                            id="electricalSelectedOnly"
-                            onchange="filterItems('electrical')">
-
-                        <span>
-                            Show Selected Only
-                        </span>
-
-                    </label>
-
-
-
-                    <!-- Clear -->
-
-                    <button
-                        type="button"
-                        class="reset-btn"
-                        onclick="resetSection('electrical')">
-
-                        ↻ Clear All
-
-                    </button>
-
-                </div>
-
-
-
-                <!-- ==============================
-                     ELECTRICAL TABLE
-                     ============================== -->
-
-                <div class="table-wrapper">
-
-                    <table
-                        id="electricalTable"
-                        class="order-table">
-
-
-                        <thead>
-
-                            <tr>
-
-                                <th
-                                    class="sno-col">
-
-                                    S.No
-
-                                </th>
-
-
-                                <th>
-
-                                    PARTICULARS
-
-                                </th>
-
-
-                                <th
-                                    class="qty-col">
-
-                                    Qty
-
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody
-                            id="electricalTableBody">
-
-                            <!--
-                                Electrical JSON items
-                                will be loaded by script.js
-                            -->
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-
-
-                <!-- ==============================
-                     ELECTRICAL ACTION BUTTONS
-                     ============================== -->
-
-                <div class="action-buttons">
-
-
-                    <button
-                        type="button"
-                        class="primary-btn"
-                        onclick="downloadPDF('electrical')">
-
-                        📄 Download PDF
-
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="whatsapp-btn"
-                        onclick="shareWhatsApp('electrical')">
-
-                        📱 WhatsApp
-
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="save-btn"
-                        onclick="saveOrder('electrical')">
-
-                        💾 Save Order
-
-                    </button>
-
-                </div>
-
-            </section>
-
-
-
-            <!-- =================================================
-                 PLUMBING SECTION
-                 ================================================= -->
-
-            <section
-                id="plumbingSection"
-                class="order-section">
-
-
-                <!-- ==============================
-                     SECTION HEADER
-                     ============================== -->
-
-                <div class="section-title">
-
-                    <div>
-
-                        <h2>
-                            🚰 Plumbing
-                        </h2>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- ==============================
-                     CUSTOMER DETAILS
-                     ============================== -->
-
-                <div class="customer-details">
-
-
-                    <!-- Customer -->
-
-                    <div class="customer-row customer-name-row">
-
-                        <label
-                            for="plumbingCustomer">
-
-                            Customer:
-
-                        </label>
-
-
-                        <input
-                            type="text"
-                            id="plumbingCustomer"
-                            name="plumbingCustomer"
-                            placeholder="Customer Name"
-                            autocomplete="off">
-
-                    </div>
-
-
-
-                    <!-- Phone + Date -->
-
-                    <div class="customer-row customer-phone-date-row">
-
-
-                        <div class="customer-field">
-
-                            <label
-                                for="plumbingPhone">
-
-                                Phone:
-
-                            </label>
-
-
-                            <input
-                                type="tel"
-                                id="plumbingPhone"
-                                name="plumbingPhone"
-                                placeholder="Phone Number"
-                                inputmode="numeric"
-                                autocomplete="tel"
-                                maxlength="15">
-
-                        </div>
-
-
-
-                        <div class="customer-field date-field">
-
-                            <label
-                                for="plumbingDate">
-
-                                Date:
-
-                            </label>
-
-
-                        <input
-                            type="date"
-                            id="plumbingDate"
-                            name="plumbingDate">
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- ==============================
-                     TABLE TOOLS
-                     ============================== -->
-
-                <div class="table-tools">
-
-
-                    <!-- Search -->
-
-                    <div class="search-container">
-
-                        <input
-                            type="search"
-                            id="plumbingSearch"
-                            class="search-box"
-                            placeholder="🔍 Search plumbing items..."
-                            autocomplete="off"
-                            oninput="filterItems('plumbing')">
-
-                    </div>
-
-
-
-                    <!-- Show Selected -->
-
-                    <label
-                        class="selected-toggle">
-
-                        <input
-                            type="checkbox"
-                            id="plumbingSelectedOnly"
-                            onchange="filterItems('plumbing')">
-
-                        <span>
-                            Show Selected Only
-                        </span>
-
-                    </label>
-
-
-
-                    <!-- Clear -->
-
-                    <button
-                        type="button"
-                        class="reset-btn"
-                        onclick="resetSection('plumbing')">
-
-                        ↻ Clear All
-
-                    </button>
-
-                </div>
-
-
-
-                <!-- ==============================
-                     PLUMBING TABLE
-                     ============================== -->
-
-                <div class="table-wrapper">
-
-                    <table
-                        id="plumbingTable"
-                        class="order-table">
-
-
-                        <thead>
-
-                            <tr>
-
-                                <th
-                                    class="sno-col">
-
-                                    S.No
-
-                                </th>
-
-
-                                <th>
-
-                                    PARTICULARS
-
-                                </th>
-
-
-                                <th
-                                    class="qty-col">
-
-                                    Qty
-
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody
-                            id="plumbingTableBody">
-
-                            <!--
-                                Plumbing JSON items
-                                will be loaded by script.js
-                            -->
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-
-
-                <!-- ==============================
-                     PLUMBING ACTION BUTTONS
-                     ============================== -->
-
-                <div class="action-buttons">
-
-
-                    <button
-                        type="button"
-                        class="primary-btn"
-                        onclick="downloadPDF('plumbing')">
-
-                        📄 Download PDF
-
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="whatsapp-btn"
-                        onclick="shareWhatsApp('plumbing')">
-
-                        📱 WhatsApp
-
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="save-btn"
-                        onclick="saveOrder('plumbing')">
-
-                        💾 Save Order
-
-                    </button>
-
-                </div>
-
-            </section>
-
-
-
-            <!-- =================================================
-                 COMBINED ACTIONS
-                 ================================================= -->
-
-            <section class="combined-actions">
-
-
-                <button
-                    type="button"
-                    class="combined-pdf-btn"
-                    onclick="downloadPDF('both')">
-
-                    📄 Electrical + Plumbing PDF
-
-                </button>
-
-
-
-                <button
-                    type="button"
-                    class="combined-whatsapp-btn"
-                    onclick="shareWhatsApp('both')">
-
-                    📱 PDF + WhatsApp
-
-                </button>
-
-            </section>
-
-
-
-            <!-- =================================================
-                 ORDER STATUS
-                 ================================================= -->
-
-            <div
-                id="orderStatus"
-                class="order-status"
-                aria-live="polite">
-
-            </div>
-
-
-        </main>
-
-
-
-        <!-- =================================================
-             FOOTER
-             ================================================= -->
-
-        <footer class="app-footer">
+            <h1>
+                ⚡ MVS Electrical
+            </h1>
 
             <p>
-                © MVS Electrical
+                Electrical &amp; Plumbing Order Form
             </p>
 
-            <p>
-                Electrical &amp; Plumbing
-            </p>
+        </div>
 
-        </footer>
+
+
+        <!-- =================================================
+             HOME BUTTONS
+             ================================================= -->
+
+        <div class="home-buttons">
+
+
+            <!-- ELECTRICAL -->
+
+            <button
+                type="button"
+                class="electrical-btn"
+                onclick="openForm('electrical')">
+
+                <div class="button-icon">
+                    ⚡
+                </div>
+
+                <div>
+                    Electrical
+                </div>
+
+            </button>
+
+
+
+            <!-- PLUMBING -->
+
+            <button
+                type="button"
+                class="plumbing-btn"
+                onclick="openForm('plumbing')">
+
+                <div class="button-icon">
+                    🚰
+                </div>
+
+                <div>
+                    Plumbing
+                </div>
+
+            </button>
+
+
+        </div>
 
 
     </div>
@@ -751,10 +121,620 @@
 
 
     <!-- =====================================================
-         JAVASCRIPT
+         ELECTRICAL FORM
          ===================================================== -->
 
-    <script src="script.js"></script>
+    <div
+        id="electricalForm"
+        class="form-page">
+
+
+        <!-- =================================================
+             FORM HEADER
+             ================================================= -->
+
+        <div class="form-header">
+
+
+            <!-- ORDER TITLE -->
+
+            <div class="order-title">
+
+                MVS ELECTRICAL
+                <br>
+
+                ORDER FORM
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CUSTOMER DETAILS
+                 ================================================= -->
+
+            <div class="details">
+
+
+                <!-- CUSTOMER -->
+
+                <div class="detail-row">
+
+                    <label>
+                        Customer:
+                    </label>
+
+                    <input
+                        id="electricalSri"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Customer Name">
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div class="detail-row">
+
+                    <label>
+                        Phone:
+                    </label>
+
+                    <input
+                        id="electricalPh"
+                        type="tel"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                        maxlength="15"
+                        placeholder="Phone Number">
+
+                </div>
+
+
+
+                <!-- DATE -->
+
+                <div class="detail-row">
+
+                    <label>
+                        Date:
+                    </label>
+
+                    <input
+                        id="electricalDate"
+                        type="date">
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ELECTRICAL SEARCH / FILTER
+             ================================================= -->
+
+        <div class="table-tools">
+
+
+            <!-- SEARCH -->
+
+            <input
+                type="search"
+                id="electricalSearch"
+                class="search-box"
+                placeholder="🔍 Search electrical items..."
+                autocomplete="off"
+                oninput="filterItems('electrical')">
+
+
+
+            <!-- SELECTED ONLY -->
+
+            <label class="selected-toggle">
+
+                <input
+                    type="checkbox"
+                    id="electricalSelectedOnly"
+                    onchange="filterItems('electrical')">
+
+                <span>
+                    Show Selected Only
+                </span>
+
+            </label>
+
+
+
+            <!-- CLEAR -->
+
+            <button
+                type="button"
+                class="reset-btn"
+                onclick="resetSection('electrical')">
+
+                ↻ Clear All
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ELECTRICAL TABLE
+             ================================================= -->
+
+        <div class="table-container">
+
+
+            <table class="order-table">
+
+
+                <thead>
+
+                    <tr>
+
+
+                        <th class="sno">
+                            S.No.
+                        </th>
+
+
+                        <th class="particulars">
+                            PARTICULARS
+                        </th>
+
+
+                        <th class="qty">
+                            Qty.
+                        </th>
+
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody
+                    id="electricalItems">
+
+                    <!--
+                        Electrical items are loaded
+                        from data/electrical.json
+                    -->
+
+                </tbody>
+
+
+
+                <tfoot>
+
+                    <tr class="total-row">
+
+
+                        <td
+                            colspan="2"
+                            class="total-label">
+
+                            TOTAL
+
+                        </td>
+
+
+                        <td
+                            id="electricalTotal"
+                            class="total-value">
+
+                            0
+
+                        </td>
+
+
+                    </tr>
+
+                </tfoot>
+
+
+            </table>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ELECTRICAL ACTION BUTTONS
+             ================================================= -->
+
+        <div class="action-buttons">
+
+
+            <!-- BACK -->
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="goHome()">
+
+                ← Back
+
+            </button>
+
+
+
+            <!-- SAVE -->
+
+            <button
+                type="button"
+                class="save-btn"
+                onclick="saveOrder('electrical')">
+
+                💾 Save
+
+            </button>
+
+
+
+            <!-- PDF -->
+
+            <button
+                type="button"
+                class="pdf-btn"
+                onclick="downloadPDF('electrical')">
+
+                📄 PDF
+
+            </button>
+
+
+
+            <!-- WHATSAPP -->
+
+            <button
+                type="button"
+                class="wa-btn"
+                onclick="shareWhatsApp('electrical')">
+
+                💬 WhatsApp
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PLUMBING FORM
+         ===================================================== -->
+
+    <div
+        id="plumbingForm"
+        class="form-page">
+
+
+        <!-- =================================================
+             FORM HEADER
+             ================================================= -->
+
+        <div class="form-header">
+
+
+            <!-- ORDER TITLE -->
+
+            <div class="order-title">
+
+                MVS ELECTRICAL
+                <br>
+
+                PLUMBING ORDER FORM
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CUSTOMER DETAILS
+                 ================================================= -->
+
+            <div class="details">
+
+
+                <!-- CUSTOMER -->
+
+                <div class="detail-row">
+
+                    <label>
+                        Customer:
+                    </label>
+
+                    <input
+                        id="plumbingSri"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Customer Name">
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div class="detail-row">
+
+                    <label>
+                        Phone:
+                    </label>
+
+                    <input
+                        id="plumbingPh"
+                        type="tel"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                        maxlength="15"
+                        placeholder="Phone Number">
+
+                </div>
+
+
+
+                <!-- DATE -->
+
+                <div class="detail-row">
+
+                    <label>
+                        Date:
+                    </label>
+
+                    <input
+                        id="plumbingDate"
+                        type="date">
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PLUMBING SEARCH / FILTER
+             ================================================= -->
+
+        <div class="table-tools">
+
+
+            <!-- SEARCH -->
+
+            <input
+                type="search"
+                id="plumbingSearch"
+                class="search-box"
+                placeholder="🔍 Search plumbing items..."
+                autocomplete="off"
+                oninput="filterItems('plumbing')">
+
+
+
+            <!-- SELECTED ONLY -->
+
+            <label class="selected-toggle">
+
+                <input
+                    type="checkbox"
+                    id="plumbingSelectedOnly"
+                    onchange="filterItems('plumbing')">
+
+                <span>
+                    Show Selected Only
+                </span>
+
+            </label>
+
+
+
+            <!-- CLEAR -->
+
+            <button
+                type="button"
+                class="reset-btn"
+                onclick="resetSection('plumbing')">
+
+                ↻ Clear All
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PLUMBING TABLE
+             ================================================= -->
+
+        <div class="table-container">
+
+
+            <table class="order-table">
+
+
+                <thead>
+
+                    <tr>
+
+
+                        <th class="sno">
+                            S.No.
+                        </th>
+
+
+                        <th class="particulars">
+                            PARTICULARS
+                        </th>
+
+
+                        <th class="qty">
+                            Qty.
+                        </th>
+
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody
+                    id="plumbingItems">
+
+                    <!--
+                        Plumbing items are loaded
+                        from data/plumbing.json
+                    -->
+
+                </tbody>
+
+
+
+                <tfoot>
+
+                    <tr class="total-row">
+
+
+                        <td
+                            colspan="2"
+                            class="total-label">
+
+                            TOTAL
+
+                        </td>
+
+
+                        <td
+                            id="plumbingTotal"
+                            class="total-value">
+
+                            0
+
+                        </td>
+
+
+                    </tr>
+
+                </tfoot>
+
+
+            </table>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PLUMBING ACTION BUTTONS
+             ================================================= -->
+
+        <div class="action-buttons">
+
+
+            <!-- BACK -->
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="goHome()">
+
+                ← Back
+
+            </button>
+
+
+
+            <!-- SAVE -->
+
+            <button
+                type="button"
+                class="save-btn"
+                onclick="saveOrder('plumbing')">
+
+                💾 Save
+
+            </button>
+
+
+
+            <!-- PDF -->
+
+            <button
+                type="button"
+                class="pdf-btn"
+                onclick="downloadPDF('plumbing')">
+
+                📄 PDF
+
+            </button>
+
+
+
+            <!-- WHATSAPP -->
+
+            <button
+                type="button"
+                class="wa-btn"
+                onclick="shareWhatsApp('plumbing')">
+
+                💬 WhatsApp
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     SMART SUGGESTIONS
+     ===================================================== -->
+
+<datalist
+    id="electricalSuggestions">
+</datalist>
+
+
+<datalist
+    id="plumbingSuggestions">
+</datalist>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script src="./script.js"></script>
 
 
 </body>
