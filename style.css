@@ -3876,3 +3876,149 @@ body {
         margin-right: 5px;
     }
 }
+
+/* =========================================
+   MOBILE ELECTRICAL TABLE - FINAL FIX
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .order-table {
+        width: 100%;
+        min-width: 0;
+        table-layout: fixed;
+    }
+
+    .order-table th,
+    .order-table td {
+        padding: 4px !important;
+        vertical-align: middle;
+    }
+
+    /* S.NO */
+    .order-table .sno,
+    .order-table .item-sno {
+        width: 36px !important;
+        min-width: 36px !important;
+        max-width: 36px !important;
+        text-align: center !important;
+    }
+
+    /* QTY */
+    .order-table .qty,
+    .order-table .qty-cell {
+        width: 62px !important;
+        min-width: 62px !important;
+        max-width: 62px !important;
+        text-align: center !important;
+    }
+
+    /* PARTICULARS */
+    .particulars-cell {
+        width: auto !important;
+        min-width: 0 !important;
+        padding: 5px 6px !important;
+        text-align: left !important;
+        vertical-align: middle !important;
+        overflow: hidden;
+    }
+
+    /* ITEM NAME */
+    .item-main-name {
+        display: inline-flex !important;
+        align-items: center !important;
+        vertical-align: middle !important;
+        max-width: 100%;
+        margin-right: 5px !important;
+        margin-bottom: 3px !important;
+        font-size: 13px !important;
+        line-height: 1.2 !important;
+        font-weight: 700 !important;
+    }
+
+    /* ITEM IMAGE */
+    .item-thumb {
+        width: 26px !important;
+        height: 26px !important;
+        margin-right: 5px !important;
+        flex: 0 0 auto;
+    }
+
+    /* SIZE AREA */
+    .size-options-container {
+        display: inline-flex !important;
+        flex-direction: column !important;
+        vertical-align: middle !important;
+        width: auto !important;
+        max-width: 100%;
+        gap: 3px !important;
+        margin: 0 !important;
+    }
+
+    .size-entry {
+        display: flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        min-height: 27px !important;
+        max-width: 100%;
+    }
+
+    .size-dropdown {
+        width: 105px !important;
+        max-width: 105px !important;
+        height: 28px !important;
+        padding: 2px 5px !important;
+        font-size: 11px !important;
+        flex: 0 0 auto;
+    }
+
+    .custom-size-input {
+        width: 120px !important;
+        max-width: 120px !important;
+        height: 28px !important;
+        font-size: 11px !important;
+    }
+
+    /* REMOVE X */
+    .remove-size-btn {
+        width: 22px !important;
+        height: 22px !important;
+        min-width: 22px !important;
+        padding: 0 !important;
+        font-size: 13px !important;
+    }
+
+    /* ADD SIZE */
+    .add-size-btn {
+        display: block !important;
+        width: fit-content !important;
+        min-height: 25px !important;
+        margin-top: 3px !important;
+        margin-left: 0 !important;
+        padding: 3px 7px !important;
+        font-size: 10px !important;
+    }
+
+    /* QTY INPUT */
+    .qty-input {
+        width: 48px !important;
+        min-width: 48px !important;
+        height: 28px !important;
+        font-size: 13px !important;
+    }
+
+    /* TABLE TEXT */
+    .order-table th {
+        font-size: 10px !important;
+    }
+
+    .order-table td {
+        font-size: 11px !important;
+    }
+}
