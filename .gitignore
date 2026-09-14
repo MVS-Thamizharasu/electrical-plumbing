@@ -1,0 +1,20 @@
+# Flutter generated files
+FlutterApp/.dart_tool/
+FlutterApp/build/
+FlutterApp/.flutter-plugins
+FlutterApp/.flutter-plugins-dependencies
+FlutterApp/.packages
+
+# Android generated/build files
+FlutterApp/android/.gradle/
+FlutterApp/android/app/build/
+FlutterApp/android/build/
+
+# VS Code
+.vscode/
+
+# Old unused Capacitor project
+App/
+
+# Node
+node_modules/
