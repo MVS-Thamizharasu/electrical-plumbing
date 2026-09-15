@@ -59,21 +59,14 @@ function setToday() {
 
 async function loadItems() {
     try {
-        const API_BASE = "http://127.0.0.1:8000";
-
-        // =========================
-        // ELECTRICAL
-        // =========================
         const electricalResponse = await fetch(
-            `${API_BASE}/api/electrical`,
-            {
-                cache: "no-store"
-            }
+            "data/electrical.json",
+            { cache: "no-store" }
         );
 
         if (!electricalResponse.ok) {
             throw new Error(
-                "Electrical API load failed: " +
+                "Electrical JSON load failed: " +
                 electricalResponse.status
             );
         }
@@ -92,19 +85,14 @@ async function loadItems() {
         setupFinalAddItem();
 
 
-        // =========================
-        // PLUMBING
-        // =========================
         const plumbingResponse = await fetch(
-            `${API_BASE}/api/plumbing`,
-            {
-                cache: "no-store"
-            }
+            "data/plumbing.json",
+            { cache: "no-store" }
         );
 
         if (!plumbingResponse.ok) {
             throw new Error(
-                "Plumbing API load failed: " +
+                "Plumbing JSON load failed: " +
                 plumbingResponse.status
             );
         }
@@ -113,23 +101,6 @@ async function loadItems() {
             await plumbingResponse.json();
 
 
-        // =========================
-        // DEBUG
-        // =========================
-        console.log(
-            "Electrical items:",
-            electricalData.length
-        );
-
-        console.log(
-            "Plumbing items:",
-            plumbingData.length
-        );
-
-
-        // =========================
-        // CREATE TABLES
-        // =========================
         createTable(
             "electrical",
             electricalData
@@ -140,21 +111,27 @@ async function loadItems() {
             plumbingData
         );
 
-    } catch (error) {
-
-        console.error(
-            "API load error:",
-            error
+        console.log(
+            "Electrical items:",
+            electricalData.length
         );
+
+        console.log(
+            "Plumbing items:",
+            plumbingData.length
+        );
+
+    } catch (error) {
+        console.error(error);
 
         showLoadError(
             "electricalItems",
-            "Electrical items load ஆகவில்லை. Python API check பண்ணவும்."
+            "Electrical items load ஆகவில்லை."
         );
 
         showLoadError(
             "plumbingItems",
-            "Plumbing items load ஆகவில்லை. Python API check பண்ணவும்."
+            "Plumbing items load ஆகவில்லை."
         );
     }
 }
