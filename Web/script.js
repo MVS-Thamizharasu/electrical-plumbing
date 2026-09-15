@@ -58,17 +58,22 @@ function setToday() {
    ========================================================= */
 
 async function loadItems() {
-
     try {
+        const API_BASE = "http://127.0.0.1:8000";
 
-        const electricalResponse =
-            await fetch("./data/electrical.json", {
+        // =========================
+        // ELECTRICAL
+        // =========================
+        const electricalResponse = await fetch(
+            `${API_BASE}/api/electrical`,
+            {
                 cache: "no-store"
-            });
+            }
+        );
 
         if (!electricalResponse.ok) {
             throw new Error(
-                "Electrical JSON load failed: " +
+                "Electrical API load failed: " +
                 electricalResponse.status
             );
         }
@@ -77,7 +82,7 @@ async function loadItems() {
             await electricalResponse.json();
 
         electricalData =
-            electricalJson.items;
+            electricalJson.items || [];
 
         commonColors =
             electricalJson.commonColors || [];
@@ -86,14 +91,20 @@ async function loadItems() {
         setupFinalElectricalOptions();
         setupFinalAddItem();
 
-        const plumbingResponse =
-            await fetch("./data/plumbing.json", {
+
+        // =========================
+        // PLUMBING
+        // =========================
+        const plumbingResponse = await fetch(
+            `${API_BASE}/api/plumbing`,
+            {
                 cache: "no-store"
-            });
+            }
+        );
 
         if (!plumbingResponse.ok) {
             throw new Error(
-                "Plumbing JSON load failed: " +
+                "Plumbing API load failed: " +
                 plumbingResponse.status
             );
         }
@@ -102,6 +113,9 @@ async function loadItems() {
             await plumbingResponse.json();
 
 
+        // =========================
+        // DEBUG
+        // =========================
         console.log(
             "Electrical items:",
             electricalData.length
@@ -113,6 +127,9 @@ async function loadItems() {
         );
 
 
+        // =========================
+        // CREATE TABLES
+        // =========================
         createTable(
             "electrical",
             electricalData
@@ -123,19 +140,21 @@ async function loadItems() {
             plumbingData
         );
 
-
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "API load error:",
+            error
+        );
 
         showLoadError(
             "electricalItems",
-            "Electrical items load ஆகவில்லை. data/electrical.json check பண்ணவும்."
+            "Electrical items load ஆகவில்லை. Python API check பண்ணவும்."
         );
 
         showLoadError(
             "plumbingItems",
-            "Plumbing items load ஆகவில்லை. data/plumbing.json check பண்ணவும்."
+            "Plumbing items load ஆகவில்லை. Python API check பண்ணவும்."
         );
     }
 }
@@ -311,9 +330,9 @@ function createItemRow(type, item, index) {
 
 
         const imagePaths = [
-            `./images/electrical/${fileName}.jpg`,
-            `./images/electrical/${fileName}.jpeg`,
-            `./images/electrical/${fileName}.png`
+            `../shared/images/electrical/${fileName}.jpg`,
+            `../shared/images/electrical/${fileName}.jpeg`,
+            `../shared/images/electrical/${fileName}.png`
         ];
 
 
@@ -1445,7 +1464,7 @@ function getElectricalImage(itemName) {
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-|-$/g, "");
 
-    return `./images/electrical/${fileName}`;
+    return `../shared/images/electrical/${fileName}`;
 }
 
 

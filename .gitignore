@@ -18,3 +18,7 @@ App/
 
 # Node
 node_modules/
+
+# Python cache
+PythonBackend/__pycache__/
+*.pyc

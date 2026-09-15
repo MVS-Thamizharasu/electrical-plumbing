@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MvsElectricalApp());
@@ -44,10 +45,7 @@ class HomePage extends StatelessWidget {
             ),
             Text(
               'Electrical & Plumbing',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
         ),
@@ -64,6 +62,7 @@ class HomePage extends StatelessWidget {
                 subtitle: 'New Electrical Order',
                 iconColor: Colors.orange,
                 backgroundColor: const Color(0xFFFFF8E1),
+                type: 'electrical',
               ),
               const SizedBox(height: 14),
 
@@ -74,6 +73,7 @@ class HomePage extends StatelessWidget {
                 subtitle: 'New Plumbing Order',
                 iconColor: Colors.blue,
                 backgroundColor: const Color(0xFFE8F4FF),
+                type: 'plumbing',
               ),
               const SizedBox(height: 14),
 
@@ -84,6 +84,7 @@ class HomePage extends StatelessWidget {
                 subtitle: 'Rooms • Points • MCB',
                 iconColor: Colors.green,
                 backgroundColor: const Color(0xFFEFF8EF),
+                type: 'planning',
               ),
               const SizedBox(height: 14),
 
@@ -94,6 +95,7 @@ class HomePage extends StatelessWidget {
                 subtitle: 'View previous orders',
                 iconColor: Colors.deepPurple,
                 backgroundColor: const Color(0xFFF4EEFF),
+                type: 'history',
               ),
               const SizedBox(height: 20),
 
@@ -124,22 +126,13 @@ class HomePage extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         onTap: (index) {},
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bolt),
-            label: 'Electrical',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.bolt), label: 'Electrical'),
           BottomNavigationBarItem(
             icon: Icon(Icons.plumbing),
             label: 'Plumbing',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.folder),
-            label: 'History',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.folder), label: 'History'),
         ],
       ),
     );
@@ -152,19 +145,18 @@ class HomePage extends StatelessWidget {
     required String subtitle,
     required Color iconColor,
     required Color backgroundColor,
+    required String type,
   }) {
     return InkWell(
       borderRadius: BorderRadius.circular(18),
-      onTap: () {},
+      onTap: () => openForm(context, type),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: iconColor.withValues(alpha: 0.20),
-          ),
+          border: Border.all(color: iconColor.withValues(alpha: 0.20)),
         ),
         child: Row(
           children: [
@@ -175,11 +167,7 @@ class HomePage extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Icon(
-                icon,
-                color: iconColor,
-                size: 30,
-              ),
+              child: Icon(icon, color: iconColor, size: 30),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -197,18 +185,12 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 5),
                   Text(
                     subtitle,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: Colors.black54,
-                    ),
+                    style: const TextStyle(fontSize: 13, color: Colors.black54),
                   ),
                 ],
               ),
             ),
-            const Icon(
-              Icons.chevron_right,
-              color: Colors.black45,
-            ),
+            const Icon(Icons.chevron_right, color: Colors.black45),
           ],
         ),
       ),
@@ -220,10 +202,7 @@ class _StatItem extends StatelessWidget {
   final String title;
   final String value;
 
-  const _StatItem({
-    required this.title,
-    required this.value,
-  });
+  const _StatItem({required this.title, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -238,14 +217,145 @@ class _StatItem extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 12,
-            color: Colors.grey,
-          ),
-        ),
+        Text(title, style: const TextStyle(fontSize: 12, color: Colors.grey)),
       ],
+    );
+  }
+}
+
+Future<void> openForm(BuildContext context, String type) async {
+  final prefs = await SharedPreferences.getInstance();
+
+  if (type == 'electrical') {
+    final number = (prefs.getInt('mvsElectricalOrderNo') ?? 1000) + 1;
+
+    await prefs.setInt('mvsElectricalOrderNo', number);
+
+    final orderNo = 'MVS-E$number';
+
+    if (!context.mounted) return;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ElectricalOrderPage(orderNo: orderNo),
+      ),
+    );
+  }
+}
+class ElectricalOrderPage extends StatefulWidget {
+  final String orderNo;
+
+  const ElectricalOrderPage({
+    super.key,
+    required this.orderNo,
+  });
+
+  @override
+  State<ElectricalOrderPage> createState() =>
+      _ElectricalOrderPageState();
+}
+
+class _ElectricalOrderPageState extends State<ElectricalOrderPage> {
+  final TextEditingController customerController =
+      TextEditingController();
+
+  final TextEditingController phoneController =
+      TextEditingController();
+
+  DateTime selectedDate = DateTime.now();
+
+  @override
+  void dispose() {
+    customerController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
+
+  String get formattedDate {
+    final d = selectedDate.day.toString().padLeft(2, '0');
+    final m = selectedDate.month.toString().padLeft(2, '0');
+    return '${selectedDate.year}-$m-$d';
+  }
+
+  Future<void> chooseDate() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2100),
+    );
+
+    if (picked != null) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('MVS ELECTRICAL'),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Text(
+              'Order No: ${widget.orderNo}',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            TextField(
+              controller: customerController,
+              decoration: const InputDecoration(
+                labelText: 'Customer',
+                hintText: 'Customer Name',
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            TextField(
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: const InputDecoration(
+                labelText: 'Phone',
+                hintText: 'Phone Number',
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            InkWell(
+              onTap: chooseDate,
+              child: InputDecorator(
+                decoration: const InputDecoration(
+                  labelText: 'Date',
+                  border: OutlineInputBorder(),
+                ),
+                child: Text(formattedDate),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            const Text(
+              'Electrical items will be loaded from electrical.json',
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
