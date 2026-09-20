@@ -39,7 +39,7 @@
 
         <!-- =====================================================
      HOME PAGE
-     ===================================================== -->
+===================================================== -->
 
         <div id="homePage">
 
@@ -47,387 +47,301 @@
 
             <header class="dashboard-header">
 
+                <!-- BRAND -->
                 <div class="brand">
 
                     <div class="brand-mark">
-                        ⚡
+                        <img src="../shared/images/logo.png" alt="MVS Electrical">
                     </div>
 
-                    <div>
-                        <h1>MVS ELECTRICAL</h1>
+                    <div class="brand-info">
+
+                        <h1>
+                            MVS ELECTRICAL
+                        </h1>
 
                         <p>
                             Electrical &amp; Plumbing Solutions
                         </p>
+
                     </div>
 
                 </div>
 
 
                 <!-- NAVIGATION -->
-
                 <nav class="dashboard-nav">
 
                     <button type="button" class="nav-item active" onclick="goHome()">
-                        Home
+                        🏠 Home
                     </button>
 
                     <button type="button" class="nav-item" onclick="openForm('electrical')">
                         ⚡ Electrical
                     </button>
 
+                    <button type="button" class="nav-item" onclick="openElectricalEstimation()">
+                        ⚡ Estimation
+                    </button>
+
                     <button type="button" class="nav-item" onclick="openForm('plumbing')">
-                        🚰 Plumbing
+                        🔧 Plumbing
                     </button>
 
                     <button type="button" class="nav-item" onclick="showHistory()">
                         📁 History
                     </button>
 
-                </nav>
-
-            </header>
-
-            <!-- =================================================
-            ANDROID APP BOTTOM NAVIGATION
-            ================================================= -->
-
-            <nav class="android-bottom-nav">
-
-                <button type="button" class="active" onclick="goHome()">
-                    <span>⌂</span>
-                    Home
-                </button>
-
-                <button type="button" onclick="openForm('electrical')">
-                    <span>⚡</span>
-                    Electrical
-                </button>
-
-                <button type="button" onclick="openForm('plumbing')">
-                    <span>🔧</span>
-                    Plumbing
-                </button>
-
-                <button type="button" onclick="showHistory()">
-                    <span>📁</span>
-                    History
-                </button>
-
-                <button type="button" onclick="openHomePlanning()">
-                    <span>🏠</span>
-                    Planning
-                </button>
-
-            </nav>
-
-
-
-            <!-- MAIN CONTENT -->
-
-            <main class="dashboard-content">
-
-
-                <!-- WELCOME -->
-
-                <section class="welcome-panel">
-
-                    <div class="welcome-copy">
-
-                        <span class="eyebrow">
-                            WELCOME TO
-                        </span>
-
-                        <h2>
-                            MVS <strong>ELECTRICAL</strong>
-                        </h2>
-
-                        <p class="welcome-title">
-                            Electrical &amp; Plumbing Order Management
-                        </p>
-
-                        <p class="welcome-subtitle">
-                            Create • Manage • Track • Grow
-                        </p>
-
-                    </div>
-
-                </section>
-
-
-
-                <!-- ORDER CARDS -->
-
-                <section class="order-cards">
-
-
-                    <!-- ELECTRICAL CARD -->
-
-                    <button type="button" class="dashboard-card electrical-card" onclick="openForm('electrical')">
-
-                        <div class="card-top">
-
-                            <div class="service-icon electrical-icon">
-                                ⚡
-                            </div>
-
-                            <span class="card-arrow">
-                                ›
-                            </span>
-
-                        </div>
-
-
-                        <div class="accent-line"></div>
-
-
-                        <h3>
-                            ELECTRICAL
-                        </h3>
-
-
-                        <p>
-                            Create new electrical order with
-                            items, quantity and customer details.
-                        </p>
-
-
-                        <div class="service-tags">
-
-                            <span>Wires</span>
-                            <span>Switches</span>
-                            <span>Lights</span>
-                            <span>MCB</span>
-
-                        </div>
-
+                    <button type="button" class="nav-item" onclick="openHomePlanning()">
+                        🏠 Planning
                     </button>
 
+                </nav>
+
+                <button type="button" class="profile-btn" onclick="openProfile()">
+
+                    <span class="profile-icon">👤</span>
+                    <span class="profile-text">Profile</span>
+
+                </button>
+
+                <!-- =====================================
+                MOBILE / ANDROID BOTTOM NAVIGATION
+            ===================================== -->
+
+                <nav class="mobile-bottom-nav">
+
+                    <button type="button" class="active" onclick="goHome()">
+                        <span class="nav-icon">⌂</span>
+                        <span class="nav-label">Home</span>
+                    </button>
+
+                    <button type="button" onclick="openForm('electrical')">
+                        <span class="nav-icon">⚡</span>
+                        <span class="nav-label">Electrical</span>
+                    </button>
+
+                    <button type="button" onclick="openForm('plumbing')">
+                        <span class="nav-icon">🔧</span>
+                        <span class="nav-label">Plumbing</span>
+                    </button>
+
+                    <button type="button" onclick="showHistory()">
+                        <span class="nav-icon">📁</span>
+                        <span class="nav-label">History</span>
+                    </button>
+
+                    <button type="button" onclick="openHomePlanning()">
+                        <span class="nav-icon">🏠</span>
+                        <span class="nav-label">Planning</span>
+                    </button>
+
+                </nav>
+            
+            </header>
 
 
-                    <!-- PLUMBING CARD -->
 
-                    <button type="button" class="dashboard-card plumbing-card" onclick="openForm('plumbing')">
+                <!-- MAIN CONTENT -->
+                <main class="dashboard-content">
 
-                        <div class="card-top">
+                    <!-- WELCOME -->
+                        <section class="welcome-panel">
 
-                            <div class="service-icon plumbing-icon">
+                            <div class="welcome-copy">
+
+                                <h2>MVS <strong>ELECTRICAL</strong></h2>
+
+                                <p class="welcome-title">
+                                    Electrical &amp; Plumbing Solutions
+                                </p>
+
+                                <span class="hero-heading">
+                                    SMART SOLUTIONS FOR<br>
+                                    MODERN HOMES
+                                </span>
+
+                                <p class="welcome-subtitle">
+                                    Plan your home.<br>
+                                    Estimate your requirements.<br>
+                                    Manage your orders.
+                                </p>
+
+                                <div class="welcome-features">
+                                    <span>⚡ Electrical</span>
+                                    <span>🔧 Plumbing</span>
+                                    <span>🏠 Home Planning</span>
+                                </div>
+
+                            </div>
+
+
+                            <!-- WELCOME IMAGE -->
+                            <div class="welcome-image">
+
+                                <img
+                                    src="../shared/images/home-banner.png"
+                                    alt="MVS Electrical Home"
+                                >
+
+                            </div>
+
+                        </section>
+
+
+                    <!-- SERVICE CARDS -->
+                    <div class="home-buttons">
+
+                        <!-- ELECTRICAL -->
+                        <button type="button" class="service-card electrical-card" onclick="openForm('electrical')">
+
+                            <div class="card-top">
+
+                                <div class="service-icon">
+                                    ⚡
+                                </div>
+
+                                <div class="card-arrow">›</div>
+
+                            </div>
+
+                            <h3>ELECTRICAL</h3>
+
+                            <p>
+                                Create new electrical order with
+                                items, quantity and customer details.
+                            </p>
+
+                            <div class="service-tags">
+                                <span>Wires</span>
+                                <span>Switches</span>
+                                <span>Lights</span>
+                                <span>MCB</span>
+                                <span>Sockets</span>
+                                <span>More</span>
+                            </div>
+
+                            <div class="create-btn">
+                                Create Electrical Order →
+                            </div>
+
+                        </button>
+
+
+                        <!-- PLUMBING -->
+                        <button type="button" class="service-card plumbing-card" onclick="openForm('plumbing')">
+
+                            <div class="service-icon">
                                 🚰
                             </div>
 
-                            <span class="card-arrow">
+                            <div class="card-arrow">›</div>
+
+                            <h3>PLUMBING</h3>
+
+                            <p>
+                                Create new plumbing order with
+                                items, quantity and customer details.
+                            </p>
+
+                            <div class="service-tags">
+                                <span>Pipes</span>
+                                <span>Fittings</span>
+                                <span>Valves</span>
+                                <span>Tanks</span>
+                                <span>Showers</span>
+                                <span>More</span>
+                            </div>
+
+                            <div class="create-btn">
+                                Create Plumbing Order →
+                            </div>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- HOME PLANNING -->
+                    <section class="home-planning-card" onclick="openHomePlanning()">
+
+                        <div class="planning-top">
+
+                            <div class="planning-icon">
+                                🏠
+                            </div>
+
+                            <div class="planning-content">
+
+                                <h3>HOME PLANNING</h3>
+
+                                <p>
+                                    Create home, add floors and rooms,
+                                    calculate electrical points and total list.
+                                </p>
+
+                                <div class="planning-tags">
+                                    <span>▰ Rooms</span>
+                                    <span>⚡ Points</span>
+                                    <span>▣ MCB</span>
+                                    <span>☷ Total List</span>
+                                </div>
+
+                            </div>
+
+                            <div class="planning-arrow">
                                 ›
-                            </span>
+                            </div>
 
                         </div>
 
+                        <div class="planning-action">
+                            Start Home Planning →
+                        </div>
 
-                        <div class="accent-line"></div>
-
-
-                        <h3>
-                            PLUMBING
-                        </h3>
+                    </section>
 
 
-                        <p>
-                            Create new plumbing order with
-                            items, quantity and customer details.
-                        </p>
+                    <!-- SAVED ORDERS -->
+                    <section class="saved-orders-card" onclick="showHistory()">
 
+                        <div class="saved-icon">
+                            📁
+                        </div>
 
-                        <div class="service-tags">
+                        <div class="saved-content">
 
-                            <span>Pipes</span>
-                            <span>Fittings</span>
-                            <span>Valves</span>
-                            <span>Tanks</span>
+                            <h3>SAVED ORDERS</h3>
+
+                            <p>
+                                View, search and manage your previous orders.
+                            </p>
 
                         </div>
 
-                    </button>
-
-
-                </section>
-
-                <!-- HOME PLANNING -->
-
-                <button type="button" class="dashboard-card home-planning-card" onclick="openHomePlanning()">
-
-                    <div class="card-top">
-
-                        <div class="service-icon home-planning-icon">
-                            🏠
-                        </div>
-
-                        <span class="card-arrow">
+                        <div class="saved-arrow">
                             ›
-                        </span>
+                        </div>
 
-                    </div>
+                    </section>
 
-                    <div class="accent-line"></div>
-
-                    <h3>
-                        HOME PLANNING
-                    </h3>
-
-                    <p>
-                        Create home, add floors and rooms,
-                        calculate electrical points and total list.
-                    </p>
-
-                    <div class="service-tags">
-                        <span>Rooms</span>
-                        <span>Points</span>
-                        <span>MCB</span>
-                        <span>Total List</span>
-                    </div>
-
-                </button>
-
-                <!-- SAVED ORDERS -->
-
-                <button type="button" class="history-card" onclick="showHistory()">
-
-                    <div class="history-icon">
-                        📁
-                    </div>
+                </main>
 
 
-                    <div class="history-copy">
 
-                        <h3>
-                            SAVED ORDERS
-                        </h3>
+                <!-- FOOTER -->
 
-                        <p>
-                            View, search and manage your
-                            previous orders.
-                        </p>
+                <footer class="dashboard-footer">
 
-                    </div>
-
-
-                    <span class="history-arrow">
-                        ›
+                    <span>
+                        © 2026 MVS ELECTRICAL
                     </span>
 
-                </button>
+                    <span>
+                        Simple Orders. Stronger Relationships.
+                    </span>
 
-
-
-                <!-- DASHBOARD STATS -->
-
-                <section class="dashboard-stats">
-
-
-                    <div class="stat-card">
-
-                        <span class="stat-icon">
-                            📋
-                        </span>
-
-                        <div>
-
-                            <small>
-                                Total Orders
-                            </small>
-
-                            <strong>
-                                0
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="stat-card">
-
-                        <span class="stat-icon">
-                            👤
-                        </span>
-
-                        <div>
-
-                            <small>
-                                Customers
-                            </small>
-
-                            <strong>
-                                0
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="stat-card">
-
-                        <span class="stat-icon">
-                            📊
-                        </span>
-
-                        <div>
-
-                            <small>
-                                This Month
-                            </small>
-
-                            <strong>
-                                0
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="stat-card">
-
-                        <span class="stat-icon">
-                            📅
-                        </span>
-
-                        <div>
-
-                            <small>
-                                Today
-                            </small>
-
-                            <strong>
-                                0
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                </section>
-
-            </main>
-
-
-
-            <!-- FOOTER -->
-
-            <footer class="dashboard-footer">
-
-                <span>
-                    © 2026 MVS ELECTRICAL
-                </span>
-
-                <span>
-                    Simple Orders. Stronger Relationships.
-                </span>
-
-            </footer>
+                </footer>
 
 
         </div>
@@ -440,14 +354,18 @@
 
         <div id="electricalForm" class="form-page">
 
-            <button type="button" class="top-back-btn" onclick="goHome()">
-                ← Back
-            </button>
+            <!-- TOP BACK -->
+                <button
+                    type="button"
+                    class="top-back-btn"
+                    onclick="goHome()">
+                    ← Back
+                </button>
 
 
             <!-- =================================================
-FORM HEADER
-================================================= -->
+                FORM HEADER
+                ================================================= -->
 
             <!-- FORM HEADER -->
 
@@ -940,194 +858,291 @@ FORM HEADER
 
     <!-- =====================================================
      HOME PLANNING
-     ===================================================== -->
+    ===================================================== -->
 
-    <div id="homePlanning" class="form-page">
+<div id="homePlanning" class="form-page">
 
-        <!-- HEADER -->
+    <!-- =================================================
+         HOME PLANNING HEADER
+    ================================================= -->
 
-        <div class="form-header">
+    <div class="form-header hp-header">
 
-            <div class="order-title">
-                🏠 HOME PLANNING
+        <!-- TOP HEADER -->
+
+        <div class="hp-top-row">
+
+            <div class="hp-brand">
+
+                <div class="hp-logo">
+                    🏠
+                </div>
+
+                <div class="hp-brand-text">
+
+                    <div class="order-title">
+                        HOME PLANNING
+                    </div>
+
+                    <div class="company-contact">
+                        Thamizharasu &nbsp;•&nbsp; +91 6383754237
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="company-contact">
-                Thamizharasu &nbsp;•&nbsp; +91 6383754237
+
+            <div class="hp-tagline">
+                Plan Better &nbsp;•&nbsp;
+                Build Smarter &nbsp;•&nbsp;
+                Live Happier
             </div>
 
-            <div class="order-number">
-                Bill No:
+        </div>
+
+
+        <!-- DETAILS -->
+
+        <div class="hp-details">
+
+            <!-- BILL NO -->
+
+            <div class="hp-detail bill-detail">
+
+                <span class="hp-detail-icon">📄</span>
+
+                <label>
+                    Bill No:
+                </label>
+
                 <strong id="homeBillNo">
                     MVS-H1001
                 </strong>
+
             </div>
+
 
             <!-- CUSTOMER -->
 
-            <div class="details">
+            <div class="hp-detail">
 
-                <div class="detail-row">
+                <span class="hp-detail-icon">👤</span>
 
-                    <label>
-                        Customer:
-                    </label>
-
-                    <input id="homeCustomer" type="text" autocomplete="off" placeholder="Customer Name">
-
-                </div>
-
-
-                <!-- HOME NAME -->
-
-                <div class="detail-row">
-
-                    <label>
-                        Home Name:
-                    </label>
-
-                    <input id="homeName" type="text" autocomplete="off" placeholder="Home Name">
-
-                </div>
-
-
-                <!-- DATE -->
-
-                <div class="detail-row">
-
-                    <label>
-                        Date:
-                    </label>
-
-                    <input id="homeDate" type="date">
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- FLOORS -->
-
-        <div class="home-planning-section">
-
-            <div class="section-title-row">
-
-                <h3>
-                    FLOORS
-                </h3>
-
-                <button type="button" class="add-btn" onclick="addFloor()">
-
-                    ＋ Add Floor
-
-                </button>
-
-            </div>
-
-
-            <div id="floorList">
-
-                <!-- Floors will appear here -->
-
-            </div>
-
-        </div>
-
-
-        <!-- =====================================================
-     FINAL TOTAL LIST
-     ===================================================== -->
-
-        <div class="final-total-section">
-
-            <div class="final-total-header">
-                <h2>FINAL TOTAL LIST</h2>
-            </div>
-
-            <!-- Direct Add Item -->
-            <div class="final-add-item">
-
-                <label>Electrical Item</label>
-
-                <select id="final-item-select">
-                    <option value="">Select Item</option>
-                </select>
-
-
-                <label id="final-size-label" style="display:none;">
-                    Amp / Size
+                <label>
+                    Customer Name:
                 </label>
 
-                <select id="final-size-select" style="display:none;">
-                    <option value="">Select</option>
-                </select>
+                <input
+                    id="homeCustomer"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Enter Customer Name"
+                >
+
+            </div>
 
 
-                <label id="final-color-label" style="display:none;">
-                    Color
+            <!-- MOBILE -->
+
+            <div class="hp-detail">
+
+                <span class="hp-detail-icon">📞</span>
+
+                <label>
+                    Mobile No:
                 </label>
 
-                <select id="final-color-select" style="display:none;">
-                    <option value="">Select Color</option>
-                </select>
-
-
-                <label>Qty</label>
-
-                <input type="number" id="final-item-qty" min="1" value="1">
-
-
-                <button type="button" id="final-add-item-btn">
-                    ＋ Add Item
-                </button>
+                <input
+                    id="homeMobileNumber"
+                    type="tel"
+                    inputmode="numeric"
+                    maxlength="10"
+                    autocomplete="off"
+                    placeholder="Enter Mobile Number"
+                >
 
             </div>
 
 
-            <!-- ================================================
-         TOTAL ITEMS
-         ================================================ -->
+            <!-- HOME NAME -->
 
-            <div id="final-total-list" class="final-total-list">
+            <div class="hp-detail">
 
-                <div class="final-empty">
-                    No items added
-                </div>
+                <span class="hp-detail-icon">🏠</span>
+
+                <label>
+                    Home Name:
+                </label>
+
+                <input
+                    id="homeName"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Enter Home Name"
+                >
 
             </div>
 
-        </div>
 
+            <!-- DATE -->
 
-        <!-- ACTION BUTTONS -->
+            <div class="hp-detail date-detail">
 
-        <div class="action-buttons">
+                <span class="hp-detail-icon">📅</span>
 
-            <button type="button" class="back-btn" onclick="goHome()">
+                <label>
+                    Date:
+                </label>
 
-                ← Back
+                <input
+                    id="homeDate"
+                    type="date"
+                >
 
-            </button>
-
-
-            <button type="button" class="save-btn" onclick="saveHomePlanning()">
-
-                💾 Save Home
-
-            </button>
-
-
-            <button type="button" class="pdf-btn" onclick="downloadHomePDF()">
-
-                📄 PDF
-
-            </button>
+            </div>
 
         </div>
 
     </div>
+
+    <!-- TOP BACK BUTTON -->
+        <div class="home-top-actions">
+
+            <button
+                type="button"
+                class="home-top-back-btn"
+                onclick="goHome()">
+                ← Back
+            </button>
+
+        </div>
+
+
+    <!-- =================================================
+         FLOORS
+    ================================================= -->
+
+    <div class="home-planning-section">
+
+        <div class="section-title-row">
+
+            <h3>
+                FLOORS
+            </h3>
+
+            <button
+                type="button"
+                class="add-btn"
+                onclick="addFloor()">
+                ＋ Add Floor
+            </button>
+
+        </div>
+
+
+        <div id="floorList">
+            <!-- Floors will appear here -->
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         FINAL TOTAL LIST
+    ================================================= -->
+
+    <div class="final-total-section">
+
+        <div class="final-total-header">
+            <h2>FINAL TOTAL LIST</h2>
+        </div>
+
+        <div class="final-add-item">
+
+            <label>Electrical Item</label>
+
+            <select id="final-item-select">
+                <option value="">Select Item</option>
+            </select>
+
+            <label id="final-size-label" style="display:none;">
+                Amp / Size
+            </label>
+
+            <select id="final-size-select" style="display:none;">
+                <option value="">Select</option>
+            </select>
+
+            <label id="final-color-label" style="display:none;">
+                Color
+            </label>
+
+            <select id="final-color-select" style="display:none;">
+                <option value="">Select Color</option>
+            </select>
+
+            <label>Qty</label>
+
+            <input
+                type="number"
+                id="final-item-qty"
+                min="1"
+                value="1"
+            >
+
+            <button
+                type="button"
+                id="final-add-item-btn">
+                ＋ Add Item
+            </button>
+
+        </div>
+
+
+        <div
+            id="final-total-list"
+            class="final-total-list">
+
+            <div class="final-empty">
+                No items added
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ACTION BUTTONS
+    ================================================= -->
+
+    <div class="action-buttons">
+
+        <button
+            type="button"
+            class="back-btn"
+            onclick="goHome()">
+            ← Back
+        </button>
+
+        <button
+            type="button"
+            class="save-btn"
+            onclick="saveHomePlanning()">
+            💾 Save Home
+        </button>
+
+        <button
+            type="button"
+            class="pdf-btn"
+            onclick="downloadHomePDF()">
+            📄 PDF
+        </button>
+
+    </div>
+
+</div>
 
     <!-- =====================================================
      SMART SUGGESTIONS
@@ -1147,6 +1162,51 @@ FORM HEADER
      ===================================================== -->
 
     <script src="./script.js"></script>
+
+    <!-- =====================================================
+     PDF PREVIEW MODAL
+     ===================================================== -->
+
+    <div id="pdfPreviewModal" class="pdf-preview-modal">
+
+        <div class="pdf-preview-box">
+
+            <div class="pdf-preview-header">
+
+                <h3>PDF Preview</h3>
+
+                <button
+                    type="button"
+                    onclick="closePDFPreview()">
+                    ✕
+                </button>
+
+            </div>
+
+            <div
+                id="pdfPreviewContent"
+                class="pdf-preview-content">
+            </div>
+
+            <div class="pdf-preview-actions">
+
+                <button
+                    type="button"
+                    onclick="closePDFPreview()">
+                    ✕ Close
+                </button>
+
+                <button
+                    type="button"
+                    onclick="downloadPreviewPDF()">
+                    ⬇ Download PDF
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
 </body>

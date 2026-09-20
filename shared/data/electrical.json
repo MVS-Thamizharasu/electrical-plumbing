@@ -341,15 +341,15 @@
       "customSize": true
     },
     {
-      "name": "Indicator Lamp Module",
-      "sizes": [
+    "name": "Panel Indicator",
+    "sizes": [
         "Red",
         "Green",
         "Yellow",
         "Blue"
-      ],
-      "customSize": true
-    },
+    ],
+    "customSize": true
+  },
     {
       "name": "Bell Push",
       "sizes": [],
@@ -566,9 +566,12 @@
     {
       "name": "Cable Lugs Pin Type",
       "sizes": [
-        "1.5 sqmm",
-        "2.5 sqmm",
-        "4 sqmm"
+        "1.5 Sq.mm",
+        "2.5 Sq.mm",
+        "4 Sq.mm",
+        "6 Sq.mm",
+        "10 Sq.mm",
+        "16 Sq.mm"
       ],
       "customSize": true
     },
@@ -608,7 +611,10 @@
       "sizes": [
         "6mm",
         "8mm",
-        "10mm"
+        "10mm",
+        "12mm",
+        "14mm",
+        "16mm"
       ],
       "customSize": true
     },
@@ -743,13 +749,53 @@
       "customSize": true
     },
     {
-      "name": "Aluminium Lugs",
-      "sizes": [
+    "name": "Aluminium Lugs Pin Type",
+    "sizes": [
         "16 sqmm",
-        "25 sqmm"
-      ],
-      "customSize": true
-    },
+        "25 sqmm",
+        "35 sqmm",
+        "50 sqmm",
+        "70 sqmm",
+        "95 sqmm",
+        "120 sqmm",
+        "150 sqmm",
+        "185 sqmm",
+        "240 sqmm"
+    ],
+    "customSize": true
+  },
+  {
+    "name": "Aluminium Lugs Ring Type",
+    "sizes": [
+        "16 sqmm",
+        "25 sqmm",
+        "35 sqmm",
+        "50 sqmm",
+        "70 sqmm",
+        "95 sqmm",
+        "120 sqmm",
+        "150 sqmm",
+        "185 sqmm",
+        "240 sqmm"
+    ],
+    "customSize": true
+  },  
+    {
+    "name": "Aluminium In-Line Connectors",
+    "sizes": [
+        "16 Sq.mm",
+        "25 Sq.mm",
+        "35 Sq.mm",
+        "50 Sq.mm",
+        "70 Sq.mm",
+        "95 Sq.mm",
+        "120 Sq.mm",
+        "150 Sq.mm",
+        "185 Sq.mm",
+        "240 Sq.mm"
+    ],
+    "customSize": true
+  },
     {
       "name": "Service Cable",
       "sizes": [
@@ -857,15 +903,20 @@
       "customSize": true
     },
     {
-      "name": "Flood Light",
-      "sizes": [
+    "name": "Flood Light",
+    "sizes": [
         "30W",
         "50W",
         "100W",
-        "150W"
-      ],
-      "customSize": true
-    },
+        "150W",
+        "200W",
+        "250W",
+        "300W",
+        "400W",
+        "500W"
+    ],
+    "customSize": true
+},
     {
       "name": "Exhaust Fan Heavy Duty",
       "sizes": [
@@ -1105,7 +1156,10 @@
       "name": "Insulating Varnish",
       "sizes": [
         "Clear",
-        "Golden Red"
+        "Golden Red",
+        "Red",
+        "Black",
+        "Brown"
       ],
       "customSize": true
     },
@@ -1161,11 +1215,58 @@
       "sizes": [],
       "customSize": true
     },
+  {
+    "name": "Copper PG Clamp",
+    "sizes": [
+        "1.5 sqmm",
+        "2.5 sqmm",
+        "4 sqmm",
+        "6 sqmm",
+        "10 sqmm",
+        "16 sqmm",
+        "25 sqmm",
+        "35 sqmm",
+        "50 sqmm",
+        "70 sqmm",
+        "95 sqmm",
+        "120 sqmm"
+    ],
+    "customSize": true
+},
     {
-      "name": "Aluminium PG Clamp",
-      "sizes": [],
-      "customSize": true
-    },
+    "name": "Aluminium PG Clamp",
+    "sizes": [
+        "16 sqmm",
+        "25 sqmm",
+        "35 sqmm",
+        "50 sqmm",
+        "70 sqmm",
+        "95 sqmm",
+        "120 sqmm",
+        "150 sqmm",
+        "185 sqmm",
+        "240 sqmm"
+    ],
+    "customSize": true
+},
+{
+    "name": "Aluminium and Copper PG Clamp",
+    "sizes": [
+        "1.5 sqmm",
+        "2.5 sqmm",
+        "4 sqmm",
+        "6 sqmm",
+        "10 sqmm",
+        "16 sqmm",
+        "25 sqmm",
+        "35 sqmm",
+        "50 sqmm",
+        "70 sqmm",
+        "95 sqmm",
+        "120 sqmm"
+    ],
+    "customSize": true
+},
     {
       "name": "Piercing Connector IPC Clamp",
       "sizes": [],
@@ -1887,15 +1988,14 @@
       "customSize": true
     },
     {
-      "name": "6A Indicator Switch",
-      "sizes": [],
-      "customSize": true
-    },
-    {
-      "name": "16A Indicator Switch",
-      "sizes": [],
-      "customSize": true
-    },
+    "name": "Indicator Switch",
+    "sizes": [
+        "6A",
+        "16A"
+    ],
+    "module": 1,
+    "customSize": true
+  },
     {
       "name": "DP Switch",
       "sizes": [
@@ -2138,26 +2238,7 @@
       "module": 2,
       "customSize": true
     },
-    {
-      "name": "Modular Indicator Red",
-      "sizes": [],
-      "customSize": true
-    },
-    {
-      "name": "Modular Indicator Green",
-      "sizes": [],
-      "customSize": true
-    },
-    {
-      "name": "Modular Indicator Blue",
-      "sizes": [],
-      "customSize": true
-    },
-    {
-      "name": "Modular Indicator Yellow",
-      "sizes": [],
-      "customSize": true
-    },
+    
     {
       "name": "Modular Buzzer",
       "sizes": [],
@@ -2209,15 +2290,29 @@
       "customSize": true
     },
     {
-      "name": "Fuse Base Porcelain",
-      "sizes": [],
-      "customSize": true
-    },
+    "name": "Fuse Base Porcelain",
+    "sizes": [
+        "5A",
+        "10A",
+        "15A",
+        "20A",
+        "25A",
+        "30A"
+    ],
+    "customSize": true
+},
     {
-      "name": "Fuse Wire",
-      "sizes": [],
-      "customSize": true
-    },
+    "name": "Fuse Wire",
+    "sizes": [
+        "5A",
+        "10A",
+        "15A",
+        "20A",
+        "25A",
+        "30A"
+    ],
+    "customSize": true
+},
     {
       "name": "HRC Fuse Link",
       "sizes": [

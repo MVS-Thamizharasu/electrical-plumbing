@@ -1,21 +1,26 @@
+/* =========================================
+   1. RESET / GLOBAL
+   ========================================= */
+
 * {
     box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
     width: 100%;
     max-width: 100%;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
-
     width: 100%;
     max-width: 100%;
-
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
 
     font-family: Arial, Helvetica, sans-serif;
@@ -24,276 +29,671 @@ body {
     color: #111827;
 }
 
-
-/* =========================================
-   PROFESSIONAL HOME DASHBOARD
-========================================= */
+.app {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 #homePage {
     width: 100%;
+    max-width: 100%;
 }
 
-
-/* =========================================
-   DASHBOARD HEADER
-========================================= */
+/* =====================================================
+   2. MVS ELECTRICAL HEADER
+===================================================== */
 
 .dashboard-header {
+    width: 100%;
+    height: 84px;
+    min-height: 84px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    width: 100%;
+    padding: 0 30px;
+    margin: 0;
 
-    padding: 18px 24px;
+    box-sizing: border-box;
 
     background: #ffffff;
 
-    border: 1px solid #e5e7eb;
-    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 0 0 16px 16px;
 
     box-shadow:
-        0 8px 25px rgba(15, 23, 42, 0.06);
+        0 4px 18px rgba(15, 23, 42, 0.06);
 
-    margin-bottom: 28px;
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+
+    overflow: visible;
 }
 
 
-/* =========================================
-   BRAND
-========================================= */
+/* =====================================================
+   3. BRAND
+===================================================== */
 
 .brand {
     display: flex;
     align-items: center;
+
     gap: 12px;
+
+    min-width: 250px;
+
+    flex: 0 0 auto;
+
+    white-space: nowrap;
 }
 
 .brand-mark {
-    width: 46px;
-    height: 46px;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
     background: #fff4c7;
 
-    font-size: 24px;
+    overflow: hidden;
+
+    flex-shrink: 0;
 }
 
-.brand h1 {
+.brand-mark img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+.brand-info {
+    min-width: 0;
+}
+
+.brand-info h1 {
     margin: 0;
 
-    font-size: 21px;
+    color: #0f172a;
+
+    font-size: 22px;
+    line-height: 1.1;
+
     font-weight: 800;
 
-    letter-spacing: 0.4px;
+    letter-spacing: 0.3px;
 
-    color: #0f172a;
+    white-space: nowrap;
 }
 
-.brand p {
-    margin: 3px 0 0;
-
-    font-size: 12px;
+.brand-info p {
+    margin: 4px 0 0;
 
     color: #64748b;
+
+    font-size: 12px;
+    line-height: 1.2;
+
+    font-weight: 500;
+
+    white-space: nowrap;
 }
 
 
-/* =========================================
-   NAVIGATION
-========================================= */
+/* =====================================================
+4. NAVIGATION
+===================================================== */
 
 .dashboard-nav {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: flex-end;
+    gap: 8px;
+
+    margin-left: auto;
+    margin-right: 20px;
+
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
-.nav-item {
+.dashboard-nav .nav-item {
+    height: 42px;
+
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 12px;
+
     border: none;
+    border-radius: 10px;
 
     background: transparent;
+    color: #334155;
 
-    padding: 9px 13px;
+    font-size: 14px;
+    font-weight: 600;
 
-    border-radius: 9px;
+    white-space: nowrap;
+    cursor: pointer;
+}
 
-    color: #475569;
+/* =====================================================
+   5A. DESKTOP NAVIGATION FIX
+===================================================== */
+
+.mobile-bottom-nav {
+    display: none !important;
+}
+
+/* =====================================================
+   5 . PROFILE BUTTON
+===================================================== */
+
+.profile-btn {
+    height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 0 13px;
+
+    flex: 0 0 auto;
+
+    border: 1px solid #dbe3ec;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #334155;
 
     font-size: 13px;
     font-weight: 600;
 
     cursor: pointer;
 
+    white-space: nowrap;
+
     transition:
         background 0.2s ease,
-        color 0.2s ease,
+        border-color 0.2s ease,
         transform 0.2s ease;
 }
 
-.nav-item:hover {
-    background: #f1f5f9;
-    color: #0f172a;
+.profile-btn:hover {
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+
+    transform: translateY(-1px);
 }
 
-.nav-item:active {
-    transform: scale(0.97);
+.profile-icon {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #eef4fb;
+
+    font-size: 15px;
 }
 
-.nav-item.active {
-    background: #0f172a;
-    color: #ffffff;
-}
 
-
-/* =========================================
-   DASHBOARD CONTENT
-========================================= */
+/* =====================================================
+   6. DASHBOARD CONTENT
+===================================================== */
 
 .dashboard-content {
     width: 100%;
+    max-width: 1280px;
+
+    margin: 0 auto;
+
+    padding: 24px;
+
+    box-sizing: border-box;
+
+    display: block;
 }
 
 
-/* =========================================
-   WELCOME PANEL
-========================================= */
+/* =====================================================
+   7. WELCOME PANEL
+===================================================== */
 
 .welcome-panel {
     position: relative;
 
+    width: 100%;
+    min-height: 300px;
+
+    margin: 0 0 22px;
+
+    padding: 34px 40px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+
     overflow: hidden;
 
-    padding: 32px 34px;
-
-    margin-bottom: 22px;
-
+    border: 1px solid #dce3ec;
     border-radius: 20px;
 
     background:
-        linear-gradient(135deg,
-            #ffffff,
-            #f8fafc);
-
-    border: 1px solid #e2e8f0;
+        radial-gradient(
+            75% 100% at 68% 45%,
+            #fafdff 0%,
+            #eef8ff 42%,
+            #f7fbff 68%,
+            #ffffff 100%
+        );
 
     box-shadow:
-        0 10px 30px rgba(15, 23, 42, 0.05);
+        0 8px 24px rgba(15, 23, 42, 0.06);
+
+    isolation: isolate;
 }
+
+
+/* =====================================================
+   TOP LEFT SOFT BLUE CURVE
+===================================================== */
+
+.welcome-panel::before {
+    content: "";
+
+    position: absolute;
+
+    width: 520px;
+    height: 230px;
+
+    top: -165px;
+    left: -210px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d8edff 0%,
+            #e9f6ff 65%,
+            #ffffff 100%
+        );
+
+    border-radius: 50%;
+
+    transform: rotate(-17deg);
+
+    z-index: 0;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   BOTTOM MAIN BLUE WAVE
+===================================================== */
 
 .welcome-panel::after {
     content: "";
 
     position: absolute;
 
-    width: 180px;
-    height: 180px;
+    width: 125%;
+    height: 190px;
 
-    right: -70px;
-    top: -70px;
+    left: -20%;
+    bottom: -125px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #c7e4fc 0%,
+            #b8dcf9 100%
+        );
 
     border-radius: 50%;
 
-    background: #fff4c7;
+    transform: rotate(-6deg);
 
-    opacity: 0.55;
+    z-index: 0;
+
+    pointer-events: none;
 }
+
+
+/* =====================================================
+   8. HOUSE IMAGE / HERO BANNER
+===================================================== */
+
+.welcome-image {
+    position: absolute;
+
+    right: -10px;
+    bottom: -8px;
+
+    width: 56%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    z-index: 4;
+
+    pointer-events: none;
+
+    overflow: visible;
+}
+
+
+/* =====================================================
+   HOUSE IMAGE
+===================================================== */
+
+.welcome-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+
+    object-position: right bottom;
+
+    filter:
+        drop-shadow(
+            0 12px 24px
+            rgba(30, 80, 120, 0.12)
+        );
+}
+
+
+/* =====================================================
+   SOFT HOUSE AREA
+===================================================== */
+
+.welcome-image::before {
+    content: "";
+
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    right: 4%;
+    top: 25px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 248, 210, 0.95) 0%,
+            rgba(255, 246, 200, 0.65) 42%,
+            rgba(255, 246, 200, 0) 72%
+        );
+
+    z-index: -2;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   9. SOFT IMAGE FADE
+===================================================== */
+
+.welcome-image {
+    -webkit-mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0, 0, 0, 0.25) 8%,
+            rgba(0, 0, 0, 0.75) 20%,
+            #000000 34%,
+            #000000 100%
+        );
+
+    mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0, 0, 0, 0.25) 8%,
+            rgba(0, 0, 0, 0.75) 20%,
+            #000000 34%,
+            #000000 100%
+        );
+}
+
+
+/* =====================================================
+   EXTRA BOTTOM WHITE / BLUE WAVE
+===================================================== */
+
+.welcome-image::after {
+    content: "";
+
+    position: absolute;
+
+    width: 125%;
+    height: 95px;
+
+    left: -28%;
+    bottom: -50px;
+
+    background: #e7f4ff;
+
+    border-radius: 50%;
+
+    transform: rotate(-7deg);
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   10. WELCOME TEXT
+===================================================== */
 
 .welcome-copy {
     position: relative;
-    z-index: 1;
+
+    z-index: 10;
+
+    width: 48%;
+    max-width: 520px;
+
+    padding-bottom: 5px;
 }
 
-.eyebrow {
-    display: block;
-
-    margin-bottom: 7px;
-
-    font-size: 11px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-    color: #64748b;
-}
 
 .welcome-panel h2 {
     margin: 0;
 
-    font-size: 32px;
+    font-size: 34px;
+
+    line-height: 1.1;
 
     font-weight: 800;
 
-    color: #0f172a;
+    letter-spacing: -0.5px;
+
+    color: #102a4c;
 }
+
 
 .welcome-panel h2 strong {
-    color: #d99b00;
+    color: #dfa500;
 }
 
+
 .welcome-title {
-    margin: 8px 0 0;
+    margin: 6px 0 18px;
 
     font-size: 15px;
 
+    line-height: 1.4;
+
     font-weight: 600;
 
-    color: #334155;
+    color: #26384d;
 }
 
+
+/* =====================================================
+   HERO HEADING
+===================================================== */
+
+.hero-heading {
+    display: block;
+
+    margin: 0 0 12px;
+
+    font-size: 24px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    letter-spacing: 0.3px;
+
+    color: #102a4c;
+}
+
+
+/* =====================================================
+   HERO DESCRIPTION
+===================================================== */
+
 .welcome-subtitle {
-    margin: 6px 0 0;
+    margin: 0;
 
     font-size: 12px;
 
-    color: #94a3b8;
+    line-height: 1.7;
+
+    color: #64748b;
 }
 
 
-/* =========================================
-   ORDER CARDS
-========================================= */
+/* =====================================================
+   11. WELCOME FEATURES
+===================================================== */
 
-.order-cards {
+.welcome-features {
+    position: relative;
+
+    z-index: 10;
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 18px;
+
+    flex-wrap: wrap;
+}
+
+
+.welcome-features span {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 30px;
+
+    padding: 0 12px;
+
+    border: 1px solid #dce4ee;
+
+    border-radius: 8px;
+
+    background:
+        rgba(255, 255, 255, 0.88);
+
+    backdrop-filter: blur(6px);
+
+    -webkit-backdrop-filter: blur(6px);
+
+    color: #334155;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 3px 10px
+        rgba(15, 23, 42, 0.04);
+}
+
+
+/* =====================================================
+   12. ORDER CARDS
+===================================================== */
+
+.home-buttons {
+    width: 100%;
+
     display: grid;
 
     grid-template-columns:
-        repeat(2, 1fr);
+        repeat(2, minmax(0, 1fr));
 
     gap: 20px;
 
-    width: 100%;
-
-    margin-bottom: 20px;
+    margin: 0 0 20px;
 }
 
 
-/* =========================================
-   COMMON SERVICE CARD
-========================================= */
+/* =====================================================
+   13. COMMON SERVICE CARD
+===================================================== */
 
-.dashboard-card {
+.service-card {
     position: relative;
 
-    width: 100%;
+    overflow: hidden;
 
+    width: 100%;
     min-height: 245px;
 
     padding: 24px;
 
-    text-align: left;
-
     border-radius: 18px;
 
-    cursor: pointer;
+    text-align: left;
 
-    overflow: hidden;
+    cursor: pointer;
 
     transition:
         transform 0.25s ease,
@@ -301,34 +701,37 @@ body {
         border-color 0.25s ease;
 }
 
-.dashboard-card:hover {
+.service-card:hover {
     transform: translateY(-5px);
 }
 
-.dashboard-card:active {
+.service-card:active {
     transform: translateY(-1px) scale(0.99);
 }
 
 
-/* =========================================
-   CARD TOP
-========================================= */
+/* =====================================================
+   14. CARD TOP
+===================================================== */
 
 .card-top {
     display: flex;
 
-    align-items: center;
+    align-items: flex-start;
 
     justify-content: space-between;
+
+    width: 100%;
 }
 
 .service-icon {
-    width: 52px;
-    height: 52px;
-
     display: flex;
+
     align-items: center;
     justify-content: center;
+
+    width: 52px;
+    height: 52px;
 
     border-radius: 14px;
 
@@ -336,9 +739,13 @@ body {
 }
 
 .card-arrow {
+    margin-left: auto;
+
     font-size: 30px;
 
     line-height: 1;
+
+    color: #64748b;
 
     opacity: 0.45;
 
@@ -347,16 +754,15 @@ body {
         opacity 0.2s ease;
 }
 
-.dashboard-card:hover .card-arrow {
+.service-card:hover .card-arrow {
     transform: translateX(4px);
 
     opacity: 0.8;
 }
 
-
-/* =========================================
-   ACCENT LINE
-========================================= */
+/* =====================================================
+   15. ACCENT LINE
+===================================================== */
 
 .accent-line {
     width: 42px;
@@ -368,35 +774,32 @@ body {
 }
 
 
-/* =========================================
-   ELECTRICAL CARD
-========================================= */
+/* =====================================================
+   16. ELECTRICAL CARD
+===================================================== */
 
 .electrical-card {
     background:
-        linear-gradient(135deg,
+        linear-gradient(
+            135deg,
             #fffdf5,
-            #fff7dc);
+            #fff7dc
+        );
 
     border: 1px solid #f3d477;
 
     box-shadow:
-        0 10px 28px rgba(217,
-            155,
-            0,
-            0.10);
+        0 10px 28px rgba(217, 155, 0, 0.10);
 }
 
 .electrical-card:hover {
     border-color: #e7b72c;
 
     box-shadow:
-        0 18px 38px rgba(217,
-            155,
-            0.18);
+        0 18px 38px rgba(217, 155, 0, 0.18);
 }
 
-.electrical-icon {
+.electrical-card .service-icon {
     background: #ffedab;
 
     color: #a66d00;
@@ -411,36 +814,32 @@ body {
 }
 
 
-/* =========================================
-   PLUMBING CARD
-========================================= */
+/* =====================================================
+   17. PLUMBING CARD
+===================================================== */
 
 .plumbing-card {
     background:
-        linear-gradient(135deg,
+        linear-gradient(
+            135deg,
             #f5fbff,
-            #e7f5ff);
+            #e7f5ff
+        );
 
     border: 1px solid #b9dcf5;
 
     box-shadow:
-        0 10px 28px rgba(22,
-            131,
-            216,
-            0.09);
+        0 10px 28px rgba(22, 131, 216, 0.09);
 }
 
 .plumbing-card:hover {
     border-color: #69b5e8;
 
     box-shadow:
-        0 18px 38px rgba(22,
-            131,
-            216,
-            0.17);
+        0 18px 38px rgba(22, 131, 216, 0.17);
 }
 
-.plumbing-icon {
+.plumbing-card .service-icon {
     background: #cfeeff;
 
     color: #0875b9;
@@ -455,24 +854,27 @@ body {
 }
 
 
-/* =========================================
-   CARD TEXT
-========================================= */
+/* =====================================================
+   18. CARD TEXT
+===================================================== */
 
-.dashboard-card h3 {
-    margin: 13px 0 7px;
+.service-card h3 {
+    margin: 14px 0 8px;
 
-    font-size: 20px;
+    font-size: 21px;
+
+    line-height: 1.2;
 
     font-weight: 800;
 
     letter-spacing: 0.3px;
 }
 
-.dashboard-card p {
-    margin: 0;
+.service-card p {
+    width: 100%;
+    max-width: 520px;
 
-    max-width: 500px;
+    margin: 0;
 
     font-size: 13px;
 
@@ -482,36 +884,41 @@ body {
 }
 
 
-/* =========================================
-   SERVICE TAGS
-========================================= */
+/* =====================================================
+   19. SERVICE TAGS
+===================================================== */
 
 .service-tags {
     display: flex;
 
     flex-wrap: wrap;
 
-    gap: 6px;
+    align-items: center;
 
-    margin-top: 18px;
+    gap: 7px;
+
+    margin-top: 17px;
 }
 
 .service-tags span {
-    padding: 5px 9px;
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 24px;
+
+    padding: 4px 10px;
+
+    border: 1px solid rgba(148, 163, 184, 0.22);
 
     border-radius: 20px;
 
-    background: rgba(255,
-            255,
-            255,
-            0.75);
-
-    border: 1px solid rgba(148,
-            163,
-            184,
-            0.22);
+    background: rgba(255, 255, 255, 0.78);
 
     font-size: 10px;
+
+    line-height: 1;
 
     font-weight: 600;
 
@@ -519,9 +926,234 @@ body {
 }
 
 
-/* =========================================
-   SAVED ORDERS
-========================================= */
+/* =====================================================
+   CREATE ORDER
+===================================================== */
+
+.create-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-top: 10px;
+
+    font-size: 12px;
+
+    line-height: 1.2;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   20. HOME PLANNING
+===================================================== */
+
+.home-planning-card {
+    position: relative;
+
+    width: 100%;
+    min-height: 145px;
+
+    margin-top: 18px;
+    padding: 24px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #b9e2d2;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f4fffb 0%,
+            #eafaf4 100%
+        );
+
+    box-shadow:
+        0 10px 28px rgba(16, 185, 129, 0.08);
+
+    overflow: hidden;
+}
+
+
+/* HOME PLANNING CONTENT */
+
+.home-planning-card h3 {
+    margin: 0 0 7px;
+
+    font-size: 20px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    color: #075e45;
+}
+
+.home-planning-card p {
+    margin: 0;
+
+    max-width: 700px;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    color: #64748b;
+}
+
+
+/* HOME PLANNING FEATURES */
+
+.home-planning-card .service-tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 16px;
+}
+
+.home-planning-card .service-tags span {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 26px;
+
+    padding: 4px 10px;
+
+    border: 1px solid #d7ebe3;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.85);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    color: #356b5b;
+}
+
+
+/* START BUTTON */
+
+.home-planning-card .create-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-top: 12px;
+
+    padding: 9px 16px;
+
+    border-radius: 8px;
+
+    background: #0aa875;
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   21. SAVED ORDERS
+===================================================== */
+
+.saved-orders-card {
+    position: relative;
+
+    width: 100%;
+    min-height: 110px;
+
+    margin-top: 18px;
+    padding: 22px 24px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d8c8f5;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #faf7ff 0%,
+            #f3edff 100%
+        );
+
+    box-shadow:
+        0 10px 28px rgba(124, 58, 237, 0.08);
+
+    overflow: hidden;
+}
+
+
+/* TITLE */
+
+.saved-orders-card h3 {
+    margin: 0 0 6px;
+
+    font-size: 20px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    color: #482080;
+}
+
+
+/* DESCRIPTION */
+
+.saved-orders-card p {
+    margin: 0;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    color: #64748b;
+}
+
+
+/* VIEW ORDERS BUTTON */
+
+.saved-orders-card .create-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 12px;
+
+    padding: 9px 18px;
+
+    border-radius: 8px;
+
+    background: #7c3aed;
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   22. HISTORY CARD
+===================================================== */
 
 .history-card {
     display: flex;
@@ -529,16 +1161,15 @@ body {
     align-items: center;
 
     width: 100%;
-
     min-height: 88px;
 
     padding: 18px 22px;
 
     margin-bottom: 20px;
 
-    border-radius: 16px;
-
     border: 1px solid #e2e8f0;
+
+    border-radius: 16px;
 
     background: #ffffff;
 
@@ -547,10 +1178,7 @@ body {
     text-align: left;
 
     box-shadow:
-        0 7px 22px rgba(15,
-            23,
-            42,
-            0.05);
+        0 7px 22px rgba(15, 23, 42, 0.05);
 
     transition:
         transform 0.2s ease,
@@ -564,19 +1192,17 @@ body {
     border-color: #cbd5e1;
 
     box-shadow:
-        0 14px 30px rgba(15,
-            23,
-            42,
-            0.09);
+        0 14px 30px rgba(15, 23, 42, 0.09);
 }
 
 .history-icon {
-    width: 48px;
-    height: 48px;
-
     display: flex;
+
     align-items: center;
     justify-content: center;
+
+    width: 48px;
+    height: 48px;
 
     margin-right: 15px;
 
@@ -616,17 +1242,21 @@ body {
 }
 
 
-/* =========================================
-   DASHBOARD STATS
-========================================= */
+/* =====================================================
+   23. DASHBOARD STATS
+===================================================== */
 
 .dashboard-stats {
+    width: 100%;
+
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(4, minmax(0, 1fr));
 
     gap: 14px;
+
+    margin-top: 20px;
 
     margin-bottom: 24px;
 }
@@ -649,19 +1279,17 @@ body {
     background: #ffffff;
 
     box-shadow:
-        0 5px 18px rgba(15,
-            23,
-            42,
-            0.04);
+        0 5px 18px rgba(15, 23, 42, 0.04);
 }
 
 .stat-icon {
-    width: 38px;
-    height: 38px;
-
     display: flex;
+
     align-items: center;
     justify-content: center;
+
+    width: 38px;
+    height: 38px;
 
     border-radius: 10px;
 
@@ -689,364 +1317,2231 @@ body {
 }
 
 
-/* =========================================
-   FOOTER
-========================================= */
+/* =====================================================
+   24. FOOTER
+===================================================== */
 
 .dashboard-footer {
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
+
+    justify-content: space-between;
 
     padding: 14px 4px 8px;
 
     margin-top: 4px;
 
     font-size: 10px;
+
+    color: #94a3b8;
+}
+
+/* =====================================================
+   25. HOME PLANNING HEADER
+===================================================== */
+
+.hp-header {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 8px 14px 9px;
+
+    background: #ffffff;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+
+    box-shadow:
+        0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =====================================================
+   TOP ROW
+===================================================== */
+
+.hp-top-row {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6px 8px;
+
+    box-sizing: border-box;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+
+.hp-brand {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.hp-logo {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 31px;
+}
+
+
+.hp-brand-text {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+
+.hp-brand-text .order-title {
+    margin: 0;
+
+    font-size: 23px;
+    line-height: 1.1;
+
+    font-weight: 900;
+
+    color: #102a56;
+}
+
+
+.hp-brand-text .company-contact {
+    font-size: 11px;
+
+    font-weight: 600;
+
+    color: #173b70;
+}
+
+
+.hp-tagline {
+    font-size: 11px;
+
+    font-style: italic;
+
+    font-weight: 600;
+
+    color: #64748b;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   DETAILS ROW
+===================================================== */
+
+.hp-details {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 7px;
+
+    box-sizing: border-box;
+}
+
+
+.hp-detail {
+    min-width: 0;
+
+    flex: 1;
+
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 0 11px;
+
+    box-sizing: border-box;
+
+    border-right: 1px solid #cbd5e1;
+
+    white-space: nowrap;
+}
+
+
+.hp-detail:first-child {
+    padding-left: 2px;
+}
+
+
+.hp-detail:last-child {
+    border-right: none;
+}
+
+
+.hp-detail-icon {
+    font-size: 13px;
+
+    flex-shrink: 0;
+}
+
+
+.hp-detail label {
+    font-size: 10px;
+
+    font-weight: 800;
+
+    color: #172033;
+
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   BILL
+===================================================== */
+
+.bill-detail {
+    flex: 0 0 185px;
+}
+
+
+.bill-detail strong {
+    padding: 5px 8px;
+
+    border: 1px solid #dbe4ef;
+    border-radius: 5px;
+
+    background: #f8fafc;
+
+    font-size: 10px;
+
+    color: #334155;
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.hp-detail input {
+    width: 100%;
+    min-width: 0;
+
+    height: 26px;
+
+    padding: 4px 8px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #dbe4ef;
+    border-radius: 5px;
+
+    background: #f8fafc;
+
+    color: #334155;
+
+    font-size: 10px;
+
+    outline: none;
+}
+
+
+.hp-detail input::placeholder {
     color: #94a3b8;
 }
 
 
-/* =========================================
-   MOBILE DASHBOARD
-========================================= */
+.hp-detail input:focus {
+    border-color: #2563eb;
 
-/* =========================================
-   MOBILE DASHBOARD
-========================================= */
+    background: #ffffff;
 
-@media (max-width: 700px) {
+    box-shadow:
+        0 0 0 2px rgba(37, 99, 235, 0.08);
+}
 
-    .app {
-        width: 100%;
-        max-width: 100%;
-        padding: 8px;
-    }
 
+/* =====================================================
+   DATE
+===================================================== */
 
-    /* HEADER */
+.date-detail {
+    flex: 0 0 225px;
+}
 
-    .dashboard-header {
-        display: flex;
-        flex-direction: column;
 
-        align-items: stretch;
-
-        gap: 14px;
-
-        padding: 14px;
-
-        margin-bottom: 15px;
-
-        border-radius: 15px;
-    }
-
-
-    /* BRAND */
-
-    .brand {
-        justify-content: center;
-
-        gap: 10px;
-    }
-
-
-    .brand-mark {
-        width: 40px;
-        height: 40px;
-
-        border-radius: 10px;
-
-        font-size: 21px;
-    }
-
-
-    .brand h1 {
-        font-size: 18px;
-    }
-
-
-    .brand p {
-        font-size: 10px;
-
-        margin-top: 2px;
-    }
-
-
-    /* NAVIGATION */
-
-    .dashboard-nav {
-        display: grid;
-
-        grid-template-columns:
-            repeat(4, 1fr);
-
-        gap: 5px;
-
-        width: 100%;
-    }
-
-
-    .nav-item {
-        width: 100%;
-
-        padding: 8px 3px;
-
-        border-radius: 8px;
-
-        font-size: 10px;
-
-        white-space: nowrap;
-    }
-
-
-    /* WELCOME */
-
-    .welcome-panel {
-        padding: 23px 18px;
-
-        margin-bottom: 14px;
-
-        border-radius: 15px;
-    }
-
-
-    .eyebrow {
-        font-size: 9px;
-
-        letter-spacing: 1.5px;
-    }
-
-
-    .welcome-panel h2 {
-        font-size: 24px;
-
-        line-height: 1.2;
-    }
-
-
-    .welcome-title {
-        font-size: 12px;
-
-        line-height: 1.5;
-    }
-
-
-    .welcome-subtitle {
-        font-size: 10px;
-    }
-
-
-    /* ORDER CARDS */
-
-    .order-cards {
-        display: grid;
-
-        grid-template-columns: 1fr;
-
-        gap: 12px;
-
-        margin-bottom: 14px;
-    }
-
-
-    .dashboard-card {
-        min-height: 190px;
-
-        padding: 18px;
-
-        border-radius: 15px;
-    }
-
-
-    .service-icon {
-        width: 45px;
-        height: 45px;
-
-        border-radius: 12px;
-
-        font-size: 23px;
-    }
-
-
-    .card-arrow {
-        font-size: 26px;
-    }
-
-
-    .accent-line {
-        width: 35px;
-        height: 3px;
-
-        margin-top: 15px;
-    }
-
-
-    .dashboard-card h3 {
-        margin-top: 11px;
-
-        font-size: 17px;
-    }
-
-
-    .dashboard-card p {
-        font-size: 11px;
-
-        line-height: 1.5;
-    }
-
-
-    /* TAGS */
-
-    .service-tags {
-        gap: 5px;
-
-        margin-top: 12px;
-    }
-
-
-    .service-tags span {
-        padding: 4px 7px;
-
-        font-size: 9px;
-    }
-
-
-    /* SAVED ORDERS */
-
-    .history-card {
-        min-height: 70px;
-
-        padding: 13px;
-
-        margin-bottom: 14px;
-
-        border-radius: 14px;
-    }
-
-
-    .history-icon {
-        width: 40px;
-        height: 40px;
-
-        margin-right: 11px;
-
-        border-radius: 10px;
-
-        font-size: 19px;
-    }
-
-
-    .history-copy h3 {
-        font-size: 13px;
-
-        margin-bottom: 3px;
-    }
-
-
-    .history-copy p {
-        font-size: 10px;
-
-        line-height: 1.4;
-    }
-
-
-    .history-arrow {
-        font-size: 24px;
-    }
-
-
-    /* STATS */
-
-    .dashboard-stats {
-        display: grid;
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
-        gap: 8px;
-
-        margin-bottom: 15px;
-    }
-
-
-    .stat-card {
-        min-height: 65px;
-
-        padding: 10px;
-
-        gap: 8px;
-
-        border-radius: 11px;
-    }
-
-
-    .stat-icon {
-        width: 31px;
-        height: 31px;
-
-        border-radius: 8px;
-
-        font-size: 14px;
-    }
-
-
-    .stat-card small {
-        font-size: 8px;
-
-        margin-bottom: 2px;
-    }
-
-
-    .stat-card strong {
-        font-size: 16px;
-    }
-
-
-    /* FOOTER */
-
-    .dashboard-footer {
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 4px;
-
-        padding: 8px 2px;
-
-        text-align: center;
-
-        font-size: 9px;
-    }
-
+.date-detail input {
+    flex: 0 0 125px;
 }
 
 /* =========================================
-   VERY SMALL MOBILE
+   HOME PLANNING - TOP BACK BUTTON
 ========================================= */
 
-@media (max-width: 400px) {
+.home-top-actions {
+    width: 100%;
+    box-sizing: border-box;
 
-    .dashboard-nav {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
+    display: flex;
+    align-items: center;
 
-
-    .nav-item {
-        font-size: 11px;
-    }
-
-
-    .welcome-panel h2 {
-        font-size: 23px;
-    }
+    margin: 10px 0 0;
+    padding: 0 2px;
+}
 
 
-    .dashboard-stats {
-        grid-template-columns: 1fr;
-    }
+.home-top-back-btn {
+    min-width: 82px;
+    height: 34px;
 
+    padding: 0 14px;
+
+    border: 1px solid #172033;
+    border-radius: 7px;
+
+    background: #172033;
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.home-top-back-btn:hover {
+    background: #0f172a;
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   FLOORS HEADER
+========================================= */
+
+.home-planning-section .section-title-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+}
+
+
+.home-planning-section .section-title-row h3 {
+    margin: 0;
+}
+
+
+/* ADD FLOOR */
+
+.home-planning-section .add-btn {
+    min-height: 34px;
+
+    padding: 0 13px;
+
+    border: 1px solid #2563eb;
+    border-radius: 7px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+/* =========================================
+   HOME PLANNING - FLOORS UI
+========================================= */
+
+.home-planning-section {
+    width: 100%;
+    margin-top: 20px;
+    padding: 18px 20px 20px;
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================
+   FLOORS TITLE
+========================================= */
+
+.home-planning-section > h3 {
+    margin: 0 0 14px;
+    padding: 0;
+
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 800;
+
+    color: #0f172a;
+}
+
+.home-planning-section > h3::before {
+    content: "▰";
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    margin-right: 10px;
+
+    border-radius: 50%;
+
+    background: #eaf3ff;
+    color: #1677ed;
+
+    font-size: 20px;
+
+    vertical-align: middle;
+}
+
+
+/* =========================================
+   ADD FLOOR BUTTON
+========================================= */
+
+.home-planning-section > .add-floor-btn,
+.home-planning-section > button {
+    min-height: 38px;
+
+    padding: 0 15px;
+
+    border: 1px solid #172033;
+    border-radius: 8px;
+
+    background: #172033;
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.home-planning-section > .add-floor-btn:hover,
+.home-planning-section > button:hover {
+    background: #0f172a;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   FLOOR LIST
+   ALL FLOORS IN ONE LINE
+========================================= */
+
+#floorList {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: nowrap;
+
+    gap: 14px;
+
+    margin-top: 14px;
+    padding: 4px 2px 14px;
+
+    box-sizing: border-box;
+
+    overflow-x: auto;
+    overflow-y: visible;
+
+    align-items: flex-start;
+}
+
+
+/* =========================================
+   FLOOR CARD
+========================================= */
+
+.home-floor {
+    flex: 0 0 320px;
+    width: 320px;
+    min-width: 320px;
+
+    box-sizing: border-box;
+
+    margin: 0 !important;
+    padding: 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #d8e0ea;
+    border-radius: 12px;
+
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+
+    display: block !important;
+
+    overflow: visible !important;
+}
+
+.home-floor:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================
+   FLOOR HEADER
+========================================= */
+
+.floor-header {
+    display: flex !important;
+
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+    margin: 0 !important;
+    padding: 0;
+
+    gap: 10px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   FLOOR MAIN INFO
+========================================= */
+
+.floor-main-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.floor-icon {
+    width: 40px;
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 9px;
+
+    font-size: 21px;
+}
+
+
+.floor-text {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+.floor-text strong {
+    font-size: 16px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    color: #0f172a;
+
+    white-space: nowrap;
+}
+
+
+.floor-stats {
+    margin-top: 3px;
+
+    font-size: 11px;
+
+    color: #64748b;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   FLOOR ACTIONS
+========================================= */
+
+.floor-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================
+   ADD ROOM BUTTON
+========================================= */
+
+.floor-add-room-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 10px;
+
+    min-height: 30px;
+    padding: 0 12px;
+
+    border: 1px solid #2563eb;
+    border-radius: 7px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.floor-add-room-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   EDIT / DELETE FLOOR
+========================================= */
+
+.floor-edit-btn {
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #5f1ace;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.floor-delete-btn {
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #f30029;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.floor-edit-btn:hover,
+.floor-delete-btn:hover {
+    background: #0f172a;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   ROOM LIST
+========================================= */
+
+.room-list {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+/* =========================================
+   ROOM BOX
+========================================= */
+
+.room-box {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 7px;
+
+    padding: 10px 11px;
+
+    background: #f8fafc;
+
+    border: 1px solid #dce4ee;
+
+    border-radius: 9px;
+}
+
+
+/* =========================================
+   ROOM SEARCH
+========================================= */
+
+.room-search-wrap {
+    position: relative;
+
+    width: 100%;
+}
+
+
+.room-dropdown {
+    width: 100%;
+
+    height: 34px;
+
+    padding: 6px 10px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #334155;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    outline: none;
+}
+
+.room-dropdown:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================
+   ROOM SUGGESTIONS
+========================================= */
+
+.room-search-wrap {
+    position: relative;
+    width: 100%;
+}
+
+
+.room-suggestions {
+    position: static !important;
+
+    width: 100%;
+    max-height: 180px;
+
+    margin-top: 5px;
+
+    box-sizing: border-box;
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border: 1px solid #d8e0ea;
+
+    border-radius: 7px;
+
+    box-shadow: none;
+
+    display: none;
+
+    z-index: 10;
+}
+
+
+.room-suggestion-item {
+    padding: 9px 11px;
+
+    font-size: 12px;
+
+    line-height: 1.3;
+
+    color: #0f172a;
+
+    cursor: pointer;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+
+.room-suggestion-item:last-child {
+    border-bottom: none;
+}
+
+
+.room-suggestion-item:hover {
+    background: #eff6ff;
+}
+
+/* =========================================
+   SELECTED ROOM
+========================================= */
+
+.selected-room-name {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-size: 13px !important;
+    line-height: 32px !important;
+    font-weight: 800 !important;
+
+    color: #1e293b !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+
+/* =========================================
+   ROOM ACTION BUTTONS
+========================================= */
+
+.room-select-row {
+    width: 100% !important;
+
+    display: flex !important;
+    flex-direction: row !important;
+
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    flex-wrap: nowrap !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ROOM NAME */
+
+.selected-room-name {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-size: 12px !important;
+    line-height: 32px !important;
+    font-weight: 800 !important;
+
+    color: #1e293b !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+
+/* =========================================
+   OPEN ROOM
+========================================= */
+
+.room-select-row button.open-room-btn {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+
+    flex: 0 0 72px !important;
+
+    width: 72px !important;
+    min-width: 72px !important;
+    max-width: 72px !important;
+
+    height: 32px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: none !important;
+    border-radius: 7px !important;
+
+    background: #2563eb !important;
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+    white-space: nowrap !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================
+   DELETE ROOM
+========================================= */
+
+.room-select-row button.delete-room-btn {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+
+    flex: 0 0 32px !important;
+
+    width: 32px !important;
+    min-width: 32px !important;
+    max-width: 32px !important;
+
+    height: 32px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: none !important;
+    border-radius: 7px !important;
+
+    background: #2563eb !important;
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================
+   HOVER
+========================================= */
+
+.room-select-row button.open-room-btn:hover,
+.room-select-row button.delete-room-btn:hover {
+    background: #1d4ed8 !important;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   EMPTY ROOM POINTS
+========================================= */
+
+.room-points:empty {
+    display: none !important;
+}
+
+
+/* =========================================
+   REMOVE OLD FLOAT
+========================================= */
+
+.home-planning-section::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* =========================================
+   ROOM MODAL - FINAL
+========================================= */
+
+.room-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    z-index: 99999;
+}
+
+
+/* MODAL */
+
+.room-modal {
+
+    width: min(620px, 94vw);
+
+    max-height: 88vh;
+
+    display: none;
+
+    flex-direction: column;
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(15, 23, 42, 0.30);
+}
+
+
+/* HEADER */
+
+.room-modal-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+
+.room-modal-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.room-modal-icon {
+
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 9px;
+
+    font-size: 23px;
+}
+
+
+.room-modal-title strong {
+
+    display: block;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    color: #0f172a;
+}
+
+
+.room-modal-title span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 11px;
+
+    color: #64748b;
+}
+
+
+/* CLOSE */
+
+.room-modal-close {
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #64748b;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+
+.room-modal-close:hover {
+
+    background: #f1f5f9;
+
+    border-radius: 7px;
+}
+
+
+/* BODY */
+
+.room-modal-body {
+
+    padding: 16px 18px;
+
+    overflow-y: auto;
+
+    flex: 1;
+}
+
+
+/* ROOM POINTS INSIDE MODAL */
+
+.room-modal-body .room-points {
+
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    border: none !important;
+
+    background: transparent !important;
+
+    box-shadow: none !important;
+}
+
+
+/* ROOM BASIC ITEMS */
+
+.room-basic-items {
+
+    width: 100%;
+}
+
+
+/* EACH ITEM */
+
+.basic-item-row {
+
+    display: grid;
+
+    grid-template-columns:
+        105px
+        minmax(180px, 1fr)
+        55px;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+
+.basic-item-row label {
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: #334155;
+}
+
+
+.basic-item-row select,
+.basic-item-row input {
+
+    width: 100%;
+
+    height: 34px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    padding: 0 9px;
+
+    font-size: 11px;
+}
+
+
+/* ADD BUTTON */
+
+.basic-item-row button {
+
+    grid-column: 2 / -1;
+
+    justify-self: start;
+
+    min-height: 30px;
+
+    padding: 0 11px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* PLATES */
+
+.plates-container {
+
+    margin-top: 12px;
+}
+
+
+/* ADD PLATE */
+
+.add-plate-btn {
+
+    margin-top: 12px;
+
+    min-height: 34px;
+
+    padding: 0 14px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* FOOTER */
+
+.room-modal-footer {
+
+    display: flex;
+
+    gap: 12px;
+
+    padding: 12px 18px;
+
+    border-top: 1px solid #e2e8f0;
+
+    background: #ffffff;
+}
+
+
+.room-close-btn,
+.room-done-btn {
+
+    flex: 1;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.room-close-btn {
+
+    background: #eef2f7;
+
+    color: #334155;
+}
+
+
+.room-done-btn {
+
+    background: #2563eb;
+
+    color: #ffffff;
+}
+
+
+/* BODY LOCK */
+
+body.room-modal-open {
+
+    overflow: hidden;
+}
+
+/* =========================================
+   OPEN ROOM DETAILS
+========================================= */
+
+.room-points {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border: 1px solid #dbe3ee;
+    border-radius: 9px;
+}
+
+
+/* ROOM TITLE */
+
+.room-points-header {
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    font-size: 13px;
+    color: #0f172a;
+}
+
+
+/* POINT ROW */
+
+.room-point-row {
+    display: grid;
+
+    grid-template-columns: 70px 1fr 55px;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 8px;
+}
+
+
+.room-point-row label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #334155;
+}
+
+
+.room-point-row select,
+.room-point-row input {
+    width: 100%;
+    height: 32px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    font-size: 11px;
+}
+
+
+/* ADD PLATE */
+
+.room-points-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 10px;
+}
+
+
+.add-plate-btn {
+    height: 32px;
+
+    padding: 0 12px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #172033;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+/* =========================================
+   ROOM POINTS - NORMAL ROOM
+========================================= */
+
+.room-box .room-points {
+    display: none !important;
+}
+
+
+/* =========================================
+   ROOM POINTS - OPEN ROOM MODAL
+========================================= */
+
+.room-modal-body .room-points {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+
+/* =========================================
+   ROOM POINTS - PROFESSIONAL COMPACT UI
+========================================= */
+
+.room-points {
+    margin-top: 12px;
+    padding: 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.room-points-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.room-points-header strong {
+    font-size: 14px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+/* =========================================
+   FAN / LIGHT / ROUND SHEET
+========================================= */
+
+.room-basic-items {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.basic-item-row {
+    display: grid;
+
+    grid-template-columns:
+        55px
+        minmax(120px, 1fr)
+        75px
+        50px
+        max-content;
+
+    align-items: center;
+
+    gap: 6px;
+
+    min-height: 42px;
+    padding: 6px 0;
+
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+.basic-item-row:last-child {
+    border-bottom: none;
+}
+
+.basic-item-row label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.basic-item-row select,
+.basic-item-row input {
+    width: 100%;
+    min-height: 32px;
+
+    padding: 5px 8px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+
+    background: #ffffff;
+    color: #111827;
+
+    font-size: 12px;
+    font-family: inherit;
+
+    outline: none;
+}
+
+.basic-item-row select:focus,
+.basic-item-row input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 2px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================================
+   ITEM SELECTOR
+========================================= */
+
+.home-item-selector {
+    display: grid;
+
+    grid-template-columns:
+        90px
+        minmax(150px, 1fr)
+        55px
+        90px
+        auto;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 12px;
+
+    padding: 9px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.home-item-selector label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.home-item-selector select,
+.home-item-selector input {
+    width: 100%;
+    height: 32px;
+
+    padding: 4px 7px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+
+    background: #ffffff;
+    color: #111827;
+
+    font-size: 12px;
+
+    outline: none;
+}
+
+.home-item-selector select:focus,
+.home-item-selector input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 2px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================================
+   ADD ITEM BUTTON
+========================================= */
+
+.home-item-selector .add-btn {
+    height: 32px;
+
+    padding: 0 12px;
+
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+
+    background: #111827;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease;
+}
+
+.home-item-selector .add-btn:hover {
+    background: #1f2937;
+    transform: translateY(-1px);
+}
+
+.home-item-selector .add-btn:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================
+   ADD PLATE BUTTON
+========================================= */
+
+.add-plate-btn {
+    margin-top: 10px;
+
+    height: 32px;
+
+    padding: 0 12px;
+
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+
+    background: #111827;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.add-plate-btn:hover {
+    background: #1f2937;
+}
+
+
+/* =========================================
+   PLATE CARD
+========================================= */
+
+.home-plate-box {
+    margin-top: 10px;
+    padding: 11px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+
+    background: #ffffff;
+}
+
+.plate-header {
+    margin-bottom: 9px;
+    padding-bottom: 7px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    color: #0f172a;
+}
+
+/* =========================================
+   PLATE DELETE BUTTON
+========================================= */
+
+.plate-delete-btn {
+    width: 30px;
+    height: 30px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #f30029;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plate-delete-btn:hover {
+    background: #d90024;
+}
+
+/* =========================================
+   SELECTED ITEMS
+========================================= */
+
+.home-selected-items {
+    margin-top: 10px;
+    padding-top: 10px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.home-selected-items > strong {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    color: #334155;
+}
+
+.selected-item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.home-selected-row {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        60px
+        45px
+        30px;
+
+    align-items: center;
+
+    gap: 6px;
+
+    min-height: 34px;
+
+    padding: 6px 8px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+
+    background: #f8fafc;
+
+    font-size: 11px;
+    color: #334155;
+}
+
+.home-selected-row > span:nth-child(2),
+.home-selected-row > strong {
+    text-align: center;
+}
+
+.home-selected-row button {
+    width: 24px;
+    height: 24px;
+
+    padding: 0;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #dc2626;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.home-selected-row button:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
+}
+
+
+/* =========================================
+   MODULE CALCULATION
+========================================= */
+
+.module-calculation {
+    margin-top: 10px;
+    padding: 10px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+
+    background: #f8fafc;
+}
+
+.module-calculation > div {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 3px 0;
+
+    font-size: 11px;
+    color: #475569;
+}
+
+.module-calculation strong {
+    font-size: 12px;
+    color: #0f172a;
+}
+
+
+/* =========================================
+   MODULE WARNING
+========================================= */
+
+.module-warning {
+    margin-top: 6px;
+    padding: 7px 9px;
+
+    border: 1px solid #f59e0b;
+    border-radius: 6px;
+
+    background: #fffbeb;
+    color: #92400e;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   HOME TOTAL SECTION
+========================================= */
+
+.home-total-section {
+    margin-top: 16px;
+    padding: 12px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 3px 10px rgba(15, 23, 42, 0.04);
+}
+
+.home-total-section h3 {
+    margin: 0 0 9px;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    color: #0f172a;
+}
+
+
+/* =========================================
+   FINAL TOTAL LIST
+========================================= */
+
+#final-total-list {
+    margin-top: 8px;
+
+    min-height: 42px;
+
+    padding: 8px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+
+    background: #f8fafc;
+
+    color: #334155;
+}
+
+
+/* =========================================
+   FINAL CATEGORY
+========================================= */
+
+.final-category {
+    margin-bottom: 10px;
+}
+
+.final-category h3 {
+    margin: 0;
+
+    padding: 7px 9px;
+
+    background: #111827;
+    color: #ffffff;
+
+    border-radius: 5px;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+/* =========================================
+   FINAL TOTAL ROW
+========================================= */
+
+.final-total-row {
+    display: grid;
+
+    grid-template-columns: 1fr 90px;
+
+    align-items: center;
+
+    min-height: 32px;
+
+    padding: 6px 8px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    background: #ffffff;
+
+    font-size: 11px;
+}
+
+.final-total-row:last-child {
+    border-bottom: none;
+}
+
+.final-total-row strong {
+    text-align: right;
+    color: #0f172a;
+}
+
+
+/* =========================================
+   FINAL EMPTY
+========================================= */
+
+.final-empty {
+    padding: 12px;
+
+    text-align: center;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+/* ADD PLATE */
+
+.add-plate-btn {
+    margin-top: 12px;
+    border: none;
+    border-radius: 7px;
+    background: #111111;
+    color: #ffffff;
+    padding: 9px 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.add-plate-btn:hover {
+    background: #222222;
+}
+
+
+
+/* PLATE CARD */
+
+.home-plate-box {
+    margin-top: 14px;
+    padding: 14px;
+    border: 1px solid #d4d4d4;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.plate-header {
+    font-size: 16px;
+    font-weight: 800;
+    color: #111111;
+    padding-bottom: 9px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #dddddd;
+}
+
+
+
+/* SELECTED ITEMS */
+
+.home-selected-items {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid #dddddd;
+}
+
+.home-selected-items>strong {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #111111;
+}
+
+.selected-item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.home-selected-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 55px 32px;
+    align-items: center;
+    gap: 8px;
+
+    min-height: 38px;
+    padding: 8px 10px;
+
+    border: 1px solid #dddddd;
+    border-radius: 7px;
+    background: #fafafa;
+
+    font-size: 13px;
+    color: #111111;
+}
+
+.home-selected-row>span:nth-child(2),
+.home-selected-row>strong {
+    text-align: center;
+}
+
+.home-selected-row button {
+    width: 28px;
+    height: 28px;
+
+    border: 1px solid #999999;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #111111;
+
+    cursor: pointer;
+}
+
+.home-selected-row button:hover {
+    background: #eeeeee;
+}
+
+
+
+
+
+/* MODULE CALCULATION */
+
+.module-calculation {
+    margin-top: 12px;
+    padding: 12px;
+
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+
+    background: #f7f7f7;
+}
+
+.module-calculation>div {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 4px 0;
+
+    font-size: 13px;
+    color: #111111;
+}
+
+.module-calculation strong {
+    font-size: 14px;
+}
+
+/* WARNING */
+
+.module-warning {
+    margin-top: 7px;
+    padding: 8px;
+
+    border: 1px solid #999999;
+    border-radius: 6px;
+
+    background: #eeeeee;
+    color: #111111;
+
+    font-weight: 700;
+}
+
+/* FINAL TOTAL */
+
+.home-total-section {
+    margin-top: 22px;
+    padding: 15px;
+    border: 1px solid #d5d5d5;
+    border-radius: 9px;
+    background: #ffffff;
+}
+
+#final-total-list {
+    margin-top: 10px;
+    min-height: 45px;
+    padding: 10px;
+
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+
+    background: #fafafa;
+    color: #111111;
+    box-sizing: border-box;
+}
+
+.final-category {
+    margin-bottom: 14px;
+}
+
+.final-category h3 {
+    margin: 0;
+    padding: 9px 10px;
+
+    background: #111111;
+    color: #ffffff;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.final-total-row {
+    display: grid;
+    grid-template-columns: 1fr 120px;
+    align-items: center;
+
+    min-height: 38px;
+    padding: 8px 10px;
+
+    border-bottom: 1px solid #e5e5e5;
+    background: #ffffff;
+
+    font-size: 13px;
+}
+
+.final-total-row:last-child {
+    border-bottom: none;
+}
+
+.final-total-row strong {
+    text-align: right;
+    color: #111111;
+}
+
+.final-empty {
+    padding: 14px;
+    text-align: center;
+
+    color: #777777;
+    font-size: 13px;
 }
 
 
@@ -1058,18 +3553,14 @@ body {
     display: none;
 
     width: 100%;
-
-    background: #ffffff;
+    padding: 18px;
 
     border-radius: 16px;
 
-    padding: 18px;
+    background: #ffffff;
 
     box-shadow:
-        0 8px 30px rgba(0,
-            0,
-            0,
-            0.08);
+        0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 .form-page.active {
@@ -1083,15 +3574,16 @@ body {
 
 .form-header {
     width: 100%;
-    background: #ffffff;
-
-    border: 2px solid #222222;
-    border-radius: 10px;
 
     padding: 12px 18px 10px;
     margin-bottom: 10px;
 
     overflow: hidden;
+
+    border: 2px solid #222222;
+    border-radius: 10px;
+
+    background: #ffffff;
 }
 
 
@@ -1100,19 +3592,17 @@ body {
 ========================================= */
 
 .order-title {
+    margin: 0;
+    padding: 0;
+
     text-align: center;
 
     font-size: 22px;
     font-weight: 800;
-
-    color: #0b1e4a;
-
     line-height: 1.2;
 
-    margin: 0;
-    padding: 0;
+    color: #0b1e4a;
 }
-
 
 /* =========================================
    NAME + MOBILE NUMBER
@@ -1121,20 +3611,20 @@ body {
 .company-contact {
     width: 100%;
 
+    margin-top: 4px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+
+    border-bottom: 1px solid #e5e7eb;
+
     text-align: center;
 
     font-size: 13px;
     font-weight: 600;
 
     color: #334155;
-
-    margin-top: 4px;
-    margin-bottom: 10px;
-
-    padding-bottom: 8px;
-
-    border-bottom: 1px solid #e5e7eb;
 }
+
 
 /* =========================================
    ORDER NUMBER
@@ -1149,12 +3639,12 @@ body {
     border-top: 1px solid #e5e7eb;
     border-bottom: 1px solid #e5e7eb;
 
+    text-align: left;
+
     font-size: 14px;
     font-weight: 600;
 
     color: #334155;
-
-    text-align: left;
 }
 
 .order-number strong {
@@ -1164,11 +3654,11 @@ body {
 
     font-size: 16px;
     font-weight: 800;
+    letter-spacing: 0.5px;
 
     color: #0b1e4a;
-
-    letter-spacing: 0.5px;
 }
+
 
 /* =========================================
    CUSTOMER DETAILS
@@ -1191,11 +3681,9 @@ body {
 
 .detail-row {
     display: flex;
-
     align-items: center;
 
     width: 100%;
-
     min-height: 34px;
 
     padding: 2px 0;
@@ -1226,18 +3714,16 @@ body {
     flex: 1;
 
     width: 100%;
-
     height: 29px;
 
-    border: none;
+    padding: 3px 4px;
 
+    border: none;
     border-bottom: 1px solid #777777;
 
     outline: none;
 
     background: transparent;
-
-    padding: 3px 4px;
 
     font-size: 13px;
 
@@ -1287,9 +3773,9 @@ body {
 
 .order-table th,
 .order-table td {
-    border: 1px solid #222;
-
     padding: 5px;
+
+    border: 1px solid #222;
 }
 
 .order-table th {
@@ -1298,7 +3784,6 @@ body {
     text-align: center;
 
     font-size: 14px;
-
     font-weight: 800;
 
     background: #f3f4f6;
@@ -1312,44 +3797,32 @@ body {
 
 
 /* =========================================
-   TABLE COLUMNS (header cells)
+   TABLE COLUMNS
 ========================================= */
 
 .sno {
     width: 60px;
-
     text-align: center !important;
 }
 
 .particulars {
     text-align: left;
-
     padding: 0 4px !important;
 }
 
 .qty {
     width: 80px;
-
     text-align: center !important;
 }
 
 
 /* =========================================
-   ITEM ROW (body cells — actual classes
-   used by script.js)
+   ITEM ROW
 ========================================= */
 
 .item-sno {
     text-align: center !important;
 }
-
-/*
-   FIX: script.js creates the particulars <td>
-   with class "particulars-cell", not "particulars"
-   or "item-name" — those two rules above/below
-   were never matching anything in the actual
-   markup. Wiring up the real class here.
-*/
 
 .particulars-cell {
     text-align: left;
@@ -1375,14 +3848,6 @@ body {
 
 /* =========================================
    SIZE / CUSTOM SIZE ROWS
-   (classes created by createItemRow /
-   createQtyInput in script.js — previously
-   had no CSS at all, which caused the label
-   vs. qty-input overlap you saw)
-========================================= */
-
-/* =========================================
-   SIZE DROPDOWN
 ========================================= */
 
 .size-options-container {
@@ -1467,8 +3932,6 @@ body {
 
 /* =========================================
    ROW SELECTED HIGHLIGHT
-   (script.js toggles this class on rows
-   with a qty > 0 — previously unstyled)
 ========================================= */
 
 .selected-row {
@@ -1477,829 +3940,6 @@ body {
 
 .selected-row .qty-input {
     border-color: #16a34a;
-}
-
-
-/* =========================================
-   PARTICULARS INPUT
-========================================= */
-
-.particulars-input {
-    width: 100%;
-
-    height: 29px;
-
-    border: none;
-
-    outline: none;
-
-    background: transparent;
-
-    font-size: 13px;
-
-    font-family: inherit;
-
-    padding-left: 4px;
-}
-
-.particulars-input:focus {
-    background: #fffde7;
-}
-
-
-/* =========================================
-   QTY INPUT
-========================================= */
-
-.qty-input {
-    width: 58px;
-
-    height: 29px;
-
-    border:
-        1px solid #aaa;
-
-    border-radius: 5px;
-
-    outline: none;
-
-    background: #ffffff;
-
-    text-align: center;
-
-    font-size: 15px;
-
-    font-weight: 600;
-}
-
-.qty-input:focus {
-    border:
-        2px solid #1976d2;
-
-    background: #fffde7;
-}
-
-.qty-input::-webkit-inner-spin-button,
-.qty-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-
-    margin: 0;
-}
-
-.qty-input[type="number"] {
-    -moz-appearance: textfield;
-}
-
-
-/* =========================================
-   TOTAL
-========================================= */
-
-.total-row td {
-    height: 42px;
-
-    font-weight: 800;
-
-    background: #f9fafb;
-}
-
-.total-label {
-    text-align: right !important;
-
-    padding-right: 12px !important;
-}
-
-.total-value {
-    text-align: center !important;
-
-    font-size: 17px !important;
-}
-
-
-/* =========================================
-   ACTION BUTTONS
-========================================= */
-
-.action-buttons {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 12px;
-
-    margin-top: 18px;
-}
-
-.action-buttons button {
-    min-height: 46px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    font-size: 15px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.2s ease,
-        opacity 0.2s ease;
-}
-
-.action-buttons button:hover {
-    transform: translateY(-2px);
-
-    opacity: 0.92;
-}
-
-
-/* =========================================
-   BUTTON COLORS
-========================================= */
-
-.back-btn {
-    background: #374151;
-
-    color: #ffffff;
-}
-
-.save-btn {
-    background: #15803d;
-
-    color: #ffffff;
-}
-
-.pdf-btn {
-    background: #dc2626;
-
-    color: #ffffff;
-}
-
-.wa-btn {
-    background: #16a34a;
-
-    color: #ffffff;
-}
-
-
-/* =========================================
-   PDF HIDE
-========================================= */
-
-.pdf-hide {
-    display: none !important;
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 600px) {
-
-    .app {
-        padding: 12px 8px;
-    }
-
-
-    /* HOME */
-
-    .top-title {
-        margin-top: 15px;
-
-        margin-bottom: 22px;
-    }
-
-    .top-title h1 {
-        font-size: 25px;
-    }
-
-    .top-title p {
-        font-size: 13px;
-    }
-
-
-    /* HOME BUTTONS */
-
-    .home-buttons {
-        grid-template-columns: 1fr;
-
-        gap: 16px;
-    }
-
-    .home-buttons button {
-        min-height: 165px;
-
-        border-radius: 20px;
-
-        font-size: 22px;
-    }
-
-    .button-icon {
-        font-size: 45px;
-    }
-
-
-    /* FORM */
-
-    .form-page {
-        padding: 5px;
-
-        border-radius: 10px;
-    }
-
-
-    /* TITLE */
-
-    .order-title {
-        font-size: 17px;
-
-        padding: 9px;
-    }
-
-
-    /* DETAILS */
-
-    .details {
-        grid-template-columns:
-            1fr 1fr;
-    }
-
-    .detail-row {
-        min-height: 38px;
-
-        padding: 4px;
-    }
-
-    .detail-row label {
-        min-width: 38px;
-
-        font-size: 11px;
-    }
-
-    .detail-row input {
-        height: 27px;
-
-        font-size: 12px;
-    }
-
-
-    /* TABLE */
-
-    .order-table th {
-        font-size: 11px;
-    }
-
-    .order-table td {
-        font-size: 11px;
-
-        height: 32px;
-
-        padding: 3px;
-    }
-
-
-    /* COLUMNS */
-
-    .sno {
-        width: 40px;
-    }
-
-    .qty {
-        width: 65px;
-    }
-
-
-    /* QTY */
-
-    .qty-input {
-        width: 50px;
-
-        height: 27px;
-
-        font-size: 14px;
-    }
-
-
-    /* SIZE / CUSTOM SIZE ROWS */
-
-    .size-label {
-        min-width: 55px;
-        font-size: 11px;
-    }
-
-    .custom-size-input {
-        height: 27px;
-        font-size: 12px;
-        max-width: 130px;
-    }
-
-
-    /* BUTTONS */
-
-    .action-buttons {
-        grid-template-columns:
-            repeat(2, 1fr);
-
-        gap: 8px;
-    }
-
-    .action-buttons button {
-        min-height: 43px;
-
-        font-size: 14px;
-    }
-
-}
-
-/* =========================================
-   HOME PLANNING - PROFESSIONAL UI
-========================================= */
-
-.home-planning-section {
-    margin-top: 18px;
-}
-
-.home-planning-section h3,
-.home-total-section h3 {
-    margin: 0 0 12px;
-    color: #111111;
-    font-size: 18px;
-    font-weight: 800;
-}
-
-/* FLOOR */
-
-.home-floor {
-    margin-top: 14px;
-    padding: 14px;
-    background: #ffffff;
-    border: 1px solid #d9d9d9;
-    border-radius: 10px;
-}
-
-.floor-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.floor-header strong {
-    font-size: 17px;
-    color: #111111;
-}
-
-.floor-header button,
-.add-btn {
-    border: 1px solid #222222;
-    background: #111111;
-    color: #ffffff;
-    padding: 8px 13px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.floor-header button:hover,
-.add-btn:hover {
-    background: #333333;
-}
-
-
-/* ROOM */
-
-.room-box {
-    margin-top: 10px;
-    padding: 12px;
-    background: #fafafa;
-    border: 1px solid #dddddd;
-    border-radius: 8px;
-}
-
-.room-select-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.room-dropdown {
-    width: 220px;
-    height: 36px;
-    padding: 5px 9px;
-    border: 1px solid #999999;
-    border-radius: 6px;
-    background: #ffffff;
-    color: #111111;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.selected-room-name {
-    font-size: 16px;
-    color: #111111;
-}
-
-.room-select-row button {
-    border: 1px solid #222222;
-    background: #222222;
-    color: #ffffff;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-
-/* ROOM POINTS */
-
-.room-points {
-    margin-top: 12px;
-    padding: 14px;
-    background: #ffffff;
-    border: 1px solid #d6d6d6;
-    border-radius: 8px;
-}
-
-.room-points-header {
-    margin-bottom: 12px;
-    padding-bottom: 9px;
-    border-bottom: 1px solid #dddddd;
-}
-
-.room-points-header strong {
-    font-size: 16px;
-    color: #111111;
-}
-
-
-/* ITEM SELECTOR */
-
-.home-item-selector {
-    display: grid;
-    grid-template-columns: 100px 180px 100px 150px 55px auto;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 15px;
-}
-
-.home-item-selector label {
-    font-size: 12px;
-    font-weight: 700;
-    color: #111111;
-}
-
-.home-item-selector select,
-.home-item-selector input {
-    width: 100%;
-    height: 34px;
-    padding: 4px 7px;
-    border: 1px solid #aaaaaa;
-    border-radius: 5px;
-    background: #ffffff;
-    color: #111111;
-    font-size: 12px;
-    outline: none;
-}
-
-.home-item-selector select:focus,
-.home-item-selector input:focus {
-    border: 2px solid #222222;
-}
-
-.home-item-selector .add-btn {
-    height: 34px;
-    padding: 5px 12px;
-    white-space: nowrap;
-}
-
-
-/* SELECTED ITEMS */
-
-.home-selected-items {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #dddddd;
-}
-
-.home-selected-items>strong {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 13px;
-    color: #111111;
-}
-
-.selected-item-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.home-selected-row {
-    display: grid;
-    grid-template-columns: 1fr 90px 55px 30px;
-    align-items: center;
-    gap: 8px;
-    min-height: 38px;
-    padding: 7px 9px;
-    border: 1px solid #dddddd;
-    border-radius: 6px;
-    background: #fafafa;
-    font-size: 12px;
-    color: #111111;
-}
-
-.home-selected-row>span:nth-child(2),
-.home-selected-row>strong {
-    text-align: center;
-}
-
-.home-selected-row button {
-    width: 25px;
-    height: 25px;
-    border: 1px solid #999999;
-    border-radius: 5px;
-    background: #ffffff;
-    color: #111111;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.home-selected-row button:hover {
-    background: #eeeeee;
-}
-
-
-/* MODULE CALCULATION */
-
-.module-calculation {
-    margin-top: 12px;
-    padding: 12px;
-    border: 1px solid #cccccc;
-    border-radius: 7px;
-    background: #f5f5f5;
-}
-
-.module-calculation div {
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 0;
-    font-size: 13px;
-    color: #111111;
-}
-
-.module-calculation strong {
-    font-size: 14px;
-}
-
-
-/* WARNING */
-
-.module-warning {
-    margin-top: 7px;
-    padding: 8px;
-    border: 1px solid #999999;
-    border-radius: 5px;
-    background: #eeeeee;
-    color: #111111;
-    font-weight: 700;
-}
-
-
-/* FINAL TOTAL */
-
-.home-total-section {
-    margin-top: 22px;
-    padding: 15px;
-    border: 1px solid #d5d5d5;
-    border-radius: 9px;
-    background: #ffffff;
-}
-
-#homeFinalTotal {
-    min-height: 45px;
-    padding: 10px;
-    border: 1px solid #dddddd;
-    border-radius: 6px;
-    background: #fafafa;
-    color: #111111;
-}
-
-
-/* =========================================
-   HOME PLANNING MOBILE
-========================================= */
-
-@media (max-width: 700px) {
-
-    .home-floor {
-        padding: 10px;
-    }
-
-    .floor-header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .floor-header button,
-    .add-btn {
-        width: 100%;
-    }
-
-    .room-select-row {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .room-dropdown {
-        width: 100%;
-    }
-
-    .room-select-row button {
-        width: 100%;
-    }
-
-    .home-item-selector {
-        grid-template-columns: 1fr;
-        gap: 5px;
-    }
-
-    .home-item-selector label {
-        margin-top: 5px;
-    }
-
-    .home-item-selector .add-btn {
-        width: 100%;
-        margin-top: 5px;
-    }
-
-    .home-selected-row {
-        grid-template-columns: 1fr 60px 45px 28px;
-        gap: 5px;
-        font-size: 11px;
-    }
-
-    .module-calculation {
-        font-size: 12px;
-    }
-}
-
-/* =========================================
-   PRINT / PDF
-========================================= */
-
-@media print {
-
-    html,
-    body {
-        margin: 0;
-
-        padding: 0;
-
-        width: 100%;
-
-        background: #ffffff !important;
-    }
-
-
-    .app {
-        width: 100%;
-
-        max-width: none;
-
-        margin: 0;
-
-        padding: 0;
-    }
-
-
-    /* HIDE UI */
-
-    .top-title,
-    .home-buttons,
-    .action-buttons {
-        display: none !important;
-    }
-
-
-    /* FORM */
-
-    .form-page {
-        display: none !important;
-
-        padding: 0;
-
-        margin: 0;
-
-        box-shadow: none;
-
-        border-radius: 0;
-    }
-
-    .form-page.active {
-        display: block !important;
-    }
-
-
-    /*
-       FIX: scope printing to only the form
-       currently being exported. downloadPDF()
-       in script.js toggles body.printing-electrical
-       / body.printing-plumbing when it falls back
-       to window.print() (html2pdf missing) — this
-       makes sure the *other* form stays hidden
-       instead of also being printed.
-    */
-
-    body.printing-electrical #plumbingForm,
-    body.printing-plumbing #electricalForm {
-        display: none !important;
-    }
-
-
-    /* EMPTY ITEMS */
-
-    .pdf-hide {
-        display: none !important;
-    }
-
-
-    /* HEADER */
-
-    .form-header {
-        border-radius: 0;
-
-        margin-bottom: 5px;
-    }
-
-    .order-title {
-        font-size: 17px;
-    }
-
-
-    .detail-row {
-        min-height: 34px;
-    }
-
-    .detail-row input {
-        border-bottom:
-            1px solid #333;
-    }
-
-
-    /* TABLE */
-
-    .order-table {
-        width: 100%;
-    }
-
-    .order-table th,
-    .order-table td {
-        border:
-            1px solid #111 !important;
-
-        background:
-            #ffffff !important;
-
-        color:
-            #111 !important;
-    }
-
-
-    /* INPUTS */
-
-    .qty-input,
-    .particulars-input {
-        border: none !important;
-
-        background:
-            transparent !important;
-
-        color:
-            #111 !important;
-    }
-
-
-    /* PAGE BREAK */
-
-    tr {
-        page-break-inside: avoid;
-    }
-
-
-    /* A4 */
-
-    @page {
-        size: A4 portrait;
-
-        margin: 10mm;
-    }
 }
 
 /* =========================================
@@ -2521,36 +4161,1530 @@ body {
 
 
 /* =========================================
-   MOBILE SEARCH
+   PARTICULARS INPUT
 ========================================= */
 
-@media (max-width: 600px) {
+.particulars-input {
+    width: 100%;
+    height: 29px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 13px;
+    font-family: inherit;
+    padding-left: 4px;
+}
 
-    .table-tools {
+.particulars-input:focus {
+    background: #fffde7;
+}
+
+
+/* =========================================
+   QTY INPUT
+========================================= */
+
+.qty-input {
+    width: 58px;
+    height: 29px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    outline: none;
+    background: #ffffff;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.qty-input:focus {
+    border: 2px solid #1976d2;
+    background: #fffde7;
+}
+
+.qty-input::-webkit-inner-spin-button,
+.qty-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.qty-input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+/* =========================================
+   TOTAL
+========================================= */
+
+.total-row td {
+    height: 42px;
+    font-weight: 800;
+    background: #f9fafb;
+}
+
+.total-label {
+    text-align: right !important;
+    padding-right: 12px !important;
+}
+
+.total-value {
+    text-align: center !important;
+    font-size: 17px !important;
+}
+
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.action-buttons button {
+    min-height: 46px;
+    border: none;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.action-buttons button:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+}
+
+/* =========================================
+   BUTTON COLORS
+========================================= */
+
+.back-btn {
+    background: #374151;
+    color: #ffffff;
+}
+
+.save-btn {
+    background: #15803d;
+    color: #ffffff;
+}
+
+.pdf-btn {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.wa-btn {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+
+/* =========================================
+   PDF HIDE
+========================================= */
+
+.pdf-hide {
+    display: none !important;
+}
+
+/* =========================================================
+   PDF PREVIEW MODAL
+   ========================================================= */
+
+.pdf-preview-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    background: rgba(15, 23, 42, 0.72);
+}
+
+.pdf-preview-box {
+    width: min(900px, 96vw);
+    height: min(92vh, 850px);
+
+    display: flex;
+    flex-direction: column;
+
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.pdf-preview-header {
+    height: 54px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 16px;
+
+    background: #102a56;
+    color: #ffffff;
+}
+
+.pdf-preview-header h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.pdf-preview-header button {
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   PDF PREVIEW CONTENT
+   ========================================================= */
+
+.pdf-preview-content {
+    flex: 1 1 0;
+    height: 0;
+    min-height: 0;
+
+    overflow: auto;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background: #e9edf3;
+}
+
+.pdf-preview-content > div {
+    box-shadow:
+        0 4px 18px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================================
+   PDF PREVIEW ACTIONS
+   ========================================================= */
+
+.pdf-preview-actions {
+    position: relative;
+    z-index: 10;
+
+    flex: 0 0 62px;
+
+    min-height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding: 10px 16px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border-top: 1px solid #dce1e8;
+}
+
+.pdf-preview-actions button {
+    min-height: 40px;
+
+    padding: 0 16px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #1e293b;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.pdf-preview-actions button:last-child {
+    border-color: #102a56;
+    background: #102a56;
+    color: #ffffff;
+}
+
+.pdf-preview-actions button:hover {
+    transform: translateY(-1px);
+}
+
+/* =====================================================
+   TABLET / 770px RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    /* =================================================
+       APP
+    ================================================= */
+
+    .app {
+        width: 100%;
+        max-width: 100%;
+
+        box-sizing: border-box;
+
+        overflow-x: hidden;
+    }
+
+
+    /* =================================================
+       DASHBOARD HEADER
+    ================================================= */
+
+    .dashboard-header {
+        width: 100%;
+        min-width: 0;
+        min-height: 70px;
+
+        display: flex;
+        align-items: center;
+
+        padding: 8px 10px;
+        margin-bottom: 12px;
+
+        box-sizing: border-box;
+
+        border-radius: 14px;
+
+        overflow: hidden;
+    }
+
+
+    /* =================================================
+       BRAND
+    ================================================= */
+
+    .brand {
+        width: auto;
+        min-width: 0;
+
+        display: flex;
+        align-items: center;
+
+        gap: 7px;
+
+        flex: 0 0 auto;
+    }
+
+
+    /* =================================================
+       BRAND LOGO
+    ================================================= */
+
+    .brand-mark {
+        width: 38px;
+        height: 38px;
+
+        min-width: 38px;
+        max-width: 38px;
+
+        border-radius: 9px;
+
+        overflow: hidden;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .brand-mark img {
+        width: 38px;
+        height: 38px;
+
+        object-fit: cover;
+
+        display: block;
+    }
+
+
+    /* =================================================
+       BRAND TEXT
+    ================================================= */
+
+    .brand > div {
+        min-width: 0;
+    }
+
+
+    .brand h1 {
+        margin: 0;
+
+        font-size: 17px;
+
+        line-height: 1.05;
+
+        font-weight: 800;
+
+        white-space: nowrap;
+    }
+
+
+    .brand p {
+        margin: 2px 0 0;
+
+        font-size: 8px;
+
+        line-height: 1;
+
+        white-space: nowrap;
+    }
+
+
+    /* =================================================
+       TOP NAVIGATION
+       KEEP ALL ITEMS VISIBLE
+    ================================================= */
+
+    .dashboard-header .dashboard-nav {
+        display: flex !important;
+
+        align-items: center;
+        justify-content: flex-end;
+
+        gap: 2px;
+
+        margin-left: auto;
+
+        min-width: 0;
+
+        flex: 1 1 auto;
+
+        overflow: hidden;
+    }
+
+
+    /* =================================================
+       NAV ITEM
+    ================================================= */
+
+    .dashboard-header .dashboard-nav a,
+    .dashboard-header .dashboard-nav button {
+        flex: 0 0 auto;
+
+        min-width: 0;
+
+        padding: 6px 5px;
+
+        border-radius: 7px;
+
+        font-size: 8.5px;
+
+        line-height: 1;
+
+        white-space: nowrap;
+    }
+
+
+    /* =================================================
+       NAV ICON
+    ================================================= */
+
+    .dashboard-header .dashboard-nav .nav-icon {
+        font-size: 12px;
+    }
+
+
+    /* =================================================
+       DO NOT SHOW DUPLICATE NAV
+    ================================================= */
+
+    .quick-nav,
+    .page-nav,
+    .section-nav {
+        display: none !important;
+    }
+
+
+    /* =================================================
+       WELCOME / HERO
+    ================================================= */
+
+    .welcome-panel {
+        width: 100%;
+
+        min-height: 300px;
+        height: 300px;
+        max-height: 300px;
+
+        padding: 25px 30px;
+
+        box-sizing: border-box;
+    }
+
+
+    /* =================================================
+       HERO CONTENT
+    ================================================= */
+
+    .welcome-copy {
+        width: 50%;
+        max-width: 50%;
+    }
+
+
+    .welcome-panel h2 {
+        margin: 0;
+
+        font-size: 28px;
+
+        line-height: 1.08;
+    }
+
+
+    .welcome-title {
+        margin: 6px 0 15px;
+
+        font-size: 12px;
+
+        line-height: 1.3;
+    }
+
+
+    .hero-heading {
+        display: block;
+
+        margin: 0 0 10px;
+
+        font-size: 20px;
+
+        line-height: 1.15;
+    }
+
+
+    .welcome-subtitle {
+        margin: 0;
+
+        font-size: 10px;
+
+        line-height: 1.55;
+    }
+
+
+    /* =================================================
+       HERO FEATURES
+    ================================================= */
+
+    .welcome-features {
+        display: flex;
+
+        gap: 6px;
+
+        margin-top: 14px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .welcome-features span {
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        min-height: 28px;
+
+        padding: 0 9px;
+
+        font-size: 9px;
+
+        white-space: nowrap;
+
+        border-radius: 7px;
+    }
+
+
+    /* =================================================
+       HOUSE IMAGE
+    ================================================= */
+
+    .welcome-image {
+        position: absolute;
+
+        width: 58%;
+        height: 100%;
+
+        right: -10px;
+        bottom: -8px;
+
+        display: flex;
+
+        align-items: flex-end;
+        justify-content: flex-end;
+
+        z-index: 4;
+
+        pointer-events: none;
+    }
+
+
+    .welcome-image img {
+        width: 100%;
+        height: 100%;
+
+        display: block;
+
+        object-fit: contain;
+
+        object-position: right bottom;
+    }
+
+
+    /* =================================================
+       ORDER / SERVICE CARDS
+    ================================================= */
+
+    .home-buttons,
+    .order-cards {
+        width: 100%;
+
         display: grid;
 
-        grid-template-columns: 1fr auto auto;
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 20px;
+
+        box-sizing: border-box;
+
+        margin-bottom: 16px;
+    }
+
+
+    .home-buttons button,
+    .dashboard-card {
+        width: 100%;
+
+        min-width: 0;
+
+        box-sizing: border-box;
+    }
+
+
+    /* =================================================
+       HOME BUTTON
+    ================================================= */
+
+    .home-buttons button {
+        min-height: 145px;
+
+        padding: 14px 12px;
+
+        border-radius: 15px;
+    }
+
+
+    /* =================================================
+       DASHBOARD CARD
+    ================================================= */
+
+    .dashboard-card {
+        min-height: 145px;
+
+        padding: 14px 12px;
+
+        border-radius: 15px;
+    }
+
+
+    /* =================================================
+       CARD ICON
+    ================================================= */
+
+    .button-icon {
+        font-size: 38px;
+    }
+
+
+    .service-icon {
+        width: 38px;
+        height: 38px;
+
+        border-radius: 10px;
+
+        font-size: 20px;
+    }
+
+
+    /* =================================================
+       CARD TITLE
+    ================================================= */
+
+    .dashboard-card h3 {
+        margin-top: 8px;
+
+        font-size: 16px;
+    }
+
+
+    /* =================================================
+       CARD DESCRIPTION
+    ================================================= */
+
+    .dashboard-card p {
+        font-size: 10px;
+
+        line-height: 1.45;
+    }
+
+
+    /* =================================================
+       CARD ARROW
+    ================================================= */
+
+    .card-arrow {
+        font-size: 22px;
+    }
+
+
+    /* =================================================
+       ACCENT LINE
+    ================================================= */
+
+    .accent-line {
+        width: 35px;
+        height: 3px;
+
+        margin-top: 12px;
+    }
+
+
+    /* =================================================
+       SERVICE TAGS
+    ================================================= */
+
+    .service-tags {
+        display: flex;
+
+        flex-wrap: wrap;
 
         gap: 5px;
 
+        margin-top: 9px;
+    }
+
+
+    .service-tags span {
+        padding: 4px 7px;
+
+        border-radius: 999px;
+
+        font-size: 8px;
+
+        white-space: nowrap;
+    }
+
+
+    /* =================================================
+       HOME PLANNING
+    ================================================= */
+
+    #homePage {
+        width: 100%;
+        max-width: 100%;
+
+        box-sizing: border-box;
+    }
+
+
+    .home-planning-section {
+        width: 100%;
+
+        margin-top: 10px;
+
+        padding: 14px;
+
+        box-sizing: border-box;
+
+        min-height: 140px;
+
+        border-radius: 16px;
+    }
+
+
+    .home-planning-section h3 {
+        font-size: 17px;
+    }
+
+
+    /* =================================================
+       TABLET - PREVENT HORIZONTAL OVERFLOW
+    ================================================= */
+
+    .dashboard-header,
+    .welcome-panel,
+    .home-buttons,
+    .order-cards,
+    .home-planning-section {
+        max-width: 100%;
+    }
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    /* =========================
+   APP / HOME
+========================= */
+
+    body {
+        padding-bottom: 72px;
+    }
+
+    .app {
+        width: 100%;
+        max-width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .top-title {
+        margin-top: 10px;
+        margin-bottom: 16px;
+    }
+
+    .top-title h1 {
+        font-size: 24px;
+        line-height: 1.2;
+    }
+
+    .top-title p {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .home-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .home-buttons button {
+        min-height: 145px;
+        border-radius: 16px;
+    }
+
+    .button-icon {
+        font-size: 40px;
+    }
+
+    /* =====================================
+   TOP HEADER - MOBILE
+===================================== */
+
+    .dashboard-header {
+        width: 100%;
+        min-width: 0;
+        min-height: 58px;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        padding: 10px 12px;
+        margin-bottom: 10px;
+
+        box-sizing: border-box;
+        border-radius: 14px;
+
+        overflow: hidden;
+    }
+
+
+    /* =====================================
+   BRAND
+===================================== */
+
+    .brand {
+        width: 100%;
+        min-width: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        gap: 9px;
+    }
+
+
+    /* =====================================
+     LOGO
+    ===================================== */
+
+    .brand-mark {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        max-width: 40px;
+
+        border-radius: 10px;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .brand-mark img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        display: block;
+    }
+
+
+    /* =====================================
+   BRAND TEXT
+===================================== */
+
+    .brand>div {
+        min-width: 0;
+    }
+
+    .brand h1 {
+        margin: 0;
+
+        font-size: 18px;
+        line-height: 1.2;
+
+        white-space: nowrap;
+    }
+
+    .brand p {
+        margin: 2px 0 0;
+
+        font-size: 10px;
+
+        white-space: nowrap;
+    }
+
+
+    /* =====================================
+   HIDE OLD TOP NAV
+===================================== */
+
+    .dashboard-header .dashboard-nav {
+        display: none !important;
+    }
+
+    .quick-nav,
+    .page-nav,
+    .section-nav {
+        display: none !important;
+    }
+
+    /* =================================
+     HIDE DESKTOP HEADER NAV
+    ================================= */
+
+    .dashboard-header .dashboard-nav {
+        display: none !important;
+    }
+
+    /* =================================
+   WELCOME / HERO
+================================= */
+
+.welcome-panel {
+    min-height: 300px;
+    height: 300px;
+    max-height: 300px;
+
+    padding: 15px 12px;
+}
+
+
+/* HOUSE IMAGE */
+
+.welcome-image {
+    width: 58%;
+    height: 100%;
+
+    right: -10px;
+    bottom: -8px;
+}
+
+
+/* HOUSE PNG */
+
+.welcome-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: right bottom;
+}
+
+
+/* CONTENT */
+
+.welcome-copy {
+    width: 50%;
+}
+
+
+.welcome-panel h2 {
+    font-size: 21px;
+    line-height: 1.05;
+}
+
+
+.welcome-title {
+    font-size: 8.5px;
+    line-height: 1.2;
+}
+
+
+.hero-heading {
+    font-size: 15px;
+    line-height: 1.15;
+}
+
+
+.welcome-subtitle {
+    font-size: 7px;
+    line-height: 1.5;
+}
+
+
+.welcome-features {
+    display: flex;
+
+    gap: 4px;
+
+    margin-top: 6px;
+
+    flex-wrap: wrap;
+}
+
+
+.welcome-features span {
+    height: 18px;
+
+    padding: 0 5px;
+
+    font-size: 6.5px;
+
+    white-space: nowrap;
+}
+
+
+    /* =================================
+   MOBILE QUICK NAV
+================================= */
+
+    .quick-nav,
+    .page-nav,
+    .section-nav {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+
+        gap: 4px;
+
+        width: 100%;
+        max-width: 100%;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        white-space: nowrap;
+
+        box-sizing: border-box;
+
+        scrollbar-width: none;
+    }
+
+    .quick-nav::-webkit-scrollbar,
+    .page-nav::-webkit-scrollbar,
+    .section-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .quick-nav button,
+    .page-nav button,
+    .section-nav button {
+        flex: 0 0 auto !important;
+        white-space: nowrap;
+    }
+
+    /* =====================================
+   ORDER CARDS - 2 COLUMN MOBILE
+===================================== */
+
+    .home-buttons,
+    .order-cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+
+        width: 100%;
+        margin-bottom: 14px;
+        box-sizing: border-box;
+    }
+
+
+    /* =====================================
+   HOME BUTTON
+===================================== */
+
+    .home-buttons button {
+        width: 100%;
+        min-height: 120px;
+
+        padding: 14px 10px;
+
+        border-radius: 15px;
+        box-sizing: border-box;
+
+        transition:
+            transform 0.12s ease,
+            box-shadow 0.12s ease;
+    }
+
+    .home-buttons button:active {
+        transform: scale(0.97);
+    }
+
+
+    /* =====================================
+   TOUCH EFFECT
+===================================== */
+
+    .home-buttons button:active,
+    .dashboard-card:active {
+        transform: scale(0.98);
+    }
+
+
+    /* =====================================
+   HOME BUTTON ICON
+===================================== */
+
+    .button-icon {
+        font-size: 38px;
+    }
+
+
+    /* =====================================
+   DASHBOARD CARD
+===================================== */
+
+    .dashboard-card {
+        width: 100%;
+        min-height: 120px;
+
+        padding: 14px 12px;
+
+        border-radius: 15px;
+        box-sizing: border-box;
+
+        transition:
+            transform 0.12s ease,
+            box-shadow 0.12s ease;
+    }
+
+    .dashboard-card:active {
+        transform: scale(0.97);
+    }
+
+
+
+    /* =====================================
+   ICON
+===================================== */
+
+    .button-icon {
+        font-size: 32px;
+    }
+
+    .service-icon {
+        width: 38px;
+        height: 38px;
+
+        border-radius: 10px;
+        font-size: 20px;
+    }
+
+
+    /* =====================================
+   CARD ARROW
+===================================== */
+
+    .card-arrow {
+        font-size: 26px;
+    }
+
+
+    /* =====================================
+   ACCENT LINE
+===================================== */
+
+    .accent-line {
+        width: 35px;
+        height: 3px;
+        margin-top: 15px;
+    }
+
+
+    /* =====================================
+   CARD TITLE
+===================================== */
+
+    .dashboard-card h3 {
+        margin-top: 8px;
+        font-size: 14px;
+    }
+
+
+    /* =====================================
+   CARD DESCRIPTION
+===================================== */
+
+    .dashboard-card p {
+        font-size: 9px;
+        line-height: 1.35;
+    }
+
+    /* =====================================
+   ARROW
+===================================== */
+
+    .card-arrow {
+        font-size: 20px;
+    }
+
+
+    /* =====================================
+   SERVICE TAGS / PILLS
+===================================== */
+
+    .service-tags {
+        display: flex;
+        flex-wrap: wrap;
+
+        gap: 4px;
+        margin-top: 8px;
+    }
+
+    .service-tags span {
+        padding: 3px 6px;
+
+        border-radius: 999px;
+
+        font-size: 8px;
+        white-space: nowrap;
+    }
+
+    /* =====================================
+   TAG / PILL DESIGN
+===================================== */
+
+    .home-buttons .tag,
+    .home-buttons .pill,
+    .service-tags span {
+        display: inline-flex;
+        align-items: center;
+
+        border-radius: 999px;
+        padding: 4px 8px;
+
+        font-size: 9px;
+        line-height: 1;
+
+        white-space: nowrap;
+    }
+
+
+    /* =====================================
+   HOME PLANNING
+===================================== */
+
+    #homePage {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .home-planning-section {
+        width: 100%;
+        margin-top: 10px;
+        padding: 14px;
+        box-sizing: border-box;
+
+        min-height: 140px;
+        border-radius: 16px;
+    }
+
+    .home-planning-section h3 {
+        font-size: 17px;
+    }
+
+
+    /* =====================================
+   BOTTOM NAVIGATION
+===================================== */
+
+    .mobile-bottom-nav {
+        position: fixed;
+
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+
+        height: 58px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
         padding: 5px;
 
+        background: #ffffff;
+
+        border: 1px solid #dddddd;
+        border-radius: 16px;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+
+        z-index: 9999;
+
+        box-sizing: border-box;
+    }
+
+    .mobile-bottom-nav button {
+        flex: 1;
+
+        height: 48px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        gap: 2px;
+
+        border: none;
+        border-radius: 12px;
+
+        background: transparent;
+        color: #555555;
+
+        font-size: 9px;
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition:
+            background 0.15s ease,
+            color 0.15s ease,
+            transform 0.12s ease;
+    }
+
+    .mobile-bottom-nav button:active {
+        transform: scale(0.94);
+    }
+
+    .mobile-bottom-nav button.active {
+        background: #111111;
+        color: #ffffff;
+    }
+
+    .mobile-bottom-nav .nav-icon {
+        font-size: 18px;
+        line-height: 1;
+    }
+
+    .mobile-bottom-nav .nav-label {
+        font-size: 9px;
+        line-height: 1;
+    }
+
+    /* =========================
+       SAVED ORDERS
+    ========================= */
+
+    .history-card {
+        min-height: 70px;
+        padding: 13px;
+        margin-bottom: 14px;
+        border-radius: 14px;
+    }
+
+    .history-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 11px;
+        border-radius: 10px;
+        font-size: 19px;
+    }
+
+    .history-copy h3 {
+        font-size: 13px;
+        margin-bottom: 3px;
+    }
+
+    .history-copy p {
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+    .history-arrow {
+        font-size: 24px;
+    }
+
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .stat-card {
+        min-height: 65px;
+        padding: 10px;
+        gap: 8px;
+        border-radius: 11px;
+    }
+
+    .stat-icon {
+        width: 31px;
+        height: 31px;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    .stat-card small {
+        font-size: 8px;
+        margin-bottom: 2px;
+    }
+
+    .stat-card strong {
+        font-size: 16px;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .dashboard-footer {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px 2px;
+        text-align: center;
+        font-size: 9px;
+    }
+
+
+    /* =========================
+       FORM
+    ========================= */
+
+    .form-page {
+        padding: 5px;
+        border-radius: 10px;
+    }
+
+    .order-title {
+        font-size: 17px;
+        padding: 9px;
+    }
+
+
+    /* =========================
+       DETAILS
+    ========================= */
+
+    .details {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .detail-row {
+        min-height: 38px;
+        padding: 4px;
+    }
+
+    .detail-row label {
+        min-width: 38px;
+        font-size: 11px;
+    }
+
+    .detail-row input {
+        height: 27px;
+        font-size: 12px;
+    }
+
+
+    /* =========================
+       TABLE TOOLS
+    ========================= */
+
+    .table-tools {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 5px;
+        padding: 5px;
         margin: 6px 0;
     }
 
     .search-box {
         min-width: 0;
-
         height: 32px;
-
         padding: 5px 8px;
-
         font-size: 11px;
     }
 
     .selected-toggle {
         gap: 3px;
-
         font-size: 10px;
     }
 
@@ -2561,1327 +5695,14 @@ body {
 
     .reset-btn {
         height: 32px;
-
         padding: 0 7px;
-
-        font-size: 10px;
-    }
-}
-
-/* =========================================================
-   HOME PLANNING - MODERN UI
-   ========================================================= */
-
-/* -------------------------------
-   FLOOR CARD
-   ------------------------------- */
-
-.home-floor {
-    background: #ffffff;
-    border: 1px solid #dcdcdc;
-    border-radius: 12px;
-    padding: 16px;
-    margin-top: 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.floor-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
-.floor-header strong {
-    font-size: 18px;
-    font-weight: 800;
-    color: #111111;
-}
-
-
-/* -------------------------------
-   ADD FLOOR / ADD ROOM
-   ------------------------------- */
-
-.floor-header button,
-.add-floor-btn {
-    border: none;
-    border-radius: 7px;
-    background: #111111;
-    color: #ffffff;
-    font-weight: 700;
-    padding: 9px 14px;
-    cursor: pointer;
-    transition: 0.15s ease;
-}
-
-.floor-header button:hover,
-.add-floor-btn:hover {
-    transform: translateY(-1px);
-    background: #222222;
-}
-
-
-/* -------------------------------
-   ROOM CARD
-   ------------------------------- */
-
-.room-box {
-    background: #fafafa;
-    border: 1px solid #dddddd;
-    border-radius: 10px;
-    padding: 12px;
-    margin-top: 10px;
-}
-
-.room-select-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.selected-room-name {
-    font-size: 16px;
-    font-weight: 800;
-    color: #111111;
-}
-
-.room-select-row button {
-    border: none;
-    border-radius: 7px;
-    background: #222222;
-    color: #ffffff;
-    font-weight: 700;
-    padding: 8px 13px;
-    cursor: pointer;
-}
-
-
-/* -------------------------------
-   OPEN ROOM CONTENT
-   ------------------------------- */
-
-.room-points {
-    margin-top: 10px;
-    background: #ffffff;
-    border: 1px solid #d8d8d8;
-    border-radius: 9px;
-    padding: 14px;
-}
-
-.room-points-header {
-    font-size: 17px;
-    font-weight: 800;
-    color: #111111;
-    padding-bottom: 10px;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #dddddd;
-}
-
-
-/* -------------------------------
-   FAN / LIGHT / ROUND SHEET
-   ------------------------------- */
-
-.room-basic-items {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.basic-item-row {
-    display: grid;
-    grid-template-columns: 110px minmax(180px, 1fr) 90px;
-    align-items: center;
-    gap: 10px;
-
-    padding: 9px 0;
-    border-bottom: 1px dashed #dddddd;
-}
-
-.basic-item-row:last-child {
-    border-bottom: none;
-}
-
-.basic-item-row label {
-    font-size: 14px;
-    font-weight: 700;
-    color: #111111;
-}
-
-.basic-item-row select,
-.basic-item-row input {
-    width: 100%;
-    min-height: 36px;
-    box-sizing: border-box;
-
-    border: 1px solid #bdbdbd;
-    border-radius: 6px;
-
-    background: #ffffff;
-    color: #111111;
-
-    padding: 7px 9px;
-    font-size: 13px;
-    font-family: inherit;
-}
-
-.basic-item-row select:focus,
-.basic-item-row input:focus {
-    outline: none;
-    border-color: #111111;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
-}
-
-
-/* -------------------------------
-   ADD PLATE
-   ------------------------------- */
-
-.add-plate-btn {
-    margin-top: 12px;
-    border: none;
-    border-radius: 7px;
-    background: #111111;
-    color: #ffffff;
-    padding: 9px 15px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.add-plate-btn:hover {
-    background: #222222;
-}
-
-
-/* -------------------------------
-   PLATE CARD
-   ------------------------------- */
-
-.home-plate-box {
-    margin-top: 14px;
-    padding: 14px;
-
-    border: 1px solid #d4d4d4;
-    border-radius: 10px;
-
-    background: #ffffff;
-}
-
-.plate-header {
-    font-size: 16px;
-    font-weight: 800;
-    color: #111111;
-
-    padding-bottom: 9px;
-    margin-bottom: 12px;
-
-    border-bottom: 1px solid #dddddd;
-}
-
-
-/* -------------------------------
-   PLATE ITEM SELECTOR
-   ------------------------------- */
-
-.home-item-selector {
-    display: grid;
-    grid-template-columns:
-        100px minmax(140px, 180px) 90px minmax(140px, 1fr);
-
-    gap: 8px 10px;
-    align-items: center;
-}
-
-.home-item-selector label {
-    font-size: 13px;
-    font-weight: 700;
-    color: #111111;
-}
-
-.home-item-selector select,
-.home-item-selector input {
-    width: 100%;
-    min-height: 36px;
-    box-sizing: border-box;
-
-    border: 1px solid #bdbdbd;
-    border-radius: 6px;
-
-    background: #ffffff;
-    color: #111111;
-
-    padding: 7px 9px;
-    font-size: 13px;
-}
-
-.home-item-selector select:focus,
-.home-item-selector input:focus {
-    outline: none;
-    border-color: #111111;
-}
-
-
-/* Add Item */
-.home-item-selector .add-btn {
-    min-height: 36px;
-    border: none;
-    border-radius: 7px;
-
-    background: #111111;
-    color: #ffffff;
-
-    font-weight: 700;
-    padding: 8px 14px;
-    cursor: pointer;
-}
-
-.home-item-selector .add-btn:hover {
-    background: #222222;
-}
-
-
-/* -------------------------------
-   SELECTED ITEMS
-   ------------------------------- */
-
-.home-selected-items {
-    margin-top: 14px;
-    padding-top: 12px;
-    border-top: 1px solid #dddddd;
-}
-
-.home-selected-items>strong {
-    display: block;
-    margin-bottom: 9px;
-
-    font-size: 13px;
-    font-weight: 800;
-    color: #111111;
-}
-
-.selected-item-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.home-selected-row {
-    display: grid;
-    grid-template-columns: 1fr 80px 55px 32px;
-
-    align-items: center;
-    gap: 8px;
-
-    min-height: 38px;
-    padding: 8px 10px;
-
-    border: 1px solid #dddddd;
-    border-radius: 7px;
-
-    background: #fafafa;
-
-    font-size: 13px;
-    color: #111111;
-}
-
-.home-selected-row span:nth-child(2),
-.home-selected-row strong {
-    text-align: center;
-}
-
-.home-selected-row button {
-    width: 28px;
-    height: 28px;
-
-    border: 1px solid #999999;
-    border-radius: 5px;
-
-    background: #ffffff;
-    color: #111111;
-
-    cursor: pointer;
-}
-
-.home-selected-row button:hover {
-    background: #eeeeee;
-}
-
-
-/* -------------------------------
-   MODULE CALCULATION
-   ------------------------------- */
-
-.module-calculation {
-    margin-top: 12px;
-    padding: 12px;
-
-    border: 1px solid #d0d0d0;
-    border-radius: 8px;
-
-    background: #f7f7f7;
-}
-
-.module-calculation>div {
-    display: flex;
-    justify-content: space-between;
-
-    padding: 4px 0;
-
-    font-size: 13px;
-    color: #111111;
-}
-
-.module-calculation strong {
-    font-size: 14px;
-}
-
-
-/* -------------------------------
-   WARNING
-   ------------------------------- */
-
-.module-warning {
-    margin-top: 7px;
-    padding: 8px;
-
-    border: 1px solid #999999;
-    border-radius: 6px;
-
-    background: #eeeeee;
-    color: #111111;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   FINAL TOTAL LIST
-   ========================================================= */
-
-#homeFinalTotal {
-    margin-top: 10px;
-    padding: 10px;
-
-    border: 1px solid #dddddd;
-    border-radius: 8px;
-
-    background: #fafafa;
-}
-
-.final-category {
-    margin-bottom: 14px;
-}
-
-.final-category h3 {
-    margin: 0;
-    padding: 9px 10px;
-
-    background: #111111;
-    color: #ffffff;
-
-    border-radius: 6px;
-
-    font-size: 14px;
-    font-weight: 800;
-}
-
-.final-total-row {
-    display: grid;
-    grid-template-columns: 1fr 120px;
-
-    align-items: center;
-
-    min-height: 38px;
-    padding: 8px 10px;
-
-    border-bottom: 1px solid #e5e5e5;
-
-    background: #ffffff;
-
-    font-size: 13px;
-}
-
-.final-total-row:last-child {
-    border-bottom: none;
-}
-
-.final-total-row strong {
-    text-align: right;
-    color: #111111;
-}
-
-.final-empty {
-    padding: 14px;
-    text-align: center;
-
-    color: #777777;
-    font-size: 13px;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-    .home-floor {
-        padding: 11px;
-    }
-
-    .floor-header {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .floor-header button {
-        width: 100%;
-    }
-
-    .room-select-row {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .room-select-row button {
-        width: 100%;
-    }
-
-    .basic-item-row {
-        grid-template-columns: 75px 1fr 75px;
-        gap: 7px;
-    }
-
-    .home-item-selector {
-        grid-template-columns: 90px 1fr;
-    }
-
-    .home-item-selector .add-btn {
-        grid-column: 1 / -1;
-        width: 100%;
-    }
-
-    .home-selected-row {
-        grid-template-columns: 1fr 60px 45px 28px;
-        font-size: 12px;
-    }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 450px) {
-
-    .basic-item-row {
-        grid-template-columns: 1fr;
-    }
-
-    .basic-item-row select,
-    .basic-item-row input {
-        width: 100%;
-    }
-
-    .home-item-selector {
-        grid-template-columns: 1fr;
-    }
-
-    .home-item-selector label {
-        margin-top: 4px;
-    }
-
-    .home-selected-row {
-        grid-template-columns: 1fr 50px 40px 28px;
-        gap: 4px;
-    }
-
-    .final-total-row {
-        grid-template-columns: 1fr 90px;
-    }
-
-}
-
-/* =========================================
-   HOME PLANNING - MOBILE FRIENDLY
-   ========================================= */
-
-@media (max-width: 600px) {
-
-    .home-floor {
-        padding: 10px;
-        margin-top: 10px;
-        border-radius: 10px;
-    }
-
-    .floor-header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-    }
-
-    .floor-header strong {
-        font-size: 16px;
-    }
-
-    .floor-header button,
-    .add-floor-btn {
-        width: 100%;
-        min-height: 40px;
-    }
-
-    .room-box {
-        padding: 9px;
-        margin-top: 8px;
-        border-radius: 9px;
-    }
-
-    .room-points {
-        padding: 9px;
-        margin-top: 8px;
-    }
-
-    .room-points-header strong {
-        font-size: 15px;
-    }
-
-    /* Basic item rows */
-
-    .basic-item-row {
-        display: grid;
-        grid-template-columns: 68px minmax(0, 1fr) 62px;
-        align-items: center;
-        gap: 6px;
-        padding: 8px 0;
-    }
-
-    .basic-item-row label {
-        font-size: 12px;
-        line-height: 1.2;
-    }
-
-    .basic-item-row select,
-    .basic-item-row input {
-        width: 100%;
-        min-width: 0;
-        height: 36px;
-        font-size: 12px;
-        padding: 6px 7px;
-    }
-
-    /* Light Add Button */
-
-    .add-light-btn,
-    .remove-light-btn {
-        font-size: 11px;
-        min-height: 32px;
-        padding: 5px 8px;
-    }
-
-    /* Strip light extra section */
-
-    .led-strip-options {
-        margin-top: 4px;
-    }
-
-    .led-strip-options .basic-item-row {
-        grid-template-columns: 68px minmax(0, 1fr) 70px;
-    }
-
-    .room-strip-custom-width {
-        grid-column: 2 / -1;
-    }
-
-    /* Extra light rows */
-
-    .extra-light-row {
-        margin-top: 4px;
-    }
-
-    /* Plate */
-
-    .home-plate-box {
-        padding: 10px;
-        border-radius: 9px;
-        margin-top: 10px;
-    }
-
-    .plate-header {
-        font-size: 15px;
-    }
-
-    .home-item-selector {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 6px;
-    }
-
-    .home-item-selector label {
-        font-size: 12px;
-        margin-top: 4px;
-    }
-
-    .home-item-selector select,
-    .home-item-selector input {
-        width: 100%;
-        height: 36px;
-        font-size: 12px;
-    }
-
-    .home-item-selector .add-btn {
-        width: 100%;
-        min-height: 40px;
-    }
-
-    /* Selected items */
-
-    .home-selected-row {
-        grid-template-columns: minmax(0, 1fr) 55px 42px 28px;
-        gap: 4px;
-        padding: 7px;
-        font-size: 11px;
-    }
-
-    .home-selected-row button {
-        width: 27px;
-        height: 27px;
-    }
-
-    /* Module calculation */
-
-    .module-calculation {
-        padding: 9px;
-        font-size: 12px;
-    }
-
-    .module-calculation div {
-        font-size: 12px;
-    }
-
-    .module-warning {
-        font-size: 11px;
-        line-height: 1.3;
-    }
-
-    /* Final Total */
-
-    .home-total-section {
-        margin-top: 15px;
-        padding: 10px;
-    }
-
-    #homeFinalTotal {
-        padding: 8px;
-    }
-
-    .final-total-row {
-        grid-template-columns: minmax(0, 1fr) 85px;
-        font-size: 12px;
-        padding: 7px;
-    }
-
-    .final-total-row strong {
-        text-align: right;
-    }
-}
-
-
-/* VERY SMALL MOBILE */
-
-@media (max-width: 400px) {
-
-    .basic-item-row {
-        grid-template-columns: 60px minmax(0, 1fr) 58px;
-        gap: 5px;
-    }
-
-    .basic-item-row label {
-        font-size: 11px;
-    }
-
-    .basic-item-row select,
-    .basic-item-row input {
-        height: 34px;
-        font-size: 11px;
-    }
-
-    .home-selected-row {
-        grid-template-columns: minmax(0, 1fr) 48px 38px 26px;
         font-size: 10px;
     }
 
-}
 
-/* =========================================
-   HOME PLANNING - MOBILE COMPACT LAYOUT
-   ========================================= */
-
-@media (max-width: 600px) {
-
-    /* FLOOR */
-    .home-floor {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-        border-radius: 10px;
-    }
-
-    .floor-header {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-        margin-bottom: 8px;
-    }
-
-    .floor-header strong {
-        font-size: 17px;
-    }
-
-    .floor-header button {
-        width: 100%;
-        min-height: 38px;
-    }
-
-
-    /* ROOM */
-    .room-box {
-        width: 100%;
-        padding: 8px;
-        margin-top: 8px;
-        border-radius: 9px;
-    }
-
-    .room-select-row {
-        width: 100%;
-    }
-
-    .selected-room-name {
-        font-size: 16px;
-    }
-
-    .room-select-row button {
-        width: 100%;
-        min-height: 36px;
-    }
-
-
-    /* ROOM POINTS */
-    .room-points {
-        width: 100%;
-        padding: 8px;
-        margin-top: 8px;
-        border-radius: 8px;
-    }
-
-    .room-points-header {
-        margin-bottom: 8px;
-        padding-bottom: 8px;
-    }
-
-    .room-points-header strong {
-        font-size: 15px;
-    }
-
-
-    /* BASIC ITEMS */
-    .basic-item-row {
-        display: grid;
-        grid-template-columns: 72px minmax(0, 1fr) 64px;
-        align-items: center;
-        gap: 6px;
-
-        width: 100%;
-        padding: 9px 0;
-
-        border-bottom: 1px dashed #dddddd;
-    }
-
-    .basic-item-row label {
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 1.15;
-    }
-
-    .basic-item-row select,
-    .basic-item-row input {
-        width: 100%;
-        min-width: 0;
-        height: 36px;
-        box-sizing: border-box;
-
-        font-size: 12px;
-        padding: 6px 7px;
-        border-radius: 6px;
-    }
-
-
-    /* ADD LIGHT */
-    .add-light-btn {
-        grid-column: 2 / 3;
-        justify-self: start;
-
-        min-height: 32px;
-        padding: 5px 9px;
-
-        font-size: 11px;
-    }
-
-    .remove-light-btn {
-        width: 30px;
-        height: 30px;
-        padding: 0;
-        font-size: 14px;
-    }
-
-
-    /* LED STRIP EXTRA */
-    .led-strip-options {
-        width: 100%;
-        margin-top: 3px;
-    }
-
-    .led-strip-options .basic-item-row {
-        grid-template-columns: 72px minmax(0, 1fr) 64px;
-    }
-
-    .room-strip-custom-width {
-        grid-column: 2 / 4;
-    }
-
-
-    /* LED DRIVER */
-    .led-driver-row {
-        grid-template-columns: 72px minmax(0, 1fr) 64px;
-    }
-
-
-    /* PLATE */
-    .home-plate-box {
-        width: 100%;
-        margin-top: 10px;
-        padding: 10px;
-        border-radius: 9px;
-    }
-
-    .plate-header {
-        font-size: 15px;
-        margin-bottom: 8px;
-        padding-bottom: 8px;
-    }
-
-
-    /* PLATE ITEM SELECTOR */
-    .home-item-selector {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 5px;
-    }
-
-    .home-item-selector label {
-        font-size: 12px;
-        margin-top: 4px;
-    }
-
-    .home-item-selector select,
-    .home-item-selector input {
-        width: 100%;
-        height: 36px;
-        font-size: 12px;
-    }
-
-    .home-item-selector .add-btn {
-        width: 100%;
-        min-height: 38px;
-        margin-top: 5px;
-    }
-
-
-    /* SELECTED ITEMS */
-    .home-selected-items {
-        margin-top: 10px;
-        padding-top: 10px;
-    }
-
-    .home-selected-items>strong {
-        font-size: 12px;
-    }
-
-    .home-selected-row {
-        grid-template-columns:
-            minmax(0, 1fr) 52px 40px 28px;
-
-        gap: 4px;
-        min-height: 36px;
-
-        padding: 7px;
-        font-size: 11px;
-    }
-
-    .home-selected-row button {
-        width: 27px;
-        height: 27px;
-    }
-
-
-    /* MODULE CALCULATION */
-    .module-calculation {
-        margin-top: 9px;
-        padding: 9px;
-        border-radius: 7px;
-    }
-
-    .module-calculation div {
-        font-size: 12px;
-        padding: 3px 0;
-    }
-
-    .module-warning {
-        font-size: 11px;
-        line-height: 1.25;
-        padding: 7px;
-    }
-
-
-    /* ADD PLATE */
-    .add-plate-btn {
-        width: 100%;
-        min-height: 38px;
-        margin-top: 8px;
-        font-size: 12px;
-    }
-
-
-    /* FINAL TOTAL */
-    .home-total-section {
-        width: 100%;
-        margin-top: 14px;
-        padding: 10px;
-    }
-
-    #homeFinalTotal {
-        width: 100%;
-        padding: 8px;
-    }
-
-    .final-total-row {
-        grid-template-columns: 1fr 75px;
-        gap: 5px;
-        padding: 7px;
-        font-size: 11px;
-    }
-}
-
-
-/* =========================================
-   VERY SMALL MOBILE
-   ========================================= */
-
-@media (max-width: 400px) {
-
-    .basic-item-row {
-        grid-template-columns:
-            64px minmax(0, 1fr) 58px;
-
-        gap: 5px;
-    }
-
-    .basic-item-row label {
-        font-size: 11px;
-    }
-
-    .basic-item-row select,
-    .basic-item-row input {
-        height: 34px;
-        font-size: 11px;
-    }
-
-    .home-selected-row {
-        grid-template-columns:
-            minmax(0, 1fr) 48px 36px 26px;
-
-        font-size: 10px;
-    }
-}
-
-/* =========================================
-   HOME PLANNING - MOBILE FINAL
-   ========================================= */
-
-@media (max-width: 600px) {
-
-    /* Floor */
-    .home-floor {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-    }
-
-    .floor-header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-    }
-
-    .floor-header button {
-        width: 100%;
-        height: 38px;
-    }
-
-    /* Room */
-    .room-box {
-        width: 100%;
-        padding: 8px;
-        margin-top: 8px;
-    }
-
-    .room-points {
-        width: 100%;
-        padding: 8px;
-    }
-
-    .room-points-header strong {
-        font-size: 15px;
-    }
-
-    /* Fan / Light / Round Sheet */
-    .basic-item-row {
-        display: grid;
-        grid-template-columns: 70px minmax(0, 1fr) 62px;
-        gap: 6px;
-        align-items: center;
-        width: 100%;
-        padding: 8px 0;
-    }
-
-    .basic-item-row label {
-        font-size: 12px;
-        line-height: 1.2;
-    }
-
-    .basic-item-row select,
-    .basic-item-row input {
-        width: 100%;
-        min-width: 0;
-        height: 36px;
-        box-sizing: border-box;
-        font-size: 12px;
-    }
-
-    /* Add Light */
-    .add-light-btn {
-        grid-column: 2;
-        width: fit-content;
-        min-height: 32px;
-        font-size: 11px;
-        padding: 5px 9px;
-    }
-
-    /* Extra Light */
-    .extra-light-row {
-        margin-top: 4px;
-    }
-
-    /* LED Strip */
-    .led-strip-options {
-        width: 100%;
-    }
-
-    .led-strip-options .basic-item-row {
-        grid-template-columns: 70px minmax(0, 1fr) 62px;
-    }
-
-    .room-strip-custom-width {
-        grid-column: 2 / 4;
-    }
-
-    /* LED Driver */
-    .led-driver-row {
-        grid-template-columns: 70px minmax(0, 1fr) 62px;
-    }
-
-    /* Plate */
-    .home-plate-box {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-    }
-
-    .plate-header {
-        font-size: 15px;
-    }
-
-    .home-item-selector {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 5px;
-    }
-
-    .home-item-selector label {
-        font-size: 12px;
-        margin-top: 4px;
-    }
-
-    .home-item-selector select,
-    .home-item-selector input {
-        width: 100%;
-        height: 36px;
-        font-size: 12px;
-    }
-
-    .home-item-selector .add-btn {
-        width: 100%;
-        height: 40px;
-    }
-
-    /* Selected items */
-    .home-selected-row {
-        grid-template-columns: 1fr 50px 40px 28px;
-        gap: 4px;
-        font-size: 11px;
-        padding: 7px;
-    }
-
-    /* Module */
-    .module-calculation {
-        padding: 9px;
-    }
-
-    .module-calculation div {
-        font-size: 12px;
-    }
-
-    .module-warning {
-        font-size: 11px;
-        line-height: 1.3;
-    }
-
-    /* Add Plate */
-    .add-plate-btn {
-        width: 100%;
-        min-height: 40px;
-    }
-
-    /* Final Total */
-    .home-total-section {
-        width: 100%;
-        padding: 10px;
-    }
-
-    .final-total-row {
-        grid-template-columns: 1fr 75px;
-        font-size: 11px;
-    }
-}
-
-/* =========================================
-   HOME PLATE - MOBILE COMPACT
-   ========================================= */
-
-@media (max-width: 600px) {
-
-    .home-plate-box {
-        padding: 8px;
-        margin-top: 8px;
-        border-radius: 8px;
-    }
-
-    .plate-header {
-        font-size: 15px;
-        padding-bottom: 6px;
-        margin-bottom: 6px;
-    }
-
-    .home-item-selector {
-        gap: 3px;
-        margin-bottom: 8px;
-    }
-
-    .home-item-selector label {
-        font-size: 11px;
-        margin-top: 2px;
-    }
-
-    .home-item-selector select,
-    .home-item-selector input {
-        height: 34px;
-        font-size: 11px;
-        padding: 5px 6px;
-    }
-
-    .home-item-selector .add-btn {
-        min-height: 36px;
-        height: 36px;
-        margin-top: 3px;
-    }
-
-    .home-selected-items {
-        margin-top: 8px;
-        padding-top: 8px;
-    }
-
-    .home-selected-items>strong {
-        font-size: 11px;
-        margin-bottom: 6px;
-    }
-
-    .home-selected-row {
-        min-height: 34px;
-        padding: 6px;
-        font-size: 10px;
-        grid-template-columns: minmax(0, 1fr) 45px 35px 25px;
-        gap: 3px;
-    }
-
-    .home-selected-row button {
-        width: 24px;
-        height: 24px;
-        font-size: 13px;
-    }
-
-    .module-calculation {
-        margin-top: 7px;
-        padding: 8px;
-    }
-
-    .module-calculation div {
-        font-size: 11px;
-        padding: 2px 0;
-    }
-
-    .module-warning {
-        padding: 6px;
-        font-size: 10px;
-    }
-}
-
-.item-thumb {
-    width: 34px;
-    height: 34px;
-    object-fit: contain;
-    vertical-align: middle;
-    margin-right: 8px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-@media (max-width: 700px) {
-    .item-thumb {
-        width: 28px;
-        height: 28px;
-        margin-right: 5px;
-    }
-}
-
-/* =========================================
-   MOBILE ELECTRICAL TABLE - FINAL FIX
-   ========================================= */
-
-@media (max-width: 600px) {
+    /* =========================
+       TABLE
+    ========================= */
 
     .table-container {
         width: 100%;
@@ -3901,25 +5722,68 @@ body {
         vertical-align: middle;
     }
 
+    .order-table th {
+        font-size: 10px !important;
+    }
+
+    .order-table td {
+        font-size: 11px !important;
+        height: 32px;
+    }
+
+
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .order-table {
+        width: 100%;
+        min-width: 0;
+        table-layout: fixed;
+    }
+
+    .order-table th,
+    .order-table td {
+        padding: 4px !important;
+        vertical-align: middle;
+    }
+
+
     /* S.NO */
+
     .order-table .sno,
-    .order-table .item-sno {
+    .order-table .item-sno,
+    .sno {
         width: 36px !important;
         min-width: 36px !important;
         max-width: 36px !important;
         text-align: center !important;
     }
 
+
     /* QTY */
+
     .order-table .qty,
-    .order-table .qty-cell {
+    .order-table .qty-cell,
+    .qty {
         width: 62px !important;
         min-width: 62px !important;
         max-width: 62px !important;
         text-align: center !important;
     }
 
+    .qty-input {
+        width: 48px !important;
+        min-width: 48px !important;
+        height: 28px !important;
+        font-size: 13px !important;
+    }
+
+
     /* PARTICULARS */
+
     .particulars-cell {
         width: auto !important;
         min-width: 0 !important;
@@ -3929,7 +5793,9 @@ body {
         overflow: hidden;
     }
 
+
     /* ITEM NAME */
+
     .item-main-name {
         display: inline-flex !important;
         align-items: center !important;
@@ -3942,7 +5808,9 @@ body {
         font-weight: 700 !important;
     }
 
+
     /* ITEM IMAGE */
+
     .item-thumb {
         width: 26px !important;
         height: 26px !important;
@@ -3950,7 +5818,9 @@ body {
         flex: 0 0 auto;
     }
 
-    /* SIZE AREA */
+
+    /* SIZE */
+
     .size-options-container {
         display: inline-flex !important;
         flex-direction: column !important;
@@ -3985,7 +5855,14 @@ body {
         font-size: 11px !important;
     }
 
-    /* REMOVE X */
+    .size-label {
+        min-width: 55px;
+        font-size: 11px;
+    }
+
+
+    /* REMOVE SIZE */
+
     .remove-size-btn {
         width: 22px !important;
         height: 22px !important;
@@ -3994,7 +5871,9 @@ body {
         font-size: 13px !important;
     }
 
+
     /* ADD SIZE */
+
     .add-size-btn {
         display: block !important;
         width: fit-content !important;
@@ -4005,23 +5884,897 @@ body {
         font-size: 10px !important;
     }
 
-    /* QTY INPUT */
-    .qty-input {
-        width: 48px !important;
-        min-width: 48px !important;
-        height: 28px !important;
-        font-size: 13px !important;
+
+    /* =========================
+       ACTION BUTTONS
+    ========================= */
+
+    .action-buttons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
     }
 
-    /* TABLE TEXT */
-    .order-table th {
-        font-size: 10px !important;
+    .action-buttons button {
+        min-height: 43px;
+        font-size: 14px;
     }
 
-    .order-table td {
-        font-size: 11px !important;
+
+    /* =========================
+       HOME FLOOR
+    ========================= */
+
+    .home-floor {
+        width: 100%;
+        box-sizing: border-box;
+
+        margin-top: 10px;
+        margin-bottom: 8px;
+
+        padding: 10px;
+
+        background: #ffffff;
+
+        border: 1px solid #d9dee7;
+        border-radius: 10px;
+
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+
+    /* =========================
+       FLOOR HEADER
+    ========================= */
+
+    .floor-header {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 8px;
+
+        margin-bottom: 8px;
+    }
+
+
+    .floor-header strong {
+        font-size: 17px;
+        line-height: 1.2;
+
+        color: #172033;
+    }
+
+
+    /* =========================
+       ADD FLOOR / ADD ROOM
+    ========================= */
+
+    .floor-header button,
+    .add-floor-btn,
+    .floor-header .add-btn {
+
+        width: 100%;
+
+        min-height: 36px;
+        height: 36px;
+
+        padding: 0 12px;
+
+        box-sizing: border-box;
+
+        border: none;
+        border-radius: 7px;
+
+        background: #111111;
+        color: #ffffff;
+
+        font-size: 10px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition:
+            transform 0.12s ease,
+            opacity 0.12s ease;
+    }
+
+
+    .floor-header button:active,
+    .add-floor-btn:active,
+    .floor-header .add-btn:active {
+        transform: scale(0.97);
+    }
+
+
+    /* =========================================
+   FLOOR CARD
+========================================= */
+
+.home-floor {
+    flex: 0 0 320px;
+    width: 320px;
+    min-width: 320px;
+
+    box-sizing: border-box;
+
+    margin: 0 !important;
+    padding: 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #d8e0ea;
+    border-radius: 12px;
+
+    box-shadow:
+        0 2px 8px rgba(15, 23, 42, 0.05);
+
+    display: block !important;
+
+    overflow: visible !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.home-floor:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+
+    /* =========================
+       ADD ROOM BUTTON
+    ========================= */
+
+    .floor-card .add-room-btn {
+
+        width: 100%;
+        height: 34px;
+
+        border: none;
+        border-radius: 6px;
+
+        background: #111111;
+        color: #ffffff;
+
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+
+    /* =========================
+       ROOM CARD
+    ========================= */
+
+    .room-card {
+
+        width: 100%;
+        box-sizing: border-box;
+
+        margin-top: 7px;
+        padding: 7px;
+
+        background: #f8fafc;
+
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+
+    /* =========================
+       ROOM NAME INPUT
+    ========================= */
+
+    .room-card input,
+    .room-name-input {
+
+        width: 100%;
+        height: 32px;
+
+        box-sizing: border-box;
+
+        padding: 5px 9px;
+
+        background: #ffffff;
+
+        border: 1px solid #bfc7d4;
+        border-radius: 6px;
+
+        outline: none;
+
+        font-size: 10px;
+        color: #334155;
+    }
+
+
+    .room-card input:focus,
+    .room-name-input:focus {
+
+        border-color: #2563eb;
+
+        box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
+    }
+
+
+    /* =========================
+       ROOM SELECT
+    ========================= */
+
+    .room-card select {
+
+        width: 100%;
+        height: 28px;
+
+        margin-top: 5px;
+
+        padding: 3px 7px;
+
+        box-sizing: border-box;
+
+        background: #ffffff;
+
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+
+        font-size: 9px;
+    }
+
+
+    /* =========================
+       ROOM
+    ========================= */
+
+    .room-box {
+        width: 100%;
+        padding: 8px;
+        margin-top: 8px;
+        border-radius: 9px;
+        box-sizing: border-box;
+    }
+
+    .room-select-row {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .room-dropdown {
+        width: 100%;
+    }
+
+    .room-select-row button {
+        width: 100%;
+        min-height: 36px;
+    }
+
+    .selected-room-name {
+        font-size: 16px;
+    }
+
+
+    /* =========================
+       ROOM POINTS
+    ========================= */
+
+    .room-points {
+        width: 100%;
+        padding: 8px;
+        margin-top: 8px;
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+
+    .room-points-header {
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+    }
+
+    .room-points-header strong {
+        font-size: 15px;
+    }
+
+
+    /* =========================
+       BASIC ITEMS
+    ========================= */
+
+    .basic-item-row {
+        display: grid;
+        grid-template-columns: 70px minmax(0, 1fr) 62px;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        padding: 8px 0;
+    }
+
+    .basic-item-row label {
+        font-size: 12px;
+        line-height: 1.2;
+    }
+
+    .basic-item-row select,
+    .basic-item-row input {
+        width: 100%;
+        min-width: 0;
+        height: 36px;
+        box-sizing: border-box;
+        font-size: 12px;
+        padding: 6px 7px;
+    }
+
+
+    /* =========================
+       LIGHT
+    ========================= */
+
+    .add-light-btn {
+        grid-column: 2;
+        width: fit-content;
+        min-height: 32px;
+        font-size: 11px;
+        padding: 5px 9px;
+    }
+
+    .remove-light-btn {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        font-size: 14px;
+    }
+
+    .extra-light-row {
+        margin-top: 4px;
+    }
+
+
+    /* =========================
+       LED STRIP
+    ========================= */
+
+    .led-strip-options {
+        width: 100%;
+        margin-top: 3px;
+    }
+
+    .led-strip-options .basic-item-row {
+        grid-template-columns: 70px minmax(0, 1fr) 62px;
+    }
+
+    .room-strip-custom-width {
+        grid-column: 2 / 4;
+    }
+
+
+    /* =========================
+       LED DRIVER
+    ========================= */
+
+    .led-driver-row {
+        grid-template-columns: 70px minmax(0, 1fr) 62px;
+    }
+
+
+    /* =========================
+       PLATE
+    ========================= */
+
+    .home-plate-box {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 9px;
+        box-sizing: border-box;
+    }
+
+    .plate-header {
+        font-size: 15px;
+        padding-bottom: 6px;
+        margin-bottom: 8px;
+    }
+
+    .home-item-selector {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 5px;
+        margin-bottom: 8px;
+    }
+
+    .home-item-selector label {
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    .home-item-selector select,
+    .home-item-selector input {
+        width: 100%;
+        height: 36px;
+        font-size: 12px;
+        box-sizing: border-box;
+    }
+
+    .home-item-selector .add-btn {
+        width: 100%;
+        min-height: 38px;
+        margin-top: 5px;
+    }
+
+
+    /* =========================
+       SELECTED ITEMS
+    ========================= */
+
+    .home-selected-items {
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+
+    .home-selected-items>strong {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .home-selected-row {
+        grid-template-columns: minmax(0, 1fr) 50px 40px 28px;
+        gap: 4px;
+        min-height: 36px;
+        padding: 7px;
+        font-size: 11px;
+    }
+
+    .home-selected-row button {
+        width: 27px;
+        height: 27px;
+    }
+
+
+    /* =========================
+       MODULE
+    ========================= */
+
+    .module-calculation {
+        margin-top: 9px;
+        padding: 9px;
+        border-radius: 7px;
+    }
+
+    .module-calculation div {
+        font-size: 12px;
+        padding: 3px 0;
+    }
+
+    .module-warning {
+        font-size: 11px;
+        line-height: 1.25;
+        padding: 7px;
+    }
+
+
+    /* =========================
+       ADD PLATE
+    ========================= */
+
+    .add-plate-btn {
+        width: 100%;
+        min-height: 40px;
+        margin-top: 8px;
+        font-size: 12px;
+    }
+
+
+    /* =====================================
+   FINAL TOTAL - MOBILE
+===================================== */
+
+
+    .home-total-section {
+        width: 100%;
+        box-sizing: border-box;
+
+        margin-top: 14px;
+        padding: 10px;
+
+        background: #ffffff;
+
+        border: 1px solid #dce1e8;
+        border-radius: 11px;
+    }
+
+
+    /* TITLE */
+
+    .home-total-section h2,
+    .home-total-section h3 {
+        margin: 0 0 9px;
+
+        font-size: 18px;
+        line-height: 1.2;
+
+        color: #123b72;
+    }
+
+
+    /* FINAL TOTAL BOX */
+
+    #homeFinalTotal {
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 8px;
+
+        background: #f8fafc;
+
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+    }
+
+
+    /* TOTAL ROW */
+
+    .final-total-row {
+        display: grid;
+
+        grid-template-columns: minmax(0, 1fr) 65px;
+
+        align-items: center;
+
+        gap: 5px;
+
+        padding: 7px 6px;
+
+        font-size: 10px;
+
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+
+    .final-total-row:last-child {
+        border-bottom: none;
+    }
+
+
+    /* ITEM NAME */
+
+    .final-total-row span {
+        min-width: 0;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+        color: #334155;
+    }
+
+
+    /* TOTAL VALUE */
+
+    .final-total-row strong {
+        text-align: right;
+
+        color: #123b72;
+
+        font-size: 10px;
+    }
+
+
+    /* =========================
+       BACK BUTTON
+    ========================= */
+
+    .top-back-btn {
+        margin: 2px 0 8px 2px;
+        padding: 6px 11px;
+        border-radius: 6px;
+        font-size: 11px;
+    }
+/* =========================================================
+   PDF PREVIEW - MOBILE
+   ========================================================= */
+
+    .pdf-preview-modal {
+        padding: 8px;
+    }
+
+    .pdf-preview-box {
+        width: 100%;
+        height: 94vh;
+        border-radius: 10px;
+    }
+
+    .pdf-preview-content {
+        padding: 10px;
+    }
+
+    .pdf-preview-actions {
+        padding: 8px;
+    }
+
+    .pdf-preview-actions button {
+        flex: 1;
+        padding: 0 10px;
+    }
+
+}
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .app {
+        padding: 6px;
+    }
+
+      .dashboard-header {
+        padding: 0 10px;
+    }
+
+    .brand-info h1 {
+        font-size: 15px;
+    }
+
+    .brand-info p {
+        font-size: 8px;
+    }
+
+    .brand-mark {
+        width: 33px;
+        height: 33px;
+    }
+
+    .welcome-panel {
+        padding: 18px 14px;
+    }
+
+    .welcome-panel h2 {
+        font-size: 22px;
+    }
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .basic-item-row {
+        grid-template-columns: 60px minmax(0, 1fr) 58px;
+        gap: 5px;
+    }
+
+    .basic-item-row label {
+        font-size: 11px;
+    }
+
+    .basic-item-row select,
+    .basic-item-row input {
+        height: 34px;
+        font-size: 11px;
+    }
+
+    .home-selected-row {
+        grid-template-columns: minmax(0, 1fr) 48px 38px 26px;
+
+        font-size: 10px;
     }
 }
+
+@media print {
+
+    html,
+    body {
+        margin: 0;
+
+        padding: 0;
+
+        width: 100%;
+
+        background: #ffffff !important;
+    }
+
+
+    .app {
+        width: 100%;
+
+        max-width: none;
+
+        margin: 0;
+
+        padding: 0;
+    }
+
+
+    /* HIDE UI */
+
+    .top-title,
+    .home-buttons,
+    .action-buttons,
+    .top-back-btn,
+    .table-tools {
+        display: none !important;
+    }
+
+
+    /* FORM */
+
+    .form-page {
+        display: none !important;
+
+        padding: 0;
+
+        margin: 0;
+
+        box-shadow: none;
+
+        border-radius: 0;
+    }
+
+    .form-page.active {
+        display: block !important;
+    }
+
+
+    /*
+       FIX: scope printing to only the form
+       currently being exported. downloadPDF()
+       in script.js toggles body.printing-electrical
+       / body.printing-plumbing when it falls back
+       to window.print() (html2pdf missing) — this
+       makes sure the *other* form stays hidden
+       instead of also being printed.
+    */
+
+    body.printing-electrical #plumbingForm,
+    body.printing-plumbing #electricalForm {
+        display: none !important;
+    }
+
+
+    /* HEADER */
+
+    .form-header {
+        border-radius: 0;
+
+        margin-bottom: 5px;
+    }
+
+    .order-title {
+        font-size: 17px;
+    }
+
+
+    .detail-row {
+        min-height: 34px;
+    }
+
+    .detail-row input {
+        border-bottom:
+            1px solid #333;
+    }
+
+
+    /* TABLE */
+
+    .order-table {
+        width: 100%;
+    }
+
+    /* HIDE TABLE EDIT CONTROLS */
+
+    .order-table .add-size-btn,
+    .order-table .remove-size-btn,
+    .order-table button {
+        display: none !important;
+    }
+
+    .order-table th,
+    .order-table td {
+        border:
+            1px solid #111 !important;
+
+        background:
+            #ffffff !important;
+
+        color:
+            #111 !important;
+    }
+
+
+    /* INPUTS */
+
+    .qty-input,
+    .particulars-input {
+        border: none !important;
+
+        background:
+            transparent !important;
+
+        color:
+            #111 !important;
+    }
+
+    /* SIZE / COLOR SELECT */
+
+    .order-table select {
+        border: none !important;
+        background: transparent !important;
+        color: #111 !important;
+        appearance: none !important;
+        -webkit-appearance: none !important;
+    }
+
+
+    /* PAGE BREAK */
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+
+    /* A4 */
+
+    @page {
+        size: A4 portrait;
+
+        margin: 10mm;
+    }
+}
+
+
+
+/* =========================================
+   VERY SMALL MOBILE
+   ========================================= */
+
+.basic-item-row {
+    grid-template-columns:
+        64px minmax(0, 1fr) 58px;
+
+    gap: 5px;
+}
+
+.basic-item-row label {
+    font-size: 11px;
+}
+
+.basic-item-row select,
+.basic-item-row input {
+    height: 34px;
+    font-size: 11px;
+}
+
+.home-selected-row {
+    grid-template-columns:
+        minmax(0, 1fr) 48px 36px 26px;
+
+    font-size: 10px;
+}
+
+/* =========================================
+   HOME PLANNING - MOBILE FINAL
+   ========================================= */
+
+.item-thumb {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 
 /* =========================================
    TOP BACK BUTTON
@@ -4051,275 +6804,4 @@ body {
 .top-back-btn:hover {
     background: #333333;
     transform: translateX(-2px);
-}
-
-
-/* MOBILE */
-@media (max-width: 600px) {
-
-    .top-back-btn {
-        margin: 2px 0 8px 2px;
-        padding: 6px 11px;
-
-        border-radius: 6px;
-
-        font-size: 11px;
-    }
-}
-
-
-/* DON'T SHOW IN PDF */
-@media print {
-
-    .top-back-btn {
-        display: none !important;
-    }
-}
-
-/* =====================================================
-   ANDROID APP - PREMIUM HOME SCREEN
-   ===================================================== */
-
-@media (max-width: 600px) {
-
-    body.android-app {
-        background: #f7f8fc !important;
-        padding-bottom: 78px !important;
-        overflow-x: hidden !important;
-    }
-
-    /* Hide desktop header navigation */
-    body.android-app .dashboard-header {
-        display: block !important;
-        padding: 18px 16px 16px !important;
-        margin: 0 0 12px 0 !important;
-        border-radius: 0 0 22px 22px !important;
-        background: #ffffff !important;
-    }
-
-    body.android-app .dashboard-nav {
-        display: none !important;
-    }
-
-    /* BRAND */
-    body.android-app .brand {
-        justify-content: center !important;
-        text-align: center !important;
-    }
-
-    body.android-app .brand-mark {
-        width: 48px !important;
-        height: 48px !important;
-        border-radius: 14px !important;
-        font-size: 25px !important;
-    }
-
-    body.android-app .brand h1 {
-        font-size: 20px !important;
-        margin: 0 !important;
-    }
-
-    body.android-app .brand p {
-        font-size: 10px !important;
-        margin-top: 3px !important;
-    }
-
-    /* WELCOME */
-    body.android-app .welcome-panel {
-        padding: 22px 18px !important;
-        margin-bottom: 12px !important;
-        border-radius: 18px !important;
-        text-align: left !important;
-    }
-
-    body.android-app .eyebrow {
-        font-size: 9px !important;
-        letter-spacing: 1.7px !important;
-    }
-
-    body.android-app .welcome-panel h2 {
-        font-size: 27px !important;
-        line-height: 1.15 !important;
-    }
-
-    body.android-app .welcome-title {
-        font-size: 12px !important;
-    }
-
-    body.android-app .welcome-subtitle {
-        font-size: 10px !important;
-    }
-
-
-    /* =================================================
-       MAIN CARDS
-       ================================================= */
-
-    body.android-app .order-cards {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 11px !important;
-        margin-bottom: 11px !important;
-    }
-
-    body.android-app .dashboard-card {
-        min-height: 118px !important;
-        padding: 16px 17px !important;
-        border-radius: 17px !important;
-        box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05) !important;
-    }
-
-    body.android-app .service-icon {
-        width: 46px !important;
-        height: 46px !important;
-        border-radius: 13px !important;
-        font-size: 23px !important;
-    }
-
-    body.android-app .card-arrow {
-        font-size: 28px !important;
-    }
-
-    body.android-app .accent-line {
-        width: 32px !important;
-        height: 3px !important;
-        margin-top: 12px !important;
-    }
-
-    body.android-app .dashboard-card h3 {
-        margin: 8px 0 4px !important;
-        font-size: 17px !important;
-    }
-
-    body.android-app .dashboard-card p {
-        font-size: 10px !important;
-        line-height: 1.4 !important;
-    }
-
-    body.android-app .service-tags {
-        display: none !important;
-    }
-
-
-    /* =================================================
-       HISTORY
-       ================================================= */
-
-    body.android-app .history-card {
-        min-height: 76px !important;
-        padding: 14px 15px !important;
-        margin-bottom: 11px !important;
-        border-radius: 16px !important;
-    }
-
-    body.android-app .history-icon {
-        width: 42px !important;
-        height: 42px !important;
-        margin-right: 11px !important;
-        border-radius: 12px !important;
-        font-size: 19px !important;
-    }
-
-    body.android-app .history-copy h3 {
-        font-size: 14px !important;
-    }
-
-    body.android-app .history-copy p {
-        font-size: 10px !important;
-    }
-
-    body.android-app .history-arrow {
-        font-size: 25px !important;
-    }
-
-
-    /* =================================================
-       STATISTICS
-       ================================================= */
-
-    body.android-app .dashboard-stats {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 7px !important;
-        margin: 0 0 12px 0 !important;
-    }
-
-    body.android-app .stat-card {
-        min-height: 75px !important;
-        padding: 9px 7px !important;
-        gap: 5px !important;
-        border-radius: 13px !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        text-align: center !important;
-    }
-
-    body.android-app .stat-icon {
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 14px !important;
-        border-radius: 9px !important;
-    }
-
-    body.android-app .stat-card small {
-        font-size: 8px !important;
-        margin-bottom: 1px !important;
-    }
-
-    body.android-app .stat-card strong {
-        font-size: 17px !important;
-    }
-
-
-    /* =================================================
-       BOTTOM NAVIGATION
-       ================================================= */
-
-    body.android-app .android-bottom-nav {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        height: 68px;
-
-        display: grid !important;
-        grid-template-columns: repeat(5, 1fr);
-
-        background: #ffffff;
-        border-top: 1px solid #e5e7eb;
-
-        box-shadow: 0 -5px 18px rgba(15, 23, 42, 0.10);
-
-        z-index: 99999;
-    }
-
-    body.android-app .android-bottom-nav button {
-        border: none;
-        background: transparent;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        gap: 2px;
-
-        font-size: 9px;
-        font-weight: 700;
-
-        color: #64748b;
-
-        cursor: pointer;
-    }
-
-    body.android-app .android-bottom-nav button span {
-        font-size: 20px;
-        line-height: 1;
-    }
-
-    body.android-app .android-bottom-nav button.active {
-        color: #d99b00;
-    }
-
 }

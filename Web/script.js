@@ -15,6 +15,12 @@ let plumbingData = [];
 let commonColors = [];
 let currentForm = null;
 
+const SHARED_BASE =
+    window.location.pathname.includes("/Web/")
+        ? "../shared/"
+        : "shared/";
+
+
 
 /* =========================================================
    PAGE LOAD
@@ -35,7 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function setToday() {
 
-    const today = new Date().toISOString().split("T")[0];
+    const today =
+        new Date().toISOString().split("T")[0];
+
 
     const electricalDate =
         document.getElementById("electricalDate");
@@ -43,26 +51,65 @@ function setToday() {
     const plumbingDate =
         document.getElementById("plumbingDate");
 
-    if (electricalDate && !electricalDate.value) {
+    const homeDate =
+        document.getElementById("homeDate");
+
+
+    /* =========================================
+       ELECTRICAL
+    ========================================= */
+
+    if (
+        electricalDate &&
+        !electricalDate.value
+    ) {
         electricalDate.value = today;
     }
 
-    if (plumbingDate && !plumbingDate.value) {
+
+    /* =========================================
+       PLUMBING
+    ========================================= */
+
+    if (
+        plumbingDate &&
+        !plumbingDate.value
+    ) {
         plumbingDate.value = today;
     }
-}
 
+
+    /* =========================================
+       HOME PLANNING
+    ========================================= */
+
+    if (
+        homeDate &&
+        !homeDate.value
+    ) {
+        homeDate.value = today;
+    }
+}
 
 /* =========================================================
    LOAD JSON FILES
    ========================================================= */
 
 async function loadItems() {
+
     try {
-        const electricalResponse = await fetch(
-            "data/electrical.json",
-            { cache: "no-store" }
-        );
+
+        // =================================================
+        // ELECTRICAL
+        // =================================================
+
+        const electricalResponse = await
+            fetch(
+                `${SHARED_BASE}data/electrical.json`,
+                {
+                    cache: "no-store"
+                }
+            );
 
         if (!electricalResponse.ok) {
             throw new Error(
@@ -80,15 +127,23 @@ async function loadItems() {
         commonColors =
             electricalJson.commonColors || [];
 
+
         populateFinalElectricalItems();
         setupFinalElectricalOptions();
         setupFinalAddItem();
 
 
-        const plumbingResponse = await fetch(
-            "data/plumbing.json",
-            { cache: "no-store" }
-        );
+        // =================================================
+        // PLUMBING
+        // =================================================
+
+        const plumbingResponse = await
+            fetch(
+                `${SHARED_BASE}data/plumbing.json`,
+                {
+                    cache: "no-store"
+                }
+            );
 
         if (!plumbingResponse.ok) {
             throw new Error(
@@ -101,15 +156,9 @@ async function loadItems() {
             await plumbingResponse.json();
 
 
-        createTable(
-            "electrical",
-            electricalData
-        );
-
-        createTable(
-            "plumbing",
-            plumbingData
-        );
+        // =================================================
+        // DEBUG
+        // =================================================
 
         console.log(
             "Electrical items:",
@@ -121,17 +170,37 @@ async function loadItems() {
             plumbingData.length
         );
 
+
+        // =================================================
+        // TABLES
+        // =================================================
+
+        createTable(
+            "electrical",
+            electricalData
+        );
+
+        createTable(
+            "plumbing",
+            plumbingData
+        );
+
+
     } catch (error) {
-        console.error(error);
+
+        console.error(
+            "Shared data load error:",
+            error
+        );
 
         showLoadError(
             "electricalItems",
-            "Electrical items load ஆகவில்லை."
+            "Electrical items load ஆகவில்லை. shared/data/electrical.json check பண்ணவும்."
         );
 
         showLoadError(
             "plumbingItems",
-            "Plumbing items load ஆகவில்லை."
+            "Plumbing items load ஆகவில்லை. shared/data/plumbing.json check பண்ணவும்."
         );
     }
 }
@@ -307,9 +376,9 @@ function createItemRow(type, item, index) {
 
 
         const imagePaths = [
-            `../shared/images/electrical/${fileName}.jpg`,
-            `../shared/images/electrical/${fileName}.jpeg`,
-            `../shared/images/electrical/${fileName}.png`
+            `${SHARED_BASE}images/electrical/${fileName}.jpg`,
+            `${SHARED_BASE}images/electrical/${fileName}.jpeg`,
+            `${SHARED_BASE}images/electrical/${fileName}.png`
         ];
 
 
@@ -1268,7 +1337,7 @@ function updateSelectedRow(input) {
 
 
 /* =========================================================
-   CUSTOM ROW STATE (text field changes)
+   CUSTOM ROW STATE 
    ========================================================= */
 
 function updateCustomRowState(customInput) {
@@ -1418,7 +1487,12 @@ function openForm(type) {
 
     /* CURRENT FORM */
 
-    currentForm = type;
+        currentForm = type;
+
+        localStorage.setItem(
+            "mvsCurrentPage",
+            type
+        );
 
 
     /* SCROLL TOP */
@@ -1430,7 +1504,7 @@ function openForm(type) {
 }
 
 /* =========================================================
-   GO HOME
+   ELECTRICAL ITEM IMAGE
    ========================================================= */
 
 function getElectricalImage(itemName) {
@@ -1441,9 +1515,12 @@ function getElectricalImage(itemName) {
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-|-$/g, "");
 
-    return `../shared/images/electrical/${fileName}`;
+    return `${SHARED_BASE}images/electrical/${fileName}`;
 }
 
+/* =========================================================
+   OPEN ITEM IMAGE
+   ========================================================= */
 
 function openItemImage(imageSrc) {
 
@@ -1498,6 +1575,10 @@ function openItemImage(imageSrc) {
     modal.style.display = "flex";
 }
 
+/* =========================================================
+   GO HOME
+   ========================================================= */
+
 function goHome() {
 
     document.getElementById(
@@ -1530,11 +1611,20 @@ function goHome() {
 
     currentForm = null;
 
+        localStorage.setItem(
+            "mvsCurrentPage",
+            "homePage"
+        );
+
     window.scrollTo(
         0,
         0
     );
 }
+
+/* =========================================================
+   OPEN HOME PLANNING
+   ========================================================= */
 
 function openHomePlanning() {
 
@@ -1599,6 +1689,10 @@ function openHomePlanning() {
     );
 }
 
+/* =========================================================
+   HOME PLANNING - ADD FLOOR
+   ========================================================= */
+
 function addFloor() {
 
     const floorList =
@@ -1606,55 +1700,273 @@ function addFloor() {
 
     if (!floorList) return;
 
-    const floorCount =
-        floorList.querySelectorAll(".home-floor").length + 1;
+
+    const floorNames = [
+        "Ground Floor",
+        "First Floor",
+        "Second Floor",
+        "Third Floor",
+        "Fourth Floor",
+        "Fifth Floor",
+        "Sixth Floor",
+        "Seventh Floor",
+        "Eighth Floor",
+        "Ninth Floor",
+        "Tenth Floor"
+    ];
+
+
+    const normalFloors =
+        [...floorList.querySelectorAll(".home-floor")]
+            .filter(
+                floor =>
+                    floor.dataset.floorName !== "Terrace"
+            );
+
+
+    const terrace =
+        floorList.querySelector(
+            '[data-floor-name="Terrace"]'
+        );
+
+
+    // Next floor
+    const nextNumber =
+        normalFloors.length + 1;
+
+
+    const nextFloorName =
+        getOrdinalFloorName(nextNumber);
+
+
+    // Terrace temporarily remove
+    if (terrace) {
+        terrace.remove();
+    }
+
+
+    // Add new floor
+    createFloorCard(
+        nextFloorName,
+        floorList
+    );
+
+
+    // Terrace always last
+    if (terrace) {
+        floorList.appendChild(terrace);
+    } else {
+        createFloorCard(
+            "Terrace",
+            floorList
+        );
+    }
+}
+
+/* =========================================================
+   HOME PLANNING - FLOOR STATS
+   ========================================================= */
+
+function updateFloorStats(floor) {
+
+    if (!floor) return;
+
+    const roomCount =
+        floor.querySelectorAll(".room-box").length;
+
+    const stats =
+        floor.querySelector(".floor-stats");
+
+    if (!stats) return;
+
+    stats.textContent =
+        `${roomCount} Room${roomCount !== 1 ? "s" : ""} • 0 Items`;
+}
+
+/* =========================================================
+   HOME PLANNING - DELETE FLOOR
+   ========================================================= */
+
+function deleteFloor(button) {
+
+    const floorList =
+        document.getElementById("floorList");
+
+    const floor =
+        button.closest(".home-floor");
+
+    if (!floorList || !floor) return;
+
+
+    // Delete selected floor
+    floor.remove();
+
+
+    // Get normal floors only
+    const normalFloors =
+        [...floorList.querySelectorAll(".home-floor")]
+            .filter(
+                floor =>
+                    floor.dataset.floorName !== "Terrace"
+            );
+
+
+    // Rename normal floors in correct order
+    normalFloors.forEach(
+        (floor, index) => {
+
+            const floorName =
+                getOrdinalFloorName(index + 1);
+
+
+            floor.dataset.floorName =
+                floorName;
+
+
+            const nameElement =
+                floor.querySelector(
+                    ".floor-text strong"
+                );
+
+
+            if (nameElement) {
+                nameElement.textContent =
+                    floorName;
+            }
+        }
+    );
+
+
+    // Keep Terrace last
+    const terrace =
+        floorList.querySelector(
+            '[data-floor-name="Terrace"]'
+        );
+
+
+    if (terrace) {
+
+        terrace.dataset.floorName =
+            "Terrace";
+
+
+        const terraceName =
+            terrace.querySelector(
+                ".floor-text strong"
+            );
+
+
+        if (terraceName) {
+            terraceName.textContent =
+                "Terrace";
+        }
+
+
+        floorList.appendChild(
+            terrace
+        );
+    }
+}
+
+/* =========================================================
+   HOME PLANNING - FLOOR NAME
+   ========================================================= */
+
+function getOrdinalFloorName(number) {
+
+    const names = [
+        "Ground Floor",
+        "First Floor",
+        "Second Floor",
+        "Third Floor",
+        "Fourth Floor",
+        "Fifth Floor",
+        "Sixth Floor",
+        "Seventh Floor",
+        "Eighth Floor",
+        "Ninth Floor",
+        "Tenth Floor"
+    ];
+
+    return names[number - 1] || `Floor ${number}`;
+}
+
+/* =========================================================
+   HOME PLANNING - CREATE FLOOR CARD
+   ========================================================= */
+
+function createFloorCard(floorName, floorList) {
 
     const floor = document.createElement("div");
 
     floor.className = "home-floor";
 
+    floor.dataset.floorName = floorName;
+
     floor.innerHTML = `
+
         <div class="floor-header">
 
-            <strong>
-                ${getFloorName(floorCount)}
-            </strong>
+            <div class="floor-main-info">
 
-            <button
-                type="button"
-                onclick="addRoom(this)">
-                ＋ Add Room
-            </button>
+                <div class="floor-icon">
+                    🏠
+                </div>
+
+                <div class="floor-text">
+
+                    <strong>
+                        ${floorName}
+                    </strong>
+
+                    <span class="floor-stats">
+                        0 Rooms&nbsp;&nbsp;•&nbsp;&nbsp;0 Items
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="floor-actions">
+
+                <button
+                    type="button"
+                    class="floor-edit-btn"
+                    onclick="editFloor(this)">
+                    ✎
+                </button>
+
+                <button
+                    type="button"
+                    class="floor-delete-btn"
+                    onclick="deleteFloor(this)">
+                    🗑
+                </button>
+
+            </div>
 
         </div>
 
-        <div class="room-list">
-        </div>
+
+        <div class="room-list"></div>
+
+
+        <button
+            type="button"
+            class="floor-add-room-btn"
+            onclick="addRoom(this)">
+            ＋ Add Room
+        </button>
+
     `;
 
     floorList.appendChild(floor);
 }
 
-function getFloorName(number) {
-
-    if (number === 1) {
-        return "Ground Floor";
-    }
-
-    if (number === 2) {
-        return "First Floor";
-    }
-
-    if (number === 3) {
-        return "Second Floor";
-    }
-
-    if (number === 4) {
-        return "Third Floor";
-    }
-
-    return "Floor " + number;
-}
+/* =========================================================
+   HOME PLANNING - ROOM NAMES
+   ========================================================= */
 
 const roomNames = [
     "Main Entrance / Foyer",
@@ -1692,16 +2004,51 @@ const roomNames = [
     "Other"
 ];
 
+/* =========================================================
+   HOME PLANNING - ADD ROOM
+   ========================================================= */
+
 function addRoom(button) {
 
-    const floor = button.closest(".home-floor");
+    const floor =
+        button.closest(".home-floor");
+
     if (!floor) return;
 
-    const roomList = floor.querySelector(".room-list");
+
+    const roomList =
+        floor.querySelector(".room-list");
+
     if (!roomList) return;
 
-    const roomBox = document.createElement("div");
-    roomBox.className = "room-box";
+
+    /*
+     * ஏற்கனவே empty room selector இருந்தால்
+     * புதியது உருவாக்க வேண்டாம்.
+     */
+    const existingEmptyRoom =
+        roomList.querySelector(
+            ".room-box .room-dropdown"
+        );
+
+
+    if (existingEmptyRoom) {
+
+        existingEmptyRoom.focus();
+
+        return;
+    }
+
+
+    /*
+     * புதிய room box
+     */
+    const roomBox =
+        document.createElement("div");
+
+    roomBox.className =
+        "room-box";
+
 
     roomBox.innerHTML = `
 
@@ -1724,59 +2071,117 @@ function addRoom(button) {
 
         </div>
 
-        <div class="room-points">
-        </div>
-
     `;
 
+
     roomList.appendChild(roomBox);
+
+
+    /*
+     * புதிய input-க்கு focus
+     */
+    const input =
+        roomBox.querySelector(
+            ".room-dropdown"
+        );
+
+    if (input) {
+        input.focus();
+    }
 }
+
+/* =========================================================
+   HOME PLANNING - ROOM SEARCH
+   ========================================================= */
 
 function showRoomNames(input) {
     searchRoomNames(input, false);
 }
 
-function searchRoomNames(input, showAll = false) {
+function searchRoomNames(input, showAll = true) {
 
-    const wrap = input.closest(".room-search-wrap");
+    const wrap =
+        input.closest(".room-search-wrap");
+
     if (!wrap) return;
 
-    const suggestions = wrap.querySelector(".room-suggestions");
+
+    const suggestions =
+        wrap.querySelector(".room-suggestions");
+
     if (!suggestions) return;
 
-    const text = input.value.trim().toLowerCase();
 
-    const filtered = text
-        ? roomNames.filter(name =>
-            name.toLowerCase().includes(text)
-        )
-        : roomNames;
+    /* மற்ற room suggestions அனைத்தையும் close செய்யும் */
+    document
+        .querySelectorAll(".room-suggestions")
+        .forEach(box => {
+
+            if (box !== suggestions) {
+                box.innerHTML = "";
+                box.style.display = "none";
+            }
+
+        });
+
+
+    const text =
+        input.value.trim().toLowerCase();
+
+
+    const filtered =
+        text
+            ? roomNames.filter(name =>
+                name.toLowerCase().includes(text)
+            )
+            : roomNames;
+
 
     suggestions.innerHTML = "";
 
+
     filtered.forEach(name => {
 
-        const item = document.createElement("div");
+        const item =
+            document.createElement("div");
 
-        item.className = "room-suggestion-item";
-        item.textContent = name;
+        item.className =
+            "room-suggestion-item";
+
+        item.textContent =
+            name;
+
 
         item.onclick = function () {
 
-            input.value = name;
+            input.value =
+                name;
 
             suggestions.innerHTML = "";
-            suggestions.style.display = "none";
+
+            suggestions.style.display =
+                "none";
+
 
             createSelectedRoom(input);
+
         };
 
+
         suggestions.appendChild(item);
+
     });
 
+
     suggestions.style.display =
-        filtered.length ? "block" : "none";
+        filtered.length
+            ? "block"
+            : "none";
 }
+
+/* =========================================================
+   HOME PLANNING - SELECT ROOM
+   ========================================================= */
 
 function createSelectedRoom(select) {
 
@@ -1785,8 +2190,9 @@ function createSelectedRoom(select) {
 
     if (!roomBox) return;
 
+
     const roomName =
-        select.value;
+        select.value.trim();
 
     if (!roomName) return;
 
@@ -1795,9 +2201,10 @@ function createSelectedRoom(select) {
         roomName;
 
 
-    /*
-     * Repeat ஆக இருக்கக்கூடிய room types
-     */
+    /* =========================================
+       REPEATED ROOM TYPES
+    ========================================= */
+
     const numberedRooms = [
         "Bedroom",
         "Master Bedroom",
@@ -1812,10 +2219,10 @@ function createSelectedRoom(select) {
     ];
 
 
-    /*
-     * Same room type மீண்டும் வந்தால்
-     * 1, 2, 3... auto numbering
-     */
+    /* =========================================
+       AUTO NUMBERING
+    ========================================= */
+
     if (numberedRooms.includes(roomName)) {
 
         const floor =
@@ -1840,6 +2247,10 @@ function createSelectedRoom(select) {
     }
 
 
+    /* =========================================
+       SAVE ROOM DATA
+    ========================================= */
+
     roomBox.dataset.roomType =
         roomName;
 
@@ -1847,749 +2258,457 @@ function createSelectedRoom(select) {
         finalName;
 
 
-    select.outerHTML = `
-        <strong class="selected-room-name">
-            ${finalName}
-        </strong>
+    /* =========================================
+       CREATE CLEAN ROOM ROW
+    ========================================= */
 
-        <button
-            type="button"
-            onclick="openRoomPoints(this)">
-            Open Room
-        </button>
+    roomBox.innerHTML = `
+
+        <div class="room-select-row">
+
+            <strong class="selected-room-name">
+                ${finalName}
+            </strong>
+
+
+            <button
+                type="button"
+                class="open-room-btn"
+                onclick="openRoomPoints(this)">
+                Open Room
+            </button>
+
+
+            <button
+                type="button"
+                class="delete-room-btn"
+                onclick="deleteRoom(this)"
+                title="Remove Room">
+                🗑
+            </button>
+
+        </div>
+
+        <div class="room-points"></div>
+
     `;
+
+
+    /* =========================================
+       UPDATE FLOOR STATS
+    ========================================= */
+
+    const floor =
+        roomBox.closest(".home-floor");
+
+    if (floor) {
+        updateFloorStats(floor);
+    }
 }
+
+/* =========================================================
+   HOME PLANNING - DELETE ROOM
+   ========================================================= */
+
+function deleteRoom(button) {
+
+    const roomBox =
+        button.closest(".room-box");
+
+    if (!roomBox) return;
+
+    const floor =
+        roomBox.closest(".home-floor");
+
+    roomBox.remove();
+
+    if (floor) {
+        updateFloorStats(floor);
+    }
+}
+
+/* =========================================================
+   HOME PLANNING - OPEN ROOM
+   ========================================================= */
 
 function openRoomPoints(button) {
 
     const roomBox = button.closest(".room-box");
+
     if (!roomBox) return;
 
-    const roomPoints = roomBox.querySelector(".room-points");
+
+    const roomPoints =
+        roomBox.querySelector(".room-points");
+
     if (!roomPoints) return;
 
-    // மற்ற rooms minimize மட்டும்
-    document.querySelectorAll(".room-box .room-points").forEach(points => {
-        if (points !== roomPoints) {
-            points.style.display = "none";
-        }
-    });
-
-    // ஏற்கனவே content இருந்தால் அதை அழிக்கக்கூடாது
-    if (roomPoints.innerHTML.trim() !== "") {
-        roomPoints.style.display =
-            roomPoints.style.display === "block"
-                ? "none"
-                : "block";
-
-        return;
-    }
 
     const roomName =
         roomBox.dataset.roomName || "Room";
 
-    roomPoints.innerHTML = `
 
-        <div class="room-points-header">
-            <strong>${roomName}</strong>
-        </div>
+    /* Already open என்றால் எதுவும் செய்ய வேண்டாம் */
 
-        <div class="room-basic-items">
+    if (document.querySelector(".room-modal-overlay")) {
+        return;
+    }
 
-            <div class="basic-item-row">
 
-                <label>Fan</label>
+    /* =========================================
+       CREATE OVERLAY
+    ========================================= */
 
-                <select class="room-fan-select">
-                    <option value="">
-                        Select Fan
-                    </option>
-                </select>
+    const overlay =
+        document.createElement("div");
 
-                <select
-                    class="room-fan-size-select"
-                    style="display:none;">
-                    <option value="">
-                        Select Size
-                    </option>
-                </select>
+    overlay.className =
+        "room-modal-overlay";
 
-                <input
-                    type="number"
-                    min="0"
-                    value="0"
-                    class="room-fan-qty"
-                >
 
-                <button
-                    type="button"
-                    class="add-fan-btn"
-                    onclick="addRoomFan(this)">
-                    + Add Fan
-                </button>
+    /* =========================================
+       CREATE MODAL
+    ========================================= */
+
+    const modal =
+        document.createElement("div");
+
+    modal.className =
+        "room-modal";
+
+
+    modal.innerHTML = `
+
+        <div class="room-modal-header">
+
+            <div class="room-modal-title">
+
+                <div class="room-modal-icon">
+                    🏠
+                </div>
+
+                <div>
+
+                    <strong>
+                        ${roomName}
+                    </strong>
+
+                    <span>
+                        Add electrical items for this room
+                    </span>
+
+                </div>
 
             </div>
 
-<div class="room-extra-fans"></div>
 
-            <div class="basic-item-row light-row">
+            <button
+                type="button"
+                class="room-modal-close"
+                onclick="closeRoomModal()">
 
-                <label>Light</label>
+                ✕
 
-                <select class="room-light-select">
-                    <option value="">
-                        Select Light
-                    </option>
-                </select>
+            </button>
 
-                <input
-                    type="number"
-                    min="0"
-                    value="0"
-                    class="room-light-qty"
-                >
+        </div>
 
-                <button
-                    type="button"
-                    class="add-light-btn"
-                    onclick="addRoomLight(this)">
-                    + Add Light
+
+        <div class="room-modal-body"></div>
+
+
+        <div class="room-modal-footer">
+
+            <button
+                type="button"
+                class="room-close-btn"
+                onclick="closeRoomModal()">
+
+                ✕ Close
+
+            </button>
+
+
+            <button
+                type="button"
+                class="room-done-btn"
+                onclick="closeRoomModal()">
+
+                ✓ Done
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    const body =
+        modal.querySelector(".room-modal-body");
+
+
+    /* =========================================
+    SAVE ORIGINAL ROOM BOX
+    ========================================= */
+
+    roomPoints._originalRoomBox = roomBox;
+    roomPoints._roomBox = roomBox;
+
+
+    /* =========================================
+    MOVE ROOM CONTENT INTO MODAL
+    ========================================= */
+
+    body.appendChild(roomPoints);
+
+
+    /* =========================================
+       FIRST TIME CONTENT
+    ========================================= */
+
+    if (roomPoints.innerHTML.trim() === "") {
+
+        roomPoints.innerHTML = `
+
+            <div class="room-basic-items">
+
+                <div class="basic-item-row">
+
+                    <label>Fan</label>
+
+                    <select class="room-fan-select">
+                        <option value="">
+                            Select Fan
+                        </option>
+                    </select>
+
+                    <select
+                        class="room-fan-size-select"
+                        style="display:none;">
+                        <option value="">
+                            Select Size
+                        </option>
+                    </select>
+
+                    <input
+                        type="number"
+                        min="0"
+                        value="0"
+                        class="room-fan-qty">
+
+                </div>
+
+                <div class="room-extra-fans"></div>
+
+                <div class="basic-item-add-row">
+
+                    <button
+                        type="button"
+                        class="add-fan-btn"
+                        onclick="addRoomFan(this)">
+                        + Add Fan
                     </button>
+
+                </div>
+
+
+                <div class="room-extra-fans"></div>
+
+
+                <div class="basic-item-row">
+
+                    <label>Light</label>
+
+                    <select class="room-light-select">
+                        <option value="">
+                            Select Light
+                        </option>
+                    </select>
+
+                    <input
+                        type="number"
+                        min="0"
+                        value="0"
+                        class="room-light-qty">
 
                 </div>
 
                 <div class="room-extra-lights"></div>
 
-            <div class="basic-item-row">
+                <div class="basic-item-add-row">
 
-                <label>Round Sheet</label>
+                    <button
+                        type="button"
+                        class="add-light-btn"
+                        onclick="addRoomLight(this)">
+                        + Add Light
+                    </button>
 
-                <select class="room-round-sheet-select">
-                    <option value="">
-                        Select Round Sheet
-                    </option>
-                </select>
+                </div>
 
-                <input
-                    type="number"
-                    min="0"
-                    value="0"
-                    class="room-round-sheet-qty"
-                >
 
-                <button
-                    type="button"
-                    class="add-round-sheet-btn"
-                    onclick="addRoomRoundSheet(this)">
-                    + Add Round Sheet
-                </button>
+                <div class="room-extra-lights"></div>
 
-            </div>
 
-            <div class="room-extra-round-sheets"></div>
+                <div class="basic-item-row">
 
-            <div class="basic-item-row ceiling-rose-row">
+                    <label>Round Sheet</label>
 
-                <label>Ceiling Rose</label>
+                    <select class="room-round-sheet-select">
 
-                <select class="room-ceiling-rose-select">
-                    <option value="">Select Ceiling Rose</option>
-                </select>
+                        <option value="">
+                            Select Round Sheet
+                        </option>
 
-                <input
-                    type="number"
-                    min="0"
-                    value="0"
-                    class="room-ceiling-rose-qty"
-                >
-                <button
-                    type="button"
-                    class="add-ceiling-rose-btn"
-                    onclick="addRoomCeilingRose(this)"
-                >
-                    + Add Ceiling Rose
-                </button>   
-            </div>
+                    </select>
 
-            <div class="room-extra-ceiling-roses"></div>
+                    <input
+                        type="number"
+                        min="0"
+                        value="0"
+                        class="room-round-sheet-qty">
 
-        </div>
+                </div>
 
-        <div class="plates-container"></div>
+                <div class="room-extra-round-sheets"></div>
 
-        <button
-            type="button"
-            class="add-plate-btn"
-            onclick="addHomePlanningPlate(this)">
-            ＋ Add Plate
-        </button>
+                <div class="basic-item-add-row">
 
-    `;
+                    <button
+                        type="button"
+                        class="add-round-sheet-btn"
+                        onclick="addRoomRoundSheet(this)">
+                        + Add Round Sheet
+                    </button>
 
-    populateRoomBasicItems(roomPoints);
+                </div>
 
-    roomPoints.style.display = "block";
-}
 
-function addRoomLight(button) {
+                <div class="room-extra-round-sheets"></div>
 
-    const roomPoints =
-        button.closest(".room-points");
 
-    if (!roomPoints) return;
+                <div class="basic-item-row">
 
-    const container =
-        roomPoints.querySelector(".room-extra-lights");
+                    <label>Ceiling Rose</label>
 
-    if (!container) return;
+                    <select class="room-ceiling-rose-select">
 
-    const row =
-        document.createElement("div");
+                        <option value="">
+                            Select Ceiling Rose
+                        </option>
 
-    row.className =
-        "basic-item-row extra-light-row";
+                    </select>
 
-    row.innerHTML = `
+                    <input
+                        type="number"
+                        min="0"
+                        value="0"
+                        class="room-ceiling-rose-qty">
 
-        <label>Light</label>
+                </div>
 
-        <select class="room-light-select">
+                <div class="room-extra-ceiling-roses"></div>
 
-            <option value="">
-                Select Light
-            </option>
+                <div class="basic-item-add-row">
 
-        </select>
+                    <button
+                        type="button"
+                        class="add-ceiling-rose-btn"
+                        onclick="addRoomCeilingRose(this)">
+                        + Add Ceiling Rose
+                    </button>
 
-        <input
-            type="number"
-            min="0"
-            value="0"
-            class="room-light-qty"
-        >
+                </div>
 
-        <button
-            type="button"
-            class="remove-light-btn"
-            onclick="removeExtraLight(this)">
-            ×
-        </button>
 
-    `;
-
-    container.appendChild(row);
-
-    const lightSelect =
-        row.querySelector(".room-light-select");
-
-    populateLightSelect(lightSelect);
-
-    /* ==========================================
-       LIGHT CHANGE
-       Every added Light row-க்கும்
-       ========================================== */
-
-    lightSelect.addEventListener(
-        "change",
-        function () {
-
-            setupLightRowExtras(
-                lightSelect,
-                roomPoints
-            );
-
-        }
-    );
-}
-
-function addRoomCeilingRose(button) {
-    const roomPoints = button.closest(".room-points");
-    if (!roomPoints) return;
-
-    const container = roomPoints.querySelector(".room-extra-ceiling-roses");
-    if (!container) return;
-
-    const row = document.createElement("div");
-    row.className = "basic-item-row extra-ceiling-rose-row";
-
-    row.innerHTML = `
-        <label>Ceiling Rose</label>
-
-        <select class="room-extra-ceiling-rose-select">
-            <option value="">Select Ceiling Rose</option>
-        </select>
-
-        <input
-            type="number"
-            min="0"
-            value="0"
-            class="room-extra-ceiling-rose-qty"
-        >
-
-        <button
-            type="button"
-            class="remove-extra-btn"
-            onclick="this.closest('.extra-ceiling-rose-row').remove(); updateHomeFinalTotal();"
-        >
-            ×
-        </button>
-    `;
-
-    container.appendChild(row);
-
-    const select = row.querySelector(".room-extra-ceiling-rose-select");
-
-    electricalData.forEach(function (item, index) {
-        if (!item || !item.name) return;
-
-        const lowerName = item.name.trim().toLowerCase();
-
-        if (
-            lowerName === "jumbo ceiling rose" ||
-            lowerName === "ceiling rose 2 plate"
-        ) {
-            const option = document.createElement("option");
-            option.value = index;
-            option.textContent = item.name;
-            select.appendChild(option);
-        }
-    });
-
-    select.addEventListener("change", updateHomeFinalTotal);
-
-    row.querySelector(".room-extra-ceiling-rose-qty")
-        .addEventListener("input", updateHomeFinalTotal);
-
-    updateHomeFinalTotal();
-}
-
-function removeExtraLight(button) {
-
-    const row =
-        button.closest(".extra-light-row");
-
-    if (!row) return;
-
-    const extras =
-        row.nextElementSibling;
-
-    if (
-        extras &&
-        extras.classList.contains(
-            "light-row-extras"
-        )
-    ) {
-        extras.remove();
-    }
-
-    row.remove();
-
-    updateHomeFinalTotal();
-}
-
-function setupLightRowExtras(lightSelect, roomPoints) {
-
-    if (!lightSelect || !roomPoints) return;
-
-    const row =
-        lightSelect.closest(".extra-light-row");
-
-    if (!row) return;
-
-
-    /* ==========================================
-       OLD EXTRA OPTIONS REMOVE
-       ========================================== */
-
-    const oldExtras =
-        row.querySelector(".light-row-extras");
-
-    if (oldExtras) {
-        oldExtras.remove();
-    }
-
-
-    const item =
-        electricalData[
-        Number(lightSelect.value)
-        ];
-
-    if (!item) return;
-
-
-    /* ==========================================
-       EXTRA CONTAINER
-       ========================================== */
-
-    const extras =
-        document.createElement("div");
-
-    extras.className =
-        "light-row-extras";
-
-
-    /* ==========================================
-       LED STRIP LIGHT
-       ========================================== */
-
-    if (
-        String(item.name || "")
-            .trim()
-            .toLowerCase() === "led strip light"
-    ) {
-
-        extras.innerHTML = `
-
-            <div class="basic-item-row">
-
-                <label>Width</label>
-
-                <select class="room-extra-strip-width">
-
-                    <option value="">
-                        Select Width
-                    </option>
-
-                </select>
-
-                <input
-                    type="text"
-                    class="room-extra-custom-width"
-                    placeholder="Enter custom width"
-                    style="display:none;"
-                >
+                <div class="room-extra-ceiling-roses"></div>
 
             </div>
 
 
-            <div class="basic-item-row">
-
-                <label>Color</label>
-
-                <select class="room-extra-strip-color">
-
-                    <option value="">
-                        Select Color
-                    </option>
-
-                </select>
-
-            </div>
+            <div class="plates-container"></div>
 
 
-            <div class="basic-item-row">
+            <button
+                type="button"
+                class="add-plate-btn"
+                onclick="addHomePlanningPlate(this)">
 
-                <label>Length</label>
+                ＋ Add Plate
 
-                <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value="0"
-                    class="room-extra-strip-length"
-                    placeholder="Enter length"
-                >
-
-                <select class="room-extra-strip-unit">
-
-                    <option value="meter">
-                        Meter
-                    </option>
-
-                    <option value="feet">
-                        Feet
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="basic-item-row">
-
-                <label>LED Driver</label>
-
-                <select class="room-extra-driver-select">
-
-                    <option value="">
-                        Select LED Driver
-                    </option>
-
-                </select>
-
-                <input
-                    type="number"
-                    min="0"
-                    value="0"
-                    class="room-extra-driver-qty"
-                >
-
-            </div>
+            </button>
 
         `;
 
-        row.insertAdjacentElement(
-            "afterend",
-            extras
-        );
 
-
-        /* ======================================
-           GET STRIP ITEM FROM JSON
-           ====================================== */
-
-        const stripItem =
-            electricalData.find(function (item) {
-
-                return (
-                    String(item.name || "")
-                        .trim()
-                        .toLowerCase() ===
-                    "led strip light"
-                );
-
-            });
-
-
-        if (!stripItem) return;
-
-
-        /* ======================================
-           WIDTH FROM JSON
-           ====================================== */
-
-        const widthSelect =
-            extras.querySelector(
-                ".room-extra-strip-width"
-            );
-
-        if (widthSelect) {
-
-            if (
-                Array.isArray(
-                    stripItem.widths
-                )
-            ) {
-
-                stripItem.widths.forEach(
-                    function (width) {
-
-                        const option =
-                            document.createElement(
-                                "option"
-                            );
-
-                        option.value = width;
-                        option.textContent = width;
-
-                        widthSelect.appendChild(
-                            option
-                        );
-
-                    }
-                );
-
-            }
-
-            const addSize =
-                document.createElement(
-                    "option"
-                );
-
-            addSize.value =
-                "__add_size__";
-
-            addSize.textContent =
-                "+ Add Size";
-
-            widthSelect.appendChild(
-                addSize
-            );
-        }
-
-
-        /* ======================================
-           COLOR FROM JSON
-           ====================================== */
-
-        const colorSelect =
-            extras.querySelector(
-                ".room-extra-strip-color"
-            );
-
-        if (colorSelect) {
-
-            if (
-                Array.isArray(
-                    stripItem.colors
-                )
-            ) {
-
-                stripItem.colors.forEach(
-                    function (color) {
-
-                        const option =
-                            document.createElement(
-                                "option"
-                            );
-
-                        option.value = color;
-                        option.textContent = color;
-
-                        colorSelect.appendChild(
-                            option
-                        );
-
-                    }
-                );
-
-            }
-
-        }
-
-
-        /* ======================================
-           DRIVER FROM JSON
-           ====================================== */
-
-        const driverSelect =
-            extras.querySelector(
-                ".room-extra-driver-select"
-            );
-
-        if (driverSelect) {
-
-            electricalData.forEach(
-                function (driverItem) {
-
-                    const name =
-                        String(
-                            driverItem.name || ""
-                        ).trim();
-
-                    const lowerName =
-                        name.toLowerCase();
-
-                    if (
-                        lowerName ===
-                        "smps led driver" ||
-                        lowerName ===
-                        "led driver / choke for tubelight"
-                    ) {
-
-                        const option =
-                            document.createElement(
-                                "option"
-                            );
-
-                        option.value =
-                            electricalData.indexOf(
-                                driverItem
-                            );
-
-                        option.textContent =
-                            name;
-
-                        driverSelect.appendChild(
-                            option
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-
-
-        /* ======================================
-           ADD SIZE
-           ====================================== */
-
-        const customWidth =
-            extras.querySelector(
-                ".room-extra-custom-width"
-            );
-
-        if (
-            widthSelect &&
-            customWidth
-        ) {
-
-            widthSelect.addEventListener(
-                "change",
-                function () {
-
-                    if (
-                        widthSelect.value ===
-                        "__add_size__"
-                    ) {
-
-                        customWidth.style.display =
-                            "block";
-
-                        customWidth.value = "";
-
-                        customWidth.focus();
-
-                    } else {
-
-                        customWidth.style.display =
-                            "none";
-
-                        customWidth.value = "";
-
-                    }
-
-                }
-            );
-
-        }
+        populateRoomBasicItems(roomPoints);
 
     }
+
+
+    /* =========================================
+       SHOW MODAL
+    ========================================= */
+
+    overlay.appendChild(modal);
+
+    document.body.appendChild(overlay);
+
+
+    overlay.style.display = "flex";
+
+    modal.style.display = "flex";
+
+
+    document.body.classList.add(
+        "room-modal-open"
+    );
 }
 
-function populateLightSelect(select) {
+/* =========================================================
+   HOME PLANNING - CLOSE ROOM MODAL
+   ========================================================= */
 
-    if (!select) return;
+function closeRoomModal() {
 
-    select.innerHTML = `
-        <option value="">
-            Select Light
-        </option>
-    `;
+    const overlay =
+        document.querySelector(".room-modal-overlay");
 
-    electricalData.forEach(function (item, index) {
+    if (!overlay) return;
 
-        const name =
-            String(item.name || "").trim();
+    const modal =
+        overlay.querySelector(".room-modal");
 
-        const lowerName =
-            name.toLowerCase();
+    if (!modal) {
+        overlay.remove();
+        document.body.classList.remove("room-modal-open");
+        return;
+    }
 
-        if (
-            lowerName === "led bulb" ||
-            lowerName === "led tube light" ||
-            lowerName === "led panel light" ||
-            lowerName === "led panel light round" ||
-            lowerName === "led panel light square" ||
-            lowerName === "led down light" ||
-            lowerName === "spot light" ||
-            lowerName === "cob spotlight" ||
-            lowerName === "led strip light" ||
-            lowerName === "flood light"
-        ) {
+    const roomPoints =
+        modal.querySelector(".room-points");
 
-            const option =
-                document.createElement("option");
+    if (roomPoints) {
 
-            option.value = index;
-            option.textContent = name;
+        const roomBox =
+            roomPoints._originalRoomBox ||
+            roomPoints._roomBox;
 
-            select.appendChild(option);
+        if (roomBox && roomBox.isConnected) {
+            roomBox.appendChild(roomPoints);
         }
-    });
+    }
+
+    overlay.remove();
+
+    document.body.classList.remove(
+        "room-modal-open"
+    );
 }
+
+/* =========================================================
+   HOME PLANNING - ROOM BASIC ITEMS
+   ========================================================= */
 
 function populateRoomBasicItems(roomPoints) {
 
@@ -3216,6 +3335,1752 @@ function populateRoomBasicItems(roomPoints) {
     });
 }
 
+/* =========================================================
+   HOME PLANNING - ADD FAN
+   ========================================================= */
+
+function addRoomFan(button) {
+
+    const roomPoints = button.closest(".room-points");
+    if (!roomPoints) return;
+
+    const container =
+        roomPoints.querySelector(".room-extra-fans");
+
+    if (!container) return;
+
+    const row = document.createElement("div");
+
+    row.className =
+        "basic-item-row extra-fan-row";
+
+    row.innerHTML = `
+        <label>Fan</label>
+
+        <select class="room-extra-fan-select">
+            <option value="">Select Fan</option>
+        </select>
+
+        <select class="room-extra-fan-size-select">
+            <option value="">Select Size</option>
+        </select>
+
+        <input
+            type="number"
+            min="0"
+            value="0"
+            class="room-extra-fan-qty"
+        >
+
+        <button
+            type="button"
+            class="remove-fan-btn"
+            onclick="
+                this.closest('.extra-fan-row').remove();
+                updateHomeFinalTotal();
+            ">
+            ×
+        </button>
+    `;
+
+    container.appendChild(row);
+
+    const fanSelect =
+        row.querySelector(".room-extra-fan-select");
+
+    const fanSizeSelect =
+        row.querySelector(".room-extra-fan-size-select");
+
+    const fanQty =
+        row.querySelector(".room-extra-fan-qty");
+
+
+    /* ==========================================
+       FAN OPTIONS
+       ========================================== */
+
+    if (typeof electricalData !== "undefined") {
+
+        electricalData.forEach(function(item, index) {
+
+            const name =
+                String(item.name || "").trim();
+
+            const lowerName =
+                name.toLowerCase();
+
+            if (
+                lowerName === "ceiling fan" ||
+                lowerName === "exhaust fan heavy duty"
+            ) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = index;
+                option.textContent = name;
+
+                fanSelect.appendChild(option);
+            }
+
+        });
+    }
+
+
+    /* ==========================================
+       FAN CHANGE → SIZE
+       ========================================== */
+
+    fanSelect.addEventListener("change", function() {
+
+        fanSizeSelect.innerHTML = `
+            <option value="">Select Size</option>
+        `;
+
+        const index =
+            Number(this.value);
+
+        if (
+            !isNaN(index) &&
+            electricalData[index]
+        ) {
+
+            const sizes =
+                electricalData[index].sizes || [];
+
+            sizes.forEach(function(size) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = size;
+                option.textContent = size;
+
+                fanSizeSelect.appendChild(option);
+            });
+        }
+
+        updateHomeFinalTotal();
+    });
+
+
+    /* ==========================================
+       QTY CHANGE
+       ========================================== */
+
+    fanQty.addEventListener("input", function() {
+
+        updateHomeFinalTotal();
+
+    });
+
+}
+
+/* =========================================================
+   HOME PLANNING - ADD LIGHT
+   ========================================================= */
+
+function addRoomLight(button) {
+
+    const roomPoints =
+        button.closest(".room-points");
+
+    if (!roomPoints) return;
+
+    const container =
+        roomPoints.querySelector(".room-extra-lights");
+
+    if (!container) return;
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "basic-item-row extra-light-row";
+
+    row.innerHTML = `
+
+        <label>Light</label>
+
+        <select class="room-light-select">
+
+            <option value="">
+                Select Light
+            </option>
+
+        </select>
+
+        <input
+            type="number"
+            min="0"
+            value="0"
+            class="room-light-qty"
+        >
+
+        <button
+            type="button"
+            class="remove-light-btn"
+            onclick="removeExtraLight(this)">
+            ×
+        </button>
+
+    `;
+
+    container.appendChild(row);
+
+    const lightSelect =
+        row.querySelector(".room-light-select");
+
+    populateLightSelect(lightSelect);
+
+    /* ==========================================
+       LIGHT CHANGE
+       Every added Light row-க்கும்
+       ========================================== */
+
+    lightSelect.addEventListener(
+        "change",
+        function () {
+
+            setupLightRowExtras(
+                lightSelect,
+                roomPoints
+            );
+
+        }
+    );
+}
+
+/* =========================================================
+   HOME PLANNING - ADD ROUND SHEET
+   ========================================================= */
+
+
+/* =========================================================
+   HOME PLANNING - ADD CEILING ROSE
+   ========================================================= */
+
+function addRoomCeilingRose(button) {
+    const roomPoints = button.closest(".room-points");
+    if (!roomPoints) return;
+
+    const container = roomPoints.querySelector(".room-extra-ceiling-roses");
+    if (!container) return;
+
+    const row = document.createElement("div");
+    row.className = "basic-item-row extra-ceiling-rose-row";
+
+    row.innerHTML = `
+        <label>Ceiling Rose</label>
+
+        <select class="room-extra-ceiling-rose-select">
+            <option value="">Select Ceiling Rose</option>
+        </select>
+
+        <input
+            type="number"
+            min="0"
+            value="0"
+            class="room-extra-ceiling-rose-qty"
+        >
+
+        <button
+            type="button"
+            class="remove-extra-btn"
+            onclick="this.closest('.extra-ceiling-rose-row').remove(); updateHomeFinalTotal();"
+        >
+            ×
+        </button>
+    `;
+
+    container.appendChild(row);
+
+    const select = row.querySelector(".room-extra-ceiling-rose-select");
+
+    electricalData.forEach(function (item, index) {
+        if (!item || !item.name) return;
+
+        const lowerName = item.name.trim().toLowerCase();
+
+        if (
+            lowerName === "jumbo ceiling rose" ||
+            lowerName === "ceiling rose 2 plate"
+        ) {
+            const option = document.createElement("option");
+            option.value = index;
+            option.textContent = item.name;
+            select.appendChild(option);
+        }
+    });
+
+    select.addEventListener("change", updateHomeFinalTotal);
+
+    row.querySelector(".room-extra-ceiling-rose-qty")
+        .addEventListener("input", updateHomeFinalTotal);
+
+    updateHomeFinalTotal();
+}
+
+/* =========================================================
+   HOME PLANNING - ADD PLATE
+   ========================================================= */
+
+function addHomePlanningPlate(button) {
+
+    const roomPoints =
+        button.closest(".room-points");
+
+    if (!roomPoints) return;
+
+
+    const platesContainer =
+        roomPoints.querySelector(".plates-container");
+
+    if (!platesContainer) return;
+
+    const plateNumber =
+        platesContainer.querySelectorAll(".home-plate-box").length + 1;
+
+    const plateBox =
+        document.createElement("div");
+
+    plateBox.className =
+        "home-plate-box";
+
+    plateBox.innerHTML = `
+        <div class="plate-header">
+
+            <strong>Plate ${plateNumber}</strong>
+
+            ${
+                plateNumber > 1
+                    ? `
+                        <button
+                            type="button"
+                            class="plate-delete-btn"
+                            onclick="
+                                event.stopPropagation();
+                                removeHomePlanningPlate(this);
+                            ">
+                            ×
+                        </button>
+                    `
+                    : ""
+            }
+
+        </div>
+
+        <div class="home-item-selector">
+
+            <label>Module Plate</label>
+
+            <select class="home-plate-select">
+                <option value="">Select Plate</option>
+            </select>
+
+            <label>Electrical Item</label>
+
+            <select class="home-item-select">
+                <option value="">Select Item</option>
+            </select>
+
+            <label>Amp / Size</label>
+
+            <select class="home-size-select">
+                <option value="">Select</option>
+            </select>
+
+            <label class="home-color-label">Color</label>
+
+            <select class="home-color-select">
+                <option value="">Select Color</option>
+            </select>
+
+            <label>Qty</label>
+
+            <input
+                type="number"
+                min="0"
+                value="0"
+                class="home-item-qty"
+            >
+
+            <button
+                type="button"
+                class="add-btn"
+                onclick="addHomePlanningItem(this)">
+                ＋ Add Item
+            </button>
+
+        </div>
+
+        <div class="home-selected-items">
+
+            <strong>SELECTED ITEMS</strong>
+
+            <div class="selected-item-list"></div>
+
+        </div>
+
+        <div class="module-calculation">
+
+            <div>
+                Plate :
+                <strong class="plate-total">
+                    0M
+                </strong>
+            </div>
+
+            <div>
+                Used Module :
+                <strong class="used-module">
+                    0M
+                </strong>
+            </div>
+
+            <div>
+                Blank Module :
+                <strong class="blank-module">
+                    0M
+                </strong>
+            </div>
+
+            <div class="module-warning"></div>
+
+        </div>
+    `;
+
+
+/* =========================================
+   ADD PLATE TO CONTAINER
+========================================= */
+
+platesContainer.appendChild(plateBox);
+
+
+/* =========================================
+   PLATE SELECT
+========================================= */
+
+const plateSelect =
+    plateBox.querySelector(".home-plate-select");
+
+
+/* =========================================
+   MODULE PLATE OPTIONS
+========================================= */
+
+const modularPlate =
+    electricalData.find(function (item) {
+
+        return String(item.name || "")
+            .trim()
+            .toLowerCase() === "modular plate";
+
+    });
+
+
+if (
+    modularPlate &&
+    Array.isArray(modularPlate.sizes)
+) {
+
+    modularPlate.sizes.forEach(function (size) {
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            parseInt(size);
+
+        option.textContent =
+            size;
+
+        plateSelect.appendChild(option);
+
+    });
+
+}
+
+const newPlateSections = [
+    plateBox.querySelector(".home-item-selector"),
+    plateBox.querySelector(".home-selected-items"),
+    plateBox.querySelector(".module-calculation")
+];
+
+
+    /* =========================================
+    NEW PLATE DEFAULT STATE
+    Plate 1 = Open
+    Plate 2+ = Closed
+    ========================================= */
+
+    newPlateSections.forEach(function (section) {
+
+        if (section) {
+            section.style.display = "";
+        }
+
+    });
+
+
+    /* =========================================
+    PLATE HEADER CLICK
+    ONLY ONE PLATE OPEN
+    ========================================= */
+
+    const newPlateHeader =
+        plateBox.querySelector(".plate-header");
+
+    if (newPlateHeader) {
+
+        newPlateHeader.style.cursor = "pointer";
+
+        newPlateHeader.addEventListener(
+            "click",
+            function (event) {
+
+                /* Delete button click என்றால்
+                header open ஆகக்கூடாது */
+
+                if (
+                    event.target.closest(
+                        ".plate-delete-btn"
+                    )
+                ) {
+                    return;
+                }
+
+
+                /* ================================
+                HIDE ALL PLATES
+                ================================= */
+
+                const allPlates =
+                    roomPoints.querySelectorAll(
+                        ".home-plate-box"
+                    );
+
+                allPlates.forEach(function (plate) {
+
+                    const sections = [
+                        plate.querySelector(
+                            ".home-item-selector"
+                        ),
+                        plate.querySelector(
+                            ".home-selected-items"
+                        ),
+                        plate.querySelector(
+                            ".module-calculation"
+                        )
+                    ];
+
+                    sections.forEach(function (section) {
+
+                        if (section) {
+                            section.style.display = "none";
+                        }
+
+                    });
+
+                });
+
+
+                /* ================================
+                OPEN CLICKED PLATE
+                ================================= */
+
+                const currentSections = [
+                    plateBox.querySelector(
+                        ".home-item-selector"
+                    ),
+                    plateBox.querySelector(
+                        ".home-selected-items"
+                    ),
+                    plateBox.querySelector(
+                        ".module-calculation"
+                    )
+                ];
+
+                currentSections.forEach(function (section) {
+
+                    if (section) {
+                        section.style.display = "";
+                    }
+
+                });
+
+            }
+        );
+    }
+
+    /* =====================================================
+       2. ELECTRICAL ITEMS
+       electrical.json-லிருந்து மட்டும்
+       Module உள்ள items மட்டும் Plate-க்குள் வரும்
+       ===================================================== */
+
+    const itemSelect =
+        plateBox.querySelector(".home-item-select");
+
+    electricalData.forEach(function (item, index) {
+
+        /*
+         * Modular Plate-ஐ Electrical Item list-ல் காட்ட வேண்டாம்.
+         *
+         * module > 0 உள்ள items மட்டும்
+         * plate-க்குள் பயன்படுத்தப்படும்.
+         */
+
+        if (
+            item.name === "Modular Plate" ||
+            !(Number(item.module) > 0)
+        ) {
+            return;
+        }
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            index;
+
+        option.textContent =
+            item.name;
+
+        itemSelect.appendChild(option);
+    });
+
+
+    /* =====================================================
+       3. ITEM SELECT CHANGE
+       Amp / Size / Color
+       ===================================================== */
+
+    itemSelect.addEventListener(
+        "change",
+        function () {
+
+            updateHomeItemOptions(this);
+
+        }
+    );
+
+
+    /* =====================================================
+       4. PLATE CHANGE
+       Plate select செய்தவுடன் calculation
+       ===================================================== */
+
+    plateSelect.addEventListener(
+        "change",
+        function () {
+
+            calculateHomeModules(plateBox);
+
+        }
+    );
+}
+
+/* =========================================
+   PLATE HEADER
+   ONLY ONE PLATE OPEN AT A TIME
+========================================= */
+
+function setupPlateHeader(plate) {
+
+    const roomPoints =
+        plate.closest(".room-points");
+
+    if (!roomPoints) return;
+
+    const header =
+        plate.querySelector(".plate-header");
+
+    if (!header) return;
+
+    header.style.cursor = "pointer";
+
+    header.onclick = function (event) {
+
+        /* Delete button click என்றால்
+           header action வேண்டாம் */
+        if (
+            event.target.closest(".plate-delete-btn")
+        ) {
+            return;
+        }
+
+
+        /* =====================================
+           CURRENT PLATE SECTIONS
+        ===================================== */
+
+        const currentSections = [
+            plate.querySelector(".home-item-selector"),
+            plate.querySelector(".home-selected-items"),
+            plate.querySelector(".module-calculation")
+        ];
+
+
+        /* =====================================
+           HIDE ALL OTHER PLATES
+        ===================================== */
+
+        const allPlates =
+            roomPoints.querySelectorAll(
+                ".home-plate-box"
+            );
+
+        allPlates.forEach(function (otherPlate) {
+
+            if (otherPlate === plate) return;
+
+            const sections = [
+                otherPlate.querySelector(".home-item-selector"),
+                otherPlate.querySelector(".home-selected-items"),
+                otherPlate.querySelector(".module-calculation")
+            ];
+
+            sections.forEach(function (section) {
+
+                if (section) {
+                    section.style.display = "none";
+                }
+
+            });
+
+        });
+
+
+        /* =====================================
+           OPEN CURRENT PLATE
+        ===================================== */
+
+        currentSections.forEach(function (section) {
+
+            if (section) {
+                section.style.display = "";
+            }
+
+        });
+
+    };
+}
+
+/* =========================================
+   DELETE HOME PLATE
+========================================= */
+
+function removeHomePlanningPlate(button) {
+
+    const plateBox =
+        button.closest(".home-plate-box");
+
+    if (!plateBox) return;
+
+    const platesContainer =
+        plateBox.closest(".plates-container");
+
+    plateBox.remove();
+
+    /* UPDATE PLATE NUMBERS */
+
+    if (platesContainer) {
+
+        const plates =
+            platesContainer.querySelectorAll(
+                ".home-plate-box"
+            );
+
+        plates.forEach(function (plate, index) {
+
+            const title =
+                plate.querySelector(
+                    ".plate-header strong"
+                );
+
+            if (title) {
+                title.textContent =
+                    "Plate " + (index + 1);
+            }
+
+        });
+    }
+
+    updateHomeFinalTotal();
+}
+
+/* =========================================================
+   HOME PLANNING - UPDATE FINAL TOTAL
+   ========================================================= */
+
+function updateHomeFinalTotal() {
+
+    const finalBox =
+        document.getElementById("final-total-list");
+
+    if (!finalBox) return;
+
+    const totals = {};
+
+    /* =========================================================
+       HELPER
+       ========================================================= */
+
+    function addTotal(item, qty) {
+
+        if (!item || qty <= 0) return;
+
+        const key = item.name;
+
+        totals[key] =
+            (totals[key] || 0) + qty;
+    }
+
+
+    /* =========================================================
+       1. MODULE PLATES
+       ========================================================= */
+
+    document
+        .querySelectorAll(".home-plate-box")
+        .forEach(function (plateBox) {
+
+            const plateSelect =
+                plateBox.querySelector(
+                    ".home-plate-select"
+                );
+
+            if (
+                !plateSelect ||
+                !plateSelect.value
+            ) {
+                return;
+            }
+
+            const plateName =
+                plateSelect
+                    .options[
+                    plateSelect.selectedIndex
+                ]
+                    ?.textContent
+                    .trim();
+
+            if (!plateName) return;
+
+            const key =
+                plateName + " Modular Plate";
+
+            totals[key] =
+                (totals[key] || 0) + 1;
+        });
+
+
+    /* =========================================================
+       2. ROOM BASIC ITEMS
+       Fan / Light / Round Sheet / Ceiling Rose
+       ========================================================= */
+
+    document
+        .querySelectorAll(".room-points")
+        .forEach(function (roomPoints) {
+
+            const itemControls = [
+
+                {
+                    select: ".room-fan-select",
+                    qty: ".room-fan-qty"
+                },
+
+                {
+                    select: ".room-light-select",
+                    qty: ".room-light-qty"
+                },
+
+                {
+                    select: ".room-round-sheet-select",
+                    qty: ".room-round-sheet-qty"
+                },
+
+                {
+                    select: ".room-ceiling-rose-select",
+                    qty: ".room-ceiling-rose-qty"
+                }
+
+            ];
+
+
+            itemControls.forEach(
+                function (control) {
+
+                    const select =
+                        roomPoints.querySelector(
+                            control.select
+                        );
+
+                    const qtyInput =
+                        roomPoints.querySelector(
+                            control.qty
+                        );
+
+                    if (
+                        !select ||
+                        !select.value
+                    ) {
+                        return;
+                    }
+
+                    const index =
+                        Number(select.value);
+
+                    const item =
+                        electricalData[index];
+
+                    const qty =
+                        Number(
+                            qtyInput?.value
+                        ) || 0;
+
+                    addTotal(
+                        item,
+                        qty
+                    );
+                }
+            );
+
+
+            /* =================================================
+               EXTRA LIGHT ROWS
+               ================================================= */
+
+            roomPoints
+                .querySelectorAll(
+                    ".extra-light-row"
+                )
+                .forEach(function (row) {
+
+                    const select =
+                        row.querySelector(
+                            ".room-light-select"
+                        );
+
+                    const qtyInput =
+                        row.querySelector(
+                            ".room-light-qty"
+                        );
+
+                    if (
+                        !select ||
+                        !select.value
+                    ) {
+                        return;
+                    }
+
+                    const item =
+                        electricalData[
+                        Number(select.value)
+                        ];
+
+                    const qty =
+                        Number(
+                            qtyInput?.value
+                        ) || 0;
+
+                    addTotal(
+                        item,
+                        qty
+                    );
+                });
+
+
+            /* =================================================
+               EXTRA CEILING ROSE ROWS
+               ================================================= */
+
+            roomPoints
+                .querySelectorAll(
+                    ".extra-ceiling-rose-row"
+                )
+                .forEach(function (row) {
+
+                    const select =
+                        row.querySelector(
+                            ".room-extra-ceiling-rose-select"
+                        );
+
+                    const qtyInput =
+                        row.querySelector(
+                            ".room-extra-ceiling-rose-qty"
+                        );
+
+                    if (
+                        !select ||
+                        !select.value
+                    ) {
+                        return;
+                    }
+
+                    const item =
+                        electricalData[
+                        Number(select.value)
+                        ];
+
+                    const qty =
+                        Number(
+                            qtyInput?.value
+                        ) || 0;
+
+                    addTotal(
+                        item,
+                        qty
+                    );
+                });
+
+        });
+
+
+    /* =========================================================
+       3. MODULAR PLATE ITEMS
+       ========================================================= */
+
+    document
+        .querySelectorAll(
+            ".home-selected-row"
+        )
+        .forEach(function (row) {
+
+            const spans =
+                row.querySelectorAll("span");
+
+            const text =
+                spans[0]
+                    ?.textContent
+                    .trim();
+
+            if (!text) return;
+
+            const qtyText =
+                spans[1]
+                    ?.textContent || "";
+
+            const match =
+                qtyText.match(
+                    /Qty\s+(\d+)/i
+                );
+
+            const qty =
+                match
+                    ? Number(match[1])
+                    : 0;
+
+            if (qty <= 0) return;
+
+            const itemName =
+                text
+                    .split("•")[0]
+                    .trim();
+
+            totals[itemName] =
+                (totals[itemName] || 0) + qty;
+        });
+
+
+    /* =========================================================
+       4. MANUAL FINAL ITEMS
+       ========================================================= */
+
+    if (
+        typeof manualFinalItems !==
+        "undefined"
+    ) {
+
+        manualFinalItems.forEach(
+            function (item) {
+
+                if (
+                    !item ||
+                    !item.name
+                ) {
+                    return;
+                }
+
+                const qty =
+                    Number(item.qty) || 0;
+
+                if (qty <= 0) return;
+
+                totals[item.name] =
+                    (totals[item.name] || 0) +
+                    qty;
+            }
+        );
+    }
+
+
+    /* =========================================================
+       5. EMPTY
+       ========================================================= */
+
+    if (
+        Object.keys(totals).length === 0
+    ) {
+
+        finalBox.innerHTML = `
+            <div class="final-empty">
+                No items added
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* =========================================================
+       6. CATEGORIES
+       ========================================================= */
+
+    const categories = {
+
+        "Switches": [
+            "Switch"
+        ],
+
+        "Sockets": [
+            "Socket",
+            "Plug"
+        ],
+
+        "Lights": [
+            "Light",
+            "Bulb",
+            "Tube",
+            "LED"
+        ],
+
+        "Holders": [
+            "Holder",
+            "Ceiling Rose"
+        ],
+
+        "Fans": [
+            "Fan"
+        ],
+
+        "Protection": [
+            "MCB",
+            "RCCB",
+            "Fuse",
+            "Main Switch"
+        ],
+
+        "Conduit": [
+            "Conduit",
+            "Elbow",
+            "Bend",
+            "Tee",
+            "Coupling",
+            "Junction Box"
+        ],
+
+        "Wires & Accessories": [
+            "Wire",
+            "Tape",
+            "Cement"
+        ]
+
+    };
+
+
+    let html = "";
+
+    const categorizedItems =
+        new Set();
+
+
+    /* =========================================================
+       7. RENDER CATEGORIES
+       ========================================================= */
+
+    Object.keys(categories)
+        .forEach(function (category) {
+
+            const items =
+                Object.keys(totals)
+                    .filter(function (name) {
+
+                        const lower =
+                            name.toLowerCase();
+
+                        const matched =
+                            categories[category]
+                                .some(
+                                    function (keyword) {
+
+                                        return lower.includes(
+                                            keyword.toLowerCase()
+                                        );
+                                    }
+                                );
+
+                        if (matched) {
+                            categorizedItems.add(name);
+                        }
+
+                        return matched;
+                    });
+
+
+            if (
+                items.length === 0
+            ) {
+                return;
+            }
+
+
+            html += `
+                <div class="final-category">
+
+                    <h3>
+                        ${escapeHTML(category)}
+                    </h3>
+            `;
+
+
+            items.forEach(
+                function (name) {
+
+                    html += `
+                        <div class="final-total-row">
+
+                            <span>
+                                ${escapeHTML(name)}
+                            </span>
+
+                            <strong>
+                                Total: ${totals[name]}
+                            </strong>
+
+                        </div>
+                    `;
+                }
+            );
+
+
+            html += `
+                </div>
+            `;
+        });
+
+
+    /* =========================================================
+       8. OTHER ITEMS
+       ========================================================= */
+
+    const otherItems =
+        Object.keys(totals)
+            .filter(function (name) {
+
+                return !categorizedItems.has(
+                    name
+                );
+            });
+
+
+    if (
+        otherItems.length > 0
+    ) {
+
+        html += `
+            <div class="final-category">
+
+                <h3>
+                    Other
+                </h3>
+        `;
+
+
+        otherItems.forEach(
+            function (name) {
+
+                html += `
+                    <div class="final-total-row">
+
+                        <span>
+                            ${escapeHTML(name)}
+                        </span>
+
+                        <strong>
+                            Total: ${totals[name]}
+                        </strong>
+
+                    </div>
+                `;
+            }
+        );
+
+
+        html += `
+            </div>
+        `;
+    }
+
+
+    /* =========================================================
+       9. DISPLAY
+       ========================================================= */
+
+    finalBox.innerHTML = html;
+}
+
+/* =========================================================
+   HOME PLANNING - SAVE
+   ========================================================= */
+
+   /* =========================================================
+   HOME PLANNING - REMOVE EXTRA LIGHT
+   ========================================================= */
+
+function removeExtraLight(button) {
+
+    const row =
+        button.closest(".extra-light-row");
+
+    if (!row) return;
+
+    const extras =
+        row.nextElementSibling;
+
+    if (
+        extras &&
+        extras.classList.contains(
+            "light-row-extras"
+        )
+    ) {
+        extras.remove();
+    }
+
+    row.remove();
+
+    updateHomeFinalTotal();
+}
+
+/* =========================================================
+   HOME PLANNING - SETUP LIGHT ROW EXTRAS
+   ========================================================= */
+
+function setupLightRowExtras(lightSelect, roomPoints) {
+
+    if (!lightSelect || !roomPoints) return;
+
+    const row =
+        lightSelect.closest(".extra-light-row");
+
+    if (!row) return;
+
+
+    /* ==========================================
+       OLD EXTRA OPTIONS REMOVE
+       ========================================== */
+
+    const oldExtras =
+        row.querySelector(".light-row-extras");
+
+    if (oldExtras) {
+        oldExtras.remove();
+    }
+
+
+    const item =
+        electricalData[
+        Number(lightSelect.value)
+        ];
+
+    if (!item) return;
+
+
+    /* ==========================================
+       EXTRA CONTAINER
+       ========================================== */
+
+    const extras =
+        document.createElement("div");
+
+    extras.className =
+        "light-row-extras";
+
+
+    /* ==========================================
+       LED STRIP LIGHT
+       ========================================== */
+
+    if (
+        String(item.name || "")
+            .trim()
+            .toLowerCase() === "led strip light"
+    ) {
+
+        extras.innerHTML = `
+
+            <div class="basic-item-row">
+
+                <label>Width</label>
+
+                <select class="room-extra-strip-width">
+
+                    <option value="">
+                        Select Width
+                    </option>
+
+                </select>
+
+                <input
+                    type="text"
+                    class="room-extra-custom-width"
+                    placeholder="Enter custom width"
+                    style="display:none;"
+                >
+
+            </div>
+
+
+            <div class="basic-item-row">
+
+                <label>Color</label>
+
+                <select class="room-extra-strip-color">
+
+                    <option value="">
+                        Select Color
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="basic-item-row">
+
+                <label>Length</label>
+
+                <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value="0"
+                    class="room-extra-strip-length"
+                    placeholder="Enter length"
+                >
+
+                <select class="room-extra-strip-unit">
+
+                    <option value="meter">
+                        Meter
+                    </option>
+
+                    <option value="feet">
+                        Feet
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="basic-item-row">
+
+                <label>LED Driver</label>
+
+                <select class="room-extra-driver-select">
+
+                    <option value="">
+                        Select LED Driver
+                    </option>
+
+                </select>
+
+                <input
+                    type="number"
+                    min="0"
+                    value="0"
+                    class="room-extra-driver-qty"
+                >
+
+            </div>
+
+        `;
+
+        row.insertAdjacentElement(
+            "afterend",
+            extras
+        );
+
+
+        /* ======================================
+           GET STRIP ITEM FROM JSON
+           ====================================== */
+
+        const stripItem =
+            electricalData.find(function (item) {
+
+                return (
+                    String(item.name || "")
+                        .trim()
+                        .toLowerCase() ===
+                    "led strip light"
+                );
+
+            });
+
+
+        if (!stripItem) return;
+
+
+        /* ======================================
+           WIDTH FROM JSON
+           ====================================== */
+
+        const widthSelect =
+            extras.querySelector(
+                ".room-extra-strip-width"
+            );
+
+        if (widthSelect) {
+
+            if (
+                Array.isArray(
+                    stripItem.widths
+                )
+            ) {
+
+                stripItem.widths.forEach(
+                    function (width) {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value = width;
+                        option.textContent = width;
+
+                        widthSelect.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+            }
+
+            const addSize =
+                document.createElement(
+                    "option"
+                );
+
+            addSize.value =
+                "__add_size__";
+
+            addSize.textContent =
+                "+ Add Size";
+
+            widthSelect.appendChild(
+                addSize
+            );
+        }
+
+
+        /* ======================================
+           COLOR FROM JSON
+           ====================================== */
+
+        const colorSelect =
+            extras.querySelector(
+                ".room-extra-strip-color"
+            );
+
+        if (colorSelect) {
+
+            if (
+                Array.isArray(
+                    stripItem.colors
+                )
+            ) {
+
+                stripItem.colors.forEach(
+                    function (color) {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value = color;
+                        option.textContent = color;
+
+                        colorSelect.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+            }
+
+        }
+
+
+        /* ======================================
+           DRIVER FROM JSON
+           ====================================== */
+
+        const driverSelect =
+            extras.querySelector(
+                ".room-extra-driver-select"
+            );
+
+        if (driverSelect) {
+
+            electricalData.forEach(
+                function (driverItem) {
+
+                    const name =
+                        String(
+                            driverItem.name || ""
+                        ).trim();
+
+                    const lowerName =
+                        name.toLowerCase();
+
+                    if (
+                        lowerName ===
+                        "smps led driver" ||
+                        lowerName ===
+                        "led driver / choke for tubelight"
+                    ) {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value =
+                            electricalData.indexOf(
+                                driverItem
+                            );
+
+                        option.textContent =
+                            name;
+
+                        driverSelect.appendChild(
+                            option
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* ======================================
+           ADD SIZE
+           ====================================== */
+
+        const customWidth =
+            extras.querySelector(
+                ".room-extra-custom-width"
+            );
+
+        if (
+            widthSelect &&
+            customWidth
+        ) {
+
+            widthSelect.addEventListener(
+                "change",
+                function () {
+
+                    if (
+                        widthSelect.value ===
+                        "__add_size__"
+                    ) {
+
+                        customWidth.style.display =
+                            "block";
+
+                        customWidth.value = "";
+
+                        customWidth.focus();
+
+                    } else {
+
+                        customWidth.style.display =
+                            "none";
+
+                        customWidth.value = "";
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+}
+
+/* =========================================================
+   HOME PLANNING - POPULATE LIGHT SELECT
+   ========================================================= */
+
+function populateLightSelect(select) {
+
+    if (!select) return;
+
+    select.innerHTML = `
+        <option value="">
+            Select Light
+        </option>
+    `;
+
+    electricalData.forEach(function (item, index) {
+
+        const name =
+            String(item.name || "").trim();
+
+        const lowerName =
+            name.toLowerCase();
+
+        if (
+            lowerName === "led bulb" ||
+            lowerName === "led tube light" ||
+            lowerName === "led panel light" ||
+            lowerName === "led panel light round" ||
+            lowerName === "led panel light square" ||
+            lowerName === "led down light" ||
+            lowerName === "spot light" ||
+            lowerName === "cob spotlight" ||
+            lowerName === "led strip light" ||
+            lowerName === "flood light"
+        ) {
+
+            const option =
+                document.createElement("option");
+
+            option.value = index;
+            option.textContent = name;
+
+            select.appendChild(option);
+        }
+    });
+}
+
+/* =========================================================
+   FINAL ELECTRICAL ITEMS - POPULATE
+   ========================================================= */
+
 function populateFinalElectricalItems() {
 
     const select =
@@ -3239,6 +5104,10 @@ function populateFinalElectricalItems() {
         select.appendChild(option);
     });
 }
+
+/* =========================================================
+   FINAL ELECTRICAL ITEMS - ADD ITEM SETUP
+   ========================================================= */
 
 function setupFinalAddItem() {
 
@@ -3317,6 +5186,10 @@ function setupFinalAddItem() {
         qtyInput.value = 1;
     };
 }
+
+/* =========================================================
+   FINAL ELECTRICAL ITEMS - OPTIONS SETUP
+   ========================================================= */
 
 function setupFinalElectricalOptions() {
 
@@ -3411,6 +5284,10 @@ function setupFinalElectricalOptions() {
 
     });
 }
+
+/* =========================================================
+   HOME PLANNING - UPDATE ITEM OPTIONS
+   ========================================================= */
 
 function updateHomeItemOptions(select) {
 
@@ -3510,6 +5387,10 @@ function updateHomeItemOptions(select) {
         colorSelect.style.display = "block";
     }
 }
+
+/* =========================================================
+   HOME PLANNING - ADD ITEM
+   ========================================================= */
 
 function addHomePlanningItem(button) {
 
@@ -3623,313 +5504,10 @@ function addHomePlanningItem(button) {
     qtyInput.value = 0;
 }
 
-function addHomePlanningPlate(button) {
+/* =========================================================
+   HOME PLANNING - TOGGLE PLATE
+   ========================================================= */
 
-    const roomPoints =
-        button.closest(".room-points");
-
-    if (!roomPoints) return;
-
-    /* ==========================================
-    MINIMIZE PREVIOUS PLATES
-    ========================================== */
-
-    const allPlates =
-        roomPoints.querySelectorAll(".home-plate-box");
-
-    allPlates.forEach(function (plate) {
-
-        const header =
-            plate.querySelector(".plate-header");
-
-        const sections = [
-            plate.querySelector(".home-item-selector"),
-            plate.querySelector(".home-selected-items"),
-            plate.querySelector(".module-calculation")
-        ];
-
-        sections.forEach(function (section) {
-
-            if (section) {
-                section.style.display = "none";
-            }
-
-        });
-
-        if (header) {
-            header.style.cursor = "pointer";
-
-            header.onclick = function () {
-
-                sections.forEach(function (section) {
-
-                    if (!section) return;
-
-                    section.style.display =
-                        section.style.display === "none"
-                            ? ""
-                            : "none";
-
-                });
-
-            };
-        }
-
-    });
-
-    const platesContainer =
-        roomPoints.querySelector(".plates-container");
-
-    if (!platesContainer) return;
-
-    const plateNumber =
-        platesContainer.querySelectorAll(".home-plate-box").length + 1;
-
-    const plateBox =
-        document.createElement("div");
-
-    plateBox.className =
-        "home-plate-box";
-
-    plateBox.innerHTML = `
-        <div class="plate-header">
-            <strong>Plate ${plateNumber}</strong>
-        </div>
-
-        <div class="home-item-selector">
-
-            <label>Module Plate</label>
-
-            <select class="home-plate-select">
-                <option value="">Select Plate</option>
-            </select>
-
-            <label>Electrical Item</label>
-
-            <select class="home-item-select">
-                <option value="">Select Item</option>
-            </select>
-
-            <label>Amp / Size</label>
-
-            <select class="home-size-select">
-                <option value="">Select</option>
-            </select>
-
-            <label>Color</label>
-
-            <select class="home-color-select">
-                <option value="">Select Color</option>
-            </select>
-
-            <label>Qty</label>
-
-            <input
-                type="number"
-                min="0"
-                value="0"
-                class="home-item-qty"
-            >
-
-            <button
-                type="button"
-                class="add-btn"
-                onclick="addHomePlanningItem(this)">
-                ＋ Add Item
-            </button>
-
-        </div>
-
-        <div class="home-selected-items">
-
-            <strong>SELECTED ITEMS</strong>
-
-            <div class="selected-item-list"></div>
-
-        </div>
-
-        <div class="module-calculation">
-
-            <div>
-                Plate :
-                <strong class="plate-total">
-                    0M
-                </strong>
-            </div>
-
-            <div>
-                Used Module :
-                <strong class="used-module">
-                    0M
-                </strong>
-            </div>
-
-            <div>
-                Blank Module :
-                <strong class="blank-module">
-                    0M
-                </strong>
-            </div>
-
-            <div class="module-warning"></div>
-
-        </div>
-    `;
-
-    platesContainer.appendChild(plateBox);
-
-    const newPlateSections = [
-        plateBox.querySelector(".home-item-selector"),
-        plateBox.querySelector(".home-selected-items"),
-        plateBox.querySelector(".module-calculation")
-    ];
-
-    newPlateSections.forEach(function (section) {
-
-        if (section) {
-            section.style.display = "";
-        }
-
-    });
-
-    const newPlateHeader =
-        plateBox.querySelector(".plate-header");
-
-    if (newPlateHeader) {
-
-        newPlateHeader.style.cursor = "pointer";
-
-        newPlateHeader.onclick = function () {
-
-            newPlateSections.forEach(function (section) {
-
-                if (!section) return;
-
-                section.style.display =
-                    section.style.display === "none"
-                        ? ""
-                        : "none";
-
-            });
-
-        };
-
-    }
-
-    updateHomeFinalTotal();
-
-
-
-    /* =====================================================
-       1. MODULE PLATE
-       electrical.json → "Modular Plate"
-       ===================================================== */
-
-    const plateSelect =
-        plateBox.querySelector(".home-plate-select");
-
-    const modularPlate =
-        electricalData.find(function (item) {
-            return item.name === "Modular Plate";
-        });
-
-    if (modularPlate && Array.isArray(modularPlate.sizes)) {
-
-        modularPlate.sizes.forEach(function (size) {
-
-            const option =
-                document.createElement("option");
-
-            /*
-             * Example:
-             * 1M     → 1
-             * 2M     → 2
-             * 4M     → 4
-             * 8M H   → 8
-             * 8M SQ  → 8
-             */
-
-            const moduleValue =
-                parseInt(size);
-
-            option.value =
-                moduleValue;
-
-            option.textContent =
-                size;
-
-            plateSelect.appendChild(option);
-        });
-    }
-
-
-    /* =====================================================
-       2. ELECTRICAL ITEMS
-       electrical.json-லிருந்து மட்டும்
-       Module உள்ள items மட்டும் Plate-க்குள் வரும்
-       ===================================================== */
-
-    const itemSelect =
-        plateBox.querySelector(".home-item-select");
-
-    electricalData.forEach(function (item, index) {
-
-        /*
-         * Modular Plate-ஐ Electrical Item list-ல் காட்ட வேண்டாம்.
-         *
-         * module > 0 உள்ள items மட்டும்
-         * plate-க்குள் பயன்படுத்தப்படும்.
-         */
-
-        if (
-            item.name === "Modular Plate" ||
-            !(Number(item.module) > 0)
-        ) {
-            return;
-        }
-
-        const option =
-            document.createElement("option");
-
-        option.value =
-            index;
-
-        option.textContent =
-            item.name;
-
-        itemSelect.appendChild(option);
-    });
-
-
-    /* =====================================================
-       3. ITEM SELECT CHANGE
-       Amp / Size / Color
-       ===================================================== */
-
-    itemSelect.addEventListener(
-        "change",
-        function () {
-
-            updateHomeItemOptions(this);
-
-        }
-    );
-
-
-    /* =====================================================
-       4. PLATE CHANGE
-       Plate select செய்தவுடன் calculation
-       ===================================================== */
-
-    plateSelect.addEventListener(
-        "change",
-        function () {
-
-            calculateHomeModules(plateBox);
-
-        }
-    );
-}
 
 function toggleHomePlate(plateBox) {
 
@@ -3983,6 +5561,10 @@ function toggleHomePlate(plateBox) {
     /* Final total refresh */
     updateHomeFinalTotal();
 }
+
+/* =========================================================
+   HOME PLANNING - CALCULATE MODULES
+   ========================================================= */
 
 function calculateHomeModules(plateBox) {
 
@@ -4040,315 +5622,11 @@ function calculateHomeModules(plateBox) {
     `;
 }
 
-function updateHomeFinalTotal() {
+/* =========================================================
+   HOME PLANNING - REMOVE ITEM
+   ========================================================= */
 
-    const finalBox =
-        document.getElementById("homeFinalTotal");
 
-    if (!finalBox) return;
-
-    const totals = {};
-
-    /* ==============================
-   MODULE PLATES
-   ============================== */
-
-    document.querySelectorAll(".home-plate-box").forEach(function (plateBox) {
-
-        const plateSelect =
-            plateBox.querySelector(".home-plate-select");
-
-        if (!plateSelect || !plateSelect.value) return;
-
-        const plateName =
-            plateSelect.options[
-                plateSelect.selectedIndex
-            ]?.textContent.trim();
-
-        if (!plateName) return;
-
-        const key =
-            plateName + " Modular Plate";
-
-        totals[key] =
-            (totals[key] || 0) + 1;
-
-    });
-
-    // ==============================
-    // ROOM BASIC ITEMS
-    // ==============================
-
-    document.querySelectorAll(".room-points").forEach(function (roomPoints) {
-
-        const selects = [
-            ".room-fan-select",
-            ".room-light-select",
-            ".room-round-sheet-select"
-        ];
-
-        selects.forEach(function (selector) {
-
-            const select =
-                roomPoints.querySelector(selector);
-
-            if (!select) return;
-
-            const index =
-                Number(select.value);
-
-            const item =
-                electricalData[index];
-
-            if (!item) return;
-
-            const qtyInput =
-                select.parentElement.querySelector(
-                    'input[type="number"]'
-                );
-
-            const qty =
-                Number(qtyInput?.value) || 0;
-
-            if (qty <= 0) return;
-
-            const key =
-                item.name;
-
-            totals[key] =
-                (totals[key] || 0) + qty;
-
-        });
-
-    });
-
-
-    // ==============================
-    // PLATE ITEMS
-    // ==============================
-
-    document.querySelectorAll(
-        ".home-selected-row"
-    ).forEach(function (row) {
-
-        const text =
-            row.querySelector("span")?.textContent.trim();
-
-        if (!text) return;
-
-        const qtyText =
-            row.querySelectorAll("span")[1]?.textContent || "";
-
-        const match =
-            qtyText.match(/Qty\s+(\d+)/i);
-
-        const qty =
-            match ? Number(match[1]) : 0;
-
-        if (qty <= 0) return;
-
-        // Item name மட்டும் எடுக்க
-        const itemName =
-            text.split("•")[0].trim();
-
-        totals[itemName] =
-            (totals[itemName] || 0) + qty;
-
-    });
-
-
-    // ==============================
-    // EMPTY
-    // ==============================
-
-    if (Object.keys(totals).length === 0) {
-
-        finalBox.innerHTML = `
-            <div class="final-empty">
-                No items added
-            </div>
-        `;
-
-        return;
-    }
-
-
-    // ==============================
-    // GROUP BY CATEGORY
-    // ==============================
-
-    const categories = {
-
-        "Switches": [
-            "Switch"
-        ],
-
-        "Sockets": [
-            "Socket",
-            "Plug"
-        ],
-
-        "Lights": [
-            "Light",
-            "Bulb",
-            "Tube"
-        ],
-
-        "Holders": [
-            "Holder",
-            "Ceiling Rose"
-        ],
-
-        "Protection": [
-            "MCB",
-            "RCCB",
-            "Fuse",
-            "Main Switch"
-        ],
-
-        "Conduit": [
-            "Conduit",
-            "Elbow",
-            "Bend",
-            "Tee",
-            "Coupling",
-            "Junction Box"
-        ],
-
-        "Wires & Accessories": [
-            "Wire",
-            "Tape",
-            "Cement"
-        ]
-
-    };
-
-
-    let html = "";
-
-
-    Object.keys(categories).forEach(function (category) {
-
-        const items = Object.keys(totals).filter(function (name) {
-
-            const lower =
-                name.toLowerCase();
-
-            return categories[category].some(function (keyword) {
-
-                return lower.includes(
-                    keyword.toLowerCase()
-                );
-
-            });
-
-        });
-
-
-        if (items.length === 0) return;
-
-
-        html += `
-            <div class="final-category">
-
-                <h3>
-                    ${category}
-                </h3>
-        `;
-
-
-        items.forEach(function (name) {
-
-            html += `
-                <div class="final-total-row">
-
-                    <span>
-                        ${name}
-                    </span>
-
-                    <strong>
-                        Total: ${totals[name]}
-                    </strong>
-
-                </div>
-            `;
-
-        });
-
-
-        html += `
-            </div>
-        `;
-
-    });
-
-
-    // ==============================
-    // OTHER ITEMS
-    // ==============================
-
-    const knownItems =
-        Object.keys(categories)
-            .flatMap(function (category) {
-                return categories[category];
-            });
-
-
-    const otherItems =
-        Object.keys(totals).filter(function (name) {
-
-            const lower =
-                name.toLowerCase();
-
-            return !knownItems.some(function (keyword) {
-
-                return lower.includes(
-                    keyword.toLowerCase()
-                );
-
-            });
-
-        });
-
-
-    if (otherItems.length > 0) {
-
-        html += `
-            <div class="final-category">
-
-                <h3>
-                    Other
-                </h3>
-        `;
-
-
-        otherItems.forEach(function (name) {
-
-            html += `
-                <div class="final-total-row">
-
-                    <span>
-                        ${name}
-                    </span>
-
-                    <strong>
-                        Total: ${totals[name]}
-                    </strong>
-
-                </div>
-            `;
-
-        });
-
-
-        html += `
-            </div>
-        `;
-    }
-
-
-    finalBox.innerHTML = html;
-}
 
 function removeHomePlanningItem(button) {
 
@@ -4511,8 +5789,17 @@ function getSelectedItems(type) {
             }
 
 
+            const entryId =
+                input.dataset.entryId;
+
             const sizeEntry =
-                input.closest(".size-entry");
+                Array.from(
+                    row.querySelectorAll(".size-entry")
+                ).find(function (entry) {
+
+                    return entry.dataset.entryId === entryId;
+
+                });
 
             if (!sizeEntry) {
                 return;
@@ -4831,55 +6118,301 @@ function preparePDF(type) {
 
 }
 
+/* =========================================================
+   PDF BILL ONLY
+   ========================================================= */
+
+function preparePDFBill(type) {
+
+    const form = document.getElementById(type + "Form");
+
+    if (!form) return;
+
+    const table = form.querySelector(".order-table");
+
+    if (!table) return;
+
+
+    /* =====================================================
+       PDF ONLY - HIDE PHONE
+       ===================================================== */
+
+    const phoneRow = form.querySelector(
+        "#" + type + "Ph"
+    );
+
+    if (phoneRow) {
+
+        const phoneDetailRow =
+            phoneRow.closest(".detail-row");
+
+        if (phoneDetailRow) {
+            phoneDetailRow.style.display = "none";
+        }
+
+    }
+
+
+    /* =====================================================
+       PDF TABLE HEADER
+       WEBSITE:
+       S.No | PARTICULARS | QTY
+
+       PDF:
+       S.No | PARTICULARS | AMP/SIZE | QTY
+       ===================================================== */
+
+    const headerRow =
+        table.querySelector("thead tr");
+
+    if (headerRow) {
+
+        const oldQtyHeader =
+            headerRow.querySelector(".qty");
+
+        if (
+            oldQtyHeader &&
+            !headerRow.querySelector(".pdf-amp-size-header")
+        ) {
+
+            const ampHeader =
+                document.createElement("th");
+
+            ampHeader.className =
+                "amp-size pdf-amp-size-header";
+
+            ampHeader.textContent =
+                "AMP/SIZE";
+
+            headerRow.insertBefore(
+                ampHeader,
+                oldQtyHeader
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       PDF BODY ROWS
+       ===================================================== */
+
+    const rows =
+        table.querySelectorAll(
+            "tbody tr.item-row"
+        );
+
+
+    rows.forEach(function(row) {
+
+        if (row.style.display === "none") {
+            return;
+        }
+
+
+        /* -----------------------------------------------
+           QTY CELL
+           ----------------------------------------------- */
+
+        const qtyCell =
+            row.querySelector(".qty-cell");
+
+        if (!qtyCell) {
+            return;
+        }
+
+
+        /* -----------------------------------------------
+           GET AMP / SIZE
+           ----------------------------------------------- */
+
+        let ampSize = "—";
+
+
+        const sizeSelect =
+            row.querySelector(".size-dropdown");
+
+
+        if (sizeSelect) {
+
+            if (
+                sizeSelect.value &&
+                sizeSelect.value !== "__CUSTOM__"
+            ) {
+
+                ampSize =
+                    sizeSelect.value;
+
+            }
+
+        }
+
+
+        /* -----------------------------------------------
+           CUSTOM SIZE / RATING
+           ----------------------------------------------- */
+
+        const customInput =
+            row.querySelector(
+                ".custom-size-input"
+            );
+
+
+        if (
+            customInput &&
+            customInput.value.trim() !== ""
+        ) {
+
+            ampSize =
+                customInput.value.trim();
+
+        }
+
+
+        /* -----------------------------------------------
+           CREATE PDF AMP/SIZE CELL
+           ----------------------------------------------- */
+
+        const ampSizeCell =
+            document.createElement("td");
+
+        ampSizeCell.className =
+            "amp-size pdf-amp-size";
+
+        ampSizeCell.textContent =
+            ampSize;
+
+
+        /* -----------------------------------------------
+           IMPORTANT:
+           INSERT BEFORE QTY
+           ----------------------------------------------- */
+
+        row.insertBefore(
+            ampSizeCell,
+            qtyCell
+        );
+
+
+        /* -----------------------------------------------
+           REMOVE WEBSITE CONTROLS
+           FROM PARTICULARS FOR PDF
+           ----------------------------------------------- */
+
+        row.querySelectorAll(
+            ".item-thumb, " +
+            ".size-dropdown, " +
+            ".custom-size-input, " +
+            ".color-dropdown, " +
+            ".add-size-btn, " +
+            ".remove-size-btn, " +
+            "button"
+        ).forEach(function(el) {
+
+            el.style.display = "none";
+
+        });
+
+
+        /* -----------------------------------------------
+           REMOVE EMPTY UI SPACING
+           ----------------------------------------------- */
+
+        row.querySelectorAll(
+            ".size-entry"
+        ).forEach(function(entry) {
+
+            entry.style.display = "none";
+
+        });
+
+    });
+
+
+    /* =====================================================
+       TOTAL
+       ===================================================== */
+
+    const totalLabel =
+        table.querySelector(".total-label");
+
+    if (totalLabel) {
+
+        totalLabel.setAttribute(
+            "colspan",
+            "3"
+        );
+
+    }
+
+}
+
 
 /* =========================================================
    DOWNLOAD PDF
+   PDF ONLY BILL
+   WEBSITE TABLE REMAINS UNCHANGED
    ========================================================= */
 
 async function downloadPDF(type) {
 
-    const selected =
-        getSelectedItems(type);
+    const selected = getSelectedItems(type);
 
+    if (!Array.isArray(selected) || selected.length === 0) {
 
-    if (selected.length === 0) {
-
-        alert(
-            "முதலில் Qty enter செய்யவும்."
-        );
+        alert("முதலில் Qty enter செய்யவும்.");
 
         return;
     }
 
 
     const form =
-        document.getElementById(
-            type + "Form"
-        );
+        document.getElementById(type + "Form");
+
+    if (!form) return;
 
 
-    if (!form)
-        return;
-
+    /* =====================================================
+       PREPARE
+       ===================================================== */
 
     preparePDF(type);
 
 
+    /* =====================================================
+       CUSTOMER DETAILS
+       ===================================================== */
+
     const customer =
         getCustomerDetails(type);
 
-
     const customerName =
-        customer.name ||
-        "Customer";
-
+        customer.name || "Customer";
 
     const date =
         customer.date ||
-        new Date()
-            .toISOString()
-            .split("T")[0];
+        new Date().toISOString().split("T")[0];
 
+
+    /* =====================================================
+       ORDER NUMBER
+       ===================================================== */
+
+    const orderElement =
+        document.getElementById(
+            type + "OrderNo"
+        );
+
+    const orderNo =
+        orderElement
+            ? orderElement.textContent.trim()
+            : "";
+
+
+    /* =====================================================
+       FILE NAME
+       ===================================================== */
 
     const fileName =
         "MVS-" +
@@ -4891,12 +6424,401 @@ async function downloadPDF(type) {
         ".pdf";
 
 
+    /* =====================================================
+       CREATE CLEAN PDF BILL
+       ===================================================== */
+
+    const pdfBill =
+        document.createElement("div");
+
+    pdfBill.id =
+        "mvs-pdf-bill";
+
+
+    pdfBill.style.width =
+        "730px";
+
+    pdfBill.style.height =
+        "1038px";
+
+    pdfBill.style.minHeight =
+        "1038px";
+
+    pdfBill.style.padding =
+        "35px";
+
+    pdfBill.style.boxSizing =
+        "border-box";
+
+    pdfBill.style.background =
+        "#ffffff";
+
+    pdfBill.style.color =
+        "#000000";
+
+    pdfBill.style.fontFamily =
+        "Arial, sans-serif";
+
+    pdfBill.style.position = "fixed";
+
+    pdfBill.style.left =
+        "0";
+
+    pdfBill.style.top =
+        "0";
+
+    pdfBill.style.zIndex =
+        "999999";
+
+    pdfBill.style.overflow =
+        "hidden";
+
+
+    /* =====================================================
+       BILL HEADER
+       ===================================================== */
+
+    pdfBill.innerHTML = `
+
+        <div style="
+            border:1.5px solid #111;
+            border-radius:10px;
+            padding:18px 20px 14px;
+            margin-bottom:14px;
+        ">
+
+            <div style="
+                text-align:center;
+                font-size:25px;
+                font-weight:700;
+                color:#102a56;
+                margin-bottom:3px;
+            ">
+                MVS ELECTRICAL
+            </div>
+
+
+            <div style="
+                text-align:center;
+                font-size:13px;
+                font-weight:600;
+                color:#333;
+                margin-bottom:4px;
+            ">
+                Electrical &amp; Plumbing Solutions
+            </div>
+
+
+            <div style="
+                text-align:center;
+                font-size:12px;
+                color:#222;
+                padding-bottom:10px;
+                border-bottom:1px solid #ddd;
+            ">
+                Thamizharasu &nbsp;•&nbsp; +91 6383754237
+            </div>
+
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                margin-top:12px;
+                font-size:12px;
+            ">
+
+                <div>
+                    <strong>Order No:</strong>
+                    ${escapeHTML(orderNo)}
+                </div>
+
+                <div>
+                    <strong>Date:</strong>
+                    ${escapeHTML(date)}
+                </div>
+
+            </div>
+
+
+            <div style="
+                margin-top:10px;
+                font-size:12px;
+            ">
+
+                <strong>Customer:</strong>
+                ${escapeHTML(customerName)}
+
+            </div>
+
+        </div>
+
+
+        <!-- TABLE -->
+
+        <table
+            id="mvs-pdf-table"
+            style="
+                width:100%;
+                border-collapse:collapse;
+                table-layout:fixed;
+                font-size:12px;
+            "
+        >
+
+            <thead>
+
+                <tr>
+
+                    <th style="
+                        width:55px;
+                        border:1px solid #111;
+                        padding:8px;
+                        background:#f2f2f2;
+                        text-align:center;
+                    ">
+                        S.No.
+                    </th>
+
+
+                    <th style="
+                        width:auto;
+                        border:1px solid #111;
+                        padding:8px;
+                        background:#f2f2f2;
+                        text-align:left;
+                    ">
+                        PARTICULARS
+                    </th>
+
+
+                    <th style="
+                        width:110px;
+                        border:1px solid #111;
+                        padding:8px;
+                        background:#f2f2f2;
+                        text-align:center;
+                    ">
+                        AMP/SIZE
+                    </th>
+
+
+                    <th style="
+                        width:65px;
+                        border:1px solid #111;
+                        padding:8px;
+                        background:#f2f2f2;
+                        text-align:center;
+                    ">
+                        QTY
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="mvs-pdf-items"></tbody>
+
+
+            <tfoot>
+
+                <tr>
+
+                    <td
+                        colspan="3"
+                        style="
+                            border:1px solid #111;
+                            padding:9px;
+                            text-align:right;
+                            font-weight:700;
+                        "
+                    >
+                        TOTAL
+                    </td>
+
+                    <td
+                        id="mvs-pdf-total"
+                        style="
+                            border:1px solid #111;
+                            padding:9px;
+                            text-align:center;
+                            font-weight:700;
+                        "
+                    >
+                        0
+                    </td>
+
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+
+        <!-- FOOTER -->
+
+        <div style="
+            margin-top:35px;
+            padding-top:18px;
+            border-top:1px solid #ddd;
+            text-align:center;
+            font-size:13px;
+            color:#333;
+        ">
+
+            <div style="
+                font-weight:700;
+                margin-bottom:4px;
+            ">
+                Thank You
+            </div>
+
+            <div>
+                For Your Valuable Business
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(pdfBill);
+
+
+    /* =====================================================
+       ADD SELECTED ITEMS
+       ===================================================== */
+
+    const tbody =
+        pdfBill.querySelector(
+            "#mvs-pdf-items"
+        );
+
+
+    let total = 0;
+
+
+    selected.forEach(function(item, index) {
+
+        const qty =
+            Number(item.qty) || 0;
+
+
+        if (qty <= 0) return;
+
+
+        let ampSize =
+            item.size || "—";
+
+
+        /*
+        Custom size currently returned by
+        getSelectedItems() as "customSize".
+        */
+
+        if (ampSize === "customSize") {
+
+            ampSize = "Custom";
+
+        }
+
+
+        const tr =
+            document.createElement("tr");
+
+
+        tr.innerHTML = `
+
+            <td style="
+                border:1px solid #111;
+                padding:8px;
+                text-align:center;
+            ">
+                ${index + 1}
+            </td>
+
+
+            <td style="
+                border:1px solid #111;
+                padding:8px;
+                text-align:left;
+                font-weight:600;
+            ">
+                ${escapeHTML(item.name || "")}
+            </td>
+
+
+            <td style="
+                border:1px solid #111;
+                padding:8px;
+                text-align:center;
+            ">
+                ${escapeHTML(String(ampSize))}
+            </td>
+
+
+            <td style="
+                border:1px solid #111;
+                padding:8px;
+                text-align:center;
+                font-weight:600;
+            ">
+                ${qty}
+            </td>
+
+        `;
+
+
+        tbody.appendChild(tr);
+
+
+        total += qty;
+
+    });
+
+
+    /* =====================================================
+       TOTAL
+       ===================================================== */
+
+    const totalElement =
+        pdfBill.querySelector(
+            "#mvs-pdf-total"
+        );
+
+
+    if (totalElement) {
+
+        totalElement.textContent =
+            total;
+
+    }
+
+
+    /* =====================================================
+       WAIT FOR DOM RENDER
+       ===================================================== */
+
+    await new Promise(function(resolve) {
+
+        requestAnimationFrame(function() {
+
+            requestAnimationFrame(resolve);
+
+        });
+
+    });
+
+
+    /* =====================================================
+       PDF OPTIONS
+       ===================================================== */
+
     const options = {
 
         margin: 8,
 
-        filename:
-            fileName,
+        filename: fileName,
 
         image: {
             type: "jpeg",
@@ -4910,7 +6832,11 @@ async function downloadPDF(type) {
             useCORS: true,
 
             backgroundColor:
-                "#ffffff"
+                "#ffffff",
+
+            scrollX: 0,
+
+            scrollY: 0
 
         },
 
@@ -4937,62 +6863,227 @@ async function downloadPDF(type) {
     };
 
 
+    /* =====================================================
+    GENERATE PDF PREVIEW
+    ===================================================== */
+
     try {
 
         if (
-            typeof html2pdf !==
+            typeof html2pdf ===
             "undefined"
         ) {
 
-            await html2pdf()
-                .set(options)
-                .from(form)
-                .save();
-
-        } else {
-
-            /*
-               FIX: html2pdf missing — instead of
-               window.print() on the WHOLE page (which
-               would also print the hidden sibling form
-               / home page unless CSS scopes @media print
-               to only the active form), scope the print
-               to just this form by toggling a body class
-               that print CSS can target. Falls back to
-               the old behavior if no such CSS exists,
-               but keeps the hook available.
-            */
-
-            document.body.classList.add(
-                "printing-" + type
+            alert(
+                "PDF library load ஆகவில்லை."
             );
 
-            window.print();
-
-            document.body.classList.remove(
-                "printing-" + type
-            );
-
+            return;
         }
 
-    } catch (error) {
 
-        console.error(error);
+        /* -----------------------------------------------
+        SAVE PDF DATA FOR DOWNLOAD
+        ----------------------------------------------- */
 
-        alert(
-            "PDF உருவாக்க முடியவில்லை."
+        window.currentPDFOptions =
+            options;
+
+        window.currentPDFFileName =
+            fileName;
+
+
+        /* -----------------------------------------------
+        SHOW PDF BILL PREVIEW
+        ----------------------------------------------- */
+
+        const previewContent =
+            document.getElementById(
+                "pdfPreviewContent"
+            );
+
+
+        if (!previewContent) {
+
+            alert(
+                "PDF Preview content கிடைக்கவில்லை."
+            );
+
+            return;
+        }
+
+
+        previewContent.innerHTML = "";
+
+
+        const previewBill =
+            pdfBill.cloneNode(true);
+
+
+        previewBill.style.position =
+            "relative";
+
+        previewBill.style.left =
+            "auto";
+
+        previewBill.style.top =
+            "auto";
+
+        previewBill.style.zIndex =
+            "auto";
+
+        previewBill.style.margin =
+            "0 auto";
+
+
+        previewContent.appendChild(
+            previewBill
         );
 
-    } finally {
+
+        /* -----------------------------------------------
+        SAVE ACTUAL PREVIEW FOR DOWNLOAD
+        ----------------------------------------------- */
+
+        window.currentPDFElement =
+            previewBill;
+
+        /* -----------------------------------------------
+        OPEN PREVIEW
+        ----------------------------------------------- */
+
+        document.getElementById(
+            "pdfPreviewModal"
+        ).style.display = "flex";
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "PDF PREVIEW ERROR:",
+            error
+        );
+
+        alert(
+            "PDF Preview உருவாக்க முடியவில்லை."
+        );
+
+    }
+    finally {
+
+        if (pdfBill) {
+            pdfBill.remove();
+        }
 
         restoreEmptyRows(type);
-
         restoreOriginalSno(type);
 
     }
 
 }
 
+/* =====================================================
+   PDF PREVIEW - DOWNLOAD
+   ===================================================== */
+
+async function downloadPreviewPDF() {
+
+    const previewBill =
+        document.querySelector(
+            "#pdfPreviewContent #mvs-pdf-bill"
+        );
+
+
+    if (!previewBill) {
+
+        alert(
+            "PDF கிடைக்கவில்லை."
+        );
+
+        return;
+    }
+
+
+    if (!window.currentPDFOptions) {
+
+        alert(
+            "PDF options கிடைக்கவில்லை."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        await html2pdf()
+            .set(
+                window.currentPDFOptions
+            )
+            .from(
+                previewBill
+            )
+            .save();
+
+    }
+    catch (error) {
+
+        console.error(
+            "PDF DOWNLOAD ERROR:",
+            error
+        );
+
+        alert(
+            "PDF download செய்ய முடியவில்லை."
+        );
+
+    }
+
+}
+
+/* =====================================================
+   PDF PREVIEW - CLOSE
+   ===================================================== */
+
+function closePDFPreview() {
+
+    const modal =
+        document.getElementById(
+            "pdfPreviewModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display = "none";
+
+    }
+
+
+    const previewContent =
+        document.getElementById(
+            "pdfPreviewContent"
+        );
+
+
+    if (previewContent) {
+
+        previewContent.innerHTML = "";
+
+    }
+
+
+    window.currentPDFElement =
+        null;
+
+    window.currentPDFOptions =
+        null;
+
+    window.currentPDFFileName =
+        null;
+
+}
 
 /* =========================================================
    ORDER ID
@@ -5345,6 +7436,10 @@ function escapeHTML(value) {
 
 }
 
+/* =========================================================
+   FILTER ITEMS
+   ========================================================= */
+
 function filterItems(type) {
 
     const searchInput =
@@ -5404,37 +7499,189 @@ function filterItems(type) {
 
 }
 
+/* =========================================================
+   RESET SECTION
+   ========================================================= */
+
 function resetSection(type) {
 
     const tbody =
-        document.getElementById(type + "Items");
+        document.getElementById(
+            type + "Items"
+        );
 
     if (!tbody) return;
 
-    const inputs =
-        tbody.querySelectorAll(".qty-input");
 
-    inputs.forEach(function (input) {
-        input.value = "";
-    });
-
-    const search =
-        document.getElementById(type + "Search");
-
-    if (search) {
-        search.value = "";
-    }
-
-    const selected =
-        document.getElementById(type + "SelectedOnly");
-
-    if (selected) {
-        selected.checked = false;
-    }
+    /* =============================================
+       RESET ALL ITEM ROWS
+       ============================================= */
 
     tbody
         .querySelectorAll(".item-row")
         .forEach(function (row) {
+
+
+            /* =====================================
+               REMOVE EXTRA SIZE ENTRIES
+               KEEP FIRST SIZE ONLY
+               ===================================== */
+
+            const sizeEntries =
+                row.querySelectorAll(
+                    ".size-entry"
+                );
+
+            sizeEntries.forEach(
+                function (entry, index) {
+
+                    if (index > 0) {
+                        entry.remove();
+                    }
+
+                }
+            );
+
+
+            /* =====================================
+               RESET FIRST SIZE DROPDOWN
+               ===================================== */
+
+            const firstSelect =
+                row.querySelector(
+                    ".size-dropdown"
+                );
+
+            if (firstSelect) {
+
+                firstSelect.selectedIndex = 0;
+
+            }
+
+
+            /* =====================================
+               RESET FIRST COLOR DROPDOWN
+               ===================================== */
+
+            const firstColor =
+                row.querySelector(
+                    ".color-dropdown"
+                );
+
+            if (firstColor) {
+
+                firstColor.selectedIndex = 0;
+
+            }
+
+
+            /* =====================================
+               RESET CUSTOM SIZE INPUT
+               ===================================== */
+
+            const customInput =
+                row.querySelector(
+                    ".custom-size-input"
+                );
+
+            if (customInput) {
+
+                customInput.value = "";
+
+                customInput.style.display =
+                    "none";
+
+            }
+
+
+            /* =====================================
+               QTY CELL
+               KEEP ONLY FIRST QTY INPUT
+               ===================================== */
+
+            const qtyCell =
+                row.querySelector(
+                    ".qty-cell"
+                );
+
+            if (qtyCell) {
+
+                const qtyInputs =
+                    qtyCell.querySelectorAll(
+                        ".qty-input"
+                    );
+
+
+                qtyInputs.forEach(
+                    function (
+                        input,
+                        index
+                    ) {
+
+                        if (index === 0) {
+
+                            /* FIRST QTY */
+
+                            input.value = "";
+
+                            input.dataset.selectedSize =
+                                "";
+
+                        } else {
+
+                            /* EXTRA QTY */
+
+                            input.remove();
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* =====================================
+               FALLBACK
+               IF qty-cell NOT FOUND
+               ===================================== */
+
+            else {
+
+                const qtyInputs =
+                    row.querySelectorAll(
+                        ".qty-input"
+                    );
+
+
+                qtyInputs.forEach(
+                    function (
+                        input,
+                        index
+                    ) {
+
+                        if (index === 0) {
+
+                            input.value = "";
+
+                            input.dataset.selectedSize =
+                                "";
+
+                        } else {
+
+                            input.remove();
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* =====================================
+               RESET ROW DISPLAY
+               ===================================== */
 
             row.style.display = "";
 
@@ -5444,8 +7691,51 @@ function resetSection(type) {
 
         });
 
+
+    /* =============================================
+       RESET SEARCH
+       ============================================= */
+
+    const search =
+        document.getElementById(
+            type + "Search"
+        );
+
+    if (search) {
+
+        search.value = "";
+
+    }
+
+
+    /* =============================================
+       RESET SELECTED ONLY
+       ============================================= */
+
+    const selected =
+        document.getElementById(
+            type + "SelectedOnly"
+        );
+
+    if (selected) {
+
+        selected.checked = false;
+
+    }
+
+
+    /* =============================================
+       RECALCULATE TOTAL
+       ============================================= */
+
     calculateTotal(type);
+
 }
+
+/* =========================================================
+   SHOW HISTORY
+   ========================================================= */
+
 function showHistory() {
     let orders = [];
 
@@ -5485,7 +7775,15 @@ function showHistory() {
     alert(message);
 }
 
+/* =========================================================
+   PAGE LOAD / DOM INITIALIZATION
+   ========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
+
+    /* =========================================
+       APP TYPE
+       ========================================= */
 
     if (
         window.Capacitor &&
@@ -5496,5 +7794,103 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         document.body.classList.add("web-app");
     }
+
+
+    /* =========================================
+       RESTORE LAST OPEN PAGE AFTER F5
+       ========================================= */
+
+    const savedPage =
+        localStorage.getItem(
+            "mvsCurrentPage"
+        );
+
+
+    /* =========================================
+       NO SAVED PAGE → HOME
+       ========================================= */
+
+    if (!savedPage) {
+
+        goHome();
+
+        return;
+    }
+
+
+    /* =========================================
+       ELECTRICAL / PLUMBING
+       ========================================= */
+
+    if (
+        savedPage === "electrical" ||
+        savedPage === "plumbing"
+    ) {
+
+        openForm(savedPage);
+
+        return;
+    }
+
+
+    /* =========================================
+       HOME PLANNING
+       ========================================= */
+
+    if (
+        savedPage === "homePlanning"
+    ) {
+
+        openHomePlanning();
+
+        return;
+    }
+
+
+    /* =========================================
+       OTHER PAGE
+       ========================================= */
+
+    const page =
+        document.getElementById(
+            savedPage
+        );
+
+    if (page) {
+
+        document
+            .querySelectorAll(".form-page")
+            .forEach(function (item) {
+
+                item.classList.remove("active");
+
+                item.style.display = "none";
+
+            });
+
+
+        page.classList.add("active");
+
+        page.style.display = "block";
+
+
+        window.scrollTo(
+            0,
+            0
+        );
+
+        return;
+    }
+
+
+    /* =========================================
+       INVALID SAVED PAGE → HOME
+       ========================================= */
+
+    localStorage.removeItem(
+        "mvsCurrentPage"
+    );
+
+    goHome();
 
 });
