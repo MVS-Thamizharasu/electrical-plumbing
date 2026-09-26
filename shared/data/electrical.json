@@ -25,7 +25,8 @@
         "25A"
       ],
       "module": 1,
-      "customSize": true
+      "customSize": true,
+      "unit": "NOS"
     },
     {
       "name": "2 Way Switch",
@@ -36,7 +37,8 @@
         "20A"
       ],
       "module": 1,
-      "customSize": true
+      "customSize": true,
+      "unit": "NOS"
     },
     {
       "name": "2 Pin Socket",
@@ -45,7 +47,8 @@
         "10A"
       ],
       "module": 1,
-      "customSize": true
+      "customSize": true,
+      "unit": "NOS"
     },
     {
       "name": "2 in 1 Socket",
@@ -57,11 +60,12 @@
         "25A"
       ],
       "module": 2,
-      "customSize": true
+      "customSize": true,
+      "unit": "NOS"
     },
     {
-      "name": "Modular Plate",
-      "sizes": [
+    "name": "Modular Plate",
+    "sizes": [
         "1M",
         "2M",
         "3M",
@@ -72,12 +76,14 @@
         "12M",
         "16M",
         "18M"
-      ],
-      "customSize": true
-    },
+    ],
+    "module": 0,
+    "customSize": true,
+    "unit": "NOS"
+  },
     {
-      "name": "MCB Switch",
-      "sizes": [
+    "name": "Mini MCB Switch",
+    "sizes": [
         "C6",
         "C10",
         "C16",
@@ -86,77 +92,103 @@
         "C32",
         "C40",
         "C63"
-      ],
-      "module": 1,
-      "customSize": true
-    },
-    {
-      "name": "PVC Conduit Pipe",
-      "sizes": [
+    ],
+    "module": 1,
+    "customSize": true,
+    "unit": "NOS"
+},
+{
+    "name": "PVC Conduit Pipe",
+    "sizes": [
         "16mm (1/2 inch)",
         "20mm (3/4 inch)",
         "25mm (1 inch)",
         "32mm (1 1/4 inch)"
-      ],
-      "customSize": true
-    },
-    {
-      "name": "Round Sheet",
-      "sizes": [
-        "Big",
-        "Small"
-      ],
-      "customSize": true
-    },
-    {
-      "name": "Elbow",
-      "sizes": [
+    ],
+    "customSize": true,
+    "unit": "Meter"
+},
+{
+    "name": "Round Sheet",
+    "sizes": [
+        "3.5 × 3.5",
+        "4 × 4"
+    ],
+    "customSize": true,
+    "unit": "NOS"
+},
+{
+    "name": "Fan Round Sheet",
+    "sizes": [
+        "6 × 6",
+        "7 × 7"
+    ],
+    "customSize": true,
+    "unit": "NOS"
+},
+{
+    "name": "POP Round Sheet",
+    "sizes": [
+        "4 × 4",
+        "7 × 7"
+    ],
+    "customSize": true,
+    "unit": "NOS"
+},
+{
+    "name": "Elbow",
+    "sizes": [
         "16mm (1/2 inch)",
         "20mm (3/4 inch)",
         "25mm (1 inch)",
         "32mm (1 1/4 inch)"
-      ],
-      "customSize": true
-    },
-    {
-      "name": "Bend",
-      "sizes": [
+    ],
+    "customSize": true,
+    "unit": "NOS"
+},
+{
+    "name": "Bend",
+    "sizes": [
         "16mm (1/2 inch)",
         "20mm (3/4 inch)",
         "25mm (1 inch)",
         "32mm (1 1/4 inch)"
-      ],
-      "customSize": true
-    },
-    {
-      "name": "Tee",
-      "sizes": [
+    ],
+    "customSize": true,
+    "unit": "NOS"
+},
+{
+    "name": "Tee",
+    "sizes": [
         "16mm (1/2 inch)",
         "20mm (3/4 inch)",
         "25mm (1 inch)",
         "32mm (1 1/4 inch)"
-      ],
-      "customSize": true
-    },
-    {
-      "name": "Coupling",
-      "sizes": [
+    ],
+    "customSize": true,
+    "unit": "NOS"
+},
+{
+    "name": "Coupling",
+    "sizes": [
         "3/4\"",
         "1\""
-      ],
-      "customSize": true
-    },
-    {
-      "name": "Junction Box",
-      "sizes": [
+    ],
+    "customSize": true,
+    "unit": "NOS"
+},
+{
+    "name": "Junction Box",
+    "sizes": [
         "1 Way",
         "2 Way",
         "3 Way",
         "4 Way",
         "Deep"
-      ],
-      "customSize": true
-    },
+    ],
+    "customSize": true,
+    "unit": "NOS"
+},
     {
       "name": "PVC Cement Solvent",
       "sizes": [

@@ -308,18 +308,17 @@ function createItemRow(type, item, index) {
     tr.dataset.itemIndex = index;
 
 
+    /*S.No.*/
+
     const sno =
         document.createElement("td");
 
     sno.className = "sno";
 
-    /*
-       Website S.No. is generated from JSON order.
-       PDF will renumber selected items.
-    */
-
     sno.textContent = index + 1;
 
+
+    /*PARTICULARS*/
 
     const particulars =
         document.createElement("td");
@@ -328,10 +327,20 @@ function createItemRow(type, item, index) {
         "particulars-cell";
 
 
+    /*QTY*/
+
     const qty =
         document.createElement("td");
 
     qty.className = "qty-cell";
+
+
+    /*UNIT*/
+
+    const unit =
+        document.createElement("td");
+
+    unit.className = "unit-cell";
 
 
     /* =====================================================
@@ -376,9 +385,9 @@ function createItemRow(type, item, index) {
 
 
         const imagePaths = [
+            `${SHARED_BASE}images/electrical/${fileName}.png`,
             `${SHARED_BASE}images/electrical/${fileName}.jpg`,
-            `${SHARED_BASE}images/electrical/${fileName}.jpeg`,
-            `${SHARED_BASE}images/electrical/${fileName}.png`
+            `${SHARED_BASE}images/electrical/${fileName}.jpeg`
         ];
 
 
@@ -1141,6 +1150,7 @@ function createItemRow(type, item, index) {
             qty.appendChild(
                 sizeQty
             );
+
             sizeContainer.appendChild(
                 sizeEntry
             );
@@ -1150,6 +1160,77 @@ function createItemRow(type, item, index) {
         /* FIRST SIZE */
 
         addSizeRow();
+
+        /* UNIT DROPDOWN */
+
+        const unitSelect =
+            document.createElement("select");
+
+        unitSelect.className =
+            "unit-dropdown";
+
+        const unitOptions = [
+            "NOS",
+            "PCS",
+            "Box",
+            "Meter",
+            "Feet",
+            "Set",
+            "Pair",
+            "Roll",
+            "Coil",
+            "Reel",
+            "Pack",
+            "Kit",
+            "Dozen",
+            "Bundle",
+            "Sheet",
+            "Bag",
+            "Lot"
+        ];
+
+
+        /* DEFAULT OPTION */
+
+        const defaultOption =
+            document.createElement("option");
+
+        defaultOption.value = "";
+        defaultOption.textContent = "Select Unit";
+        defaultOption.selected = true;
+
+        unitSelect.appendChild(
+            defaultOption
+        );
+
+
+        /* UNIT OPTIONS */
+
+        unitOptions.forEach(function (unit) {
+
+            const option =
+                document.createElement("option");
+
+            option.value = unit;
+            option.textContent = unit;
+
+            if (
+                item.unit &&
+                String(item.unit)
+                    .trim()
+                    .toLowerCase() ===
+                unit.toLowerCase()
+            ) {
+                option.selected = true;
+            }
+
+            unitSelect.appendChild(option);
+        });
+
+
+        unit.appendChild(
+            unitSelect
+        );
 
 
         /* ADD SIZE BUTTON */
@@ -1187,10 +1268,9 @@ function createItemRow(type, item, index) {
     }
 
     tr.appendChild(sno);
-
     tr.appendChild(particulars);
-
     tr.appendChild(qty);
+    tr.appendChild(unit);
 
 
     return tr;
@@ -1519,7 +1599,7 @@ function getElectricalImage(itemName) {
 }
 
 /* =========================================================
-   OPEN ITEM IMAGE
+   OPEN ITEM IMAGE - MULTI IMAGE CAROUSEL
    ========================================================= */
 
 function openItemImage(imageSrc) {
@@ -1529,11 +1609,9 @@ function openItemImage(imageSrc) {
 
     if (!modal) {
 
-        modal =
-            document.createElement("div");
+        modal = document.createElement("div");
 
-        modal.id =
-            "item-image-modal";
+        modal.id = "item-image-modal";
 
         modal.innerHTML = `
             <div class="item-image-overlay">
@@ -1544,35 +1622,559 @@ function openItemImage(imageSrc) {
                     ×
                 </button>
 
+                <button
+                    type="button"
+                    class="item-image-prev">
+                    ‹
+                </button>
+
                 <img
                     class="item-large-image"
-                    alt="">
+                    alt="Item Image">
+
+                <button
+                    type="button"
+                    class="item-image-next">
+                    ›
+                </button>
+
+                <div class="item-image-dots"></div>
+
             </div>
         `;
 
         document.body.appendChild(modal);
 
+        /* =========================================
+           CLOSE
+        ========================================= */
+
         modal
             .querySelector(".item-image-close")
             .addEventListener("click", function () {
+
                 modal.style.display = "none";
+
             });
+
+        /* =========================================
+           BACKGROUND CLICK CLOSE
+        ========================================= */
 
         modal
             .querySelector(".item-image-overlay")
             .addEventListener("click", function (event) {
+
                 if (event.target === this) {
+
                     modal.style.display = "none";
+
                 }
+
+            });
+
+        /* =========================================
+           PREVIOUS
+        ========================================= */
+
+        modal
+            .querySelector(".item-image-prev")
+            .addEventListener("click", function (event) {
+
+                event.stopPropagation();
+
+                const images =
+                    modal._itemImages || [];
+
+                if (images.length === 0) return;
+
+                modal._currentImage--;
+
+                if (modal._currentImage < 0) {
+
+                    modal._currentImage =
+                        images.length - 1;
+
+                }
+
+                showCarouselImage(modal);
+
+            });
+
+        /* =========================================
+           NEXT
+        ========================================= */
+
+        modal
+            .querySelector(".item-image-next")
+            .addEventListener("click", function (event) {
+
+                event.stopPropagation();
+
+                const images =
+                    modal._itemImages || [];
+
+                if (images.length === 0) return;
+
+                modal._currentImage++;
+
+                if (
+                    modal._currentImage >=
+                    images.length
+                ) {
+
+                    modal._currentImage = 0;
+
+                }
+
+                showCarouselImage(modal);
+
             });
     }
 
+    /* =========================================
+       FIND IMAGE BASE NAME
+    ========================================= */
+
+    let cleanPath =
+        imageSrc.split("?")[0];
+
+    const extensionMatch =
+        cleanPath.match(/\.[^./]+$/);
+
+    if (!extensionMatch) {
+
+        modal._itemImages = [imageSrc];
+        modal._currentImage = 0;
+
+        showCarouselImage(modal);
+
+        modal.style.display = "flex";
+
+        return;
+    }
+
+    const extension =
+        extensionMatch[0];
+
+    const pathWithoutExtension =
+        cleanPath.slice(
+            0,
+            -extension.length
+        );
+
+    /*
+       If clicked image is:
+
+       20a-geyser-switch-1.png
+       20a-geyser-switch-2.png
+
+       Remove the final -number
+    */
+
+    const basePath =
+        pathWithoutExtension.replace(
+            /-\d+$/,
+            ""
+        );
+
+    /* =========================================
+    FIND ALL IMAGES
+    ========================================= */
+
+    const imageList = [];
+
+    let imageNumber = 1;
+
+
+    /* =========================================
+    FIRST IMAGE
+    Example:
+    1-way-switch.png
+    ========================================= */
+
+    const baseImage =
+        basePath + extension;
+
+    const firstImage =
+        new Image();
+
+    firstImage.onload = function () {
+
+        imageList.push(baseImage);
+
+        imageNumber = 1;
+
+        checkNextImage();
+    };
+
+    firstImage.onerror = function () {
+
+        imageNumber = 1;
+
+        checkNextImage();
+    };
+
+    firstImage.src =
+        baseImage;
+
+
+    /* =========================================
+    FIND NUMBERED IMAGES
+    Example:
+    1-way-switch-1.png
+    1-way-switch-2.png
+    1-way-switch-3.png
+    ========================================= */
+
+    function checkNextImage() {
+
+        if (imageNumber > 100) {
+
+            finishCarousel();
+
+            return;
+        }
+
+        const testImage =
+            new Image();
+
+        const currentPath =
+            basePath +
+            "-" +
+            imageNumber +
+            extension;
+
+        testImage.onload = function () {
+
+            imageList.push(
+                currentPath
+            );
+
+            imageNumber++;
+
+            checkNextImage();
+        };
+
+        testImage.onerror = function () {
+
+            // Image இல்லை என்றாலும்
+            // search நிறுத்தக்கூடாது.
+            // அடுத்த number-ஐ தொடர்ந்து check செய்ய வேண்டும்.
+
+            imageNumber++;
+
+            checkNextImage();
+        };
+
+        testImage.src =
+            currentPath;
+    }
+
+
+    /* =========================================
+    FINISH CAROUSEL
+    ========================================= */
+
+    function finishCarousel() {
+
+        /*
+        If no image exists,
+        show clicked image
+        */
+
+        if (imageList.length === 0) {
+
+            imageList.push(
+                imageSrc
+            );
+        }
+
+        modal._itemImages =
+            imageList;
+
+
+        /* =========================================
+        FIND CLICKED IMAGE
+        ========================================= */
+
+        const clickedIndex =
+            imageList.indexOf(
+                cleanPath
+            );
+
+        if (clickedIndex >= 0) {
+
+            modal._currentImage =
+                clickedIndex;
+
+        } else {
+
+            modal._currentImage = 0;
+        }
+
+
+        showCarouselImage(modal);
+
+        modal.style.display =
+            "flex";
+    }
+
+
+    checkNextImage();
+
+
+    /* =========================================
+       CAROUSEL IMAGE DISPLAY
+    ========================================= */
+
+        function showCarouselImage(modal) {
+
+        const images =
+            modal._itemImages || [];
+
+        if (images.length === 0) return;
+
+        const current =
+            modal._currentImage || 0;
+
+        const largeImage =
+            modal.querySelector(
+                ".item-large-image"
+            );
+
+        largeImage.src =
+            images[current];
+
+
+        /* =========================================
+        DOTS
+        ========================================= */
+
+        const dots =
+            modal.querySelector(
+                ".item-image-dots"
+            );
+
+        dots.innerHTML = "";
+
+        images.forEach(function (image, index) {
+
+            const dot =
+                document.createElement("span");
+
+            dot.textContent =
+                index === current
+                    ? "●"
+                    : "○";
+
+            dot.style.cssText = `
+                font-size: 16px;
+                cursor: pointer;
+                margin: 0 3px;
+            `;
+
+            dot.addEventListener(
+                "click",
+                function (event) {
+
+                    event.stopPropagation();
+
+                    modal._currentImage =
+                        index;
+
+                    showCarouselImage(modal);
+                }
+            );
+
+            dots.appendChild(dot);
+
+        });
+
+
+        /* =========================================
+        ARROWS
+        ========================================= */
+
+        const previousButton =
+            modal.querySelector(
+                ".item-image-prev"
+            );
+
+        const nextButton =
+            modal.querySelector(
+                ".item-image-next"
+            );
+
+
+        if (images.length <= 1) {
+
+            previousButton.style.display =
+                "none";
+
+            nextButton.style.display =
+                "none";
+
+            dots.style.display =
+                "none";
+
+        } else {
+
+            previousButton.style.display =
+                "flex";
+
+            nextButton.style.display =
+                "flex";
+
+            dots.style.display =
+                "flex";
+        }
+    }
+
+
+    /* =========================================
+       MODAL STYLE
+    ========================================= */
+
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 99999;
+        padding: 30px;
+    `;
+
+    const overlay =
+        modal.querySelector(
+            ".item-image-overlay"
+        );
+
+    overlay.style.cssText = `
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 90vw;
+        height: 90vh;
+    `;
+
     const largeImage =
-        modal.querySelector(".item-large-image");
+        modal.querySelector(
+            ".item-large-image"
+        );
 
-    largeImage.src = imageSrc;
+    largeImage.style.cssText = `
+        display: block;
+        max-width: 75vw;
+        max-height: 80vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+    `;
 
-    modal.style.display = "flex";
+    /* =========================================
+       CLOSE BUTTON
+    ========================================= */
+
+    const closeButton =
+        modal.querySelector(
+            ".item-image-close"
+        );
+
+    closeButton.style.cssText = `
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        background: #ef4444;
+        color: #ffffff;
+        font-size: 28px;
+        line-height: 40px;
+        cursor: pointer;
+        z-index: 100002;
+    `;
+
+    /* =========================================
+       PREVIOUS BUTTON
+    ========================================= */
+
+    const previousButton =
+        modal.querySelector(
+            ".item-image-prev"
+        );
+
+    previousButton.style.cssText = `
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 60px;
+        border: none;
+        border-radius: 8px;
+        background: rgba(0,0,0,0.55);
+        color: #ffffff;
+        font-size: 45px;
+        line-height: 50px;
+        cursor: pointer;
+        z-index: 100001;
+    `;
+
+    /* =========================================
+       NEXT BUTTON
+    ========================================= */
+
+    const nextButton =
+        modal.querySelector(
+            ".item-image-next"
+        );
+
+    nextButton.style.cssText = `
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 60px;
+        border: none;
+        border-radius: 8px;
+        background: rgba(0,0,0,0.55);
+        color: #ffffff;
+        font-size: 45px;
+        line-height: 50px;
+        cursor: pointer;
+        z-index: 100001;
+    `;
+
+    /* =========================================
+       IMAGE COUNTER
+    ========================================= */
+
+    counter.style.cssText = `
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 6px 14px;
+        border-radius: 20px;
+        background: rgba(0,0,0,0.65);
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        z-index: 100001;
+    `;
 }
 
 /* =========================================================
@@ -3647,10 +4249,64 @@ function addHomePlanningPlate(button) {
     plateBox.className =
         "home-plate-box";
 
-    plateBox.innerHTML = `
-        <div class="plate-header">
+    const roomBox =
+        roomPoints._originalRoomBox ||
+        roomPoints._roomBox ||
+        roomPoints.closest(".room-box");
 
-            <strong>Plate ${plateNumber}</strong>
+    const roomName =
+        roomBox?.dataset.roomName || "Room";
+
+    const floorBox =
+        roomBox?.closest(".home-floor");
+
+    const floorName =
+        floorBox?.dataset.floorName || "Ground Floor";
+
+    const plateTitle =
+        String(plateNumber).padStart(2, "0");
+
+    plateBox.innerHTML = `
+
+    <!-- =========================================
+         PLATE HEADER
+    ========================================== -->
+
+    <div class="plate-header">
+
+        <div class="plate-header-info">
+
+            <div class="plate-header-icon">
+                🏠
+            </div>
+
+            <div class="plate-header-text">
+
+                <strong>
+                    Plate ${plateTitle}
+                </strong>
+
+                <span>
+                    ${roomName} • ${floorName}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="plate-header-actions">
+
+            <select
+                class="home-plate-select"
+                title="Select Module Plate">
+
+                <option value="">
+                    Select Plate
+                </option>
+
+            </select>
+
 
             ${
                 plateNumber > 1
@@ -3661,8 +4317,11 @@ function addHomePlanningPlate(button) {
                             onclick="
                                 event.stopPropagation();
                                 removeHomePlanningPlate(this);
-                            ">
+                            "
+                            title="Delete Plate">
+
                             ×
+
                         </button>
                     `
                     : ""
@@ -3670,92 +4329,338 @@ function addHomePlanningPlate(button) {
 
         </div>
 
-        <div class="home-item-selector">
+    </div>
 
-            <label>Module Plate</label>
 
-            <select class="home-plate-select">
-                <option value="">Select Plate</option>
-            </select>
+    <!-- =========================================
+         ELECTRICAL ITEM
+    ========================================== -->
 
-            <label>Electrical Item</label>
+    <div class="home-item-selector">
 
-            <select class="home-item-select">
-                <option value="">Select Item</option>
-            </select>
+        <!-- TITLE -->
 
-            <label>Amp / Size</label>
+        <div class="home-item-title">
 
-            <select class="home-size-select">
-                <option value="">Select</option>
-            </select>
+            <span class="home-item-title-icon">
+                +
+            </span>
 
-            <label class="home-color-label">Color</label>
-
-            <select class="home-color-select">
-                <option value="">Select Color</option>
-            </select>
-
-            <label>Qty</label>
-
-            <input
-                type="number"
-                min="0"
-                value="0"
-                class="home-item-qty"
-            >
-
-            <button
-                type="button"
-                class="add-btn"
-                onclick="addHomePlanningItem(this)">
-                ＋ Add Item
-            </button>
+            <strong>
+                ADD ELECTRICAL ITEM
+            </strong>
 
         </div>
 
-        <div class="home-selected-items">
 
-            <strong>SELECTED ITEMS</strong>
+        <!-- FIELDS -->
 
-            <div class="selected-item-list"></div>
+        <div class="home-item-fields">
+
+            <!-- ELECTRICAL ITEM -->
+
+            <div class="home-field">
+
+                <label>
+                    Electrical Item
+                </label>
+
+                <select class="home-item-select">
+
+                    <option value="">
+                        Select Item
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- AMP / SIZE -->
+
+            <div class="home-field">
+
+                <label>
+                    Amp / Size
+                </label>
+
+                <select class="home-size-select">
+
+                    <option value="">
+                        Select
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- COLOR -->
+
+            <div class="home-field">
+
+                <label class="home-color-label">
+                    Color
+                </label>
+
+                <select class="home-color-select">
+
+                    <option value="">
+                        Select Color
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- QTY -->
+
+            <div class="home-field home-qty-field">
+
+                <label>
+                    Qty
+                </label>
+
+                <div class="home-qty-control">
+
+                    <button
+                        type="button"
+                        class="home-qty-minus">
+                        −
+                    </button>
+
+                    <input
+                        type="number"
+                        min="1"
+                        value="1"
+                        class="home-item-qty"
+                    >
+
+                    <button
+                        type="button"
+                        class="home-qty-plus">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
-        <div class="module-calculation">
 
-            <div>
-                Plate :
-                <strong class="plate-total">
-                    0M
+        <!-- ADD BUTTON -->
+
+        <button
+            type="button"
+            class="add-btn"
+            onclick="addHomePlanningItem(this)">
+
+            ＋ Add Item
+
+        </button>
+
+    </div>
+
+
+    <!-- =========================================
+         SELECTED ITEMS
+    ========================================== -->
+
+    <div class="home-selected-items">
+
+        <div class="selected-items-header">
+
+            <div class="selected-items-title-group">
+
+                <span class="selected-items-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                </span>
+
+                <strong>
+                    SELECTED ITEMS
                 </strong>
+
             </div>
 
-            <div>
-                Used Module :
-                <strong class="used-module">
-                    0M
-                </strong>
-            </div>
-
-            <div>
-                Blank Module :
-                <strong class="blank-module">
-                    0M
-                </strong>
-            </div>
-
-            <div class="module-warning"></div>
+            <span class="selected-item-count">
+                0 Items
+            </span>
 
         </div>
-    `;
 
 
-/* =========================================
+        <div class="selected-items-table-wrapper">
+
+            <table class="selected-items-table">
+
+                <thead>
+
+                    <tr>
+                        <th class="col-sno">#</th>
+                        <th class="col-item">Item</th>
+                        <th class="col-size">Amp / Size</th>
+                        <th class="col-qty">Qty</th>
+                        <th class="col-module">Module</th>
+                        <th class="col-action">Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody class="selected-item-list"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         MODULE CALCULATION
+    ========================================== -->
+
+    <div class="module-calculation">
+
+        <div>
+            Plate :
+            <strong class="plate-total">
+                0M
+            </strong>
+        </div>
+
+
+        <div>
+            Used Module :
+            <strong class="used-module">
+                0M
+            </strong>
+        </div>
+
+
+        <div>
+            Blank Module :
+            <strong class="blank-module">
+                0M
+            </strong>
+        </div>
+
+
+        <div class="module-warning"></div>
+
+    </div>
+
+`;
+
+
+    /* =========================================
    ADD PLATE TO CONTAINER
-========================================= */
+    ========================================= */
 
-platesContainer.appendChild(plateBox);
+    platesContainer.appendChild(plateBox);
+
+    /* =========================================
+       SELECTED ITEMS OBSERVER (S.NO & COUNT)
+    ========================================= */
+
+    const selectedList =
+        plateBox.querySelector(".selected-item-list");
+
+    const countBadge =
+        plateBox.querySelector(".selected-item-count");
+
+    if (selectedList && countBadge) {
+
+        const updateSelectedStats = function () {
+
+            const rows =
+                selectedList.querySelectorAll(
+                    ".home-selected-row"
+                );
+
+            const count =
+                rows.length;
+
+            countBadge.textContent =
+                `${count} Item${count !== 1 ? "s" : ""}`;
+
+            rows.forEach(function (row, idx) {
+
+                const snoCell =
+                    row.querySelector(
+                        ".selected-item-sno"
+                    );
+
+                if (snoCell) {
+                    snoCell.textContent = idx + 1;
+                }
+
+            });
+
+        };
+
+        const observer =
+            new MutationObserver(updateSelectedStats);
+
+        observer.observe(
+            selectedList,
+            { childList: true }
+        );
+
+    }
+
+    /* =========================================
+    QTY + / - CONTROL
+    ========================================= */
+
+        const qtyInput =
+            plateBox.querySelector(".home-item-qty");
+
+        const qtyMinus =
+            plateBox.querySelector(".home-qty-minus");
+
+        const qtyPlus =
+            plateBox.querySelector(".home-qty-plus");
+
+
+        if (qtyInput && qtyMinus && qtyPlus) {
+
+            qtyMinus.addEventListener(
+                "click",
+                function () {
+
+                    let qty =
+                        Number(qtyInput.value) || 1;
+
+                    qtyInput.value =
+                        Math.max(1, qty - 1);
+
+                }
+            );
+
+
+            qtyPlus.addEventListener(
+                "click",
+                function () {
+
+                    let qty =
+                        Number(qtyInput.value) || 1;
+
+                    qtyInput.value =
+                        qty + 1;
+
+                }
+            );
+
+        }
 
 
 /* =========================================
@@ -5395,7 +6300,8 @@ function updateHomeItemOptions(select) {
 function addHomePlanningItem(button) {
 
     // இந்த Add Item எந்த Plate-க்குள் இருக்கிறதோ அந்த Plate-ஐ மட்டும் எடுத்துக்கொள்ளும்
-    const plateBox = button.closest(".home-plate-box");
+    const plateBox =
+        button.closest(".home-plate-box");
 
     if (!plateBox) return;
 
@@ -5423,6 +6329,11 @@ function addHomePlanningItem(button) {
     const qty =
         Number(qtyInput.value) || 0;
 
+
+    /* ================================
+       VALIDATION
+    ================================= */
+
     if (!plate) {
         alert("முதலில் Module Plate select பண்ணு.");
         return;
@@ -5438,6 +6349,11 @@ function addHomePlanningItem(button) {
         return;
     }
 
+
+    /* ================================
+       VALUES
+    ================================= */
+
     const size =
         sizeSelect.value;
 
@@ -5452,8 +6368,18 @@ function addHomePlanningItem(button) {
 
     if (!selectedList) return;
 
+
+    /* ================================
+       CREATE ROW
+    ================================= */
+
+    const currentSno =
+        selectedList.querySelectorAll(
+            ".home-selected-row"
+        ).length + 1;
+
     const row =
-        document.createElement("div");
+        document.createElement("tr");
 
     row.className =
         "home-selected-row";
@@ -5462,35 +6388,53 @@ function addHomePlanningItem(button) {
         String(module * qty);
 
     row.innerHTML = `
-        <span>
-            ${item.name}
-            ${size ? " • " + size : ""}
-            ${color ? " • " + color : ""}
-        </span>
-
-        <span>
-            Qty ${qty}
-        </span>
-
-        <strong>
-            ${module > 0 ? (module * qty) + "M" : "-"}
-        </strong>
-
-        <button
-            type="button"
-            onclick="removeHomePlanningItem(this)">
-            ×
-        </button>
+        <td class="selected-item-sno">${currentSno}</td>
+        <td class="selected-item-name"><span style="display:none;">${item.name}</span><span style="display:none;">Qty ${qty}</span>${item.name}</td>
+        <td class="selected-item-size">${size || color || "-"}</td>
+        <td class="selected-item-qty">${qty}</td>
+        <td class="selected-item-module"><strong>${
+            module > 0 ? (module * qty) + "M" : "-"
+        }</strong></td>
+        <td class="selected-item-action">
+            <button
+                type="button"
+                class="selected-item-delete-btn"
+                onclick="removeHomePlanningItem(this)"
+                title="Remove Item">
+                🗑
+            </button>
+        </td>
     `;
 
     selectedList.appendChild(row);
 
-    // இந்த Plate-க்கு மட்டும் calculation
+    const countBadge =
+        plateBox.querySelector(".selected-item-count");
+
+    if (countBadge) {
+        const count =
+            selectedList.querySelectorAll(
+                ".home-selected-row"
+            ).length;
+
+        countBadge.textContent =
+            `${count} Item${count !== 1 ? "s" : ""}`;
+    }
+
+
+    /* ================================
+       UPDATE CALCULATION
+    ================================= */
+
     calculateHomeModules(plateBox);
 
     updateHomeFinalTotal();
 
-    // Reset
+
+    /* ================================
+       RESET
+    ================================= */
+
     itemSelect.value = "";
 
     sizeSelect.innerHTML =
@@ -5499,9 +6443,10 @@ function addHomePlanningItem(button) {
     colorSelect.innerHTML =
         `<option value="">Select Color</option>`;
 
-    colorSelect.style.display = "none";
+    colorSelect.style.display =
+        "none";
 
-    qtyInput.value = 0;
+    qtyInput.value = 1;
 }
 
 /* =========================================================
@@ -5724,6 +6669,18 @@ function getSelectedItems(type) {
             return;
         }
 
+        /* UNIT */
+
+        const unitSelect =
+            row.querySelector(
+                ".unit-cell .unit-dropdown"
+            );
+
+        const selectedUnit =
+            unitSelect
+                ? unitSelect.value
+                : "";
+
         const qtyInputs =
             row.querySelectorAll(".qty-input");
 
@@ -5761,7 +6718,8 @@ function getSelectedItems(type) {
                         name: item.name,
                         size: "",
                         color: color,
-                        qty: qty
+                        qty: qty,
+                        unit: selectedUnit
                     });
 
                 }
@@ -5852,6 +6810,7 @@ function getSelectedItems(type) {
                     name: item.name,
                     size: "customSize",
                     color: color,
+                    unit: selectedUnit,
                     qty: qty
                 });
 
@@ -5882,6 +6841,7 @@ function getSelectedItems(type) {
                 name: item.name,
                 size: size,
                 color: color,
+                unit: selectedUnit,
                 qty: qty
             });
 
@@ -6425,8 +7385,8 @@ async function downloadPDF(type) {
 
 
     /* =====================================================
-       CREATE CLEAN PDF BILL
-       ===================================================== */
+    CREATE CLEAN PDF BILL
+    ===================================================== */
 
     const pdfBill =
         document.createElement("div");
@@ -6434,15 +7394,11 @@ async function downloadPDF(type) {
     pdfBill.id =
         "mvs-pdf-bill";
 
-
     pdfBill.style.width =
         "730px";
 
-    pdfBill.style.height =
-        "1038px";
-
-    pdfBill.style.minHeight =
-        "1038px";
+    pdfBill.style.overflow =
+        "visible";
 
     pdfBill.style.padding =
         "35px";
@@ -6459,7 +7415,8 @@ async function downloadPDF(type) {
     pdfBill.style.fontFamily =
         "Arial, sans-serif";
 
-    pdfBill.style.position = "fixed";
+    pdfBill.style.position =
+        "fixed";
 
     pdfBill.style.left =
         "0";
@@ -6469,10 +7426,6 @@ async function downloadPDF(type) {
 
     pdfBill.style.zIndex =
         "999999";
-
-    pdfBill.style.overflow =
-        "hidden";
-
 
     /* =====================================================
        BILL HEADER
@@ -6673,10 +7626,6 @@ async function downloadPDF(type) {
                 Thank You
             </div>
 
-            <div>
-                For Your Valuable Business
-            </div>
-
         </div>
 
     `;
@@ -6763,7 +7712,7 @@ async function downloadPDF(type) {
                 text-align:center;
                 font-weight:600;
             ">
-                ${qty}
+                ${qty} ${escapeHTML(String(item.unit || ""))}
             </td>
 
         `;
@@ -6775,6 +7724,8 @@ async function downloadPDF(type) {
         total += qty;
 
     });
+
+    
 
 
     /* =====================================================
@@ -6791,6 +7742,403 @@ async function downloadPDF(type) {
 
         totalElement.textContent =
             total;
+
+    }
+
+    /* =====================================================
+    AUTOMATIC A4 PAGINATION
+    ===================================================== */
+
+    const originalTable =
+        pdfBill.querySelector("#mvs-pdf-table");
+
+    const originalRows =
+        originalTable
+            ? Array.from(
+                originalTable.querySelectorAll(
+                    "tbody tr"
+                )
+            )
+            : [];
+
+    const billHeader =
+        originalTable
+            ? originalTable.previousElementSibling
+            : null;
+
+    const billFooter =
+        originalTable
+            ? originalTable.nextElementSibling
+            : null;
+
+
+    if (
+        originalTable &&
+        originalRows.length > 0
+    ) {
+
+        const PAGE_WIDTH = 730;
+        const PAGE_HEIGHT = 1038;
+        const PAGE_PADDING = 35;
+
+
+        /*
+        * First allow the original bill to render.
+        * This is important for getting real row heights.
+        */
+
+        await new Promise(function(resolve) {
+
+            requestAnimationFrame(function() {
+
+                requestAnimationFrame(resolve);
+
+            });
+
+        });
+
+
+        /*
+        * Measure every original row.
+        */
+
+        const rowHeights =
+            originalRows.map(
+                function(row) {
+
+                    return row.getBoundingClientRect()
+                        .height;
+
+                }
+            );
+
+
+        /*
+        * Create page container.
+        */
+
+        const pagesContainer =
+            document.createElement("div");
+
+        pagesContainer.style.width =
+            PAGE_WIDTH + "px";
+
+        pagesContainer.style.background =
+            "#ffffff";
+
+
+        let currentPageRows = [];
+
+        let currentHeight = 0;
+
+        const pages = [];
+
+
+        /*
+        * Calculate first page header height.
+        */
+
+        let firstPageHeaderHeight = 0;
+
+        if (billHeader) {
+
+            firstPageHeaderHeight =
+                billHeader.getBoundingClientRect()
+                    .height;
+
+        }
+
+
+        /*
+        * Table header height.
+        */
+
+        const tableHeader =
+            originalTable.querySelector("thead");
+
+        const tableHeaderHeight =
+            tableHeader
+                ? tableHeader.getBoundingClientRect()
+                    .height
+                : 0;
+
+
+        /*
+        * Available row space.
+        */
+
+        const firstPageAvailable =
+            PAGE_HEIGHT -
+            (PAGE_PADDING * 2) -
+            firstPageHeaderHeight -
+            tableHeaderHeight;
+
+
+        const otherPageAvailable =
+            PAGE_HEIGHT -
+            (PAGE_PADDING * 2) -
+            tableHeaderHeight;
+
+
+        /*
+        * Put rows into pages.
+        */
+
+        originalRows.forEach(
+            function(row, index) {
+
+                const rowHeight =
+                    rowHeights[index];
+
+
+                const available =
+                    pages.length === 0
+                        ? firstPageAvailable
+                        : otherPageAvailable;
+
+
+                if (
+                    currentPageRows.length > 0 &&
+                    currentHeight + rowHeight >
+                    available
+                ) {
+
+                    pages.push(
+                        currentPageRows
+                    );
+
+                    currentPageRows = [];
+
+                    currentHeight = 0;
+
+                }
+
+
+                currentPageRows.push(row);
+
+                currentHeight += rowHeight;
+
+            }
+        );
+
+
+        /*
+        * Last rows.
+        */
+
+        if (
+            currentPageRows.length > 0
+        ) {
+
+            pages.push(
+                currentPageRows
+            );
+
+        }
+
+
+        /*
+        * Create actual pages.
+        */
+
+        pages.forEach(
+            function(rows, pageIndex) {
+
+                const page =
+                    document.createElement("div");
+
+                page.style.width =
+                    PAGE_WIDTH + "px";
+
+                page.style.minHeight =
+                    PAGE_HEIGHT + "px";
+
+                page.style.boxSizing =
+                    "border-box";
+
+                page.style.padding =
+                    PAGE_PADDING + "px";
+
+                page.style.background =
+                    "#ffffff";
+
+                page.style.pageBreakAfter =
+                    pageIndex <
+                    pages.length - 1
+                        ? "always"
+                        : "auto";
+
+                page.style.breakAfter =
+                    pageIndex <
+                    pages.length - 1
+                        ? "page"
+                        : "auto";
+
+
+                /*
+                * PAGE 1 HEADER
+                */
+
+                if (
+                    pageIndex === 0 &&
+                    billHeader
+                ) {
+
+                    page.appendChild(
+                        billHeader.cloneNode(true)
+                    );
+
+                }
+
+
+                /*
+                * TABLE
+                */
+
+                const table =
+                    document.createElement("table");
+
+                table.style.width =
+                    "100%";
+
+                table.style.borderCollapse =
+                    "collapse";
+
+                table.style.tableLayout =
+                    "fixed";
+
+                table.style.fontSize =
+                    "12px";
+
+
+                /*
+                * TABLE HEADER
+                */
+
+                table.appendChild(
+                    originalTable
+                        .querySelector("thead")
+                        .cloneNode(true)
+                );
+
+
+                /*
+                * ROWS
+                */
+
+                const tbody =
+                    document.createElement("tbody");
+
+
+                rows.forEach(
+                    function(row) {
+
+                        tbody.appendChild(
+                            row.cloneNode(true)
+                        );
+
+                    }
+                );
+
+
+                table.appendChild(
+                    tbody
+                );
+
+                page.appendChild(
+                    table
+                );
+
+
+                /*
+                * TOTAL + FOOTER
+                * LAST PAGE ONLY
+                */
+
+                if (
+                    pageIndex ===
+                    pages.length - 1
+                ) {
+
+                    const totalBox =
+                        document.createElement("div");
+
+                    totalBox.style.marginTop =
+                        "12px";
+
+                    totalBox.innerHTML = `
+                        <table
+                            style="
+                                width:100%;
+                                border-collapse:collapse;
+                                font-size:12px;
+                            "
+                        >
+                            <tr>
+
+                                <td
+                                    style="
+                                        border:1px solid #111;
+                                        padding:9px;
+                                        text-align:right;
+                                        font-weight:700;
+                                    "
+                                >
+                                    TOTAL
+                                </td>
+
+                                <td
+                                    style="
+                                        width:65px;
+                                        border:1px solid #111;
+                                        padding:9px;
+                                        text-align:center;
+                                        font-weight:700;
+                                    "
+                                >
+                                    ${total}
+                                </td>
+
+                            </tr>
+                        </table>
+                    `;
+
+                    page.appendChild(
+                        totalBox
+                    );
+
+
+                    if (billFooter) {
+
+                        page.appendChild(
+                            billFooter.cloneNode(true)
+                        );
+
+                    }
+
+                }
+
+
+                pagesContainer.appendChild(
+                    page
+                );
+
+            }
+        );
+
+
+        /*
+        * Replace original bill
+        */
+
+        pdfBill.innerHTML = "";
+
+        pdfBill.style.padding =
+            "0";
+
+        pdfBill.appendChild(
+            pagesContainer
+        );
 
     }
 
