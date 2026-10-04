@@ -1,0 +1,315 @@
+{
+  "commonUnits": [
+    "Nos",
+    "Meter",
+    "Feet",
+    "Kg",
+    "Bag",
+    "Ton",
+    "Cft",
+    "Sqft",
+    "Cum",
+    "Litre"
+  ],
+  "items": [
+    {
+      "name": "Cement",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Bag"
+    },
+    {
+      "name": "M-Sand",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Cft"
+    },
+    {
+      "name": "P-Sand",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Cft"
+    },
+    {
+      "name": "River Sand",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Cft"
+    },
+    {
+      "name": "20mm Blue Metal",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Cft"
+    },
+    {
+      "name": "12mm Blue Metal",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Cft"
+    },
+    {
+      "name": "6mm Blue Metal",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Cft"
+    },
+    {
+      "name": "Bricks",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Nos"
+    },
+    {
+      "name": "AAC Block",
+      "sizes": [
+        "4 inch",
+        "6 inch",
+        "8 inch"
+      ],
+      "customSize": true,
+      "unit": "Nos"
+    },
+    {
+      "name": "Solid Block",
+      "sizes": [
+        "4 inch",
+        "6 inch",
+        "8 inch"
+      ],
+      "customSize": true,
+      "unit": "Nos"
+    },
+    {
+      "name": "Steel Rod",
+      "sizes": [
+        "6mm",
+        "8mm",
+        "10mm",
+        "12mm",
+        "16mm",
+        "20mm",
+        "25mm"
+      ],
+      "customSize": true,
+      "unit": "Kg"
+    },
+    {
+      "name": "Binding Wire",
+      "sizes": [
+        "18 Gauge",
+        "20 Gauge"
+      ],
+      "customSize": true,
+      "unit": "Kg"
+    },
+    {
+      "name": "Cover Block",
+      "sizes": [
+        "20mm",
+        "25mm",
+        "40mm",
+        "50mm"
+      ],
+      "customSize": true,
+      "unit": "Nos"
+    },
+    {
+      "name": "Shuttering Plywood",
+      "sizes": [
+        "8x4 ft",
+        "7x4 ft"
+      ],
+      "customSize": true,
+      "unit": "Sheet"
+    },
+    {
+      "name": "MS Angle",
+      "sizes": [
+        "25x25mm",
+        "40x40mm",
+        "50x50mm"
+      ],
+      "customSize": true,
+      "unit": "Meter"
+    },
+    {
+      "name": "MS Channel",
+      "sizes": [
+        "75mm",
+        "100mm",
+        "125mm"
+      ],
+      "customSize": true,
+      "unit": "Meter"
+    },
+    {
+      "name": "GI Wire",
+      "sizes": [
+        "1mm",
+        "1.5mm",
+        "2mm"
+      ],
+      "customSize": true,
+      "unit": "Kg"
+    },
+    {
+      "name": "PVC Sheet",
+      "sizes": [
+        "4x8 ft",
+        "4x6 ft"
+      ],
+      "customSize": true,
+      "unit": "Sheet"
+    },
+    {
+      "name": "Waterproofing Compound",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Litre"
+    },
+    {
+      "name": "Curing Compound",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Litre"
+    },
+    {
+      "name": "Construction Chemical",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Kg"
+    },
+    {
+      "name": "Tile Adhesive",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Bag"
+    },
+    {
+      "name": "Floor Tile",
+      "sizes": [
+        "2x2 ft",
+        "4x2 ft",
+        "1x1 ft"
+      ],
+      "customSize": true,
+      "unit": "Sqft"
+    },
+    {
+      "name": "Wall Tile",
+      "sizes": [
+        "12x18 inch",
+        "12x24 inch",
+        "24x48 inch"
+      ],
+      "customSize": true,
+      "unit": "Sqft"
+    },
+    {
+      "name": "Granite",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Sqft"
+    },
+    {
+      "name": "Marble",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Sqft"
+    },
+    {
+      "name": "Kerb Stone",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Nos"
+    },
+    {
+      "name": "Paver Block",
+      "sizes": [
+        "60mm",
+        "80mm",
+        "100mm"
+      ],
+      "customSize": true,
+      "unit": "Sqft"
+    },
+    {
+      "name": "Cement Putty",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Kg"
+    },
+    {
+      "name": "Wall Primer",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Litre"
+    },
+    {
+      "name": "Interior Paint",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Litre"
+    },
+    {
+      "name": "Exterior Paint",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Litre"
+    },
+    {
+      "name": "Door Frame",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Nos"
+    },
+    {
+      "name": "Window Frame",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Nos"
+    },
+    {
+      "name": "PVC Door",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Nos"
+    },
+    {
+      "name": "UPVC Window",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Nos"
+    },
+    {
+      "name": "Glass",
+      "sizes": [],
+      "customSize": true,
+      "unit": "Sqft"
+    },
+    {
+      "name": "Nails",
+      "sizes": [
+        "1 inch",
+        "1.5 inch",
+        "2 inch",
+        "3 inch",
+        "4 inch"
+      ],
+      "customSize": true,
+      "unit": "Kg"
+    },
+    {
+      "name": "Screw",
+      "sizes": [
+        "1 inch",
+        "1.5 inch",
+        "2 inch",
+        "2.5 inch"
+      ],
+      "customSize": true,
+      "unit": "Box"
+    }
+  ]
+}

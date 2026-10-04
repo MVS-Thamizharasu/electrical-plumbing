@@ -11,7 +11,7 @@
 
     <meta name="description" content="MVS Electrical - Electrical & Plumbing Order Form">
 
-    <title>MVS Electrical</title>
+    <title>🏗️ MVS CONSTRUCTION</title>
 
 
     <!-- =====================================================
@@ -58,7 +58,6 @@
 
 <body>
 
-
     <div class="app">
 
 
@@ -82,7 +81,7 @@
                     <div class="brand-info">
 
                         <h1>
-                            MVS ELECTRICAL
+                             MVS CONSTRUCTION
                         </h1>
 
                         <p>
@@ -111,6 +110,10 @@
 
                     <button type="button" class="nav-item" onclick="openForm('plumbing')">
                         🔧 Plumbing
+                    </button>
+
+                    <button type="button" class="nav-item" onclick="openMaterialsToBuy()">
+                        🛒 Materials to Buy
                     </button>
 
                     <button type="button" class="nav-item" onclick="showHistory()">
@@ -175,7 +178,7 @@
 
                             <div class="welcome-copy">
 
-                                <h2>MVS <strong>ELECTRICAL</strong></h2>
+                                <h2>MVS <strong> CONSTRUCTION</strong></h2>
 
                                 <p class="welcome-title">
                                     Electrical &amp; Plumbing Solutions
@@ -286,6 +289,242 @@
 
                     </div>
 
+                    <!-- =====================================================
+                        MATERIALS TO BUY
+                    ===================================================== -->
+
+                    <div id="materialsToBuyPage" class="form-page">
+
+                        <button
+                            type="button"
+                            class="top-back-btn"
+                            onclick="goHome()">
+                            ← Back
+                        </button>
+
+                        <div class="materials-buy-header">
+
+                            <div>
+                                <div class="materials-buy-title">
+                                    🛒 MATERIALS TO BUY
+                                </div>
+
+                                <div class="materials-buy-subtitle">
+                                    Selected materials required for purchase
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!-- CATEGORY BUTTONS -->
+
+                        <div class="materials-category-buttons">
+
+                            <button
+                                type="button"
+                                class="material-category-btn electrical"
+                                onclick="showBuyCategory('electrical')">
+
+                                ⚡
+                                <span>
+                                    Electrical
+                                    <small>Materials to Buy</small>
+                                </span>
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="material-category-btn plumbing"
+                                onclick="showBuyCategory('plumbing')">
+
+                                🚰
+                                <span>
+                                    Plumbing
+                                    <small>Materials to Buy</small>
+                                </span>
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="material-category-btn civil"
+                                onclick="showBuyCategory('civil')">
+
+                                🧱
+                                <span>
+                                    Civil
+                                    <small>Materials to Buy</small>
+                                </span>
+
+                            </button>
+
+                        </div>
+
+
+                        <!-- ELECTRICAL -->
+
+                        <section
+                            id="buyElectricalSection"
+                            class="materials-buy-section">
+
+                            <div class="materials-section-header electrical-header">
+
+                                <div>
+                                    <h2>⚡ Electrical Materials</h2>
+
+                                    <p>
+                                        Selected materials from Electrical Estimation
+                                    </p>
+                                </div>
+
+                                <span id="buyElectricalCount">
+                                    0 Items
+                                </span>
+
+                            </div>
+
+
+                            <div class="materials-table-container">
+
+                                <table class="materials-buy-table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>Item Name</th>
+                                            <th>Amp / Size</th>
+                                            <th>Qty</th>
+                                            <th>Unit</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="buyElectricalItems">
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- PLUMBING -->
+
+                        <section
+                            id="buyPlumbingSection"
+                            class="materials-buy-section">
+
+                            <div class="materials-section-header plumbing-header">
+
+                                <div>
+                                    <h2>🚰 Plumbing Materials</h2>
+
+                                    <p>
+                                        Selected materials from Plumbing Estimation
+                                    </p>
+                                </div>
+
+                                <span id="buyPlumbingCount">
+                                    0 Items
+                                </span>
+
+                            </div>
+
+
+                            <div class="materials-table-container">
+
+                                <table class="materials-buy-table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>Item Name</th>
+                                            <th>Size</th>
+                                            <th>Qty</th>
+                                            <th>Unit</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="buyPlumbingItems">
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- CIVIL -->
+
+                        <section
+                            id="buyCivilSection"
+                            class="materials-buy-section">
+
+                            <div class="materials-section-header civil-header">
+
+                                <div>
+                                    <h2>🧱 Civil Materials</h2>
+
+                                    <p>
+                                        Selected materials from Civil Estimation
+                                    </p>
+                                </div>
+
+                                <span id="buyCivilCount">
+                                    0 Items
+                                </span>
+
+                            </div>
+
+
+                            <div class="materials-table-container">
+
+                                <table class="materials-buy-table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>Item Name</th>
+                                            <th>Size</th>
+                                            <th>Qty</th>
+                                            <th>Unit</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="buyCivilItems">
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- NOTE -->
+
+                        <div class="materials-buy-note">
+
+                            🛒 <strong>Materials to Buy</strong> shows only
+                            the materials and quantities required.
+
+                            <br>
+
+                            💰 Rate and Amount will be handled later
+                            in the Purchase section.
+
+                        </div>
+
+                    </div>
+
 
                     <!-- HOME PLANNING -->
                     <section class="home-planning-card" onclick="openHomePlanning()">
@@ -359,7 +598,7 @@
                 <footer class="dashboard-footer">
 
                     <span>
-                        © 2026 MVS ELECTRICAL
+                        © 2026  MVS CONSTRUCTION
                     </span>
 
                     <span>
@@ -1190,7 +1429,9 @@
     <!-- =====================================================
      JAVASCRIPT
      ===================================================== -->
-
+    
+    <script src="./js/orders-api.js"></script>
+    <script src="./js/history.js"></script>
     <script src="./script.js"></script>
 
     <!-- =====================================================

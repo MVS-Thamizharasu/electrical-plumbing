@@ -14,7 +14,36 @@
     "Purple",
     "Yellow/Green"
   ],
+  
+"commonUnits": [
+  "NOS",
+  "PCS",
+  "Box",
+  "Meter",
+  "Feet",
+  "Set",
+  "Pair",
+  "Roll",
+  "Coil",
+  "Reel",
+  "Pack",
+  "Kit",
+  "Dozen",
+  "Bundle",
+  "Sheet",
+  "Bag",
+  "Lot"
+],
+
   "items": [
+    {
+    "name": "",
+    "sizes": [""],
+    "module": 1,
+    "useColors": true,
+    "customSize": true,
+    "unit": ""
+},
     {
       "name": "1 Way Switch",
       "sizes": [
@@ -679,33 +708,86 @@
       "customSize": false
     },
     {
-      "name": "7/16 Aluminium Wire",
-      "sizes": [
-        "7/16"
-      ],
-      "customSize": true
-    },
+  "name": "Aluminium Wire",
+  "sizes": [
+    "1.5 sqmm",
+    "2.5 sqmm",
+    "4 sqmm",
+    "6 sqmm",
+    "10 sqmm",
+    "16 sqmm",
+    "25 sqmm",
+    "35 sqmm",
+    "50 sqmm",
+    "70 sqmm",
+    "95 sqmm",
+    "120 sqmm",
+    "7/16",
+    "7/18",
+    "7/20",
+    "7/22",
+    "7/24",
+    "7/26",
+    "7/28",
+    "7/30",
+    "7/32",
+    "7/36",
+    "7/44"
+  ],
+  "useColors": true,
+  "customSize": true,
+  "unit": "Meter"
+},
     {
-      "name": "1¼\" GI Pipe",
-      "sizes": [
-        "1¼\""
-      ],
-      "customSize": true
-    },
+  "name": "GI Pipe",
+  "sizes": [
+    "15mm (1/2\")",
+    "20mm (3/4\")",
+    "25mm (1\")",
+    "32mm (1¼\")",
+    "40mm (1½\")",
+    "50mm (2\")",
+    "65mm (2½\")",
+    "80mm (3\")",
+    "100mm (4\")",
+    "125mm (5\")",
+    "150mm (6\")"
+  ],
+  "customSize": true,
+  "unit": "Meter"
+},
     {
-      "name": "GI Pipe Coupler",
-      "sizes": [
-        "1¼\""
-      ],
-      "customSize": true
-    },
+  "name": "GI Pipe Coupler",
+  "sizes": [
+    "1/2\"",
+    "3/4\"",
+    "1\"",
+    "1¼\"",
+    "1½\"",
+    "2\"",
+    "2½\"",
+    "3\"",
+    "4\""
+  ],
+  "customSize": true,
+  "unit": "Nos"
+},
     {
-      "name": "GI Pipe Union",
-      "sizes": [
-        "1¼\""
-      ],
-      "customSize": true
-    },
+  "name": "GI Pipe Union",
+  "sizes": [
+    "1/2\"",
+    "3/4\"",
+    "1\"",
+    "1¼\"",
+    "1½\"",
+    "2\"",
+    "2½\"",
+    "3\"",
+    "4\""
+  ],
+  "customSize": true,
+  "unit": "Nos"
+},
     {
       "name": "FTA PVC Coupler",
       "sizes": [
@@ -727,12 +809,20 @@
       "customSize": true
     },
     {
-      "name": "GI Pipe Clamp",
-      "sizes": [
-        "1¼\""
-      ],
-      "customSize": true
-    },
+  "name": "GI Pipe Clamp",
+  "sizes": [
+    "1/2\"",
+    "3/4\"",
+    "1\"",
+    "1¼\"",
+    "1½\"",
+    "2\"",
+    "2½\"",
+    "3\"",
+    "4\""
+  ],
+  "customSize": true
+  },
     {
       "name": "Kit-Kat Fuse",
       "sizes": [
@@ -742,15 +832,42 @@
       "customSize": true
     },
     {
-      "name": "Neutral Link",
-      "sizes": [],
-      "customSize": true
-    },
+  "name": "Neutral Link",
+  "sizes": [
+    "4 Way",
+    "6 Way",
+    "8 Way",
+    "10 Way",
+    "12 Way"
+  ],
+  "customSize": true,
+  "unit": "Nos"
+},
+
+{
+  "name": "Brass Earth Link",
+  "sizes": [
+    "4 Way",
+    "6 Way",
+    "8 Way",
+    "10 Way",
+    "12 Way"
+  ],
+  "customSize": true,
+  "unit": "Nos"
+},
     {
-      "name": "Earth Link",
-      "sizes": [],
-      "customSize": true
-    },
+  "name": "Earth Link",
+  "sizes": [
+    "4 Way",
+    "6 Way",
+    "8 Way",
+    "10 Way",
+    "12 Way"
+  ],
+  "customSize": true,
+  "unit": "Nos"
+},
     {
       "name": "4-Pole RCCB Box",
       "sizes": [],

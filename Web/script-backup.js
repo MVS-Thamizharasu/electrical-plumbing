@@ -2767,10 +2767,6 @@ function goHome() {
         "plumbingForm"
     ).style.display = "none";
 
-    document.getElementById(
-        "materialsToBuyPage"
-    ).style.display = "none";
-
 
     const homePlanning =
         document.getElementById(
@@ -9542,60 +9538,60 @@ function shareWhatsApp(type) {
 
 
     selected.forEach(
-        function (item) {
+    function (item) {
 
-            let line =
-                sno +
-                ". " +
-                item.name;
-
-
-            /* SIZE */
-
-            if (item.size) {
-
-                line +=
-                    " — " +
-                    item.size;
-            }
+        let line =
+            sno +
+            ". " +
+            item.name;
 
 
-            /* COLOR */
+        /* SIZE */
 
-            if (item.color) {
-
-                line +=
-                    " — " +
-                    item.color;
-            }
-
-
-            /* QTY */
+        if (item.size) {
 
             line +=
-                " — Qty " +
-                item.qty;
-
-
-            /* UNIT */
-
-            if (item.unit) {
-
-                line +=
-                    " " +
-                    item.unit;
-            }
-
-
-            message +=
-                line +
-                "\n";
-
-
-            sno++;
-
+                " — " +
+                item.size;
         }
-    );
+
+
+        /* COLOR */
+
+        if (item.color) {
+
+            line +=
+                " — " +
+                item.color;
+        }
+
+
+        /* QTY */
+
+        line +=
+            " — Qty " +
+            item.qty;
+
+
+        /* UNIT */
+
+        if (item.unit) {
+
+            line +=
+                " " +
+                item.unit;
+        }
+
+
+        message +=
+            line +
+            "\n";
+
+
+        sno++;
+
+    }
+);
 
 
     const cleanPhone =
@@ -10238,8 +10234,7 @@ function resetSection(type) {
 }
 
 /* =========================================================
-   MVS CONSTRUCTION ESTIMATION
-   HISTORY MODULE
+   SAVED ORDERS - HISTORY UI
 ========================================================= */
 
 async function showHistory() {
@@ -10255,11 +10250,13 @@ async function showHistory() {
             oldModal.remove();
         }
 
+
         const modal =
             document.createElement("div");
 
         modal.id = "ordersHistoryModal";
         modal.className = "orders-history-modal";
+
 
         modal.innerHTML = `
 
@@ -10279,6 +10276,7 @@ async function showHistory() {
                     </button>
 
                 </div>
+
 
                 <div class="orders-history-tools">
 
@@ -10305,13 +10303,10 @@ async function showHistory() {
                             🚰 Plumbing
                         </option>
 
-                        <option value="civil">
-                            🧱 Civil
-                        </option>
-
                     </select>
 
                 </div>
+
 
                 <div
                     id="ordersHistoryList"
@@ -10322,14 +10317,18 @@ async function showHistory() {
 
         `;
 
+
         document.body.appendChild(modal);
+
 
         window.mvsHistoryOrders =
             orders || [];
 
+
         renderOrderHistory(
             window.mvsHistoryOrders
         );
+
 
     } catch (error) {
 
@@ -10359,6 +10358,7 @@ function renderOrderHistory(orders) {
 
     if (!list) return;
 
+
     if (!orders || orders.length === 0) {
 
         list.innerHTML = `
@@ -10380,37 +10380,37 @@ function renderOrderHistory(orders) {
         return;
     }
 
+
     list.innerHTML = "";
+
 
     orders
         .slice()
         .reverse()
         .forEach(function (order) {
 
-            const orderType =
-                (
-                    order.order_type || ""
-                ).toLowerCase();
+            const isElectrical =
+                order.order_type === "electrical";
 
-            let icon = "🚰";
-            let typeName = "Plumbing";
 
-            if (orderType === "electrical") {
+            const icon =
+                isElectrical
+                    ? "⚡"
+                    : "🚰";
 
-                icon = "⚡";
-                typeName = "Electrical";
 
-            } else if (orderType === "civil") {
+            const typeName =
+                isElectrical
+                    ? "Electrical"
+                    : "Plumbing";
 
-                icon = "🧱";
-                typeName = "Civil";
-            }
 
             const card =
                 document.createElement("div");
 
             card.className =
                 "order-history-card";
+
 
             card.innerHTML = `
 
@@ -10420,40 +10420,45 @@ function renderOrderHistory(orders) {
                         ${icon}
                     </div>
 
+
                     <div class="order-history-info">
 
                         <div class="order-history-title">
 
                             <strong>
                                 ${escapeHTML(
-                order.order_no || "-"
-            )}
+                                    order.order_no || "-"
+                                )}
                             </strong>
 
                             <span class="
                                 order-history-type
-                                ${orderType}
+                                ${isElectrical
+                                    ? "electrical"
+                                    : "plumbing"}
                             ">
                                 ${typeName}
                             </span>
 
                         </div>
 
+
                         <div class="order-history-customer">
 
                             👤
                             ${escapeHTML(
-                order.customer_name || "-"
-            )}
+                                order.customer_name || "-"
+                            )}
 
                         </div>
+
 
                         <div class="order-history-meta">
 
                             📅
                             ${escapeHTML(
-                order.order_date || "-"
-            )}
+                                order.order_date || "-"
+                            )}
 
                             &nbsp;&nbsp;
 
@@ -10467,6 +10472,7 @@ function renderOrderHistory(orders) {
 
                 </div>
 
+
                 <div class="order-history-actions">
 
                     <button
@@ -10476,6 +10482,7 @@ function renderOrderHistory(orders) {
                         👁️ View
 
                     </button>
+
 
                     <button
                         class="history-delete-btn"
@@ -10488,6 +10495,7 @@ function renderOrderHistory(orders) {
                 </div>
 
             `;
+
 
             list.appendChild(card);
 
@@ -10507,47 +10515,55 @@ function filterOrderHistory() {
                 "orderHistorySearch"
             )?.value || ""
         )
-            .toLowerCase()
-            .trim();
+        .toLowerCase()
+        .trim();
+
 
     const type =
         document.getElementById(
             "orderHistoryType"
         )?.value || "all";
 
+
     const filtered =
         (window.mvsHistoryOrders || [])
-            .filter(function (order) {
+        .filter(function (order) {
 
-                const orderNo =
-                    (
-                        order.order_no || ""
-                    ).toLowerCase();
+            const orderNo =
+                (
+                    order.order_no || ""
+                ).toLowerCase();
 
-                const customer =
-                    (
-                        order.customer_name || ""
-                    ).toLowerCase();
 
-                const orderType =
-                    (
-                        order.order_type || ""
-                    ).toLowerCase();
+            const customer =
+                (
+                    order.customer_name || ""
+                ).toLowerCase();
 
-                const matchesSearch =
-                    orderNo.includes(search) ||
-                    customer.includes(search);
 
-                const matchesType =
-                    type === "all" ||
-                    orderType === type;
+            const orderType =
+                (
+                    order.order_type || ""
+                ).toLowerCase();
 
-                return (
-                    matchesSearch &&
-                    matchesType
-                );
 
-            });
+            const matchesSearch =
+                orderNo.includes(search) ||
+                customer.includes(search);
+
+
+            const matchesType =
+                type === "all" ||
+                orderType === type;
+
+
+            return (
+                matchesSearch &&
+                matchesType
+            );
+
+        });
+
 
     renderOrderHistory(filtered);
 }
@@ -10561,8 +10577,7 @@ async function viewOrderDetails(orderId) {
 
     try {
 
-        const order =
-            await getOrder(orderId);
+        const order = await getOrder(orderId);
 
         let items = [];
 
@@ -10570,16 +10585,11 @@ async function viewOrderDetails(orderId) {
 
             items = order.items;
 
-        } else if (
-            typeof order.items === "string"
-        ) {
+        } else if (typeof order.items === "string") {
 
             try {
 
-                items =
-                    JSON.parse(
-                        order.items || "[]"
-                    );
+                items = JSON.parse(order.items || "[]");
 
             } catch (error) {
 
@@ -10588,8 +10598,9 @@ async function viewOrderDetails(orderId) {
             }
         }
 
-        let itemText =
-            "No item details available.";
+
+        let itemText = "No item details available.";
+
 
         if (
             Array.isArray(items) &&
@@ -10618,27 +10629,33 @@ async function viewOrderDetails(orderId) {
                 .join("\n");
         }
 
+
         const typeName =
             order.order_type === "electrical"
                 ? "⚡ ELECTRICAL"
-                : order.order_type === "civil"
-                    ? "🧱 CIVIL"
-                    : "🚰 PLUMBING";
+                : order.order_type === "plumbing"
+                    ? "🚰 PLUMBING"
+                    : "🧱 CIVIL";
+
 
         alert(
 
             `${typeName} ORDER\n\n` +
 
-            `Order No: ${order.order_no || "-"
+            `Order No: ${
+                order.order_no || "-"
             }\n` +
 
-            `Customer: ${order.customer_name || "-"
+            `Customer: ${
+                order.customer_name || "-"
             }\n` +
 
-            `Phone: ${order.phone || "-"
+            `Phone: ${
+                order.phone || "-"
             }\n` +
 
-            `Date: ${order.order_date || "-"
+            `Date: ${
+                order.order_date || "-"
             }\n\n` +
 
             `ITEMS\n` +
@@ -10647,10 +10664,12 @@ async function viewOrderDetails(orderId) {
 
             `${itemText}\n\n` +
 
-            `Total Qty: ${order.total_quantity ?? 0
+            `Total Qty: ${
+                order.total_quantity ?? 0
             }`
 
         );
+
 
     } catch (error) {
 
@@ -10678,34 +10697,35 @@ async function deleteOrderFromHistory(orderId) {
             "இந்த Order-ஐ delete செய்யவா?"
         );
 
+
     if (!confirmDelete) {
         return;
     }
+
 
     try {
 
         await deleteOrder(orderId);
 
+
         window.mvsHistoryOrders =
             (window.mvsHistoryOrders || [])
-                .filter(function (order) {
+            .filter(function (order) {
 
-                    return order.id !== orderId;
+                return order.id !== orderId;
 
-                });
+            });
+
 
         filterOrderHistory();
+
 
         alert(
             "Order deleted successfully ✅"
         );
 
-    } catch (error) {
 
-        console.error(
-            "Delete failed:",
-            error
-        );
+    } catch (error) {
 
         alert(
             "Delete failed:\n\n" +
@@ -10713,6 +10733,7 @@ async function deleteOrderFromHistory(orderId) {
         );
     }
 }
+
 
 /* =========================================================
    CLOSE HISTORY
@@ -10730,7 +10751,6 @@ function closeOrdersHistory() {
         modal.remove();
     }
 }
-
 
 /* =========================================================
    PAGE LOAD / DOM INITIALIZATION
@@ -10803,19 +10823,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    /* =========================================
-        MATERIALS TO BUY
-        ========================================= */
-
-        if (
-            savedPage === "materialsToBuyPage"
-        ) {
-
-            openMaterialsToBuy();
-
-            return;
-        }
-
 
     /* =========================================
        OTHER PAGE
@@ -10864,372 +10871,3 @@ document.addEventListener("DOMContentLoaded", () => {
     goHome();
 
 });
-
-/* =========================================================
-   MATERIALS TO BUY
-========================================================= */
-
-function openMaterialsToBuy() {
-
-    const homePage =
-        document.getElementById("homePage");
-
-    const electricalForm =
-        document.getElementById("electricalForm");
-
-    const plumbingForm =
-        document.getElementById("plumbingForm");
-
-    const homePlanning =
-        document.getElementById("homePlanning");
-
-    const materialsPage =
-        document.getElementById("materialsToBuyPage");
-
-    const app =
-        document.querySelector(".app");
-
-    if (
-        app &&
-        materialsPage &&
-        materialsPage.parentElement !== app
-    ) {
-        app.appendChild(materialsPage);
-    }
-
-
-    // Check page exists
-    if (!materialsPage) {
-
-        console.error(
-            "materialsToBuyPage NOT FOUND"
-        );
-
-        alert(
-            "Materials to Buy page HTML not found."
-        );
-
-        return;
-    }
-
-
-    // Hide existing pages
-
-    if (homePage) {
-        homePage.style.display = "none";
-    }
-
-    if (electricalForm) {
-        electricalForm.style.display = "none";
-        electricalForm.classList.remove("active");
-    }
-
-    if (plumbingForm) {
-        plumbingForm.style.display = "none";
-        plumbingForm.classList.remove("active");
-    }
-
-    if (homePlanning) {
-        homePlanning.style.display = "none";
-        homePlanning.classList.remove("active");
-    }
-
-
-    // Show Materials To Buy
-
-    document
-        .querySelectorAll(".form-page")
-        .forEach(function (page) {
-
-            page.classList.remove("active");
-
-        });
-
-
-    materialsPage.classList.add("active");
-
-    materialsPage.style.display = "block";
-
-
-    // Save current page
-
-    localStorage.setItem(
-        "mvsCurrentPage",
-        "materialsToBuyPage"
-    );
-
-
-    // Load materials
-
-    if (
-        typeof loadMaterialsToBuy ===
-        "function"
-    ) {
-
-        loadMaterialsToBuy();
-        showBuyCategory("electrical");
-
-        console.log(
-            "Electrical Section:",
-            document.getElementById("buyElectricalSection")
-        );
-
-        console.log(
-            "Electrical Items:",
-            document.getElementById("buyElectricalItems")
-        );
-
-        window.scrollTo(0, 0);
-    }
-}
-
-
-/* =========================================================
-   LOAD MATERIALS TO BUY
-========================================================= */
-
-function loadMaterialsToBuy() {
-
-    loadBuyElectrical();
-
-    loadBuyPlumbing();
-
-    loadBuyCivil();
-}
-
-
-/* =========================================================
-   ELECTRICAL
-========================================================= */
-
-function loadBuyElectrical() {
-
-    const container =
-        document.getElementById("buyElectricalItems");
-
-    const countElement =
-        document.getElementById("buyElectricalCount");
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    let selected = [];
-
-    try {
-        selected = getSelectedItems("electrical");
-    } catch (error) {
-
-        console.error(
-            "Electrical Materials Error:",
-            error
-        );
-
-        selected = [];
-    }
-
-
-    if (!selected.length) {
-
-        container.innerHTML = `
-            <tr>
-                <td colspan="5" class="materials-empty">
-                    No electrical materials selected.
-                </td>
-            </tr>
-        `;
-
-        if (countElement) {
-            countElement.textContent = "0 Items";
-        }
-
-        return;
-    }
-
-
-    selected.forEach(function (item, index) {
-
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td>${index + 1}</td>
-
-            <td class="material-item-name">
-                ${escapeHTML(item.name || "-")}
-            </td>
-
-            <td>
-                ${escapeHTML(item.size || "-")}
-            </td>
-
-            <td class="material-qty">
-                ${item.qty || 0}
-            </td>
-
-            <td>
-                ${escapeHTML(item.unit || "-")}
-            </td>
-        `;
-
-        container.appendChild(row);
-    });
-
-
-    if (countElement) {
-
-        countElement.textContent =
-            `${selected.length} Items`;
-    }
-}
-
-
-/* =========================================================
-   PLUMBING
-========================================================= */
-
-function loadBuyPlumbing() {
-
-    const container =
-        document.getElementById("buyPlumbingItems");
-
-    const countElement =
-        document.getElementById("buyPlumbingCount");
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    let selected = [];
-
-    try {
-        selected = getSelectedItems("plumbing");
-    } catch (error) {
-
-        console.error(
-            "Plumbing Materials Error:",
-            error
-        );
-
-        selected = [];
-    }
-
-
-    if (!selected.length) {
-
-        container.innerHTML = `
-            <tr>
-                <td colspan="5" class="materials-empty">
-                    No plumbing materials selected.
-                </td>
-            </tr>
-        `;
-
-        if (countElement) {
-            countElement.textContent = "0 Items";
-        }
-
-        return;
-    }
-
-
-    selected.forEach(function (item, index) {
-
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td>${index + 1}</td>
-
-            <td class="material-item-name">
-                ${escapeHTML(item.name || "-")}
-            </td>
-
-            <td>
-                ${escapeHTML(item.size || "-")}
-            </td>
-
-            <td class="material-qty">
-                ${item.qty || 0}
-            </td>
-
-            <td>
-                ${escapeHTML(item.unit || "-")}
-            </td>
-        `;
-
-        container.appendChild(row);
-    });
-
-
-    if (countElement) {
-
-        countElement.textContent =
-            `${selected.length} Items`;
-    }
-}
-
-
-/* =========================================================
-   CIVIL
-========================================================= */
-
-function loadBuyCivil() {
-
-    const container =
-        document.getElementById("buyCivilItems");
-
-    const countElement =
-        document.getElementById("buyCivilCount");
-
-    if (!container) return;
-
-    container.innerHTML = `
-        <tr>
-            <td colspan="5" class="materials-empty">
-                Civil Estimation will be connected here.
-            </td>
-        </tr>
-    `;
-
-    if (countElement) {
-        countElement.textContent = "0 Items";
-    }
-}
-
-
-/* =========================================================
-   CATEGORY VIEW
-========================================================= */
-
-function showBuyCategory(category) {
-
-    const electrical =
-        document.getElementById("buyElectricalSection");
-
-    const plumbing =
-        document.getElementById("buyPlumbingSection");
-
-    const civil =
-        document.getElementById("buyCivilSection");
-
-
-    if (electrical) {
-        electrical.style.display =
-            category === "electrical"
-                ? "block"
-                : "none";
-    }
-
-    if (plumbing) {
-        plumbing.style.display =
-            category === "plumbing"
-                ? "block"
-                : "none";
-    }
-
-    if (civil) {
-        civil.style.display =
-            category === "civil"
-                ? "block"
-                : "none";
-    }
-}

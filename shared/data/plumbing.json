@@ -1,4 +1,5 @@
 [
+  {"name": "", "sizes": [], "customSize": true, "useColors": true },
   { "name": "CPVC Pipe SDR 11", "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""], "customSize": true },
   { "name": "CPVC Pipe SDR 13.5", "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""], "customSize": true },
   { "name": "CPVC Elbow 90 Degree", "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""], "customSize": true },
@@ -207,5 +208,706 @@
   { "name": "Hacksaw Frame with Bi-Metal Blade", "sizes": ["12 inch Heavy"], "customSize": false },
   { "name": "Rubber Toilet Plunger Suction Pump", "sizes": ["Small Sink", "Large Toilet"], "customSize": true },
   { "name": "Steel Drain Cleaning Spring Wire Snake", "sizes": ["3 Meter", "5 Meter", "10 Meter"], "customSize": true },
-  { "name": "Basin Tap Nut Spanner Wrench Tool", "sizes": ["Multipurpose 8-in-1"], "customSize": false }
+  { "name": "Basin Tap Nut Spanner Wrench Tool", "sizes": ["Multipurpose 8-in-1"], "customSize": false },
+  {
+    "name": "PPR Pipe PN 10",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm", "63mm", "75mm", "90mm", "110mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Pipe PN 16",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm", "63mm", "75mm", "90mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Elbow 90 Degree",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm", "63mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Elbow 45 Degree",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm", "63mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Tee Equal",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm", "63mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Coupler",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm", "63mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Reducing Coupler",
+    "sizes": ["25x20mm", "32x20mm", "32x25mm", "40x32mm", "50x40mm", "63x50mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Reducing Tee",
+    "sizes": ["25x20mm", "32x20mm", "32x25mm", "40x32mm", "50x40mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Reducing Bush",
+    "sizes": ["25x20mm", "32x20mm", "32x25mm", "40x25mm", "40x32mm", "50x40mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Union",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm", "63mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR End Cap",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm", "63mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Brass Elbow",
+    "sizes": ["20x1/2\"", "25x1/2\"", "25x3/4\"", "32x1\""],
+    "customSize": true
+  },
+  {
+    "name": "PPR Brass Tee",
+    "sizes": ["20x1/2\"", "25x1/2\"", "25x3/4\"", "32x1\""],
+    "customSize": true
+  },
+  {
+    "name": "PPR Female Threaded Adaptor",
+    "sizes": ["20x1/2\"", "25x1/2\"", "25x3/4\"", "32x1\""],
+    "customSize": true
+  },
+  {
+    "name": "PPR Male Threaded Adaptor",
+    "sizes": ["20x1/2\"", "25x1/2\"", "25x3/4\"", "32x1\""],
+    "customSize": true
+  },
+  {
+    "name": "PPR Flange Adaptor",
+    "sizes": ["40mm", "50mm", "63mm", "75mm", "90mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Stop Valve",
+    "sizes": ["20mm", "25mm", "32mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Repair Coupler",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Cross",
+    "sizes": ["20mm", "25mm", "32mm", "40mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Reducing Elbow",
+    "sizes": ["25x20mm", "32x20mm", "32x25mm", "40x32mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Pipe Clip",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm", "63mm"],
+    "customSize": true
+  },
+  {
+    "name": "PPR Welding Socket",
+    "sizes": ["20mm", "25mm", "32mm", "40mm", "50mm", "63mm"],
+    "customSize": true
+  },
+
+  {
+    "name": "CPVC Repair Coupler",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "CPVC Cross",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "CPVC Reducing Elbow",
+    "sizes": ["3/4\" x 1/2\"", "1\" x 1/2\"", "1\" x 3/4\"", "1¼\" x 1\"", "1½\" x 1¼\""],
+    "customSize": true
+  },
+  {
+    "name": "CPVC Pipe Clamp",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "CPVC Pipe Clip",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+
+  {
+    "name": "UPVC Cross",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "UPVC Reducing Elbow",
+    "sizes": ["3/4\" x 1/2\"", "1\" x 1/2\"", "1\" x 3/4\"", "1¼\" x 1\""],
+    "customSize": true
+  },
+  {
+    "name": "UPVC Repair Coupler",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "UPVC Pipe Clip",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "UPVC Flange",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\"", "2½\"", "3\"", "4\""],
+    "customSize": true
+  },
+
+  {
+    "name": "DWC Corrugated Drainage Pipe",
+    "sizes": ["110mm", "160mm", "200mm", "250mm", "315mm"],
+    "customSize": true
+  },
+  {
+    "name": "DWC Coupler",
+    "sizes": ["110mm", "160mm", "200mm", "250mm", "315mm"],
+    "customSize": true
+  },
+  {
+    "name": "DWC Elbow",
+    "sizes": ["110mm", "160mm", "200mm"],
+    "customSize": true
+  },
+  {
+    "name": "DWC Tee",
+    "sizes": ["110mm", "160mm", "200mm"],
+    "customSize": true
+  },
+  {
+    "name": "DWC Reducer",
+    "sizes": ["160x110mm", "200x160mm", "250x200mm"],
+    "customSize": true
+  },
+  {
+    "name": "DWC End Cap",
+    "sizes": ["110mm", "160mm", "200mm", "250mm"],
+    "customSize": true
+  },
+  {
+    "name": "DWC Inspection Chamber",
+    "sizes": ["300x300mm", "450x450mm", "600x600mm"],
+    "customSize": true
+  },
+  {
+    "name": "DWC Drainage Joint Seal",
+    "sizes": ["110mm", "160mm", "200mm", "250mm"],
+    "customSize": true
+  },
+
+  {
+    "name": "Rain Water Down Pipe",
+    "sizes": ["75mm", "110mm", "160mm"],
+    "customSize": true
+  },
+  {
+    "name": "Rain Water Pipe Shoe",
+    "sizes": ["75mm", "110mm", "160mm"],
+    "customSize": true
+  },
+  {
+    "name": "Rain Water Gutter",
+    "sizes": ["4 inch", "6 inch", "8 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Rain Water Gutter Outlet",
+    "sizes": ["75mm", "110mm"],
+    "customSize": true
+  },
+  {
+    "name": "Rain Water Gutter End Cap",
+    "sizes": ["4 inch", "6 inch", "8 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Rain Water Gutter Corner",
+    "sizes": ["4 inch", "6 inch", "8 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Rain Water Gutter Joiner",
+    "sizes": ["4 inch", "6 inch", "8 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Rain Water Grating",
+    "sizes": ["75mm", "110mm", "160mm"],
+    "customSize": true
+  },
+  {
+    "name": "Roof Drain Outlet",
+    "sizes": ["75mm", "110mm", "160mm"],
+    "customSize": true
+  },
+  {
+    "name": "Terrace Drain",
+    "sizes": ["75mm", "110mm", "160mm"],
+    "customSize": true
+  },
+
+  {
+    "name": "Brass Ball Valve",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "UPVC Ball Valve Heavy Duty",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "CPVC Ball Valve Heavy Duty",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Gate Valve Brass",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Gate Valve CI",
+    "sizes": ["1½\"", "2\"", "2½\"", "3\"", "4\""],
+    "customSize": true
+  },
+  {
+    "name": "Sluice Valve",
+    "sizes": ["2\"", "2½\"", "3\"", "4\"", "6\""],
+    "customSize": true
+  },
+  {
+    "name": "Butterfly Valve",
+    "sizes": ["2\"", "2½\"", "3\"", "4\"", "6\""],
+    "customSize": true
+  },
+  {
+    "name": "Check Valve",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Non-Return Valve UPVC",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Non-Return Valve GI",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Foot Valve Brass",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\"", "2½\"", "3\""],
+    "customSize": true
+  },
+  {
+    "name": "Pressure Relief Valve",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\""],
+    "customSize": true
+  },
+  {
+    "name": "Float Valve Heavy Duty",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+
+  {
+    "name": "Urinal Flush Pipe",
+    "sizes": ["32mm", "40mm"],
+    "customSize": true
+  },
+  {
+    "name": "Urinal Flush Valve",
+    "sizes": ["1/2\"", "3/4\""],
+    "customSize": true
+  },
+  {
+    "name": "Urinal Spreader",
+    "sizes": ["Standard"],
+    "customSize": false
+  },
+  {
+    "name": "Wash Basin Waste Coupling",
+    "sizes": ["32mm", "40mm"],
+    "customSize": true
+  },
+  {
+    "name": "Wash Basin Bottle Trap PVC",
+    "sizes": ["32mm", "40mm"],
+    "customSize": true
+  },
+  {
+    "name": "Wash Basin Bottle Trap SS",
+    "sizes": ["32mm", "40mm"],
+    "customSize": true
+  },
+  {
+    "name": "Sink Waste Coupling",
+    "sizes": ["40mm", "50mm"],
+    "customSize": true
+  },
+  {
+    "name": "Sink Bottle Trap",
+    "sizes": ["40mm", "50mm"],
+    "customSize": true
+  },
+  {
+    "name": "Floor Drain Trap",
+    "sizes": ["75mm", "110mm"],
+    "customSize": true
+  },
+  {
+    "name": "Cleanout Plug",
+    "sizes": ["75mm", "110mm", "160mm"],
+    "customSize": true
+  },
+  {
+    "name": "Floor Cleanout",
+    "sizes": ["75mm", "110mm"],
+    "customSize": true
+  },
+
+  {
+    "name": "Shower Head Hand Shower",
+    "sizes": ["Standard", "Large"],
+    "customSize": true
+  },
+  {
+    "name": "Shower Hose",
+    "sizes": ["1m", "1.2m", "1.5m", "2m"],
+    "customSize": true
+  },
+  {
+    "name": "Shower Arm",
+    "sizes": ["6 inch", "9 inch", "12 inch", "15 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Shower Hook",
+    "sizes": ["Standard"],
+    "customSize": false
+  },
+  {
+    "name": "Health Faucet Hose",
+    "sizes": ["1m", "1.2m", "1.5m"],
+    "customSize": true
+  },
+  {
+    "name": "Health Faucet Angle Valve",
+    "sizes": ["1/2\""],
+    "customSize": false
+  },
+  {
+    "name": "Toilet Paper Holder",
+    "sizes": ["Standard"],
+    "customSize": false
+  },
+  {
+    "name": "Towel Rod",
+    "sizes": ["18 inch", "24 inch", "30 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Towel Ring",
+    "sizes": ["Standard"],
+    "customSize": false
+  },
+  {
+    "name": "Soap Dish",
+    "sizes": ["Standard"],
+    "customSize": false
+  },
+  {
+    "name": "Corner Shelf",
+    "sizes": ["6 inch", "8 inch", "10 inch"],
+    "customSize": true
+  },
+
+  {
+    "name": "Water Tank Cover",
+    "sizes": ["300 Litre", "500 Litre", "750 Litre", "1000 Litre", "1500 Litre", "2000 Litre"],
+    "customSize": true
+  },
+  {
+    "name": "Water Tank Overflow Pipe",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Water Tank Overflow Elbow",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Water Tank Outlet Connector",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Water Tank Inlet Connector",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Water Tank Cleaning Drain Valve",
+    "sizes": ["1\"", "1¼\"", "1½\""],
+    "customSize": true
+  },
+  {
+    "name": "Tank Level Indicator",
+    "sizes": ["Standard"],
+    "customSize": false
+  },
+
+  {
+    "name": "Monoblock Pump",
+    "sizes": ["0.5 HP", "1 HP", "1.5 HP", "2 HP"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Self Priming Pump",
+    "sizes": ["0.5 HP", "1 HP", "1.5 HP", "2 HP"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Domestic Water Pump",
+    "sizes": ["0.5 HP", "1 HP", "1.5 HP"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Openwell Submersible Pump",
+    "sizes": ["1 HP", "1.5 HP", "2 HP", "3 HP"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Sewage Pump",
+    "sizes": ["1 HP", "1.5 HP", "2 HP", "3 HP"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Pump Foot Valve",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Pump NRV",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Pump Union",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Pump Flexible Connector",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "Pump Vibration Pad",
+    "sizes": ["Small", "Medium", "Large"],
+    "customSize": true,
+    "unit": "Set"
+  },
+
+  {
+    "name": "Rainwater Filter",
+    "sizes": ["3 inch", "4 inch", "6 inch"],
+    "customSize": true
+  },
+  {
+    "name": "Rainwater Filter Chamber",
+    "sizes": ["300x300mm", "450x450mm", "600x600mm"],
+    "customSize": true
+  },
+  {
+    "name": "Rainwater First Flush Diverter",
+    "sizes": ["75mm", "110mm", "160mm"],
+    "customSize": true
+  },
+  {
+    "name": "Rainwater Recharge Pipe",
+    "sizes": ["110mm", "160mm", "200mm"],
+    "customSize": true
+  },
+  {
+    "name": "Rainwater Recharge Pit Cover",
+    "sizes": ["300x300mm", "450x450mm", "600x600mm"],
+    "customSize": true
+  },
+  {
+    "name": "Rainwater Leaf Filter",
+    "sizes": ["75mm", "110mm", "160mm"],
+    "customSize": true
+  },
+  {
+    "name": "Rainwater Downpipe Shoe",
+    "sizes": ["75mm", "110mm", "160mm"],
+    "customSize": true
+  },
+  {
+    "name": "Rainwater Pipe Clamp",
+    "sizes": ["75mm", "110mm", "160mm"],
+    "customSize": true
+  },
+
+  {
+    "name": "PVC Solvent Cement",
+    "sizes": ["50ml", "100ml", "250ml", "500ml", "1 Litre"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "CPVC Solvent Cement",
+    "sizes": ["50ml", "100ml", "250ml", "500ml", "1 Litre"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "PVC Primer",
+    "sizes": ["50ml", "100ml", "250ml", "500ml"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Pipe Jointing Lubricant",
+    "sizes": ["100g", "250g", "500g"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Pipe Thread Sealant",
+    "sizes": ["50g", "100g", "250g"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Anaerobic Thread Sealant",
+    "sizes": ["50ml", "100ml"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Neoprene Gasket",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\"", "2½\"", "3\"", "4\""],
+    "customSize": true
+  },
+  {
+    "name": "Pipe Repair Clamp",
+    "sizes": ["1\"", "1½\"", "2\"", "2½\"", "3\"", "4\""],
+    "customSize": true
+  },
+  {
+    "name": "Leak Repair Tape",
+    "sizes": ["10m", "20m", "50m"],
+    "customSize": true,
+    "unit": "Roll"
+  },
+
+  {
+    "name": "GI Cross",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Long Elbow",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Street Elbow",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Flange",
+    "sizes": ["1\"", "1¼\"", "1½\"", "2\"", "2½\"", "3\"", "4\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Blind Flange",
+    "sizes": ["1\"", "1½\"", "2\"", "2½\"", "3\"", "4\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Hose Nipple",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Male Adaptor",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Female Adaptor",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Pipe Clamp",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\"", "2½\"", "3\"", "4\""],
+    "customSize": true
+  },
+  {
+    "name": "GI D-Iron Clamp with Pin Insulator",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+  {
+    "name": "GI Saddle Clamp",
+    "sizes": ["1/2\"", "3/4\"", "1\"", "1¼\"", "1½\"", "2\""],
+    "customSize": true
+  },
+
+  {
+    "name": "Plumbing Inspection Mirror",
+    "sizes": ["Small", "Medium", "Large"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Drain Cleaning Machine",
+    "sizes": ["Manual", "Electric 1/2 HP", "Electric 1 HP"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Plumbing Test Pump",
+    "sizes": ["Manual", "Electric"],
+    "customSize": true,
+    "unit": "NOS"
+  },
+  {
+    "name": "Pressure Test Pump",
+    "sizes": ["30 Bar", "50 Bar", "60 Bar"],
+    "customSize": true,
+    "unit": "NOS"
+  }
+
 ]
