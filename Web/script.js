@@ -27,13 +27,6 @@ const SHARED_BASE =
    PAGE LOAD
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    setToday();
-
-    loadItems();
-
-});
 
 
 /* =========================================================
@@ -1985,39 +1978,6 @@ function updateSelectedRow(input) {
     }
 }
 
-
-/* =========================================================
-   CUSTOM ROW STATE 
-   ========================================================= */
-
-function updateCustomRowState(customInput) {
-
-    const row =
-        customInput.closest("tr");
-
-    if (!row) return;
-
-
-    const customQtyInput =
-        Array.from(
-            row.querySelectorAll(".qty-input")
-        ).find(function (el) {
-
-            return (
-                el.dataset.sizeIndex === "custom"
-            );
-
-        });
-
-
-    if (customQtyInput) {
-
-        updateSelectedRow(customQtyInput);
-
-    }
-}
-
-
 /* =========================================================
    CALCULATE TOTAL
    ========================================================= */
@@ -2151,21 +2111,6 @@ function openForm(type) {
         0,
         0
     );
-}
-
-/* =========================================================
-   ELECTRICAL ITEM IMAGE
-   ========================================================= */
-
-function getElectricalImage(itemName) {
-
-    const fileName = itemName
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
-
-    return `${SHARED_BASE}images/electrical/${fileName}`;
 }
 
 /* =========================================================
@@ -2728,23 +2673,6 @@ function openItemImage(imageSrc) {
         z-index: 100001;
     `;
 
-    /* =========================================
-       IMAGE COUNTER
-    ========================================= */
-
-    counter.style.cssText = `
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 6px 14px;
-        border-radius: 20px;
-        background: rgba(0,0,0,0.65);
-        color: #ffffff;
-        font-size: 14px;
-        font-weight: 600;
-        z-index: 100001;
-    `;
 }
 
 /* =========================================================
@@ -2797,6 +2725,455 @@ function goHome() {
         0
     );
 }
+
+
+/* =====================================================
+   PROFILE PAGE FUNCTIONS
+===================================================== */
+
+function openProfile() {
+    const homePage = document.getElementById("homePage");
+    const profilePage = document.getElementById("profilePage");
+
+    if (!profilePage) return;
+
+    if (homePage) homePage.style.display = "none";
+    profilePage.style.display = "block";
+
+    loadProfileDetails();
+
+    openProfileSection(
+        "details",
+        document.querySelector(".profile-menu")
+    );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function closeProfile() {
+    const homePage = document.getElementById("homePage");
+    const profilePage = document.getElementById("profilePage");
+
+    if (profilePage) profilePage.style.display = "none";
+    if (homePage) homePage.style.display = "";
+}
+
+function openProfileSection(section, button) {
+    document.querySelectorAll(".profile-section").forEach(function (el) {
+        el.hidden = true;
+    });
+
+    const target = document.getElementById("profile-" + section);
+
+    if (target) target.hidden = false;
+
+    document.querySelectorAll(".profile-menu").forEach(function (el) {
+        el.classList.remove("active");
+    });
+
+    if (button) button.classList.add("active");
+}
+
+
+/* =====================================================
+   PROFILE PHOTO FUNCTIONS
+===================================================== */
+
+function openPhotoModal() {
+    const modal = document.getElementById("profile-photo-modal");
+
+    if (!modal) return;
+
+    syncPhotoModalPreview();
+    modal.hidden = false;
+}
+
+function closePhotoModal() {
+    const modal = document.getElementById("profile-photo-modal");
+
+    if (modal) modal.hidden = true;
+}
+
+function displayProfilePhoto(photoData) {
+    const image = document.getElementById("profile-photo-preview");
+    const placeholder = document.getElementById(
+        "profile-avatar-placeholder"
+    );
+
+    if (image) {
+        image.hidden = !photoData;
+
+        if (photoData) {
+            image.src = photoData;
+        } else {
+            image.removeAttribute("src");
+        }
+    }
+
+    if (placeholder) {
+        placeholder.hidden = !!photoData;
+    }
+}
+
+function syncPhotoModalPreview() {
+    const photo = localStorage.getItem("mvsProfilePhoto") || "";
+
+    displayProfilePhoto(photo);
+
+    const modalImage = document.getElementById(
+        "profile-photo-modal-preview"
+    );
+
+    const modalPlaceholder = document.getElementById(
+        "profile-photo-modal-placeholder"
+    );
+
+    if (modalImage) {
+        modalImage.hidden = !photo;
+
+        if (photo) {
+            modalImage.src = photo;
+        } else {
+            modalImage.removeAttribute("src");
+        }
+    }
+
+    if (modalPlaceholder) {
+        modalPlaceholder.hidden = !!photo;
+    }
+}
+
+function chooseProfilePhoto() {
+    document.getElementById("profile-photo-input")?.click();
+}
+
+function takeProfilePicture() {
+    document.getElementById("profile-camera-input")?.click();
+}
+
+function handleProfilePhoto(event) {
+    processProfilePhoto(event.target.files?.[0]);
+    event.target.value = "";
+}
+
+function processProfilePhoto(file) {
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        alert("Please select an image file.");
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        alert("Photo size must be 5 MB or less.");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+        const source = new Image();
+
+        source.onload = function () {
+            const canvas = document.createElement("canvas");
+            const maxSize = 512;
+
+            const scale = Math.min(
+                1,
+                maxSize / Math.max(source.width, source.height)
+            );
+
+            canvas.width = Math.max(
+                1,
+                Math.round(source.width * scale)
+            );
+
+            canvas.height = Math.max(
+                1,
+                Math.round(source.height * scale)
+            );
+
+            const context = canvas.getContext("2d");
+
+            if (!context) {
+                alert("Unable to process this photo.");
+                return;
+            }
+
+            context.drawImage(
+                source,
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            const photoData = canvas.toDataURL("image/jpeg", 0.8);
+
+            try {
+                localStorage.setItem("mvsProfilePhoto", photoData);
+
+                syncPhotoModalPreview();
+                closePhotoModal();
+            } catch (error) {
+                alert("Photo save failed. Browser storage may be full.");
+            }
+        };
+
+        source.onerror = function () {
+            alert("Unable to open this image.");
+        };
+
+        source.src = event.target.result;
+    };
+
+    reader.onerror = function () {
+        alert("Unable to read the selected photo.");
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function removeProfilePhoto() {
+    try {
+        localStorage.removeItem("mvsProfilePhoto");
+
+        const photoInput = document.getElementById("profile-photo-input");
+        const cameraInput = document.getElementById("profile-camera-input");
+
+        if (photoInput) photoInput.value = "";
+        if (cameraInput) cameraInput.value = "";
+
+        syncPhotoModalPreview();
+        closePhotoModal();
+    } catch (error) {
+        alert("Unable to remove the profile photo.");
+    }
+}
+
+/* =====================================================
+   INITIALIZE PROFILE PHOTO
+===================================================== */
+
+function initializeProfilePhoto() {
+    const photoInput = document.getElementById("profile-photo-input");
+    const cameraInput = document.getElementById("profile-camera-input");
+
+    [photoInput, cameraInput].forEach(function (input) {
+        if (!input || input.dataset.initialized === "true") return;
+
+        input.dataset.initialized = "true";
+
+        input.addEventListener("change", function (event) {
+            handleProfilePhoto(event);
+        });
+    });
+
+    syncPhotoModalPreview();
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeProfilePhoto,
+        { once: true }
+    );
+} else {
+    initializeProfilePhoto();
+}
+
+
+
+/* =====================================================
+   LOAD PROFILE DETAILS
+===================================================== */
+
+function loadProfileDetails() {
+    const name = document.getElementById("profile-name");
+    const email = document.getElementById("profile-email");
+    const phone = document.getElementById("profile-phone");
+
+    if (name) {
+        name.value = localStorage.getItem("mvsProfileName") || "";
+        name.readOnly = true;
+    }
+
+    if (email) {
+        email.value = localStorage.getItem("mvsProfileEmail") || "";
+        email.readOnly = true;
+    }
+
+    if (phone) {
+        phone.value = localStorage.getItem("mvsProfilePhone") || "";
+        phone.readOnly = true;
+    }
+
+    const editButton = document.getElementById("profile-edit-btn");
+
+    if (editButton) {
+        editButton.textContent = "✏️ Edit";
+        editButton.dataset.editing = "false";
+    }
+}
+
+/* =====================================================
+   PROFILE EDIT
+===================================================== */
+
+
+function toggleProfileEdit() {
+    const fields = [
+        document.getElementById("profile-name"),
+        document.getElementById("profile-email"),
+        document.getElementById("profile-phone")
+    ];
+
+    const button = document.getElementById("profile-edit-btn");
+
+    if (!button) return;
+
+    const isEditing = button.dataset.editing === "true";
+
+    if (!isEditing) {
+        fields.forEach(function (field) {
+            if (field) field.readOnly = false;
+        });
+
+        button.textContent = "✓ Done";
+        button.dataset.editing = "true";
+
+        if (fields[0]) fields[0].focus();
+        return;
+    }
+
+    // Done அழுத்தினால் save ஆகும்
+    saveProfileDetails();
+
+    fields.forEach(function (field) {
+        if (field) field.readOnly = true;
+    });
+
+    button.textContent = "✏️ Edit";
+    button.dataset.editing = "false";
+}
+
+
+/* =====================================================
+   SAVE PROFILE DETAILS
+===================================================== */
+
+
+function saveProfileDetails() {
+    const name = document.getElementById("profile-name");
+    const email = document.getElementById("profile-email");
+    const phone = document.getElementById("profile-phone");
+
+    // Save profile data
+    if (name) {
+        localStorage.setItem(
+            "mvsProfileName",
+            name.value.trim()
+        );
+    }
+
+    if (email) {
+        localStorage.setItem(
+            "mvsProfileEmail",
+            email.value.trim()
+        );
+    }
+
+    if (phone) {
+        localStorage.setItem(
+            "mvsProfilePhone",
+            phone.value.trim()
+        );
+    }
+
+    // Update profile heading if available
+    const displayName = document.getElementById(
+        "profile-display-name"
+    );
+
+    if (displayName) {
+        displayName.textContent =
+            (name ? name.value.trim() : "") || "My Account";
+    }
+
+    // Return fields to read-only mode
+    [name, email, phone].forEach(function (field) {
+        if (field) field.readOnly = true;
+    });
+
+    // Reset Edit button
+    const editButton = document.getElementById("profile-edit-btn");
+
+    if (editButton) {
+        editButton.textContent = "✏️ Edit";
+        editButton.dataset.editing = "false";
+    }
+
+    alert("Profile details saved successfully!");
+}
+
+
+/* =====================================================
+   PROFILE SETTINGS
+===================================================== */
+
+function saveProfileSettings() {
+    const theme = document.getElementById("profile-theme");
+
+    if (!theme) {
+        alert("Theme setting field கிடைக்கவில்லை.");
+        return;
+    }
+
+    localStorage.setItem("mvsProfileTheme", theme.value);
+
+    alert("Settings saved.");
+}
+
+/* =====================================================
+   EXPORT PROFILE DATA
+===================================================== */
+
+function exportProfileData() {
+    const data = {
+        name: localStorage.getItem("mvsProfileName") || "",
+        email: localStorage.getItem("mvsProfileEmail") || "",
+        phone: localStorage.getItem("mvsProfilePhone") || ""
+    };
+
+    const blob = new Blob(
+        [JSON.stringify(data, null, 2)],
+        { type: "application/json" }
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "mvs-profile-backup.json";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(url);
+}
+
+/* =====================================================
+   PROFILE LOGOUT
+===================================================== */
+
+function profileLogout() {
+    alert(
+        "Login / authentication system இணைக்கப்பட்ட பிறகுதான் பாதுகாப்பான Logout செயல்பாட்டை அமைக்க முடியும்."
+    );
+}
+
+
 
 /* =========================================================
    OPEN HOME PLANNING
@@ -2975,8 +3352,23 @@ function updateFloorStats(floor) {
 
     if (!floor) return;
 
-    const roomCount =
-        floor.querySelectorAll(".room-box").length;
+    const rooms =
+        floor.querySelectorAll(".room-box");
+
+    const roomCount = rooms.length;
+
+    const totalItems = [...rooms].reduce(
+        (total, room) => {
+            const count =
+                Number(
+                    room.querySelector(".room-item-count")
+                        ?.textContent.match(/\d+/)?.[0]
+                ) || 0;
+
+            return total + count;
+        },
+        0
+    );
 
     const stats =
         floor.querySelector(".floor-stats");
@@ -2984,7 +3376,7 @@ function updateFloorStats(floor) {
     if (!stats) return;
 
     stats.textContent =
-        `${roomCount} Room${roomCount !== 1 ? "s" : ""} • 0 Items`;
+        `${roomCount} Room${roomCount !== 1 ? "s" : ""} • ${totalItems} Items`;
 }
 
 /* =========================================================
@@ -3133,13 +3525,6 @@ function createFloorCard(floorName, floorList) {
 
 
             <div class="floor-actions">
-
-                <button
-                    type="button"
-                    class="floor-edit-btn"
-                    onclick="editFloor(this)">
-                    ✎
-                </button>
 
                 <button
                     type="button"
@@ -3556,6 +3941,15 @@ function openRoomPoints(button) {
 
     if (!roomPoints) return;
 
+    roomPoints._originalRoomBox = roomBox;
+    roomPoints._roomBox = roomBox;
+
+    const floorBox =
+    roomBox.closest(".home-floor");
+
+const floorName =
+    floorBox?.dataset.floorName || "Ground Floor";
+
 
     const roomName =
         roomBox.dataset.roomName || "Room";
@@ -3607,7 +4001,7 @@ function openRoomPoints(button) {
                     </strong>
 
                     <span>
-                        Add electrical items for this room
+                       ${floorName} · Add electrical items for this room
                     </span>
 
                 </div>
@@ -3681,182 +4075,152 @@ function openRoomPoints(button) {
 
     if (roomPoints.innerHTML.trim() === "") {
 
-        roomPoints.innerHTML = `
+    roomPoints.innerHTML = `
+        <div class="room-basic-items">
 
-            <div class="room-basic-items">
+            <!-- FAN -->
+            <div class="basic-item-row"
+                 style="display:grid;grid-template-columns:64px minmax(0,1fr) 90px 58px;align-items:center;gap:8px;width:100%;box-sizing:border-box;padding:6px 0;">
 
-                <div class="basic-item-row">
+                <label>Fan</label>
 
-                    <label>Fan</label>
+                <select class="room-fan-select"
+                        style="width:100%;min-width:0;box-sizing:border-box;">
+                    <option value="">Select Fan</option>
+                </select>
 
-                    <select class="room-fan-select">
-                        <option value="">
-                            Select Fan
-                        </option>
-                    </select>
+                <select class="room-fan-size-select"
+                        style="display:none;width:100%;min-width:0;box-sizing:border-box;">
+                    <option value="">Select Size</option>
+                </select>
 
-                    <select
-                        class="room-fan-size-select"
-                        style="display:none;">
-                        <option value="">
-                            Select Size
-                        </option>
-                    </select>
-
-                    <input
-                        type="number"
-                        min="0"
-                        value="0"
-                        class="room-fan-qty">
-
-                </div>
-
-                <div class="room-extra-fans"></div>
-
-                <div class="basic-item-add-row">
-
-                    <button
-                        type="button"
-                        class="add-fan-btn"
-                        onclick="addRoomFan(this)">
-                        + Add Fan
-                    </button>
-
-                </div>
-
-
-                <div class="room-extra-fans"></div>
-
-
-                <div class="basic-item-row">
-
-                    <label>Light</label>
-
-                    <select class="room-light-select">
-                        <option value="">
-                            Select Light
-                        </option>
-                    </select>
-
-                    <input
-                        type="number"
-                        min="0"
-                        value="0"
-                        class="room-light-qty">
-
-                </div>
-
-                <div class="room-extra-lights"></div>
-
-                <div class="basic-item-add-row">
-
-                    <button
-                        type="button"
-                        class="add-light-btn"
-                        onclick="addRoomLight(this)">
-                        + Add Light
-                    </button>
-
-                </div>
-
-
-                <div class="room-extra-lights"></div>
-
-
-                <div class="basic-item-row">
-
-                    <label>Round Sheet</label>
-
-                    <select class="room-round-sheet-select">
-
-                        <option value="">
-                            Select Round Sheet
-                        </option>
-
-                    </select>
-
-                    <input
-                        type="number"
-                        min="0"
-                        value="0"
-                        class="room-round-sheet-qty">
-
-                </div>
-
-                <div class="room-extra-round-sheets"></div>
-
-                <div class="basic-item-add-row">
-
-                    <button
-                        type="button"
-                        class="add-round-sheet-btn"
-                        onclick="addRoomRoundSheet(this)">
-                        + Add Round Sheet
-                    </button>
-
-                </div>
-
-
-                <div class="room-extra-round-sheets"></div>
-
-
-                <div class="basic-item-row">
-
-                    <label>Ceiling Rose</label>
-
-                    <select class="room-ceiling-rose-select">
-
-                        <option value="">
-                            Select Ceiling Rose
-                        </option>
-
-                    </select>
-
-                    <input
-                        type="number"
-                        min="0"
-                        value="0"
-                        class="room-ceiling-rose-qty">
-
-                </div>
-
-                <div class="room-extra-ceiling-roses"></div>
-
-                <div class="basic-item-add-row">
-
-                    <button
-                        type="button"
-                        class="add-ceiling-rose-btn"
-                        onclick="addRoomCeilingRose(this)">
-                        + Add Ceiling Rose
-                    </button>
-
-                </div>
-
-
-                <div class="room-extra-ceiling-roses"></div>
+                <input type="number"
+                       min="0"
+                       placeholder="0"
+                       value=""
+                       class="room-fan-qty"
+                       style="width:100%;min-width:0;box-sizing:border-box;">
 
             </div>
 
+            <div class="room-extra-fans"></div>
 
-            <div class="plates-container"></div>
+            <div class="basic-item-add-row">
+                <button type="button"
+                        class="add-fan-btn"
+                        onclick="addRoomFan(this)">
+                    + Add Fan
+                </button>
+            </div>
 
 
-            <button
-                type="button"
+            <!-- LIGHT -->
+            <div class="basic-item-row"
+                 style="display:grid;grid-template-columns:64px minmax(0,1fr) 58px;align-items:center;gap:8px;width:100%;box-sizing:border-box;padding:6px 0;">
+
+                <label>Light</label>
+
+                <select class="room-light-select"
+                        style="width:100%;min-width:0;box-sizing:border-box;">
+                    <option value="">Select Light</option>
+                </select>
+
+                <input type="number"
+                       min="0"
+                       placeholder="0"
+                       value=""
+                       class="room-light-qty"
+                       style="width:100%;min-width:0;box-sizing:border-box;">
+            </div>
+
+            <div class="room-extra-lights"></div>
+
+            <div class="basic-item-add-row">
+                <button type="button"
+                        class="add-light-btn"
+                        onclick="addRoomLight(this)">
+                    + Add Light
+                </button>
+            </div>
+
+
+            <!-- ROUND SHEET -->
+                <div class="basic-item-row"
+                    style="display:grid;grid-template-columns:64px minmax(0,1fr) 90px 58px;align-items:center;gap:8px;width:100%;box-sizing:border-box;padding:6px 0;">
+
+                    <label>Round Sheet</label>
+
+                    <select class="room-round-sheet-select"
+                            style="width:100%;min-width:0;box-sizing:border-box;">
+                        <option value="">Select Round Sheet</option>
+                    </select>
+
+                    <select class="room-round-round-sheet-size-select"
+                            style="display:none;width:100%;min-width:0;box-sizing:border-box;">
+                        <option value="">Select Size</option>
+                    </select>
+
+                    <input type="number"
+                        min="0"
+                        placeholder="0"
+                        value=""
+                        class="room-round-sheet-qty"
+                        style="width:100%;min-width:0;box-sizing:border-box;">
+                </div>
+
+                <div class="room-extra-round-sheets"></div>
+
+                <div class="basic-item-add-row">
+                    <button type="button"
+                            class="add-round-sheet-btn"
+                            onclick="addRoomRoundSheet(this)">
+                        + Add Round Sheet
+                    </button>
+                </div>
+
+
+            <!-- CEILING ROSE -->
+            <div class="basic-item-row"
+                 style="display:grid;grid-template-columns:64px minmax(0,1fr) 58px;align-items:center;gap:8px;width:100%;box-sizing:border-box;padding:6px 0;">
+
+                <label>Ceiling Rose</label>
+
+                <select class="room-ceiling-rose-select"
+                        style="width:100%;min-width:0;box-sizing:border-box;">
+                    <option value="">Select Ceiling Rose</option>
+                </select>
+
+                <input type="number"
+                       min="0"
+                       placeholder="0"
+                       value=""
+                       class="room-ceiling-rose-qty"
+                       style="width:100%;min-width:0;box-sizing:border-box;">
+            </div>
+
+            <div class="room-extra-ceiling-roses"></div>
+
+            <div class="basic-item-add-row">
+                <button type="button"
+                        class="add-ceiling-rose-btn"
+                        onclick="addRoomCeilingRose(this)">
+                    + Add Ceiling Rose
+                </button>
+            </div>
+
+        </div>
+
+        <div class="plates-container"></div>
+
+        <button type="button"
                 class="add-plate-btn"
                 onclick="addHomePlanningPlate(this)">
+            ＋ Add Plate
+        </button>
+    `;
 
-                ＋ Add Plate
-
-            </button>
-
-        `;
-
-
-        populateRoomBasicItems(roomPoints);
-
-    }
+    populateRoomBasicItems(roomPoints);
+}
 
 
     /* =========================================
@@ -3937,8 +4301,12 @@ function populateRoomBasicItems(roomPoints) {
     const roundSheetSelect =
         roomPoints.querySelector(".room-round-sheet-select");
 
+    const roundSheetSizeSelect =
+        roomPoints.querySelector(".room-round-sheet-size-select");
+
     const ceilingRoseSelect =
         roomPoints.querySelector(".room-ceiling-rose-select");
+
 
     if (
         !fanSelect ||
@@ -4083,6 +4451,44 @@ function populateRoomBasicItems(roomPoints) {
 
             roundSheetSelect.appendChild(option);
         }
+
+        roundSheetSelect.addEventListener("change", function () {
+
+            if (!roundSheetSizeSelect) return;
+
+            roundSheetSizeSelect.innerHTML =
+                '<option value="">Select Size</option>';
+
+            const item =
+                electricalData[Number(roundSheetSelect.value)];
+
+            if (
+                item &&
+                Array.isArray(item.sizes) &&
+                item.sizes.length > 0
+            ) {
+
+                item.sizes.forEach(function (size) {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = size;
+                    option.textContent = size;
+
+                    roundSheetSizeSelect.appendChild(option);
+                });
+
+                roundSheetSizeSelect.style.display = "block";
+
+            } else {
+
+                roundSheetSizeSelect.style.display = "none";
+            }
+
+            updateHomeFinalTotal();
+
+        });
 
         if (
             lowerName === "jumbo ceiling rose" ||
@@ -4553,28 +4959,36 @@ function populateRoomBasicItems(roomPoints) {
    ========================================================= */
 
 function addRoomFan(button) {
-
     const roomPoints = button.closest(".room-points");
     if (!roomPoints) return;
 
-    const container =
-        roomPoints.querySelector(".room-extra-fans");
-
+    const container = roomPoints.querySelector(".room-extra-fans");
     if (!container) return;
 
     const row = document.createElement("div");
+    row.className = "basic-item-row extra-fan-row";
 
-    row.className =
-        "basic-item-row extra-fan-row";
+    // Keep all fan controls in one horizontal row
+    row.style.cssText = `
+        display: grid;
+        grid-template-columns: 52px minmax(0, 1fr) 78px 50px 32px;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 6px 0;
+    `;
 
     row.innerHTML = `
         <label>Fan</label>
 
-        <select class="room-extra-fan-select">
+        <select class="room-extra-fan-select"
+                style="width:100%;min-width:0;box-sizing:border-box;">
             <option value="">Select Fan</option>
         </select>
 
-        <select class="room-extra-fan-size-select">
+        <select class="room-extra-fan-size-select"
+                style="width:100%;min-width:0;box-sizing:border-box;">
             <option value="">Select Size</option>
         </select>
 
@@ -4583,92 +4997,60 @@ function addRoomFan(button) {
             min="0"
             value="0"
             class="room-extra-fan-qty"
+            style="width:100%;min-width:0;box-sizing:border-box;"
         >
 
         <button
             type="button"
             class="remove-fan-btn"
-            onclick="
-                this.closest('.extra-fan-row').remove();
-                updateHomeFinalTotal();
-            ">
-            ×
-        </button>
+            aria-label="Remove fan"
+            style="width:32px;height:36px;padding:0;"
+        >×</button>
     `;
 
     container.appendChild(row);
 
-    const fanSelect =
-        row.querySelector(".room-extra-fan-select");
+    const fanSelect = row.querySelector(".room-extra-fan-select");
+    const fanSizeSelect = row.querySelector(".room-extra-fan-size-select");
+    const fanQty = row.querySelector(".room-extra-fan-qty");
+    const removeButton = row.querySelector(".remove-fan-btn");
 
-    const fanSizeSelect =
-        row.querySelector(".room-extra-fan-size-select");
-
-    const fanQty =
-        row.querySelector(".room-extra-fan-qty");
-
-
-    /* ==========================================
-       FAN OPTIONS
-       ========================================== */
-
+    // Populate fan options
     if (typeof electricalData !== "undefined") {
-
         electricalData.forEach(function (item, index) {
-
-            const name =
-                String(item.name || "").trim();
-
-            const lowerName =
-                name.toLowerCase();
+            const name = String(item.name || "").trim();
+            const lowerName = name.toLowerCase();
 
             if (
                 lowerName === "ceiling fan" ||
                 lowerName === "exhaust fan heavy duty"
             ) {
-
-                const option =
-                    document.createElement("option");
-
+                const option = document.createElement("option");
                 option.value = index;
                 option.textContent = name;
-
                 fanSelect.appendChild(option);
             }
-
         });
     }
 
-
-    /* ==========================================
-       FAN CHANGE → SIZE
-       ========================================== */
-
+    // Update size options when fan changes
     fanSelect.addEventListener("change", function () {
+        fanSizeSelect.innerHTML =
+            '<option value="">Select Size</option>';
 
-        fanSizeSelect.innerHTML = `
-            <option value="">Select Size</option>
-        `;
-
-        const index =
-            Number(this.value);
+        const index = Number(this.value);
 
         if (
-            !isNaN(index) &&
+            this.value !== "" &&
+            !Number.isNaN(index) &&
             electricalData[index]
         ) {
-
-            const sizes =
-                electricalData[index].sizes || [];
+            const sizes = electricalData[index].sizes || [];
 
             sizes.forEach(function (size) {
-
-                const option =
-                    document.createElement("option");
-
+                const option = document.createElement("option");
                 option.value = size;
                 option.textContent = size;
-
                 fanSizeSelect.appendChild(option);
             });
         }
@@ -4676,17 +5058,39 @@ function addRoomFan(button) {
         updateHomeFinalTotal();
     });
 
-
-    /* ==========================================
-       QTY CHANGE
-       ========================================== */
-
-    fanQty.addEventListener("input", function () {
-
+    // Update total when size changes
+    fanSizeSelect.addEventListener("change", function () {
         updateHomeFinalTotal();
-
     });
 
+    // Update total when quantity changes
+    fanQty.addEventListener("input", function () {
+        updateHomeFinalTotal();
+    });
+
+    // Remove fan row
+    removeButton.addEventListener("click", function () {
+        row.remove();
+        updateHomeFinalTotal();
+    });
+
+    // Responsive layout
+    const mediaQuery = window.matchMedia("(max-width: 480px)");
+
+    function updateFanRowLayout() {
+        row.style.gridTemplateColumns = mediaQuery.matches
+            ? "42px minmax(0, 1fr) 65px 42px 28px"
+            : "52px minmax(0, 1fr) 78px 50px 32px";
+
+        if (mediaQuery.matches) {
+            row.style.gap = "4px";
+        } else {
+            row.style.gap = "6px";
+        }
+    }
+
+    updateFanRowLayout();
+    mediaQuery.addEventListener("change", updateFanRowLayout);
 }
 
 /* =========================================================
@@ -4745,6 +5149,11 @@ function addRoomLight(button) {
         row.querySelector(".room-light-select");
 
     populateLightSelect(lightSelect);
+
+    lightSelect.addEventListener("change", updateHomeFinalTotal);
+
+    row.querySelector(".room-light-qty")
+        .addEventListener("input", updateHomeFinalTotal);
 
     /* ==========================================
        LIGHT CHANGE
@@ -5330,10 +5739,10 @@ function addHomePlanningPlate(button) {
     Plate 2+ = Closed
     ========================================= */
 
-    newPlateSections.forEach(function (section) {
+   newPlateSections.forEach(function (section) {
 
         if (section) {
-            section.style.display = "";
+            section.style.display = "none";
         }
 
     });
@@ -5417,10 +5826,24 @@ function addHomePlanningPlate(button) {
                     )
                 ];
 
+                const plateSelect =
+                    plateBox.querySelector(
+                        ".home-plate-select"
+                    );
+
+                const isSelected =
+                    plateSelect &&
+                    plateSelect.value;
+
                 currentSections.forEach(function (section) {
 
                     if (section) {
-                        section.style.display = "";
+
+                        section.style.display =
+                            isSelected
+                                ? ""
+                                : "none";
+
                     }
 
                 });
@@ -5437,6 +5860,36 @@ function addHomePlanningPlate(button) {
 
     const itemSelect =
         plateBox.querySelector(".home-item-select");
+
+
+    /* =========================================
+    AMP / SIZE + COLOR
+    ITEM SELECT செய்யும் வரை HIDDEN
+    ========================================= */
+
+    const sizeSelect =
+        plateBox.querySelector(".home-size-select");
+
+    const colorSelect =
+        plateBox.querySelector(".home-color-select");
+
+    const sizeField =
+        sizeSelect
+            ? sizeSelect.closest(".home-field")
+            : null;
+
+    const colorField =
+        colorSelect
+            ? colorSelect.closest(".home-field")
+            : null;
+
+
+    if (sizeField)
+        sizeField.style.display = "none";
+
+    if (colorField)
+        colorField.style.display = "none";
+
 
     electricalData.forEach(function (item, index) {
 
@@ -5482,105 +5935,76 @@ function addHomePlanningPlate(button) {
     );
 
 
-    /* =====================================================
-       4. PLATE CHANGE
-       Plate select செய்தவுடன் calculation
-       ===================================================== */
+    /* =========================================
+    4. PLATE CHANGE
+    Plate select செய்த பிறகு மட்டும்
+    Electrical Item + Selected Items +
+    Module Calculation காட்ட வேண்டும்
+    ========================================= */
 
     plateSelect.addEventListener(
         "change",
         function () {
 
-            calculateHomeModules(plateBox);
+            const itemSelector =
+                plateBox.querySelector(
+                    ".home-item-selector"
+                );
+
+            const selectedItems =
+                plateBox.querySelector(
+                    ".home-selected-items"
+                );
+
+            const moduleCalculation =
+                plateBox.querySelector(
+                    ".module-calculation"
+                );
+
+
+            /* =====================================
+            PLATE SELECT செய்யவில்லை
+            ===================================== */
+
+            if (!this.value) {
+
+                if (itemSelector)
+                    itemSelector.style.display = "none";
+
+                if (selectedItems)
+                    selectedItems.style.display = "none";
+
+                if (moduleCalculation)
+                    moduleCalculation.style.display = "none";
+
+                return;
+            }
+
+
+            /* =====================================
+            PLATE SELECT செய்துவிட்டார்
+            ===================================== */
+
+            if (itemSelector)
+                itemSelector.style.display = "";
+
+            if (selectedItems)
+                selectedItems.style.display = "";
+
+            if (moduleCalculation)
+                moduleCalculation.style.display = "";
+
+
+            /* =====================================
+            CALCULATE MODULE
+            ===================================== */
+
+            calculateHomeModules(
+                plateBox
+            );
 
         }
     );
-}
-
-/* =========================================
-   PLATE HEADER
-   ONLY ONE PLATE OPEN AT A TIME
-========================================= */
-
-function setupPlateHeader(plate) {
-
-    const roomPoints =
-        plate.closest(".room-points");
-
-    if (!roomPoints) return;
-
-    const header =
-        plate.querySelector(".plate-header");
-
-    if (!header) return;
-
-    header.style.cursor = "pointer";
-
-    header.onclick = function (event) {
-
-        /* Delete button click என்றால்
-           header action வேண்டாம் */
-        if (
-            event.target.closest(".plate-delete-btn")
-        ) {
-            return;
-        }
-
-
-        /* =====================================
-           CURRENT PLATE SECTIONS
-        ===================================== */
-
-        const currentSections = [
-            plate.querySelector(".home-item-selector"),
-            plate.querySelector(".home-selected-items"),
-            plate.querySelector(".module-calculation")
-        ];
-
-
-        /* =====================================
-           HIDE ALL OTHER PLATES
-        ===================================== */
-
-        const allPlates =
-            roomPoints.querySelectorAll(
-                ".home-plate-box"
-            );
-
-        allPlates.forEach(function (otherPlate) {
-
-            if (otherPlate === plate) return;
-
-            const sections = [
-                otherPlate.querySelector(".home-item-selector"),
-                otherPlate.querySelector(".home-selected-items"),
-                otherPlate.querySelector(".module-calculation")
-            ];
-
-            sections.forEach(function (section) {
-
-                if (section) {
-                    section.style.display = "none";
-                }
-
-            });
-
-        });
-
-
-        /* =====================================
-           OPEN CURRENT PLATE
-        ===================================== */
-
-        currentSections.forEach(function (section) {
-
-            if (section) {
-                section.style.display = "";
-            }
-
-        });
-
-    };
 }
 
 /* =========================================
@@ -5639,18 +6063,66 @@ function updateHomeFinalTotal() {
 
     const totals = {};
 
-    /* =========================================================
-       HELPER
-       ========================================================= */
+    const itemSizes = {};
 
-    function addTotal(item, qty) {
+    /* =========================================================
+    HELPER
+    ========================================================= */
+
+    function addTotal(
+        item,
+        qty,
+        selectedSize = "",
+        selectedColor = ""
+    ) {
 
         if (!item || qty <= 0) return;
 
-        const key = item.name;
+
+        const key =
+            item.name;
+
+
+        /* =========================================
+        TOTAL QTY
+        ========================================= */
 
         totals[key] =
             (totals[key] || 0) + qty;
+
+
+        /* =========================================
+        AMP / SIZE
+        ========================================= */
+
+        let ampSize = "";
+
+
+        if (selectedSize) {
+
+            ampSize =
+                selectedSize;
+
+        }
+        else if (selectedColor) {
+
+            ampSize =
+                selectedColor;
+
+        }
+
+
+        /* =========================================
+        SAVE AMP / SIZE
+        ========================================= */
+
+        if (ampSize) {
+
+            itemSizes[key] =
+                ampSize;
+
+        }
+
     }
 
 
@@ -5757,6 +6229,15 @@ function updateHomeFinalTotal() {
                             qtyInput?.value
                         ) || 0;
 
+                    //Get selected Fan Size
+                    const selectedSize =
+                        control.select === ".room-fan-select"
+                            ? roomPoints.querySelector(
+                                ".room-fan-size-select"
+                            )?.value || ""
+                            : "";
+
+                    // Add item with its selected size
                     addTotal(
                         item,
                         qty
@@ -5856,6 +6337,49 @@ function updateHomeFinalTotal() {
 
 
     /* =========================================================
+       2B. EXTRA FAN / EXTRA ROUND SHEET ROWS
+       ========================================================= */
+
+    document
+        .querySelectorAll(
+            ".extra-fan-row, .extra-round-sheet-row"
+        )
+        .forEach(function (row) {
+
+            const select =
+                row.querySelector("select");
+
+            const qtyInput =
+                row.querySelector("input[type='number']");
+
+            if (!select || !select.value) return;
+
+            const item =
+                electricalData[Number(select.value)];
+
+            const qty =
+                Number(qtyInput?.value) || 0;
+
+            // Get selected Size
+            let selectedSize = "";
+
+            if (row.classList.contains("extra-fan-row")) {
+                selectedSize =
+                    row.querySelector(
+                        ".room-extra-fan-size-select"
+                    )?.value || "";
+            }
+
+            // Add item with selected Size
+            addTotal(
+                item,
+                qty,
+                selectedSize
+            );
+
+        });
+
+    /* =========================================================
        3. MODULAR PLATE ITEMS
        ========================================================= */
 
@@ -5865,45 +6389,136 @@ function updateHomeFinalTotal() {
         )
         .forEach(function (row) {
 
-            const spans =
-                row.querySelectorAll("span");
+            /* -----------------------------------------
+            ITEM NAME
+            ----------------------------------------- */
 
-            const text =
-                spans[0]
-                    ?.textContent
-                    .trim();
-
-            if (!text) return;
-
-            const qtyText =
-                spans[1]
-                    ?.textContent || "";
-
-            const match =
-                qtyText.match(
-                    /Qty\s+(\d+)/i
+            const nameElement =
+                row.querySelector(
+                    ".selected-item-name"
                 );
 
-            const qty =
-                match
-                    ? Number(match[1])
-                    : 0;
+            let itemName = "";
+
+
+            if (nameElement) {
+
+                /* First hidden span contains clean name */
+                const firstSpan =
+                    nameElement.querySelector(
+                        "span:first-child"
+                    );
+
+                if (firstSpan) {
+
+                    itemName =
+                        firstSpan.textContent.trim();
+
+                }
+                else {
+
+                    itemName =
+                        nameElement.textContent.trim();
+
+                }
+
+            }
+
+
+            if (!itemName) return;
+
+
+            /* -----------------------------------------
+            AMP / SIZE
+            ----------------------------------------- */
+
+            const sizeElement =
+                row.querySelector(
+                    ".selected-item-size"
+                );
+
+
+            const ampSize =
+                sizeElement
+                    ? sizeElement.textContent.trim()
+                    : "-";
+
+
+            /* -----------------------------------------
+            QTY
+            ----------------------------------------- */
+
+            const qtyElement =
+                row.querySelector(
+                    ".selected-item-qty"
+                );
+
+
+            let qty = 0;
+
+
+            if (qtyElement) {
+
+                qty =
+                    Number(
+                        qtyElement.textContent.trim()
+                    ) || 0;
+
+            }
+            else {
+
+                /* Fallback for old row structure */
+
+                const spans =
+                    row.querySelectorAll("span");
+
+                const qtyText =
+                    spans[1]
+                        ?.textContent || "";
+
+                const match =
+                    qtyText.match(
+                        /Qty\s+(\d+)/i
+                    );
+
+                qty =
+                    match
+                        ? Number(match[1])
+                        : 0;
+
+            }
+
 
             if (qty <= 0) return;
 
-            const itemName =
-                text
-                    .split("•")[0]
-                    .trim();
+
+            /* -----------------------------------------
+            TOTAL QTY
+            ----------------------------------------- */
 
             totals[itemName] =
                 (totals[itemName] || 0) + qty;
+
+
+            /* -----------------------------------------
+            SAVE AMP / SIZE
+            ----------------------------------------- */
+
+            if (
+                ampSize &&
+                ampSize !== "-"
+            ) {
+
+                itemSizes[itemName] =
+                    ampSize;
+
+            }
+
         });
 
-
     /* =========================================================
-       4. MANUAL FINAL ITEMS
-       ========================================================= */
+    4. MANUAL FINAL ITEMS
+    ========================================================= */
 
     if (
         typeof manualFinalItems !==
@@ -5920,14 +6535,39 @@ function updateHomeFinalTotal() {
                     return;
                 }
 
+
                 const qty =
                     Number(item.qty) || 0;
 
                 if (qty <= 0) return;
 
+
+                /* ==========================================
+                TOTAL QTY
+                ========================================== */
+
                 totals[item.name] =
                     (totals[item.name] || 0) +
                     qty;
+
+
+                /* ==========================================
+                SAVE AMP / SIZE / COLOR
+                ========================================== */
+
+                const selectedSize =
+                    item.size ||
+                    item.color ||
+                    "";
+
+
+                if (selectedSize) {
+
+                    itemSizes[item.name] =
+                        selectedSize;
+
+                }
+
             }
         );
     }
@@ -5952,13 +6592,14 @@ function updateHomeFinalTotal() {
 
 
     /* =========================================================
-       6. CATEGORIES
-       ========================================================= */
+    6. CATEGORIES
+    ========================================================= */
 
     const categories = {
 
         "Switches": [
-            "Switch"
+            "Switch",
+            "Bell Push"
         ],
 
         "Sockets": [
@@ -6007,7 +6648,23 @@ function updateHomeFinalTotal() {
     };
 
 
-    let html = "";
+    let html = `
+        <div class="final-list-header">
+
+            <span>
+                Electrical Item
+            </span>
+
+            <span>
+                Amp / Size
+            </span>
+
+            <span>
+                Total
+            </span>
+
+        </div>
+    `;
 
     const categorizedItems =
         new Set();
@@ -6032,9 +6689,14 @@ function updateHomeFinalTotal() {
                                 .some(
                                     function (keyword) {
 
-                                        return lower.includes(
-                                            keyword.toLowerCase()
-                                        );
+                                        return new RegExp(
+                                            "\\b" +
+                                            keyword
+                                                .toLowerCase()
+                                                .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+                                                .replace(/\s+/g, "\\s+") +
+                                            "\\b"
+                                        ).test(lower);
                                     }
                                 );
 
@@ -6068,8 +6730,16 @@ function updateHomeFinalTotal() {
                     html += `
                         <div class="final-total-row">
 
-                            <span>
+                            <span class="final-item-name">
                                 ${escapeHTML(name)}
+                            </span>
+
+                            <span
+                                class="final-item-size"
+                            >
+                                ${escapeHTML(
+                                    itemSizes[name] || "-"
+                                )}
                             </span>
 
                             <strong>
@@ -6121,8 +6791,16 @@ function updateHomeFinalTotal() {
                 html += `
                     <div class="final-total-row">
 
-                        <span>
+                        <span class="final-item-name">
                             ${escapeHTML(name)}
+                        </span>
+
+                        <span
+                            class="final-item-size"
+                        >
+                            ${escapeHTML(
+                                itemSizes[name] || "-"
+                            )}
                         </span>
 
                         <strong>
@@ -6621,6 +7299,74 @@ function populateFinalElectricalItems() {
 }
 
 /* =========================================================
+   FINAL TOTAL - MANUAL ADD ITEM
+   ========================================================= */
+
+function addFinalItemToTotal(
+    item,
+    size,
+    color,
+    qty
+) {
+
+    if (!item) return;
+
+    qty = Number(qty) || 0;
+
+    if (qty <= 0) return;
+
+
+    /* ==========================================
+       SAME ITEM ALREADY EXISTS
+       ========================================== */
+
+    const existing =
+        manualFinalItems.find(function (entry) {
+
+            return (
+                entry.name === item.name &&
+                entry.size === (size || "") &&
+                entry.color === (color || "")
+            );
+
+        });
+
+
+    if (existing) {
+
+        existing.qty =
+            Number(existing.qty || 0) + qty;
+
+    }
+
+    else {
+
+        manualFinalItems.push({
+
+            name: item.name,
+
+            size: size || "",
+
+            color: color || "",
+
+            qty: qty
+
+        });
+
+    }
+
+
+    /* ==========================================
+       UPDATE FINAL TOTAL LIST
+       ========================================== */
+
+    updateHomeFinalTotal();
+
+}
+
+let manualFinalItems = [];
+
+/* =========================================================
    FINAL ELECTRICAL ITEMS - ADD ITEM SETUP
    ========================================================= */
 
@@ -6800,34 +7546,34 @@ function setupFinalElectricalOptions() {
     });
 }
 
+
 /* =========================================================
    HOME PLANNING - UPDATE ITEM OPTIONS
    ========================================================= */
 
 function updateHomeItemOptions(select) {
 
-    const roomPoints =
-        select.closest(".room-points");
+    const plateBox =
+        select.closest(".home-plate-box");
 
-    if (!roomPoints) return;
-
-    const item =
-        electricalData[Number(select.value)];
-
-    if (!item) return;
+    if (!plateBox) return;
 
 
     const sizeSelect =
-        roomPoints.querySelector(".home-size-select");
+        plateBox.querySelector(".home-size-select");
 
     const colorSelect =
-        roomPoints.querySelector(".home-color-select");
+        plateBox.querySelector(".home-color-select");
 
-    const sizeLabel =
-        roomPoints.querySelector(".home-size-label");
+    const sizeField =
+        sizeSelect
+            ? sizeSelect.closest(".home-field")
+            : null;
 
-    const colorLabel =
-        roomPoints.querySelector(".home-color-label");
+    const colorField =
+        colorSelect
+            ? colorSelect.closest(".home-field")
+            : null;
 
 
     if (!sizeSelect || !colorSelect) return;
@@ -6835,7 +7581,7 @@ function updateHomeItemOptions(select) {
 
     /* ==========================================
        RESET
-       ========================================== */
+    ========================================== */
 
     sizeSelect.innerHTML =
         `<option value="">Select</option>`;
@@ -6843,20 +7589,32 @@ function updateHomeItemOptions(select) {
     colorSelect.innerHTML =
         `<option value="">Select Color</option>`;
 
-    sizeSelect.style.display = "none";
-    colorSelect.style.display = "none";
+    if (sizeField)
+        sizeField.style.display = "none";
 
-    if (sizeLabel)
-        sizeLabel.style.display = "none";
+    if (colorField)
+        colorField.style.display = "none";
 
-    if (colorLabel)
-        colorLabel.style.display = "none";
+
+    /* ==========================================
+       ITEM SELECT செய்யவில்லை
+    ========================================== */
+
+    if (!select.value) {
+        return;
+    }
+
+
+    const item =
+        electricalData[Number(select.value)];
+
+    if (!item) return;
 
 
     /* ==========================================
        AMP / SIZE
        sizes இருந்தால் மட்டும் SHOW
-       ========================================== */
+    ========================================== */
 
     if (
         Array.isArray(item.sizes) &&
@@ -6872,16 +7630,18 @@ function updateHomeItemOptions(select) {
             option.textContent = size;
 
             sizeSelect.appendChild(option);
+
         });
 
-        sizeSelect.style.display = "block";
+        if (sizeField)
+            sizeField.style.display = "";
     }
 
 
     /* ==========================================
        COLOR
        useColors:true இருந்தால் மட்டும் SHOW
-       ========================================== */
+    ========================================== */
 
     if (
         item.useColors === true &&
@@ -6897,10 +7657,13 @@ function updateHomeItemOptions(select) {
             option.textContent = color;
 
             colorSelect.appendChild(option);
+
         });
 
-        colorSelect.style.display = "block";
+        if (colorField)
+            colorField.style.display = "";
     }
+
 }
 
 /* =========================================================
@@ -7017,6 +7780,40 @@ function addHomePlanningItem(button) {
 
     selectedList.appendChild(row);
 
+    const roomPoints =
+        plateBox.closest(".room-points");
+
+    const roomBox =
+        roomPoints?._originalRoomBox ||
+        roomPoints?._roomBox;
+
+    if (roomBox) {
+
+        const roomItemCount =
+            roomBox.querySelector(".room-item-count");
+
+        const totalRoomItems = [
+            ...roomPoints.querySelectorAll(".home-selected-row")
+        ].reduce((total, itemRow) => {
+            return total +
+                (Number(
+                    itemRow.querySelector(".selected-item-qty")?.textContent
+                ) || 0);
+        }, 0);
+
+        if (roomItemCount) {
+            roomItemCount.textContent =
+                `${totalRoomItems} Items`;
+        }
+
+        const floor =
+            roomBox.closest(".home-floor");
+
+        if (floor) {
+            updateFloorStats(floor);
+        }
+    }
+
     const countBadge =
         plateBox.querySelector(".selected-item-count");
 
@@ -7041,7 +7838,7 @@ function addHomePlanningItem(button) {
 
 
     /* ================================
-       RESET
+    RESET
     ================================= */
 
     itemSelect.value = "";
@@ -7052,68 +7849,27 @@ function addHomePlanningItem(button) {
     colorSelect.innerHTML =
         `<option value="">Select Color</option>`;
 
-    colorSelect.style.display =
-        "none";
+
+    /* Amp / Size + Color முழு field hide */
+
+    const sizeField =
+        sizeSelect
+            ? sizeSelect.closest(".home-field")
+            : null;
+
+    const colorField =
+        colorSelect
+            ? colorSelect.closest(".home-field")
+            : null;
+
+    if (sizeField)
+        sizeField.style.display = "none";
+
+    if (colorField)
+        colorField.style.display = "none";
+
 
     qtyInput.value = 1;
-}
-
-/* =========================================================
-   HOME PLANNING - TOGGLE PLATE
-   ========================================================= */
-
-
-function toggleHomePlate(plateBox) {
-
-    if (!plateBox) return;
-
-    const sections = [
-        plateBox.querySelector(".home-item-selector"),
-        plateBox.querySelector(".home-selected-items"),
-        plateBox.querySelector(".module-calculation")
-    ];
-
-    const isOpen =
-        sections.some(function (section) {
-            return section && section.style.display !== "none";
-        });
-
-
-    /* மற்ற எல்லா plates-ஐ minimize */
-    document.querySelectorAll(".home-plate-box").forEach(function (plate) {
-
-        if (plate === plateBox) return;
-
-        const otherSections = [
-            plate.querySelector(".home-item-selector"),
-            plate.querySelector(".home-selected-items"),
-            plate.querySelector(".module-calculation")
-        ];
-
-        otherSections.forEach(function (section) {
-
-            if (section) {
-                section.style.display = "none";
-            }
-
-        });
-
-    });
-
-
-    /* இந்த plate open / close */
-    sections.forEach(function (section) {
-
-        if (!section) return;
-
-        section.style.display =
-            isOpen ? "none" : "";
-
-    });
-
-
-    /* Final total refresh */
-    updateHomeFinalTotal();
 }
 
 /* =========================================================
@@ -7180,8 +7936,6 @@ function calculateHomeModules(plateBox) {
    HOME PLANNING - REMOVE ITEM
    ========================================================= */
 
-
-
 function removeHomePlanningItem(button) {
 
     const row =
@@ -7207,6 +7961,17 @@ function removeHomePlanningItem(button) {
 
 function getCustomerDetails(type) {
 
+    if (type === "home") {
+
+        return {
+            name: getValue("homeCustomer"),
+            ph: getValue("homeMobileNumber"),
+            date: getValue("homeDate")
+        };
+
+    }
+
+
     return {
 
         name:
@@ -7227,7 +7992,6 @@ function getCustomerDetails(type) {
     };
 }
 
-
 /* =========================================================
    GET INPUT VALUE
    ========================================================= */
@@ -7241,7 +8005,6 @@ function getValue(id) {
         ? element.value.trim()
         : "";
 }
-
 
 /* =========================================================
    GET SELECTED ITEMS - FINAL
@@ -7657,7 +8420,6 @@ function getSelectedItems(type) {
     return selected;
 }
 
-
 /* =========================================================
    HIDE EMPTY ROWS FOR PDF
    ========================================================= */
@@ -7881,237 +8643,6 @@ function preparePDF(type) {
     renumberPDF(type);
 
 }
-
-/* =========================================================
-   PDF BILL ONLY
-   ========================================================= */
-
-function preparePDFBill(type) {
-
-    const form = document.getElementById(type + "Form");
-
-    if (!form) return;
-
-    const table = form.querySelector(".order-table");
-
-    if (!table) return;
-
-
-    /* =====================================================
-       PDF ONLY - HIDE PHONE
-       ===================================================== */
-
-    const phoneRow = form.querySelector(
-        "#" + type + "Ph"
-    );
-
-    if (phoneRow) {
-
-        const phoneDetailRow =
-            phoneRow.closest(".detail-row");
-
-        if (phoneDetailRow) {
-            phoneDetailRow.style.display = "none";
-        }
-
-    }
-
-
-    /* =====================================================
-       PDF TABLE HEADER
-       WEBSITE:
-       S.No | PARTICULARS | QTY
-
-       PDF:
-       S.No | PARTICULARS | AMP/SIZE | QTY
-       ===================================================== */
-
-    const headerRow =
-        table.querySelector("thead tr");
-
-    if (headerRow) {
-
-        const oldQtyHeader =
-            headerRow.querySelector(".qty");
-
-        if (
-            oldQtyHeader &&
-            !headerRow.querySelector(".pdf-amp-size-header")
-        ) {
-
-            const ampHeader =
-                document.createElement("th");
-
-            ampHeader.className =
-                "amp-size pdf-amp-size-header";
-
-            ampHeader.textContent =
-                "AMP/SIZE";
-
-            headerRow.insertBefore(
-                ampHeader,
-                oldQtyHeader
-            );
-
-        }
-
-    }
-
-
-    /* =====================================================
-       PDF BODY ROWS
-       ===================================================== */
-
-    const rows =
-        table.querySelectorAll(
-            "tbody tr.item-row"
-        );
-
-
-    rows.forEach(function (row) {
-
-        if (row.style.display === "none") {
-            return;
-        }
-
-
-        /* -----------------------------------------------
-           QTY CELL
-           ----------------------------------------------- */
-
-        const qtyCell =
-            row.querySelector(".qty-cell");
-
-        if (!qtyCell) {
-            return;
-        }
-
-
-        /* -----------------------------------------------
-           GET AMP / SIZE
-           ----------------------------------------------- */
-
-        let ampSize = "—";
-
-
-        const sizeSelect =
-            row.querySelector(".size-dropdown");
-
-
-        if (sizeSelect) {
-
-            if (
-                sizeSelect.value &&
-                sizeSelect.value !== "__CUSTOM__"
-            ) {
-
-                ampSize =
-                    sizeSelect.value;
-
-            }
-
-        }
-
-
-        /* -----------------------------------------------
-           CUSTOM SIZE / RATING
-           ----------------------------------------------- */
-
-        const customInput =
-            row.querySelector(
-                ".custom-size-input"
-            );
-
-
-        if (
-            customInput &&
-            customInput.value.trim() !== ""
-        ) {
-
-            ampSize =
-                customInput.value.trim();
-
-        }
-
-
-        /* -----------------------------------------------
-           CREATE PDF AMP/SIZE CELL
-           ----------------------------------------------- */
-
-        const ampSizeCell =
-            document.createElement("td");
-
-        ampSizeCell.className =
-            "amp-size pdf-amp-size";
-
-        ampSizeCell.textContent =
-            ampSize;
-
-
-        /* -----------------------------------------------
-           IMPORTANT:
-           INSERT BEFORE QTY
-           ----------------------------------------------- */
-
-        row.insertBefore(
-            ampSizeCell,
-            qtyCell
-        );
-
-
-        /* -----------------------------------------------
-           REMOVE WEBSITE CONTROLS
-           FROM PARTICULARS FOR PDF
-           ----------------------------------------------- */
-
-        row.querySelectorAll(
-            ".item-thumb, " +
-            ".size-dropdown, " +
-            ".custom-size-input, " +
-            ".color-dropdown, " +
-            ".add-size-btn, " +
-            ".remove-size-btn, " +
-            "button"
-        ).forEach(function (el) {
-
-            el.style.display = "none";
-
-        });
-
-
-        /* -----------------------------------------------
-           REMOVE EMPTY UI SPACING
-           ----------------------------------------------- */
-
-        row.querySelectorAll(
-            ".size-entry"
-        ).forEach(function (entry) {
-
-            entry.style.display = "none";
-
-        });
-
-    });
-
-
-    /* =====================================================
-       TOTAL
-       ===================================================== */
-
-    const totalLabel =
-        table.querySelector(".total-label");
-
-    if (totalLabel) {
-
-        totalLabel.setAttribute(
-            "colspan",
-            "3"
-        );
-
-    }
-
-}
-
 
 /* =========================================================
    DOWNLOAD PDF
@@ -9139,6 +9670,1856 @@ async function downloadPDF(type) {
 
 }
 
+/* ============================================================
+   HOME PLANNING PDF
+   PDF 1 : ROOM DETAILS
+   PDF 2 : FINAL ELECTRICAL ITEMS
+   BOTH COMBINED INTO ONE PDF
+   ============================================================ */
+
+async function downloadHomePDF() {
+
+    try {
+
+        /* ====================================================
+           1. CHECK PDF LIBRARY
+           ==================================================== */
+
+        if (typeof html2pdf === "undefined") {
+
+            alert("PDF library load ஆகவில்லை.");
+            return;
+
+        }
+
+
+        /* ====================================================
+           2. UPDATE FINAL TOTAL
+           ==================================================== */
+
+        if (typeof updateHomeFinalTotal === "function") {
+            updateHomeFinalTotal();
+        }
+
+
+        /* ====================================================
+           3. GET HOME PLANNING
+           ==================================================== */
+
+        const homePlanning =
+            document.getElementById("homePlanning");
+
+        const finalList =
+            document.getElementById("final-total-list");
+
+
+        if (!homePlanning) {
+
+            alert("Home Planning section கிடைக்கவில்லை.");
+            return;
+
+        }
+
+
+        if (!finalList) {
+
+            alert("Final Total List கிடைக்கவில்லை.");
+            return;
+
+        }
+
+
+        /* ====================================================
+           4. CUSTOMER DETAILS
+           ==================================================== */
+
+        let customerName = "Customer";
+
+        let date =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+        let orderNo = "";
+
+
+        if (
+            typeof getCustomerDetails === "function"
+        ) {
+
+            try {
+
+                const customer =
+                    getCustomerDetails("home");
+
+
+                if (customer) {
+
+                    customerName =
+                        customer.name ||
+                        "Customer";
+
+
+                    date =
+                        customer.date ||
+                        date;
+
+                }
+
+            }
+            catch (error) {
+
+                console.warn(
+                    "Customer details error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        const orderElement =
+            document.getElementById("homeBillNo");
+
+
+        if (orderElement) {
+
+            orderNo =
+                orderElement.textContent.trim();
+
+        }
+
+
+        /* ====================================================
+           5. SAFE HTML
+           ==================================================== */
+
+        function safe(value) {
+
+            if (
+                typeof escapeHTML ===
+                "function"
+            ) {
+
+                return escapeHTML(
+                    String(value ?? "")
+                );
+
+            }
+
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* ====================================================
+        6. GET FINAL TOTAL ITEMS
+        NAME + AMP / SIZE + QTY
+        ==================================================== */
+
+        const finalItems = [];
+
+
+        /* ====================================================
+        GET AMP / SIZE FROM HOME SELECTED ITEMS
+        ==================================================== */
+
+        const homeItemDetails = {};
+
+
+        document
+            .querySelectorAll(
+                ".home-selected-row"
+            )
+            .forEach(function (row) {
+
+                /* --------------------------------------------
+                GET CLEAN ITEM NAME
+                -------------------------------------------- */
+
+                const nameSpan =
+                    row.querySelector(
+                        ".selected-item-name span:first-child"
+                    );
+
+
+                const nameCell =
+                    row.querySelector(
+                        ".selected-item-name"
+                    );
+
+
+                let name = "";
+
+
+                if (nameSpan) {
+
+                    name =
+                        nameSpan.textContent.trim();
+
+                }
+                else if (nameCell) {
+
+                    name =
+                        nameCell.textContent.trim();
+
+                }
+
+
+                /* --------------------------------------------
+                GET AMP / SIZE
+                -------------------------------------------- */
+
+                const sizeCell =
+                    row.querySelector(
+                        ".selected-item-size"
+                    );
+
+
+                const ampSize =
+                    sizeCell
+                        ? sizeCell.textContent.trim()
+                        : "—";
+
+
+                /* --------------------------------------------
+                SAVE ITEM DETAILS
+                -------------------------------------------- */
+
+                if (name) {
+
+                    homeItemDetails[name] = {
+
+                        ampSize:
+                            ampSize || "—"
+
+                    };
+
+                }
+
+            });
+
+
+        /* ====================================================
+        GET FINAL TOTAL LIST
+        ==================================================== */
+
+        finalList
+            .querySelectorAll(
+                ".final-total-row"
+            )
+            .forEach(function (row) {
+
+                const nameElement =
+                    row.querySelector(
+                        "span"
+                    );
+
+
+                const totalElement =
+                    row.querySelector(
+                        "strong"
+                    );
+
+
+                const name =
+                    nameElement
+                        ? nameElement.textContent.trim()
+                        : "";
+
+
+                const totalText =
+                    totalElement
+                        ? totalElement.textContent.trim()
+                        : "";
+
+
+                const match =
+                    totalText.match(
+                        /Total:\s*([\d.]+)/i
+                    );
+
+
+                const qty =
+                    match
+                        ? Number(match[1])
+                        : 0;
+
+
+                if (
+                    !name ||
+                    qty <= 0
+                ) {
+
+                    return;
+
+                }
+
+
+                /* --------------------------------------------
+                FIND AMP / SIZE
+                -------------------------------------------- */
+
+                const details =
+                    homeItemDetails[name];
+
+
+                /* GET SIZE DIRECTLY FROM FINAL TOTAL ROW */
+
+                const sizeElement =
+                    row.querySelector(
+                        ".final-item-size"
+                    );
+
+                const finalSize =
+                    sizeElement
+                        ? sizeElement.textContent.trim()
+                        : "";
+
+
+                /* FINAL TOTAL SIZE FIRST */
+
+                let ampSize = "—";
+
+                if (
+                    finalSize &&
+                    finalSize !== "-" &&
+                    finalSize !== "—"
+                ) {
+
+                    ampSize =
+                        finalSize;
+
+                }
+                else if (
+                    details &&
+                    details.ampSize &&
+                    details.ampSize !== "-" &&
+                    details.ampSize !== "—"
+                ) {
+
+                    ampSize =
+                        details.ampSize;
+
+                }
+
+
+                /* --------------------------------------------
+                ADD FINAL ITEM
+                -------------------------------------------- */
+
+                finalItems.push({
+
+                    name:
+                        name,
+
+                    ampSize:
+                        ampSize || "—",
+
+                    qty:
+                        qty
+
+                });
+
+            });
+
+
+        /* ====================================================
+           7. VALIDATE
+           ==================================================== */
+
+        if (
+            finalItems.length === 0
+        ) {
+
+            alert(
+                "FINAL TOTAL LIST-ல் items இல்லை."
+            );
+
+            return;
+
+        }
+
+
+        /* ====================================================
+           8. CREATE PDF MAIN CONTAINER
+           ==================================================== */
+
+        const pdf =
+            document.createElement("div");
+
+
+        pdf.style.width =
+            "730px";
+
+        pdf.style.background =
+            "#ffffff";
+
+        pdf.style.color =
+            "#000000";
+
+        pdf.style.fontFamily =
+            "Arial, Helvetica, sans-serif";
+
+        pdf.style.boxSizing =
+            "border-box";
+
+        pdf.style.padding =
+            "35px";
+
+
+        /* ====================================================
+           9. HEADER
+           ==================================================== */
+
+        pdf.innerHTML = `
+
+            <div style="
+                border:1.5px solid #111;
+                border-radius:10px;
+                padding:18px 20px 15px;
+                margin-bottom:18px;
+            ">
+
+                <div style="
+                    text-align:center;
+                    font-size:25px;
+                    font-weight:700;
+                    color:#102a56;
+                ">
+                    MVS ELECTRICAL
+                </div>
+
+
+                <div style="
+                    text-align:center;
+                    font-size:13px;
+                    font-weight:600;
+                    color:#333;
+                    margin-top:4px;
+                ">
+                    Electrical &amp; Plumbing Solutions
+                </div>
+
+
+                <div style="
+                    text-align:center;
+                    font-size:12px;
+                    color:#222;
+                    padding-bottom:10px;
+                    margin-top:3px;
+                    border-bottom:1px solid #ddd;
+                ">
+                    Thamizharasu
+                    &nbsp;•&nbsp;
+                    +91 6383754237
+                </div>
+
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    margin-top:12px;
+                    font-size:12px;
+                ">
+
+                    <div>
+                        <strong>Order No:</strong>
+                        ${safe(orderNo)}
+                    </div>
+
+
+                    <div>
+                        <strong>Date:</strong>
+                        ${safe(date)}
+                    </div>
+
+                </div>
+
+
+                <div style="
+                    margin-top:10px;
+                    font-size:12px;
+                ">
+
+                    <strong>Customer:</strong>
+                    ${safe(customerName)}
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        /* ====================================================
+           10. PDF 1
+           ROOM DETAILS
+           ==================================================== */
+
+        const roomTitle =
+            document.createElement("div");
+
+
+        roomTitle.style.fontSize =
+            "18px";
+
+        roomTitle.style.fontWeight =
+            "700";
+
+        roomTitle.style.margin =
+            "10px 0 12px";
+
+        roomTitle.style.color =
+            "#102a56";
+
+
+        roomTitle.textContent =
+            "HOME PLANNING - ROOM DETAILS";
+
+
+        pdf.appendChild(
+            roomTitle
+        );
+
+
+        /* ====================================================
+   COLLECT ROOM DETAILS
+   ==================================================== */
+
+const roomRows = [];
+
+
+/* ====================================================
+   GET EACH ROOM
+   ==================================================== */
+
+document
+    .querySelectorAll(".room-box")
+    .forEach(function (roomBox) {
+
+        /* --------------------------------------------
+           ROOM NAME
+        -------------------------------------------- */
+
+        const roomName =
+            roomBox.dataset.roomName ||
+            roomBox.querySelector(
+                ".selected-room-name"
+            )?.textContent.trim() ||
+            "Room";
+
+
+        /* --------------------------------------------
+           ROOM POINTS
+        -------------------------------------------- */
+
+        const roomPoints =
+            roomBox.querySelector(
+                ".room-points"
+            );
+
+
+        if (!roomPoints) {
+            return;
+        }
+
+
+        const details = [];
+
+
+        /* =================================================
+           BASIC ROOM ITEMS
+           ================================================= */
+
+        const basicControls = [
+
+            {
+                select: ".room-fan-select",
+                qty: ".room-fan-qty",
+                size: ".room-fan-size-select"
+            },
+
+            {
+                select: ".room-light-select",
+                qty: ".room-light-qty"
+            },
+
+            {
+                select: ".room-round-sheet-select",
+                qty: ".room-round-sheet-qty"
+            },
+
+            {
+                select: ".room-ceiling-rose-select",
+                qty: ".room-ceiling-rose-qty"
+            }
+
+        ];
+
+
+        basicControls.forEach(
+            function (control) {
+
+                const select =
+                    roomPoints.querySelector(
+                        control.select
+                    );
+
+
+                const qtyInput =
+                    roomPoints.querySelector(
+                        control.qty
+                    );
+
+
+                if (
+                    !select ||
+                    !select.value
+                ) {
+                    return;
+                }
+
+
+                const option =
+                    select.options[
+                        select.selectedIndex
+                    ];
+
+
+                const itemName =
+                    option
+                        ? option.textContent.trim()
+                        : "";
+
+
+                const qty =
+                    Number(
+                        qtyInput?.value
+                    ) || 0;
+
+
+                if (
+                    itemName &&
+                    qty > 0
+                ) {
+
+                    let ampSize = "—";
+
+
+                    /* FAN SIZE */
+
+                    if (
+                        control.size
+                    ) {
+
+                        const sizeSelect =
+                            roomPoints.querySelector(
+                                control.size
+                            );
+
+
+                        if (
+                            sizeSelect &&
+                            sizeSelect.value
+                        ) {
+
+                            ampSize =
+                                sizeSelect.value;
+
+                        }
+
+                    }
+
+
+                    details.push({
+
+                        name:
+                            itemName,
+
+                        ampSize:
+                            ampSize,
+
+                        qty:
+                            qty
+
+                    });
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           EXTRA LIGHT ROWS
+           ================================================= */
+
+        roomPoints
+            .querySelectorAll(
+                ".extra-light-row"
+            )
+            .forEach(function (row) {
+
+                const select =
+                    row.querySelector(
+                        ".room-light-select"
+                    );
+
+
+                const qtyInput =
+                    row.querySelector(
+                        ".room-light-qty"
+                    );
+
+
+                if (
+                    !select ||
+                    !select.value
+                ) {
+                    return;
+                }
+
+
+                const option =
+                    select.options[
+                        select.selectedIndex
+                    ];
+
+
+                const itemName =
+                    option
+                        ? option.textContent.trim()
+                        : "";
+
+
+                const qty =
+                    Number(
+                        qtyInput?.value
+                    ) || 0;
+
+
+                if (
+                    itemName &&
+                    qty > 0
+                ) {
+
+                    details.push({
+
+                        name:
+                            itemName,
+
+                        ampSize:
+                            "—",
+
+                        qty:
+                            qty
+
+                    });
+
+                }
+
+            });
+
+
+        /* =================================================
+           EXTRA CEILING ROSE
+           ================================================= */
+
+        roomPoints
+            .querySelectorAll(
+                ".extra-ceiling-rose-row"
+            )
+            .forEach(function (row) {
+
+                const select =
+                    row.querySelector(
+                        ".room-extra-ceiling-rose-select"
+                    );
+
+
+                const qtyInput =
+                    row.querySelector(
+                        ".room-extra-ceiling-rose-qty"
+                    );
+
+
+                if (
+                    !select ||
+                    !select.value
+                ) {
+                    return;
+                }
+
+
+                const option =
+                    select.options[
+                        select.selectedIndex
+                    ];
+
+
+                const itemName =
+                    option
+                        ? option.textContent.trim()
+                        : "";
+
+
+                const qty =
+                    Number(
+                        qtyInput?.value
+                    ) || 0;
+
+
+                if (
+                    itemName &&
+                    qty > 0
+                ) {
+
+                    details.push({
+
+                        name:
+                            itemName,
+
+                        ampSize:
+                            "—",
+
+                        qty:
+                            qty
+
+                    });
+
+                }
+
+            });
+
+
+        /* =================================================
+           SELECTED ELECTRICAL ITEMS
+           FROM PLATES
+           ================================================= */
+
+        roomPoints
+            .querySelectorAll(
+                ".home-selected-row"
+            )
+            .forEach(function (row) {
+
+                const nameElement =
+                    row.querySelector(
+                        ".selected-item-name span:first-child"
+                    );
+
+
+                const nameCell =
+                    row.querySelector(
+                        ".selected-item-name"
+                    );
+
+
+                let itemName = "";
+
+
+                if (nameElement) {
+
+                    itemName =
+                        nameElement
+                            .textContent
+                            .trim();
+
+                }
+                else if (nameCell) {
+
+                    itemName =
+                        nameCell
+                            .textContent
+                            .trim();
+
+                }
+
+
+                const sizeElement =
+                    row.querySelector(
+                        ".selected-item-size"
+                    );
+
+
+                const qtyElement =
+                    row.querySelector(
+                        ".selected-item-qty"
+                    );
+
+
+                const ampSize =
+                    sizeElement
+                        ? sizeElement
+                            .textContent
+                            .trim()
+                        : "—";
+
+
+                const qty =
+                    qtyElement
+                        ? Number(
+                            qtyElement
+                                .textContent
+                                .trim()
+                        ) || 0
+                        : 0;
+
+
+                if (
+                    itemName &&
+                    qty > 0
+                ) {
+
+                    details.push({
+
+                        name:
+                            itemName,
+
+                        ampSize:
+                            ampSize || "—",
+
+                        qty:
+                            qty
+
+                    });
+
+                }
+
+            });
+
+
+        /* =================================================
+           MODULE PLATE
+           ================================================= */
+
+        roomPoints
+            .querySelectorAll(
+                ".home-plate-box"
+            )
+            .forEach(function (plateBox) {
+
+                const plateSelect =
+                    plateBox.querySelector(
+                        ".home-plate-select"
+                    );
+
+
+                if (
+                    !plateSelect ||
+                    !plateSelect.value
+                ) {
+                    return;
+                }
+
+
+                const plateName =
+                    plateSelect
+                        .options[
+                            plateSelect.selectedIndex
+                        ]
+                        ?.textContent
+                        .trim();
+
+
+                if (plateName) {
+
+                    details.push({
+
+                        name:
+                            plateName +
+                            " Modular Plate",
+
+                        ampSize:
+                            "—",
+
+                        qty:
+                            1
+
+                    });
+
+                }
+
+            });
+
+
+        /* =================================================
+           ADD ROOM
+           ================================================= */
+
+        if (
+            details.length > 0
+        ) {
+
+            roomRows.push({
+
+                room:
+                    roomName,
+
+                details:
+                    details
+
+            });
+
+        }
+
+    });
+
+
+        /* ====================================================
+           ROOM TABLE
+           ==================================================== */
+
+        const roomTable =
+            document.createElement("table");
+
+
+        roomTable.style.width =
+            "100%";
+
+        roomTable.style.borderCollapse =
+            "collapse";
+
+        roomTable.style.fontSize =
+            "12px";
+
+
+        roomTable.innerHTML = `
+
+            <thead>
+
+                <tr>
+
+                    <th style="
+                        border:1px solid #111;
+                        padding:8px;
+                        width:55px;
+                        background:#f2f2f2;
+                    ">
+                        S.No.
+                    </th>
+
+
+                    <th style="
+                        border:1px solid #111;
+                        padding:8px;
+                        text-align:left;
+                        background:#f2f2f2;
+                    ">
+                        ROOM / ITEM
+                    </th>
+
+
+                    <th style="
+                        border:1px solid #111;
+                        padding:8px;
+                        width:70px;
+                        background:#f2f2f2;
+                        text-align:center;
+                    ">
+                        QTY
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody></tbody>
+
+        `;
+
+
+        const roomBody =
+            roomTable.querySelector(
+                "tbody"
+            );
+
+
+        let roomSno = 1;
+
+
+        roomRows.forEach(function (room) {
+
+            const roomHeader =
+                document.createElement("tr");
+
+
+            roomHeader.innerHTML = `
+
+                <td style="
+                    border:1px solid #111;
+                    padding:8px;
+                    text-align:center;
+                    font-weight:700;
+                ">
+                    ${roomSno}
+                </td>
+
+                <td colspan="2" style="
+                    border:1px solid #111;
+                    padding:8px;
+                    font-weight:700;
+                    background:#fafafa;
+                ">
+                    ${safe(room.room)}
+                </td>
+
+            `;
+
+
+            roomBody.appendChild(
+                roomHeader
+            );
+
+
+            room.details.forEach(
+                function (item) {
+
+                    const tr =
+                        document.createElement("tr");
+
+
+                    tr.innerHTML = `
+
+                        <td style="
+                            border:1px solid #111;
+                            padding:7px;
+                            text-align:center;
+                        ">
+                            -
+                        </td>
+
+
+                        <td style="
+                            border:1px solid #111;
+                            padding:7px;
+                        ">
+                            ${safe(item.name)}
+                        </td>
+
+
+                        <td style="
+                            border:1px solid #111;
+                            padding:7px;
+                            text-align:center;
+                        ">
+                            ${item.qty}
+                        </td>
+
+                    `;
+
+
+                    roomBody.appendChild(
+                        tr
+                    );
+
+                }
+            );
+
+
+            roomSno++;
+
+        });
+
+
+        if (
+            roomRows.length === 0
+        ) {
+
+            const tr =
+                document.createElement("tr");
+
+
+            tr.innerHTML = `
+
+                <td colspan="3"
+                    style="
+                        border:1px solid #111;
+                        padding:15px;
+                        text-align:center;
+                    "
+                >
+                    No room details added
+                </td>
+
+            `;
+
+
+            roomBody.appendChild(
+                tr
+            );
+
+        }
+
+
+        pdf.appendChild(
+            roomTable
+        );
+
+
+        /* ====================================================
+           PAGE BREAK
+           ==================================================== */
+
+        const pageBreak =
+            document.createElement("div");
+
+
+        pageBreak.style.pageBreakBefore =
+            "always";
+
+        pageBreak.style.breakBefore =
+            "page";
+
+        pageBreak.innerHTML =
+            "&nbsp;";
+
+
+        pdf.appendChild(
+            pageBreak
+        );
+
+
+        /* ====================================================
+           PDF 2
+           FINAL ELECTRICAL ITEMS
+           ==================================================== */
+
+        const electricalTitle =
+            document.createElement("div");
+
+
+        electricalTitle.style.fontSize =
+            "18px";
+
+        electricalTitle.style.fontWeight =
+            "700";
+
+        electricalTitle.style.margin =
+            "10px 0 12px";
+
+        electricalTitle.style.color =
+            "#102a56";
+
+
+        electricalTitle.textContent =
+            "ELECTRICAL ITEM";
+
+
+        pdf.appendChild(
+            electricalTitle
+        );
+
+
+        const electricalTable =
+            document.createElement("table");
+
+
+        electricalTable.style.width =
+            "100%";
+
+        electricalTable.style.borderCollapse =
+            "collapse";
+
+        electricalTable.style.tableLayout =
+            "fixed";
+
+        electricalTable.style.fontSize =
+            "12px";
+
+
+        electricalTable.innerHTML = `
+
+            <thead>
+
+                <tr>
+
+                    <th style="
+                        width:55px;
+                        border:1px solid #111;
+                        padding:8px;
+                        background:#f2f2f2;
+                        text-align:center;
+                    ">
+                        S.No.
+                    </th>
+
+
+                    <th style="
+                        border:1px solid #111;
+                        padding:8px;
+                        background:#f2f2f2;
+                        text-align:left;
+                    ">
+                        PARTICULARS
+                    </th>
+
+
+                    <th style="
+                        width:110px;
+                        border:1px solid #111;
+                        padding:8px;
+                        background:#f2f2f2;
+                        text-align:center;
+                    ">
+                        AMP/SIZE
+                    </th>
+
+
+                    <th style="
+                        width:65px;
+                        border:1px solid #111;
+                        padding:8px;
+                        background:#f2f2f2;
+                        text-align:center;
+                    ">
+                        QTY
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody></tbody>
+
+            <tfoot>
+
+                <tr>
+
+                    <td colspan="3"
+                        style="
+                            border:1px solid #111;
+                            padding:9px;
+                            text-align:right;
+                            font-weight:700;
+                        "
+                    >
+                        TOTAL
+                    </td>
+
+
+                    <td
+                        class="home-pdf-total"
+                        style="
+                            border:1px solid #111;
+                            padding:9px;
+                            text-align:center;
+                            font-weight:700;
+                        "
+                    >
+                        0
+                    </td>
+
+                </tr>
+
+            </tfoot>
+
+        `;
+
+
+        const electricalBody =
+            electricalTable.querySelector(
+                "tbody"
+            );
+
+
+        let totalQty = 0;
+
+
+        finalItems.forEach(
+            function (item, index) {
+
+                totalQty +=
+                    Number(item.qty) || 0;
+
+
+                /* ==========================================
+                PDF ONLY - COLOR
+                ========================================== */
+
+                let pdfItemName =
+                    item.name;
+
+
+                if (
+                    typeof manualFinalItems !== "undefined"
+                ) {
+
+                    const manualItem =
+                        manualFinalItems.find(
+                            function (entry) {
+
+                                return (
+                                    entry &&
+                                    entry.name === item.name &&
+                                    Number(entry.qty) === Number(item.qty)
+                                );
+
+                            }
+                        );
+
+
+                    if (
+                        manualItem &&
+                        manualItem.color
+                    ) {
+
+                        pdfItemName =
+                            `${item.name} (${manualItem.color})`;
+
+                    }
+
+                }
+
+
+                const tr =
+                    document.createElement("tr");
+
+
+                tr.innerHTML = `
+
+                    <td style="
+                        border:1px solid #111;
+                        padding:8px;
+                        text-align:center;
+                    ">
+                        ${index + 1}
+                    </td>
+
+
+                    <td style="
+                        border:1px solid #111;
+                        padding:8px;
+                        text-align:left;
+                        font-weight:600;
+                    ">
+                        ${safe(pdfItemName)}
+                    </td>
+
+
+                    <td style="
+                        border:1px solid #111;
+                        padding:8px;
+                        text-align:center;
+                    ">
+                        ${safe(item.ampSize || "—")}
+                    </td>
+
+
+                    <td style="
+                        border:1px solid #111;
+                        padding:8px;
+                        text-align:center;
+                        font-weight:600;
+                    ">
+                        ${item.qty}
+                    </td>
+
+                `;
+
+
+                electricalBody.appendChild(
+                    tr
+                );
+
+            }
+        );
+
+
+        const totalCell =
+            electricalTable.querySelector(
+                ".home-pdf-total"
+            );
+
+
+        if (totalCell) {
+
+            totalCell.textContent =
+                totalQty;
+
+        }
+
+
+        pdf.appendChild(
+            electricalTable
+        );
+
+
+        /* ====================================================
+           FOOTER
+           ==================================================== */
+
+        const footer =
+            document.createElement("div");
+
+
+        footer.style.marginTop =
+            "35px";
+
+        footer.style.paddingTop =
+            "18px";
+
+        footer.style.borderTop =
+            "1px solid #ddd";
+
+        footer.style.textAlign =
+            "center";
+
+        footer.style.fontSize =
+            "13px";
+
+
+        footer.innerHTML = `
+            <strong>Thank You</strong>
+        `;
+
+
+        pdf.appendChild(
+            footer
+        );
+
+
+        /* ====================================================
+           FILE NAME
+           ==================================================== */
+
+        const safeCustomer =
+            typeof safeFileName === "function"
+                ? safeFileName(customerName)
+                : "Customer";
+
+
+        const fileName =
+            "MVS-Home-Planning-" +
+            safeCustomer +
+            "-" +
+            date +
+            ".pdf";
+
+
+        /* ====================================================
+           ADD TO DOM
+           ==================================================== */
+
+        pdf.style.position =
+            "fixed";
+
+        pdf.style.left =
+            "0";
+
+        pdf.style.top =
+            "0";
+
+        pdf.style.zIndex =
+            "-9999";
+
+
+        document.body.appendChild(
+            pdf
+        );
+
+
+        /* ====================================================
+           WAIT FOR RENDER
+           ==================================================== */
+
+        await new Promise(
+            function (resolve) {
+
+                requestAnimationFrame(
+                    function () {
+
+                        requestAnimationFrame(
+                            resolve
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* ====================================================
+           PDF OPTIONS
+           ==================================================== */
+
+        const options = {
+
+            margin: 8,
+
+            filename: fileName,
+
+            image: {
+
+                type: "jpeg",
+
+                quality: 0.98
+
+            },
+
+            html2canvas: {
+
+                scale: 2,
+
+                useCORS: true,
+
+                backgroundColor:
+                    "#ffffff",
+
+                scrollX: 0,
+
+                scrollY: 0
+
+            },
+
+            jsPDF: {
+
+                unit: "mm",
+
+                format: "a4",
+
+                orientation:
+                    "portrait"
+
+            },
+
+            pagebreak: {
+
+                mode: [
+                    "css",
+                    "legacy"
+                ]
+
+            }
+
+        };
+
+
+        /* ====================================================
+   PREPARE HOME PDF PREVIEW
+   ==================================================== */
+
+try {
+
+    /* -----------------------------------------------
+       PREVIEW MODAL
+       ----------------------------------------------- */
+
+    const previewModal =
+        document.getElementById(
+            "pdfPreviewModal"
+        );
+
+
+    if (!previewModal) {
+
+        console.error(
+            "pdfPreviewModal not found"
+        );
+
+        pdf.remove();
+
+        alert(
+            "PDF Preview Modal கிடைக்கவில்லை."
+        );
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------
+       PREVIEW CONTENT
+       ----------------------------------------------- */
+
+    const previewContent =
+        document.getElementById(
+            "pdfPreviewContent"
+        );
+
+
+    if (!previewContent) {
+
+        console.error(
+            "pdfPreviewContent not found"
+        );
+
+        pdf.remove();
+
+        alert(
+            "PDF Preview Content கிடைக்கவில்லை."
+        );
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------
+       SAVE PDF SETTINGS
+       ----------------------------------------------- */
+
+    window.currentPDFOptions =
+        options;
+
+    window.currentPDFFileName =
+        fileName;
+
+
+    /* -----------------------------------------------
+       CLEAR OLD PREVIEW
+       ----------------------------------------------- */
+
+    previewContent.innerHTML =
+        "";
+
+
+    /* -----------------------------------------------
+       CLONE HOME PDF
+       ----------------------------------------------- */
+
+    const previewBill =
+        pdf.cloneNode(true);
+
+
+    /* -----------------------------------------------
+       REQUIRED ID
+       Existing downloadPreviewPDF()
+       searches this ID
+       ----------------------------------------------- */
+
+    previewBill.id =
+        "mvs-pdf-bill";
+
+
+    /* -----------------------------------------------
+       PREVIEW STYLING
+       ----------------------------------------------- */
+
+    previewBill.style.position =
+        "relative";
+
+    previewBill.style.left =
+        "auto";
+
+    previewBill.style.top =
+        "auto";
+
+    previewBill.style.zIndex =
+        "auto";
+
+    previewBill.style.width =
+        "730px";
+
+    previewBill.style.maxWidth =
+        "100%";
+
+    previewBill.style.margin =
+        "0 auto";
+
+    previewBill.style.background =
+        "#ffffff";
+
+    previewBill.style.color =
+        "#000000";
+
+    previewBill.style.display =
+        "block";
+
+    previewBill.style.boxSizing =
+        "border-box";
+
+
+    /* -----------------------------------------------
+       ADD TO PREVIEW CONTENT
+       ----------------------------------------------- */
+
+    previewContent.appendChild(
+        previewBill
+    );
+
+
+    /* -----------------------------------------------
+       SAVE CURRENT PREVIEW ELEMENT
+       ----------------------------------------------- */
+
+    window.currentPDFElement =
+        previewBill;
+
+
+    /* -----------------------------------------------
+       OPEN PREVIEW MODAL
+       ----------------------------------------------- */
+
+    previewModal.style.display =
+        "flex";
+
+
+    previewModal.classList.add(
+        "active"
+    );
+
+
+    /* -----------------------------------------------
+       REMOVE ORIGINAL TEMP PDF
+       ----------------------------------------------- */
+
+    pdf.remove();
+
+
+}
+catch (previewError) {
+
+    console.error(
+        "HOME PDF PREVIEW ERROR:",
+        previewError
+    );
+
+
+    if (pdf) {
+
+        pdf.remove();
+
+    }
+
+
+    alert(
+        "PDF Preview உருவாக்க முடியவில்லை.\n\n" +
+        previewError.message
+    );
+
+    return;
+
+}
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "HOME PDF ERROR:",
+            error
+        );
+
+
+        alert(
+            "Home Planning PDF உருவாக்க முடியவில்லை.\n\n" +
+            error.message
+        );
+
+    }
+
+}
+
 /* =====================================================
    PDF PREVIEW - DOWNLOAD
    ===================================================== */
@@ -9280,7 +11661,7 @@ function getNextOrderId(type) {
 
 async function saveOrder(type) {
 
-    const targetType = type || currentSection || "electrical";
+    const targetType = type || currentForm || "electrical";
 
     const electricalCustomer =
         document.getElementById("electricalSri")?.value.trim() || "";
@@ -9337,19 +11718,19 @@ async function saveOrder(type) {
        ORDER NUMBER
     ========================================= */
 
-    let orderNo = "";
+    const orderNoElement =
+        document.getElementById(
+            targetType === "electrical"
+                ? "electricalOrderNo"
+                : "plumbingOrderNo"
+        );
 
-    if (targetType === "electrical") {
+    const orderPrefix =
+        targetType === "electrical" ? "MVS-E" : "MVS-P";
 
-        orderNo =
-            document.getElementById("electricalOrderNo")?.textContent.trim()
-            || `MVS-E${Date.now()}`;
-
-    } else {
-
-        orderNo = `MVS-P${Date.now()}`;
-
-    }
+    const orderNo =
+        orderNoElement?.textContent.trim() ||
+        `${orderPrefix}${Date.now()}`;
 
 
     /* =========================================
@@ -9444,6 +11825,28 @@ async function saveOrder(type) {
 
 
         orders.push(localOrder);
+
+        /* NEXT ORDER NUMBER */
+
+        const savedNumber =
+            Number(orderNo.replace(/\D/g, ""));
+
+        if (
+            orderNoElement &&
+            savedNumber > 0 &&
+            savedNumber < 100000000
+        ) {
+
+            localStorage.setItem(
+                targetType === "electrical"
+                    ? "mvsElectricalOrderNo"
+                    : "mvsPlumbingOrderNo",
+                String(savedNumber)
+            );
+
+            orderNoElement.textContent =
+                orderPrefix + (savedNumber + 1);
+        }
 
         localStorage.setItem(
             "mvsOrders",
@@ -10738,6 +13141,11 @@ function closeOrdersHistory() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    setToday();
+
+    loadItems();
+
+
     /* =========================================
        APP TYPE
        ========================================= */
@@ -11232,4 +13640,187 @@ function showBuyCategory(category) {
                 ? "block"
                 : "none";
     }
+}
+
+
+/* =========================================================
+   HOME PLANNING - ADD ROUND SHEET
+   ========================================================= */
+
+function addRoomRoundSheet(button) {
+
+    const roomPoints = button.closest(".room-points");
+    if (!roomPoints) return;
+
+    const container =
+        roomPoints.querySelector(".room-extra-round-sheets");
+    if (!container) return;
+
+    const row = document.createElement("div");
+    row.className = "basic-item-row extra-round-sheet-row";
+
+    row.innerHTML = `
+        <label>Round Sheet</label>
+
+        <select class="room-extra-round-sheet-select">
+            <option value="">Select Round Sheet</option>
+        </select>
+
+        <input
+            type="number"
+            min="0"
+            value="0"
+            class="room-extra-round-sheet-qty"
+        >
+
+        <button
+            type="button"
+            class="remove-extra-btn"
+            onclick="this.closest('.extra-round-sheet-row').remove(); updateHomeFinalTotal();">
+            ×
+        </button>
+    `;
+
+    container.appendChild(row);
+
+    const select =
+        row.querySelector(".room-extra-round-sheet-select");
+
+    electricalData.forEach(function (item, index) {
+
+        if (
+            String(item.name || "").trim().toLowerCase() ===
+            "round sheet"
+        ) {
+            const option = document.createElement("option");
+            option.value = index;
+            option.textContent = item.name;
+            select.appendChild(option);
+        }
+
+    });
+
+    select.addEventListener("change", updateHomeFinalTotal);
+
+    row.querySelector(".room-extra-round-sheet-qty")
+        .addEventListener("input", updateHomeFinalTotal);
+
+    updateHomeFinalTotal();
+}
+
+
+/* =========================================================
+   HOME PLANNING - SAVE HOME
+   ========================================================= */
+
+function saveHomePlanning() {
+
+    updateHomeFinalTotal();
+
+    const customer = getValue("homeCustomer");
+
+    if (!customer) {
+        alert("Customer Name enter பண்ணவும்.");
+        return;
+    }
+
+    const floors =
+        Array.from(
+            document.querySelectorAll("#floorList .home-floor")
+        ).map(function (floor) {
+
+            return {
+                name: floor.dataset.floorName || "",
+                rooms: Array.from(
+                    floor.querySelectorAll(".room-box")
+                )
+                    .map(function (room) {
+                        return room.dataset.roomName || "";
+                    })
+                    .filter(Boolean)
+            };
+
+        });
+
+    const items =
+        Array.from(
+            document.querySelectorAll(
+                "#final-total-list .final-total-row"
+            )
+        )
+            .map(function (row) {
+
+                const name =
+                    row.querySelector(".final-item-name")
+                        ?.textContent.trim() || "";
+
+                const size =
+                    row.querySelector(".final-item-size")
+                        ?.textContent.trim() || "";
+
+                const match =
+                    (row.querySelector("strong")
+                        ?.textContent || "").match(/[\d.]+/);
+
+                return {
+                    name: name,
+                    size: size === "-" ? "" : size,
+                    qty: match ? Number(match[0]) : 0
+                };
+
+            })
+            .filter(function (item) {
+                return item.name && item.qty > 0;
+            });
+
+    if (items.length === 0) {
+        alert("FINAL TOTAL LIST-ல் items இல்லை.");
+        return;
+    }
+
+    const plan = {
+
+        billNo:
+            document.getElementById("homeBillNo")
+                ?.textContent.trim() || "",
+
+        customer: customer,
+
+        mobile: getValue("homeMobileNumber"),
+
+        homeName: getValue("homeName"),
+
+        date: getValue("homeDate"),
+
+        floors: floors,
+
+        items: items,
+
+        savedAt: new Date().toISOString()
+
+    };
+
+    let plans = [];
+
+    try {
+        plans = JSON.parse(
+            localStorage.getItem("mvsHomePlans") || "[]"
+        );
+    } catch (error) {
+        plans = [];
+    }
+
+    plans.push(plan);
+
+    try {
+        localStorage.setItem(
+            "mvsHomePlans",
+            JSON.stringify(plans)
+        );
+    } catch (error) {
+        alert("Save failed. Browser storage full ஆகி இருக்கலாம்.");
+        return;
+    }
+
+    alert("Home plan saved ✅");
 }

@@ -104,10 +104,6 @@
                         ⚡ Electrical
                     </button>
 
-                    <button type="button" class="nav-item" onclick="openElectricalEstimation()">
-                        ⚡ Estimation
-                    </button>
-
                     <button type="button" class="nav-item" onclick="openForm('plumbing')">
                         🔧 Plumbing
                     </button>
@@ -1335,17 +1331,9 @@
                 <option value="">Select Item</option>
             </select>
 
-            <label id="final-size-label" style="display:none;">
-                Amp / Size
-            </label>
-
             <select id="final-size-select" style="display:none;">
                 <option value="">Select</option>
             </select>
-
-            <label id="final-color-label" style="display:none;">
-                Color
-            </label>
 
             <select id="final-color-select" style="display:none;">
                 <option value="">Select Color</option>
@@ -1413,17 +1401,240 @@
 
 </div>
 
-    <!-- =====================================================
-     SMART SUGGESTIONS
-     ===================================================== -->
+    
+    <!-- PROFILE PAGE -->
 
-    <datalist id="electricalSuggestions">
-    </datalist>
+    <section id="profilePage" class="profile-page" style="display: none;">
+
+        <header class="profile-page-header">
+            <button type="button" class="profile-back-btn"
+                    onclick="closeProfile()">
+                ← Back to Home
+            </button>
+
+            <div>
+                <h1>My Profile</h1>
+                <p>Manage your account and preferences</p>
+            </div>
+        </header>
+
+        <div class="profile-layout">
+
+            <aside class="profile-sidebar">
+                <button class="profile-menu active"
+                        onclick="openProfileSection('details', this)">
+                    👤 Profile
+                </button>
+
+                <button class="profile-menu"
+                        onclick="openProfileSection('estimates', this)">
+                    📄 My Estimates
+                </button>
+
+                <button class="profile-menu"
+                        onclick="openProfileSection('settings', this)">
+                    ⚙️ Settings
+                </button>
+
+                <button class="profile-menu"
+                        onclick="openProfileSection('data', this)">
+                    💾 Data Management
+                </button>
+
+                <button class="profile-menu logout-menu"
+                        onclick="profileLogout()">
+                    ↪ Logout
+                </button>
+            </aside>
+
+            <main class="profile-main">
+
+                
+                <section id="profile-details" class="profile-section">
+
+                    <div class="profile-details-heading">
+                        <h2>Profile Details</h2>
+
+                        <button
+                            type="button"
+                            id="profile-edit-btn"
+                            class="profile-edit-btn"
+                            onclick="toggleProfileEdit()">
+                            ✏️ Edit
+                        </button>
+                    </div>
+
+                    
+                    <!-- PROFILE PHOTO -->
+
+                    <div class="profile-photo-container">
+
+                        <button
+                            type="button"
+                            class="profile-avatar-button"
+                            onclick="openPhotoModal()"
+                            aria-label="Change profile picture">
+
+                            <span class="profile-avatar" id="profile-avatar">
+                                <span id="profile-avatar-placeholder">👤</span>
+
+                                <img
+                                    id="profile-photo-preview"
+                                    alt="Profile photo"
+                                    hidden
+                                />
+                            </span>
+
+                            <span class="profile-camera-icon">📷</span>
+                        </button>
+
+                        <p class="profile-photo-label">Profile picture</p>
+
+                    </div>
+
+                    <!-- PHOTO MODAL -->
+                    <div id="profile-photo-modal"
+                        class="profile-photo-modal"
+                        hidden>
+
+                        <div class="profile-photo-dialog">
+
+                            <div class="profile-photo-modal-header">
+                                <button
+                                    type="button"
+                                    class="photo-close-btn"
+                                    onclick="closePhotoModal()">
+                                    ×
+                                </button>
+
+                                <h3>Change profile picture</h3>
+                            </div>
+
+                            <div class="profile-photo-large-preview">
+                                <img
+                                    id="profile-photo-modal-preview"
+                                    alt="Selected profile picture"
+                                    hidden
+                                />
+
+                                <span id="profile-photo-modal-placeholder">👤</span>
+                            </div>
+
+                            <div class="profile-photo-modal-actions">
+
+                                <button
+                                    type="button"
+                                    onclick="chooseProfilePhoto()">
+                                    ▣ Upload from Device
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onclick="takeProfilePicture()">
+                                    📷 Take a picture
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="photo-remove-action"
+                                    onclick="removeProfilePhoto()">
+                                    ✕ Remove photo
+                                </button>
+
+                            </div>
+
+                            <input
+                                type="file"
+                                id="profile-photo-input"
+                                accept="image/*"
+                                hidden
+                            />
+
+                            <input
+                                type="file"
+                                id="profile-camera-input"
+                                accept="image/*"
+                                capture="user"
+                                hidden
+                            />
+
+                        </div>
+                    </div>
 
 
-    <datalist id="plumbingSuggestions">
-    </datalist>
 
+                    <label for="profile-name">Full Name</label>
+                    <input
+                        id="profile-name"
+                        type="text"
+                        placeholder="Enter your name"
+                        readonly>
+
+                    <label for="profile-email">Email</label>
+                    <input
+                        id="profile-email"
+                        type="email"
+                        placeholder="Enter your email"
+                        readonly>
+
+                    <label for="profile-phone">Mobile Number</label>
+                    <input
+                        id="profile-phone"
+                        type="tel"
+                        placeholder="Enter mobile number"
+                        readonly>
+
+                    <button
+                        type="button"
+                        class="profile-save-btn"
+                        onclick="saveProfileDetails()">
+                        Save Profile
+                    </button>
+
+                </section>
+
+
+                <section id="profile-estimates"
+                        class="profile-section" hidden>
+                    <h2>My Estimates</h2>
+                    <p>உன்னுடைய saved estimates-ஐ இங்கே பார்க்கலாம்.</p>
+
+                    <button type="button" class="profile-action-btn"
+                            onclick="closeProfile(); showHistory();">
+                        📁 Open Estimate History
+                    </button>
+                </section>
+
+                <section id="profile-settings"
+                        class="profile-section" hidden>
+                    <h2>Settings</h2>
+
+                    <label for="profile-theme">Appearance</label>
+                    <select id="profile-theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+
+                    <button type="button" class="profile-save-btn"
+                            onclick="saveProfileSettings()">
+                        Save Settings
+                    </button>
+                </section>
+
+                <section id="profile-data"
+                        class="profile-section" hidden>
+                    <h2>Data Management</h2>
+                    <p>Profile details-ஐ JSON file-ஆக export செய்யலாம்.</p>
+
+                    <button type="button" class="profile-action-btn"
+                            onclick="exportProfileData()">
+                        ⬇ Export Profile Data
+                    </button>
+                </section>
+
+            </main>
+        </div>
+    </section>
 
 
     <!-- =====================================================

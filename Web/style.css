@@ -189,7 +189,7 @@ body {
 ===================================================== */
 
 .mobile-bottom-nav {
-    display: none !important;
+    display: none;
 }
 
 /* =====================================================
@@ -252,6 +252,663 @@ body {
     background: #eef4fb;
 
     font-size: 15px;
+}
+
+
+
+/* =====================================================
+   MVS CONSTRUCTION ESTIMATION
+   PROFESSIONAL PROFILE PAGE
+===================================================== */
+
+.profile-page {
+    --profile-primary: #2563eb;
+    --profile-primary-hover: #1d4ed8;
+    --profile-text: #172554;
+    --profile-muted: #64748b;
+    --profile-border: #dfe7f2;
+    --profile-bg: #f4f7fb;
+    --profile-white: #ffffff;
+
+    width: 100%;
+    min-height: 70vh;
+    padding: 24px;
+    box-sizing: border-box;
+    background: var(--profile-bg);
+    color: var(--profile-text);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.profile-page *,
+.profile-page *::before,
+.profile-page *::after {
+    box-sizing: border-box;
+}
+
+/* =====================================================
+   1. PROFILE HEADER
+===================================================== */
+
+.profile-page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.profile-page-header h1 {
+    margin: 0;
+    color: var(--profile-text);
+    font-size: 29px;
+    font-weight: 750;
+    letter-spacing: -0.6px;
+}
+
+.profile-page-header p {
+    margin: 7px 0 0;
+    color: var(--profile-muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Back button */
+
+.profile-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 43px;
+    padding: 10px 15px;
+    border: 1px solid var(--profile-border);
+    border-radius: 10px;
+    background: var(--profile-white);
+    color: var(--profile-text);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s,
+                transform 0.2s;
+}
+
+.profile-back-btn:hover {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    transform: translateY(-1px);
+}
+
+/* =====================================================
+   2. MAIN LAYOUT
+===================================================== */
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: 230px minmax(0, 1fr);
+    align-items: start;
+    gap: 20px;
+}
+
+.profile-sidebar,
+.profile-main {
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid var(--profile-border);
+    border-radius: 16px;
+    background: var(--profile-white);
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.045);
+}
+
+/* =====================================================
+   3. SIDEBAR
+===================================================== */
+
+.profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.profile-menu {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    width: 100%;
+    min-height: 47px;
+    padding: 12px 13px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #334155;
+    text-align: left;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s,
+                color 0.2s, transform 0.2s;
+}
+
+.profile-menu:hover {
+    border-color: #bfdbfe;
+    background: #f5f8ff;
+}
+
+.profile-menu.active {
+    border-color: var(--profile-primary);
+    background: #eff6ff;
+    color: var(--profile-primary);
+    font-weight: 700;
+}
+
+.profile-menu.logout-menu,
+.profile-menu.profile-logout-menu {
+    margin-top: 12px;
+    color: #dc2626;
+}
+
+.profile-menu.logout-menu:hover,
+.profile-menu.profile-logout-menu:hover {
+    border-color: #fecaca;
+    background: #fef2f2;
+}
+
+/* =====================================================
+   4. PROFILE MAIN CARD
+===================================================== */
+
+.profile-main {
+    padding: 24px;
+}
+
+.profile-section {
+    min-width: 0;
+}
+
+.profile-section[hidden] {
+    display: none !important;
+}
+
+.profile-section h2 {
+    margin: 0 0 20px;
+    color: var(--profile-text);
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+/* =====================================================
+   5. PROFILE DETAILS HEADING
+===================================================== */
+
+.profile-details-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 17px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #e8eef6;
+}
+
+.profile-details-heading h2 {
+    margin: 0;
+}
+
+/* =====================================================
+   6. PROFILE AVATAR
+===================================================== */
+
+.profile-avatar {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 20px;
+    border: 4px solid #ffffff;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #eff6ff, #dbeafe);
+    box-shadow: 0 3px 14px rgba(37, 99, 235, 0.10);
+    font-size: 30px;
+}
+
+/* =====================================================
+   7. FORM LABELS AND INPUTS
+===================================================== */
+
+.profile-section label {
+    display: block;
+    margin: 15px 0 8px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.profile-section input,
+.profile-section select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 11px 13px;
+    border: 1px solid #cbd8e8;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: #ffffff;
+    color: #1e293b;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s,
+                background 0.2s;
+}
+
+.profile-section input:focus,
+.profile-section select:focus {
+    border-color: var(--profile-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.11);
+}
+
+/* Read-only state */
+
+.profile-section input[readonly] {
+    background: #f1f5f9;
+    color: #475569;
+    cursor: default;
+}
+
+/* =====================================================
+   8. EDIT BUTTON
+===================================================== */
+
+.profile-edit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex-shrink: 0;
+    min-height: 41px;
+    padding: 10px 15px;
+    border: 1px solid #c7d9ff;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: var(--profile-primary);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.profile-edit-btn:hover {
+    background: #dbeafe;
+    transform: translateY(-1px);
+}
+
+/* =====================================================
+   9. SAVE BUTTON
+===================================================== */
+
+.profile-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 43px;
+    margin-top: 20px;
+    padding: 11px 18px;
+    border: 1px solid var(--profile-primary);
+    border-radius: 10px;
+    background: var(--profile-primary);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.13);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.profile-save-btn:hover {
+    background: var(--profile-primary-hover);
+    transform: translateY(-1px);
+}
+
+/* =====================================================
+   10. OTHER PROFILE ACTIONS
+===================================================== */
+
+.profile-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    margin-top: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--profile-border);
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--profile-text);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.profile-action-btn:hover {
+    border-color: #bfdbfe;
+    background: #eff6ff;
+}
+
+/* =====================================================
+   11. SETTINGS AND DATA MANAGEMENT
+===================================================== */
+
+.profile-section input[type="checkbox"] {
+    display: inline-block;
+    width: 18px;
+    min-height: 18px;
+    accent-color: var(--profile-primary);
+}
+
+.profile-section input[type="checkbox"]:focus {
+    box-shadow: none;
+}
+
+.profile-section textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 1px solid #cbd8e8;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #1e293b;
+    font: inherit;
+    resize: vertical;
+}
+
+.profile-section textarea:focus {
+    border-color: var(--profile-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.11);
+}
+
+
+/* =====================================================
+   PROFILE PHOTO - AVATAR
+===================================================== */
+
+.profile-photo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 20px 0 26px;
+}
+
+.profile-avatar-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+}
+
+.profile-avatar-button .profile-avatar {
+    display: grid;
+    place-items: center;
+    width: 104px;
+    height: 104px;
+    overflow: hidden;
+    margin: 0;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    background: #eef2ff;
+    box-shadow: 0 3px 14px rgba(37, 99, 235, 0.15);
+    color: #4338ca;
+    font-size: 42px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.profile-avatar-button:hover .profile-avatar {
+    transform: scale(1.03);
+    box-shadow: 0 5px 20px rgba(37, 99, 235, 0.25);
+}
+
+.profile-avatar-button .profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profile-avatar-button img[hidden] {
+    display: none !important;
+}
+
+.profile-avatar-placeholder[hidden] {
+    display: none !important;
+}
+
+/* Camera icon */
+
+.profile-camera-icon {
+    position: absolute;
+    right: 0;
+    bottom: 2px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    background: #1e293b;
+    color: #ffffff;
+    font-size: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.profile-photo-label {
+    margin: 0;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   PROFILE PHOTO MODAL BACKDROP
+===================================================== */
+
+.profile-photo-modal[hidden] {
+    display: none !important;
+}
+
+.profile-photo-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(15, 23, 42, 0.60);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+
+/* Hide profile photo file inputs */
+#profile-photo-input,
+#profile-camera-input {
+    display: none !important;
+}
+
+/* =====================================================
+   MODAL BOX
+===================================================== */
+
+.profile-photo-dialog {
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    animation: profilePhotoModalIn 0.22s ease-out;
+}
+
+@keyframes profilePhotoModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =====================================================
+   MODAL HEADER
+===================================================== */
+
+.profile-photo-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.profile-photo-modal-header h3 {
+    margin: 0;
+    color: #172554;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.photo-close-btn {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border: 1px solid #dbe3ef;
+    border-radius: 50%;
+    background: #f8fafc;
+    color: #334155;
+    font-size: 25px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.photo-close-btn:hover {
+    background: #e2e8f0;
+}
+
+
+/* =====================================================
+   LARGE PHOTO PREVIEW
+===================================================== */
+
+.profile-photo-large-preview {
+    display: grid;
+    place-items: center;
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    margin: 0 auto 28px;
+    border: 1px solid #e0e7ff;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: #4338ca;
+    font-size: 68px;
+}
+
+.profile-photo-large-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profile-photo-large-preview img[hidden],
+.profile-photo-modal-actions input[hidden] {
+    display: none !important;
+}
+
+#profile-photo-modal-placeholder[hidden] {
+    display: none !important;
+}
+
+
+/* =====================================================
+   UPLOAD / CAMERA / REMOVE BUTTONS
+===================================================== */
+
+.profile-photo-modal-actions {
+    display: grid;
+    gap: 10px;
+}
+
+.profile-photo-modal-actions button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    color: #1e293b;
+    text-align: left;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.profile-photo-modal-actions button:hover {
+    border-color: #93c5fd;
+    background: #eff6ff;
+    transform: translateY(-1px);
+}
+
+.profile-photo-modal-actions button:focus-visible,
+.profile-avatar-button:focus-visible,
+.photo-close-btn:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+/* Remove photo */
+
+.profile-photo-modal-actions .photo-remove-action {
+    border-color: #fee2e2;
+    background: #fff7f7;
+    color: #dc2626;
+}
+
+.profile-photo-modal-actions .photo-remove-action:hover {
+    border-color: #fca5a5;
+    background: #fef2f2;
 }
 
 
@@ -2504,6 +3161,119 @@ body {
     width: 100%;
 }
 
+/* =========================================
+   ROOM MODAL - ITEM ROWS
+========================================= */
+
+.room-basic-items select,
+.room-basic-items input[type="number"] {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 13px;
+}
+
+.room-basic-items select:focus,
+.room-basic-items input[type="number"]:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.room-basic-items button {
+    cursor: pointer;
+}
+
+/* =========================================
+   ROOM MODAL - FOOTER
+========================================= */
+
+.room-modal-footer {
+    display: flex;
+    flex-shrink: 0;
+    gap: 12px;
+    padding: 12px 18px;
+    border-top: 1px solid #e2e8f0;
+    background: #ffffff;
+}
+
+.room-modal-footer button {
+    flex: 1;
+    min-width: 0;
+    min-height: 43px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* =========================================
+   ROOM MODAL - FIX BASIC ITEM ROWS
+========================================= */
+
+.room-modal-body .room-basic-items .basic-item-row {
+    display: grid;
+    grid-template-columns: 62px minmax(0, 1fr) 52px;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 6px 0;
+    margin: 0;
+}
+
+/* Item name */
+.room-modal-body .room-basic-items .basic-item-row > label,
+.room-modal-body .room-basic-items .basic-item-row > span {
+    min-width: 0;
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+/* Select dropdown */
+.room-modal-body .room-basic-items .basic-item-row select {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Quantity input */
+.room-modal-body .room-basic-items .basic-item-row input[type="number"] {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Extra item rows */
+.room-modal-body .room-basic-items .room-extra-fans,
+.room-modal-body .room-basic-items .room-extra-lights,
+.room-modal-body .room-basic-items .room-extra-round-sheets,
+.room-modal-body .room-basic-items .room-extra-ceiling-roses {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Add item row */
+.room-modal-body .room-basic-items .basic-item-add-row {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px 0 8px;
+    border-bottom: 1px dashed #dbe3ef;
+}
+
+
 
 /* EACH ITEM */
 
@@ -3245,9 +4015,9 @@ body.room-modal-open {
 
 .plate-header {
 
-    min-height: 82px;
+    min-height: 62px;
 
-    padding: 10px 14px;
+    padding: 8px 12px;
 
     box-sizing: border-box;
 
@@ -3281,10 +4051,10 @@ body.room-modal-open {
 
 .plate-header-icon {
 
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
 
-    flex: 0 0 48px;
+    flex: 0 0 38px;
 
     display: flex;
 
@@ -3297,7 +4067,7 @@ body.room-modal-open {
 
     background: #f1f7ff;
 
-    font-size: 25px;
+    font-size: 20px;
 }
 
 
@@ -3315,7 +4085,7 @@ body.room-modal-open {
 
 .plate-header-text strong {
 
-    font-size: 20px;
+    font-size: 15px;
 
     font-weight: 800;
 
@@ -3327,7 +4097,7 @@ body.room-modal-open {
 
 .plate-header-text span {
 
-    font-size: 13px;
+    font-size: 11px;
 
     font-weight: 500;
 
@@ -3351,9 +4121,9 @@ body.room-modal-open {
 
 .plate-header-actions .home-plate-select {
 
-    width: 116px;
+    width: 90px;
 
-    height: 48px;
+    height: 38px;
 
     padding: 0 10px;
 
@@ -3365,7 +4135,7 @@ body.room-modal-open {
 
     color: #111827;
 
-    font-size: 17px;
+    font-size: 13px;
 
     font-weight: 600;
 
@@ -3379,23 +4149,22 @@ body.room-modal-open {
 
 .plate-delete-btn {
 
-    width: 38px;
-
-    height: 38px;
+    width: 32px;
+    height: 32px;
 
     padding: 0;
 
-    border: none;
+    border: 1px solid #fecaca;
 
     border-radius: 7px;
 
-    background: transparent;
+    background: #fff5f5;
 
-    color: #64748b;
+    color: #ef4444;
 
-    font-size: 30px;
+    font-size: 20px;
 
-    font-weight: 300;
+    font-weight: 500;
 
     line-height: 1;
 
@@ -3406,14 +4175,21 @@ body.room-modal-open {
     align-items: center;
 
     justify-content: center;
+
+    flex-shrink: 0;
+
+    transition: all 0.15s ease;
 }
 
 
 .plate-delete-btn:hover {
 
-    background: #f8fafc;
+    background: #fee2e2;
 
-    color: #111827;
+    border-color: #fca5a5;
+
+    color: #dc2626;
+
 }
 
 
@@ -3654,11 +4430,225 @@ body.room-modal-open {
 }
 
 
-/* =========================================
+/* =========================================================
    FINAL TOTAL LIST
-========================================= */
+   ========================================================= */
+
+.final-total-section {
+    width: 100%;
+    margin-top: 18px;
+    padding: 0;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   FINAL TOTAL HEADER
+   ========================================================= */
+
+.final-total-header {
+    margin-bottom: 10px;
+}
+
+.final-total-header h2 {
+    margin: 0;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    color: #111827;
+}
+
+
+/* =========================================================
+   FINAL ADD ITEM AREA
+   JS IDs UNCHANGED
+   ========================================================= */
+
+.final-add-item {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 14px 16px;
+
+    margin-bottom: 12px;
+
+    background: #f8fafc;
+
+    border: 1px solid #dbe3ee;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LABELS
+   ========================================================= */
+
+.final-add-item label {
+
+    display: block;
+
+    margin: 0 0 6px 0;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+
+/* =========================================================
+   SELECT + INPUT
+   ========================================================= */
+
+.final-add-item select,
+.final-add-item input {
+
+    height: 40px;
+
+    min-height: 40px;
+
+    padding: 0 11px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #111827;
+
+    font-size: 13px;
+
+    outline: none;
+
+    box-sizing: border-box;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+
+/* =========================================================
+   ELECTRICAL ITEM
+   ========================================================= */
+
+#final-item-select {
+
+    width: 220px;
+}
+
+
+/* =========================================================
+   AMP / SIZE
+   ========================================================= */
+
+#final-size-select {
+
+    width: 130px;
+}
+
+
+/* =========================================================
+   COLOR
+   ========================================================= */
+
+#final-color-select {
+
+    width: 140px;
+}
+
+
+/* =========================================================
+   QTY
+   ========================================================= */
+
+#final-item-qty {
+
+    width: 75px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+.final-add-item select:focus,
+.final-add-item input:focus {
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   ADD ITEM BUTTON
+   ========================================================= */
+
+#final-add-item-btn {
+
+    height: 40px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.15s ease,
+        transform 0.1s ease;
+}
+
+
+#final-add-item-btn:hover {
+
+    background: #1d4ed8;
+}
+
+
+#final-add-item-btn:active {
+
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
+   FINAL TOTAL LIST
+   KEEP NORMAL
+   ========================================================= */
 
 #final-total-list {
+
     margin-top: 8px;
 
     min-height: 42px;
@@ -3666,45 +4656,53 @@ body.room-modal-open {
     padding: 8px;
 
     border: 1px solid #e2e8f0;
+
     border-radius: 7px;
 
     background: #f8fafc;
 
     color: #334155;
+
+    box-sizing: border-box;
 }
 
 
-/* =========================================
+/* =========================================================
    FINAL CATEGORY
-========================================= */
+   ========================================================= */
 
 .final-category {
+
     margin-bottom: 10px;
 }
+
 
 .final-category h3 {
     margin: 0;
 
     padding: 7px 9px;
 
-    background: #111827;
-    color: #ffffff;
+    background: #e5e7eb;
+
+    color: #111827;
 
     border-radius: 5px;
 
     font-size: 12px;
-    font-weight: 800;
+
+    font-weight: 700;
 }
 
 
-/* =========================================
+/* =========================================================
    FINAL TOTAL ROW
-========================================= */
+   ========================================================= */
 
 .final-total-row {
+
     display: grid;
 
-    grid-template-columns: 1fr 90px;
+    grid-template-columns: 1fr 90px 90PX ;
 
     align-items: center;
 
@@ -3719,20 +4717,65 @@ body.room-modal-open {
     font-size: 11px;
 }
 
+.final-list-header {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 90px 90px;
+
+    align-items: center;
+
+    height: 34px;
+
+    padding: 0 10px;
+
+    background: #00b7ff;
+
+    color: #1e293b;
+
+    border-bottom: 1px solid #000000;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    box-sizing: border-box;
+}
+
+.final-list-header span:nth-child(1) {
+    text-align: left;
+}
+
+.final-list-header span:nth-child(2) {
+    text-align: center;
+}
+
+.final-list-header span:nth-child(3) {
+    text-align: right;
+}
+
+
 .final-total-row:last-child {
+
     border-bottom: none;
 }
 
+
 .final-total-row strong {
+
     text-align: right;
+
     color: #0f172a;
 }
 
-/* =========================================
+
+/* =========================================================
    ADD PLATE BUTTON
-========================================= */
+   ========================================================= */
 
 .add-plate-btn {
+
     margin-top: 10px;
 
     height: 38px;
@@ -3752,18 +4795,31 @@ body.room-modal-open {
     font-weight: 700;
 
     cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        transform 0.1s ease;
 }
 
+
 .add-plate-btn:hover {
+
     background: #1f2937;
 }
 
 
-/* =========================================
+.add-plate-btn:active {
+
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
    FINAL EMPTY
-========================================= */
+   ========================================================= */
 
 .final-empty {
+
     padding: 12px;
 
     text-align: center;
@@ -3772,6 +4828,9 @@ body.room-modal-open {
 
     font-size: 11px;
 }
+
+
+
 
 
 
@@ -7958,10 +9017,11 @@ tr[data-custom-item="true"] .add-size-btn {
 }
 
 
-/* MOBILE */
+/* =====================================================
+   MOBILE - MATERIALS
+===================================================== */
 
 @media (max-width: 700px) {
-
     .materials-category-buttons {
         grid-template-columns: 1fr;
     }
@@ -7979,3 +9039,519 @@ tr[data-custom-item="true"] .add-size-btn {
         min-width: 600px;
     }
 }
+
+
+/* =====================================================
+   12. RESPONSIVE - TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+    .profile-page {
+        padding: 18px;
+    }
+
+    .profile-layout {
+        grid-template-columns: 195px minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .profile-sidebar {
+        padding: 12px;
+    }
+
+    .profile-main {
+        padding: 18px;
+    }
+
+    .profile-menu {
+        padding: 11px;
+        font-size: 13px;
+    }
+}
+
+
+/* =====================================================
+   13. RESPONSIVE - MOBILE
+===================================================== */
+
+@media (max-width: 640px) {
+    .profile-page {
+        padding: 12px;
+    }
+
+    .profile-page-header {
+        margin-bottom: 16px;
+    }
+
+    .profile-page-header h1 {
+        font-size: 24px;
+    }
+
+    .profile-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .profile-sidebar,
+    .profile-main {
+        padding: 14px;
+        border-radius: 13px;
+    }
+
+    .profile-sidebar {
+        position: static;
+    }
+
+    .profile-menu {
+        min-height: 43px;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .profile-details-heading {
+        gap: 8px;
+        margin-bottom: 15px;
+        padding-bottom: 13px;
+    }
+
+    .profile-section h2 {
+        font-size: 18px;
+    }
+
+    .profile-section input,
+    .profile-section select {
+        min-height: 43px;
+        font-size: 13px;
+    }
+
+    .profile-edit-btn,
+    .profile-save-btn {
+        min-height: 40px;
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+
+    .profile-save-btn {
+        max-width: 100%;
+    }
+
+    /* Profile avatar */
+    .profile-avatar {
+        width: 82px;
+        height: 82px;
+        font-size: 32px;
+    }
+
+    .profile-photo-container {
+        gap: 10px;
+        margin: 16px 0 22px;
+    }
+
+    .profile-photo-container .profile-avatar {
+        width: 82px;
+        height: 82px;
+        font-size: 32px;
+    }
+
+    .profile-photo-actions {
+        gap: 10px;
+    }
+
+    .profile-photo-upload-btn,
+    .profile-photo-remove-btn {
+        min-height: 38px;
+        padding: 9px 12px;
+    }
+}
+
+
+/* =====================================================
+   14. VERY SMALL SCREENS
+===================================================== */
+
+@media (max-width: 380px) {
+    .profile-page {
+        padding: 9px;
+    }
+
+    .profile-sidebar,
+    .profile-main {
+        padding: 11px;
+    }
+
+    .profile-details-heading {
+        align-items: flex-start;
+    }
+
+    .profile-edit-btn {
+        padding: 8px 10px;
+    }
+}
+
+
+/* =====================================================
+   PROFILE PHOTO - HIDE FILE INPUTS
+===================================================== */
+
+#profile-photo-input,
+#profile-camera-input {
+    display: none !important;
+}
+
+
+/* =====================================================
+   PROFILE PHOTO MODAL - MOBILE RESPONSIVE
+===================================================== */
+
+@media (max-width: 480px) {
+    .profile-photo-modal {
+        padding: 12px;
+    }
+
+    .profile-photo-dialog {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 360px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .profile-photo-modal-header {
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+
+    .profile-photo-modal-header h3 {
+        font-size: 17px;
+    }
+
+    .profile-photo-large-preview {
+        width: 140px;
+        height: 140px;
+        font-size: 60px;
+    }
+
+    .profile-photo-modal-actions {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .profile-photo-modal-actions button {
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 48px;
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .profile-avatar-button .profile-avatar {
+        width: 90px;
+        height: 90px;
+    }
+
+    .profile-camera-icon {
+        width: 31px;
+        height: 31px;
+    }
+}
+
+/* =========================================
+   ROOM MODAL - FILE INPUT SAFETY
+========================================= */
+
+@media (max-width: 640px) {
+    .room-modal-overlay {
+        padding: 10px;
+    }
+
+    .room-modal {
+        width: 100%;
+        max-height: 90vh;
+        max-height: 90dvh;
+    }
+
+    .room-modal-header {
+        padding: 13px 14px;
+    }
+
+    .room-modal-body {
+        padding: 12px 14px;
+    }
+
+    .room-modal-footer {
+        gap: 8px;
+        padding: 10px 14px;
+    }
+
+    .room-modal-footer button {
+        min-height: 42px;
+        padding: 9px;
+        font-size: 12px;
+    }
+
+    .room-basic-items select,
+    .room-basic-items input[type="number"] {
+        min-height: 40px;
+        font-size: 12px;
+    }
+}
+/* Mobile */
+@media (max-width: 480px) {
+    .room-modal-body .room-basic-items .basic-item-row {
+        grid-template-columns: 52px minmax(0, 1fr) 48px;
+        gap: 5px;
+    }
+
+    .room-modal-body .room-basic-items .basic-item-row > label,
+    .room-modal-body .room-basic-items .basic-item-row > span {
+        font-size: 10px;
+    }
+}
+
+/* =====================================================
+   ROOM MODAL - FINAL LAYOUT OVERRIDES
+   Keep this block at the VERY END of style.css.
+   Fixes the Fan extra-row wrapping shown in DevTools.
+===================================================== */
+
+.room-modal-overlay[style*="display: flex"] {
+    display: flex;
+}
+
+.room-modal-overlay[style*="display: flex"] .room-modal {
+    display: flex;
+}
+
+.room-modal {
+    box-sizing: border-box;
+    width: min(620px, calc(100vw - 32px));
+    max-width: 620px;
+    max-height: min(88vh, 900px);
+    min-height: 0;
+}
+
+.room-modal-body {
+    min-width: 0;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.room-modal-body .room-points {
+    width: 100% !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.room-modal-body .room-basic-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    min-width: 0;
+}
+
+/* Standard Fan / Light / Round Sheet / Ceiling Rose row: label + select + qty */
+.room-modal-body .room-basic-items > .basic-item-row:not(.extra-fan-row):not(.extra-light-row):not(.extra-round-sheet-row):not(.extra-ceiling-rose-row) {
+    display: grid;
+    grid-template-columns: 62px minmax(0, 1fr) 58px;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    margin: 0;
+    padding: 6px 0;
+    box-sizing: border-box;
+}
+
+/* Dynamically added fan row contains label, item dropdown, fan-type dropdown, qty and remove button */
+.room-modal-body .room-basic-items .basic-item-row.extra-fan-row {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr) 78px 50px 30px;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 6px 0;
+    box-sizing: border-box;
+}
+
+/* Dynamically added item rows should not inherit the old five-column global grid */
+.room-modal-body .room-basic-items .basic-item-row.extra-light-row,
+.room-modal-body .room-basic-items .basic-item-row.extra-round-sheet-row,
+.room-modal-body .room-basic-items .basic-item-row.extra-ceiling-rose-row {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr) 58px 30px;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 6px 0;
+    box-sizing: border-box;
+}
+
+.room-modal-body .room-basic-items .basic-item-row > label,
+.room-modal-body .room-basic-items .basic-item-row > span {
+    min-width: 0;
+    margin: 0;
+    color: #334155;
+    font-size: 11px;
+    line-height: 1.35;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.room-modal-body .room-basic-items .basic-item-row select,
+.room-modal-body .room-basic-items .basic-item-row input,
+.room-modal-body .room-basic-items .basic-item-row input[type="number"] {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 38px;
+    min-height: 38px;
+    margin: 0;
+    padding: 7px 9px;
+    box-sizing: border-box;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #111827;
+    font: 12px Arial, Helvetica, sans-serif;
+}
+
+.room-modal-body .room-basic-items .basic-item-row select:focus,
+.room-modal-body .room-basic-items .basic-item-row input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.10);
+}
+
+.room-modal-body .room-basic-items .basic-item-row button {
+    min-width: 0;
+    max-width: 100%;
+    justify-self: stretch;
+    box-sizing: border-box;
+}
+
+.room-modal-body .room-basic-items .basic-item-row button:not(.room-remove-btn) {
+    cursor: pointer;
+}
+
+.room-modal-body .room-basic-items .basic-item-add-row {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 4px 0 8px;
+    border-bottom: 1px dashed #dbe3ef;
+}
+
+.room-modal-body .room-basic-items .basic-item-add-row button {
+    max-width: 100%;
+}
+
+.room-modal-footer {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 12px;
+    padding: 12px 18px;
+    border-top: 1px solid #e2e8f0;
+    background: #ffffff;
+}
+
+.room-modal-footer .room-close-btn,
+.room-modal-footer .room-done-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.room-modal-footer .room-close-btn {
+    background: #eef2f7;
+    color: #334155;
+}
+
+.room-modal-footer .room-done-btn {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+@media (max-width: 640px) {
+    .room-modal-overlay {
+        padding: 10px;
+    }
+
+    .room-modal {
+        width: 100%;
+        max-width: 100%;
+        max-height: 90vh;
+        max-height: 90dvh;
+        border-radius: 12px;
+    }
+
+    .room-modal-header {
+        gap: 10px;
+        padding: 13px 14px;
+    }
+
+    .room-modal-body {
+        padding: 12px 14px;
+    }
+
+    .room-modal-body .room-basic-items > .basic-item-row:not(.extra-fan-row):not(.extra-light-row):not(.extra-round-sheet-row):not(.extra-ceiling-rose-row) {
+        grid-template-columns: 52px minmax(0, 1fr) 48px;
+        gap: 5px;
+    }
+
+    .room-modal-body .room-basic-items .basic-item-row.extra-fan-row {
+        grid-template-columns: 45px minmax(0, 1fr) 64px 44px 26px;
+        gap: 4px;
+    }
+
+    .room-modal-body .room-basic-items .basic-item-row.extra-light-row,
+    .room-modal-body .room-basic-items .basic-item-row.extra-round-sheet-row,
+    .room-modal-body .room-basic-items .basic-item-row.extra-ceiling-rose-row {
+        grid-template-columns: 45px minmax(0, 1fr) 46px 26px;
+        gap: 4px;
+    }
+
+    .room-modal-body .room-basic-items .basic-item-row > label,
+    .room-modal-body .room-basic-items .basic-item-row > span {
+        font-size: 10px;
+    }
+
+    .room-modal-body .room-basic-items .basic-item-row select,
+    .room-modal-body .room-basic-items .basic-item-row input {
+        height: 36px;
+        min-height: 36px;
+        padding: 6px;
+        font-size: 11px;
+    }
+
+    .room-modal-footer {
+        gap: 8px;
+        padding: 10px 14px;
+    }
+
+    .room-modal-footer button {
+        min-height: 42px;
+        padding: 9px;
+        font-size: 12px;
+    }
+}
+
